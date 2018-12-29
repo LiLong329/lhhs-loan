@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li><a>产品管理</a></li>
+                        <li><a th:href="@{/systemManager/productInfoList}">产品信息管理</a></li>
+                        <li><a th:href="@{/systemManager/productChildrenList/0(productNo=${productInfo.productParentNo})}">查看</a></li>
+                        <li><a>查看二级产品</a></li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div class="toolsli">
+                            <ul class="nbbdgl-Ui">
+                                <li style="width:80%;">
+                                    <span class="tips">编号：</span>
+                                    <span th:text="${productInfo.productId}"></span>
+                                </li>
+                                <li style="width:80%;">
+                                    <span class="tips">产品名称：</span>
+                                    <span th:text="${productInfo.productName}"></span>
+                                </li>
+                                <li style="width:80%;">
+                                    <span class="tips">资金方：</span>
+                                    <span th:text="${productInfo.orgName}"></span>
+                                </li>
+                                <li style="width:80%;">
+                                    <span class="tips">金额范围：</span>
+                                    <span th:text="${productInfo.minAmount}+'-'+${productInfo.maxAmount}+'万'"></span>                                   
+                                </li>
+                                <li style="width:80%;">
+                                    <span class="tips">期 限：</span>
+                                    <span th:text="${productInfo.minExpires}+'-'+${productInfo.maxExpires}+${productInfo.expiresUnit}"></span>                                   
+                                </li>
+                                <li style="width:80%;">
+                                    <span class="tips">利 率1：</span>
+                                    <span>
+                                		<th:block th:if="${productInfo.maxRate}" th:text="${#numbers.formatDecimal(productInfo.minRate,1,2)}+'-'+${#numbers.formatDecimal(productInfo.maxRate,1,2)}+'%/'+${productInfo.rateUnit}"></th:block>
+                                		<th:block th:unless="${productInfo.maxRate}" th:text="${#numbers.formatDecimal(productInfo.minRate,1,2)}+'%/'+${productInfo.rateUnit}+'起'"></th:block>
+                                	</span>
+                                </li>
+                                <li style="width:80%;" th:if="${productInfo.minRateTwo}">
+                                    <span class="tips">利 率2：</span>
+                                    <span>
+                                		<th:block th:if="${productInfo.maxRateTwo}" th:text="${#numbers.formatDecimal(productInfo.minRateTwo,1,2)}+'-'+${#numbers.formatDecimal(productInfo.maxRateTwo,1,2)}+'%/'+${productInfo.rateUnitTwo}"></th:block>
+                                		<th:block th:unless="${productInfo.maxRateTwo}" th:text="${#numbers.formatDecimal(productInfo.minRateTwo,1,2)}+'%/'+${productInfo.rateUnitTwo}+'起'"></th:block>
+                                	</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="usual1" class="usual">
+                            <div class="itab">
+                                <ul>
+                                    <li><a data-show="#tab1">展示信息</a></li>
+                                    <li><a data-show="#tab2">上传资质</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="tab1" class="tabson">
+                            <div class="toolsli">
+                                <h5>【产品优势】</h5>
+                                <span th:utext="${productInfo.productAdvantage}"></span>
+                            </div>
+                            <div class="toolsli">
+                                <h5>【申请条件】</h5>
+                                <span th:utext="${productInfo.applicationConditions}"></span>
+                            </div>
+                            <div class="toolsli">
+                                <h5>【所需材料】</h5>
+                                <span th:utext="${productInfo.materialRequested}"></span>
+                            </div>
+                            <div class="toolsli">
+                                <h5>【费用说明】</h5>
+                                <span th:utext="${productInfo.feeDescription}"></span>
+                            </div>
+                        </div>
+                        <div id="tab2" class="tabson">
+                            <div class="toolsli">
+                                <h5>【所需资质】</h5>
+                                <ul class="nbbdgl-Ui">
+                                    <th:block th:if="${not #maps.isEmpty(credentZero)}">
+                                    <li style="width:80%;">
+                                        <span class="tips" style="font-weight: bold;">基本资质：</span>
+                                        <ul class="subUl">
+                                            <li>
+                                               <span class="tips">必填：</span>                                            
+                                               <span th:utext="${credentZero.proCredNameY}"></span>
+                                            </li>
+                                            <li>
+                                                <span class="tips">选填：</span>
+                                                <span th:utext="${credentZero.proCredNameN}"></span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    </th:block>
+                                    <th:block th:if="${not #maps.isEmpty(credentOne)}">
+                                    <li style="width:80%;">
+                                        <span class="tips" style="font-weight: bold;">房产资质：</span>
+                                        <ul class="subUl" id="houseId">
+                                            <li>
+                                                <span class="tips">必填：</span>
+                                                <span th:utext="${credentOne.proCredNameY}"></span>                                               
+                                            </li>
+                                            <li>
+                                                <span class="tips">选填：</span>
+                                                <span th:utext="${credentOne.proCredNameN}"></span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    </th:block>
+                                    <th:block th:if="${not #maps.isEmpty(credentTwo)}">
+                                    <li style="width:80%;">
+                                        <span class="tips" style="font-weight: bold;">车产资质：</span>
+                                        <ul class="subUl" id="carId">
+                                            <li>
+                                                <span class="tips">必填：</span>
+                                                <span th:utext="${credentTwo.proCredNameY}"></span>
+                                            </li>
+                                            <li>
+                                                <span class="tips">选填：</span>
+                                                <span th:utext="${credentTwo.proCredNameN}"></span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    </th:block>
+                                    <th:block th:if="${not #maps.isEmpty(credentThree)}">
+                                    <li style="width:80%;">
+                                        <span class="tips" style="font-weight: bold;">信用资质：</span>
+                                        <ul class="subUl" id="creditId">
+                                            <li>
+                                                <span class="tips">必填：</span>
+                                                <span th:utext="${credentThree.proCredNameY}"></span>
+                                            </li>
+                                            <li>
+                                                <span class="tips">选填：</span>
+                                                <span th:utext="${credentThree.proCredNameN}"></span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    </th:block>
+                                    <th:block th:if="${not #maps.isEmpty(credentFour)}">
+                                    <li style="width:80%;">
+                                        <span class="tips" style="font-weight: bold;">合同资质：</span>
+                                        <ul class="subUl" id="otherId">
+                                            <li>
+                                                <span class="tips">必填：</span>
+                                                <span th:utext="${credentFour.proCredNameY}"></span>
+                                            </li>
+                                            <li>
+                                                <span class="tips">选填：</span>
+                                                <span th:utext="${credentFour.proCredNameN}"></span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    </th:block>
+                                    <th:block th:if="${not #maps.isEmpty(credentFive)}">
+                                    <li style="width:80%;">
+                                        <span class="tips" style="font-weight: bold;">其他资质：</span>
+                                        <ul class="subUl" id="otherId">
+                                            <li>
+                                                <span class="tips">必填：</span>
+                                                <span th:utext="${credentFive.proCredNameY}"></span>
+                                            </li>
+                                            <li>
+                                                <span class="tips">选填：</span>
+                                                <span th:utext="${credentOne.proCredNameN}"></span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    </th:block>
+                                </ul>
+                            </div>
+                        </div>
+                        <p class="textCt pt15">
+                            <input type="button" class="scbtn2" value="返 回" onclick="javascript:history.go(-1);"/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+</body>
+</html>

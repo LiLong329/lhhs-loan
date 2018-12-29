@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+          <div th:replace="common/left"></div>
+            <script type="text/javascript" src="./js/public/siderbar.js"></script>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>客户管理</li>
+                        <li><a href="">理财人信息（银主）</a></li>
+                        <li>查看详情</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div class="formtitle"><span>基本信息</span></div>
+                        <div class="toolsli">
+                            <ul class="nbbdgl-Ui">
+                                <li>
+                                    <span class="tips">客户编号：</span>
+                                    <span th:text="${investCustomer.customerId}"></span>
+                                </li>
+                               <!--  <li>
+                                    <span class="tips">客户类型：</span>
+                                    <span th:text="${investCustomer.customerTypeName}"></span>
+                                </li> -->
+                                <li>
+                                    <span class="tips">客户性质：</span>
+                                     <span th:text="${investCustomer.customerNatureName}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">客户姓名：</span>
+                                     <span th:text="${investCustomer.investCustomerName}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">手机号码：</span>
+                                     <span th:if="${customerManager} eq ${investCustomer.accountManagerNo}" th:text="${investCustomer.investCustomerMobile}"></span>
+                                     <span th:if="${customerManager} neq ${investCustomer.accountManagerNo}" th:text="${investCustomer.investCustomerMobile}==null ? '': ${investCustomer.investCustomerMobile.substring(0,3)+'****'+investCustomer.investCustomerMobile.substring(investCustomer.investCustomerMobile.length()-4,investCustomer.investCustomerMobile.length())}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">客户性别：</span>
+                                      <span th:if="${investCustomer.sex} eq 1">男</span>
+                                      <span th:if="${investCustomer.sex} eq 0">女</span>
+                                </li>
+                                <li>
+                                    <span class="tips">身份证号：</span>
+                                    <span th:if="${customerManager} eq ${investCustomer.accountManagerNo}" th:text="${investCustomer.idNum}"></span>
+	                                <span th:if="${customerManager} neq ${investCustomer.accountManagerNo}" th:text="${investCustomer.idNum}==null ?'': ${investCustomer.idNum.substring(0,1)+'********'+investCustomer.idNum.substring(investCustomer.idNum.length()-1,investCustomer.idNum.length())}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">银行卡号：</span>
+                                     <span th:if="${customerManager} eq ${investCustomer.accountManagerNo}" th:text="${investCustomer.bankCardNo}"></span>
+                                       <span th:if="${customerManager} neq ${investCustomer.accountManagerNo}" th:text="${investCustomer.bankCardNo} ==null ? '' : ${investCustomer.bankCardNo.substring(0,5)+'********'+investCustomer.bankCardNo.substring(investCustomer.bankCardNo.length()-4,investCustomer.bankCardNo.length())}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">开户银行：</span>
+                                    <span th:text="${investCustomer.bankName}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">开户行：</span>
+                                    <span th:text="${investCustomer.branchName}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">所属公司：</span><!-- 有点疑问 -->
+                                     <span th:text="${investCustomer.CorName}"></span>
+                                </li>
+                                <li>
+                                     <span class="tips">客户经理：</span>
+                                     <span th:text="${investCustomer.accountManagerName}"></span>
+                                </li>
+                               <!--  <li>
+                                    <span class="tips">所在部门：</span>
+                                     <span th:text="${investCustomer.accountManagerDepartmentName}"></span>
+                                </li>
+                                 <li>
+                                    <span class="tips">组别名称：</span>
+                                     <span th:text="${investCustomer.accountManagerGroupName}"></span>
+                                </li>  -->
+                            </ul>
+                        </div>
+                        <p class="textCt">
+                            <input type="button" class="scbtn2" value="返  回" onclick="javascript:history.go(-1);"/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+          <footer th:replace="common/footer"></footer>
+    </div>
+ 	</body>
+</html>

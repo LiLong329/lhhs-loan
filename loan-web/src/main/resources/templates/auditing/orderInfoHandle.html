@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<script type="text/javascript" src="/js/public/area.js"></script>
+<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<style>
+    .cboItems{ float:left; margin:11px 0 0 15px;}
+</style>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>我的任务</li>
+                        <li><a href="/workflow/acttask/todoList/1">待办任务</a></li>
+                        <li th:text="${basicInfo.next_task_name}"></li>
+                        <li>审核</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                	<div style="position: relative;">
+	                    <div class="formbody">
+	                    	<input type="hidden" th:value="${basicInfo.proc_ins_id}" id="procInsId"/>
+	                        <div class="itab">
+	                            <ul>
+	                                <li><a data-show="#tab1">项目审核</a></li>
+	                                <li><a data-show="#tab2">基本信息</a></li>
+	                                <li><a data-show="#tab3">抵押物信息</a></li>
+	                                <li><a data-show="#tab4" id="orderCredentials">资质信息</a></li>
+	                                <li th:if="(${basicInfo.approval_node} gt 4) and (${basicInfo.approval_node} lt 80)
+	                                    and (${basicInfo.approval_node} ne 20) and (${basicInfo.approval_node} ne 21) 
+	                                    and (${basicInfo.approval_node} ne 22) and (${basicInfo.approval_node} ne 23)
+	                                    and (${basicInfo.approval_node} ne 6) and (${basicInfo.approval_node} ne 7) ">
+	                                	<a data-show="#tab5">放款审批表</a>
+                                	</li>
+                                	<li><a data-show="#tab6">关联企业信息</a></li>
+	                            </ul>
+	                        </div>
+	                        <div id="tab1" class="tabson" th:include="auditing/bussinessLoanAuditing"></div>
+	                        <div id="tab2" class="tabson" th:include="auditing/bussinessLoanViewBasicInfo"></div>
+	                        <div id="tab3" class="tabson" th:include="auditing/mortgageInfo"></div>
+	                        <div id="tab4" class="tabson"></div>
+	                        <div th:if="(${basicInfo.approval_node} ge 4) and (${basicInfo.approval_node} lt 80)" id="tab5" class="tabson" th:include="auditing/bussinessLoanApplication"></div>
+	                    	<div id="tab6" class="tabson" th:include="auditing/affiliatedEnterprise"></div>
+	                    </div>
+	                    <div id="preview"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/js/public/select.js"></script>
+        <footer th:replace="common/footer"></footer>
+    </div>
+    <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/js/jsxd/workflow/actTaskHistoricFlow.js" type="text/javascript" charset="utf-8"></script>
+    <script th:inline="javascript">
+    	/*<![CDATA[*/
+	    	var productId = [[${#maps.containsKey(basicInfo,'product_id')}?${basicInfo.product_id}:'']];
+    		var orderNo = [[${basicInfo.order_no}]];
+    		var custId = [[${loanOrderBorrowerExtendBLOBsList[0].custId}]];
+	    	seajs.use("auditing/auditing");
+    	/*]]>*/
+    </script>
+</body>
+</html>

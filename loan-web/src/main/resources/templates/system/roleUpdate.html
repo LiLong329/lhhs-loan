@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<link rel="stylesheet" href="/css/public/jstree/jstree.min.css" type="text/css"/>
+<style>
+	.jstree-container-ul li{
+		width:100%;
+		float:none;
+		margin-bottom:0;
+	}
+</style>
+<body>
+<div class="father">
+    <header th:replace="common/top"></header>
+    <div class="common-content">
+        <div th:replace="common/left"></div>
+        <div class="common-right">
+            <div class="place" id="place">
+                <span>位置：</span>
+                <ul class="placeul">
+                    <li><a href="/index/index">首页</a></li>
+                    <li>系统管理</li>
+                    <li>权限设置</li>
+                    <li><a href="/systemManager/getRoles">角色管理</a></li>
+                    <li>修改</li>
+                </ul>
+            </div>
+            <div class="right-content">
+                <div class="formbody">
+                    <div class="formtitle"><span>修改角色</span></div>
+                    <div class="toolsli" style="width:100%;">
+                      	<form id="role">
+                      		<input type="hidden" name="roleId" th:value="${role.roleId}"/>
+	                        <ul class="nbbdgl-Ui">
+	                            <li>
+	                                <span class="tips">角色名称：</span>
+	                                <input type="text" class="txt validate[required]" th:value="${role.name}" name="name"/>
+	                            </li>
+	                            <li style="width:100%;">
+	                                <span class="tips">角色权限：</span>
+	                                <div id="authList" style="border:1px solid #d2d6de; margin-left:150px; max-width:750px; padding:15px 15px;"></div>
+	                            </li>
+	                        </ul>
+                     	</form>
+                    </div>
+                    <p class="textCt pt20 pb20">
+                        <input type="button" id="btn_save" class="scbtn" value="保 存"/>
+                        <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);"/>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="common/footer"></footer>
+</div>
+<script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/public/jstree.min.js"></script>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+		var authList=[[${authList}]];
+	    seajs.use("system/roleUpdate");
+	/*]]>*/
+</script>
+</body>
+</html>

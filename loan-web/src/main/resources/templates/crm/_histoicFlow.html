@@ -1,0 +1,90 @@
+<div class="clearfix"  th:each="emp : ${followRecord}" >
+	<div class="HFitem">
+		<p class="time" th:text="${emp.createTime}?${#dates.format(emp.createTime, 'yyyy-MM-dd HH:mm:ss')}"></p>
+		<div class="HFitem-con">
+			<!-- <em class="HFicon">客户经理</em> -->
+			<p class="name clearfix">
+			    <span th:text="${emp.appointEmpName}?${emp.lastUser}:''">
+			    </span><span th:if="${not #lists.isEmpty(emp.followType)}">></span>
+			    <span th:if="${emp.followType} eq 01">电话</span>
+			    <span th:if="${emp.followType} eq 02">QQ</span>
+			    <span th:if="${emp.followType} eq 03">微信</span>
+			    <span th:if="${emp.followType} eq 04">当面拜访</span>
+			    <span th:if="${emp.followType} eq 05">其他</span>
+			</p>
+			<p class="desc">客户状态：<span th:if="${emp.businessStatus} eq 01">初步接触</span>
+								 <span th:if="${emp.businessStatus} eq 02">意向客户</span>
+								 <span th:if="${emp.businessStatus} eq 03">跟进客户</span>
+								 <span th:if="${emp.businessStatus} eq 04">签约客户</span>
+								 <span th:if="${emp.businessStatus} eq 05">放弃客户</span>
+								 <span th:if="${emp.businessStatus} eq 06">黑名单</span>
+								 <span th:if="${emp.businessStatus} eq 07">面谈客户</span>
+								 <span th:if="${emp.businessStatus} eq 08">已报单</span>
+								 <span th:if="${emp.businessStatus} eq 90">已拒贷</span>
+								 <span th:if="${emp.businessStatus} eq 99">无效</span>
+			</p>
+			<p class="desc">跟进回访内容：<span th:text="${emp.remark}"></span></p>
+			<p class="desc">实际跟进时间：<span th:text="${emp.visitTime}?${#dates.format(emp.visitTime, 'yyyy-MM-dd')}"></span></p>
+		</div>
+	</div>
+<!-- 	<div class="HFitem">
+		<p class="time">2017-11-16 11:40:14</p>
+		<div class="HFitem-con">
+			<p class="name clearfix"><span>张三</span> <span> > </span> <span>电话</span></p>
+			<p class="desc">客户状态：由<span class="red">初步接触</span>变为<span class="red">潜在客户</span></p>
+			<p class="desc">用户有贷款意向，15天后再次跟进回访，返回结果。</p>
+			<p class="desc">实际跟进时间：2017-11-12</p>
+		</div>
+	</div> -->
+</div>
+<div class="find-desc HFInputCon clearfix">
+<form id="inputForm">
+ <input type="hidden" name="followTypeSed"  value="follow"/>
+ <input type="hidden" name="parentId"  th:attr="value=${crmUser.id}"/>
+ <input type="hidden" name="name"  th:attr="value=${crmUser.name}"/>
+	<ul class="nbbdgl-Ui">
+		<li>
+			<span class="tips">回访方式：</span>
+			<div class="vocation">
+				<select class="select-common select1"  name="followType" style="width: 230px;">
+					<option>请选择</option>
+					<option value="1">电话</option>
+					<option value="2">QQ</option>
+					<option value="3">微信</option>
+					<option value="4">当面拜访</option>
+					<option value="5">其他</option>
+				</select>
+			</div>
+		</li>
+		<li>
+			<span class="tips">实际跟进时间：</span>
+			<input type="text" class="scinput1" name="visitTime" th:value="${crmUser.visitTime}?${#dates.format(crmUser.visitTime,'yyyy-MM-dd HH:mm:ss')}:''"  onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+		</li>
+		<li>
+			<span class="tips">跟进状态：</span>
+			<div class="vocation">
+				<select class="select-common select1" name="businessStatus" style="width: 230px;">
+					<option>请选择</option>
+					<option value="01">初步接触</option>
+					<option value="02">意向客户</option>
+					<option value="03">跟进客户</option>
+					<option value="04">签约客户</option>
+					<option value="05">放弃客户</option>
+					<option value="06">黑名单</option>
+					<option value="07">面谈客户</option>
+					<option value="08">已报单</option>
+				</select>
+			</div>
+		</li>
+		<li style="width:80%;">
+			<span class="tips">跟进回访内容：</span>
+			<textarea  name="remark" class="area validate[required]" maxlength="1000" placeholder="最多输入1000个字符"></textarea>
+		</li>
+		<li style="width:80%;">
+			<span class="tips">&nbsp;</span>
+			<input name="" type="button" class="scbtn mlt10" id="btn_flow" value="保存" style="width: 80px;" />
+			<input name="" type="button" class="scbtn2 mlt10" value="取消" style="width: 80px;" onclick="javascript:history.back(-1);"/>
+		</li>
+	</ul>
+	</form>
+</div>

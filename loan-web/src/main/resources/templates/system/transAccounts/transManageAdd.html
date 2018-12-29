@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<body>
+    <div class="father">
+     <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <script type="text/javascript" src="/js/public/siderbar.js"></script>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>资金管理</li>
+                        <li>转账管理</li>
+                        <li>转账记账申请</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div>
+                            <form id="myForm">
+                            <input  name="transType" type="hidden" value="2"/>
+                            <input  name="outAccountPreBalance" type="hidden" />
+                            <input  name="inAccountPreBalance" type="hidden" />
+                            <input type="hidden"  name="transId" th:value="${transId}" />
+                            <div class="formtitle"><span>转账记账申请</span></div>
+                            <div class="toolsli">
+                                <strong style="padding-bottom:15px; display:inline-block;">转出账户信息：</strong>
+                                <ul class="nbbdgl-Ui clearfix">
+                                    <li>
+                                        <span class="tips">客户类型：</span>
+                                        <div class="vocation">
+                                             <select class="select-common select3 validate[required]"  id="outAccountCustType" name="outAccountCustType" style="width:251px;">
+                                            <option value="">请选择</option>
+                                            <option th:each="allAccountCustType : ${allAccountCustType}" th:value="${allAccountCustType.type_id}" th:text="${allAccountCustType.type_name}"
+                                              th:attr="selected=(${allAccountCustType.type_id} eq ${outAccountCustType})?true:false" ></option>
+                                        </select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="tips">客户性质：</span>
+                                        <div class="vocation">
+                                          <select class="select-common select3 validate[required]" id="outAccountCustProperty" name="outAccountCustProperty" style="width:251px;">
+                                            <option value="">请选择</option>
+                                           <!--  <option th:each="property : ${accountCustProperty}" th:value="${property.type_id}" th:text="${property.type_name}"
+                                              th:attr="selected=(${property.type_id} eq ${outAccountCustProperty})?true:false"></option> -->
+                                           </select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="tips">用户ID：</span>
+                                        <input type="text" name="outAccountCustId" class="txt validate[required,custom[number]]"/>
+                                        <input type="button" class="scbtn2 mlt10" id="searchCustInfo" value="检索"/>
+                                    </li>
+                                    <li>
+                                        <span class="tips">手机号：</span>
+                                        <input type="text" name="outAccountMobile" class="txt validate[custom[mobile]]" />
+                                    </li>
+                                    <li>
+                                        <span class="tips">姓名：</span>
+                                        <input type="text" name="outAccountRealName" class="txt validate[custom[chinese]]"/>
+                                    </li>
+                                    <li>
+                                        <span class="tips">账户余额：</span>
+                                    	<span id="outAccountPreBalance">0.00元</span>
+                                    </li>
+                                      <li>
+                                        <span class="tips">转出摘要：</span>
+                                        <div class="vocation">
+                                            <select class="select-common select1 validate[required]" name="outAccountRealSummary">
+                                            <option value="">请选择</option>  
+                                            <option th:each="outSubject : ${outAccountSubject}" th:value="${outSubject.subjectId}" th:text="${outSubject.subjectName}"
+                                            ></option>
+                                        </select>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="lines"></div>
+                            <div class="toolsli">
+                                <strong style="padding-bottom:15px; display:inline-block;">收款账户信息：</strong>
+                                <ul class="nbbdgl-Ui clearfix">
+                                    <li>
+                                        <span class="tips">客户类型：</span>
+                                         <div class="vocation">
+                                             <select class="select-common select3 validate[required]"  id="inAccountCustType" name="inAccountCustType" style="width:251px;">
+                                            <option value="">请选择</option>
+                                            <option th:each="allAccountCustType : ${allAccountCustType}" th:value="${allAccountCustType.type_id}" th:text="${allAccountCustType.type_name}"
+                                              ></option>
+                                        </select>
+                                       </div>
+                                    </li>
+                                    <li>
+                                        <span class="tips">客户性质：</span>
+                                        <div class="vocation">
+                                             <select class="select-common select3 validate[required]" id="inAccountCustProperty" name="inAccountCustProperty" style="width:251px;">
+                                            <option value="">请选择</option>
+                                           </select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="tips">用户ID：</span>
+                                        <input type="text" name="inAccountCustId" class="txt validate[required,custom[number]]" />
+                                    	<input type="button" class="scbtn2 mlt10" id="searchInCustInfo" value="检索"/>
+                                    </li>
+                                    <li>
+                                        <span class="tips">手机号：</span>
+                                        <input type="text" name="inAccountMobile"  class="txt validate[custom[mobile]]" />
+                                    </li>
+                                    <li>
+                                        <span class="tips">姓名：</span>
+                                        <input type="text" name="inAccountRealName" class="txt validate[custom[chinese]]" />
+                                    </li>
+                                    <li>
+                                        <span class="tips">账户金额：</span>
+                                        <span id="inAccountPreBalance">0.00元</span>
+                                    </li>
+                                    <li>
+                                        <span class="tips">转入摘要：</span>
+                                        <div class="vocation">
+                                            <select class="select-common select1 validate[required]" name="inAccountRealSummary">
+                                              <option value="">请选择</option>
+                                               <option th:each="inAccountSubject : ${inAccountSubject}" th:value="${inAccountSubject.subjectId}" th:text="${inAccountSubject.subjectName}"></option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="lines"></div>
+                            <div class="toolsli">
+                                <ul class="nbbdgl-Ui">
+                                    <li>
+                                        <span class="tips">转账金额：</span>
+                                        <input type="text" name="inAccount" class="txt validate[required,custom[numberTwo]]"/><span>元</span>
+                                    </li>
+                                    <li>
+                                        <span class="tips">转账时间：</span>
+                                        <input type="text" class="txt validate[required]" name="transferTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+                                    </li>
+                                    <li style="width: 80%;">
+                                        <span class="tips">备注：</span>
+                                        <textarea class="area" name="remarks" ></textarea>
+                                    </li>
+                                </ul>
+                            </div>
+                            <p class="textCt pt20 pb20">
+                                <input type="button" class="scbtn" id="btn_save_manege" value="提交" style="width:120px;"/>
+                            </p>
+                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+        <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	    <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+        <script>seajs.use("login/transAccounts");</script>
+    </div>
+</body>
+</html>

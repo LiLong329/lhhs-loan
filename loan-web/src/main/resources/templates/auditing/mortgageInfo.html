@@ -1,0 +1,396 @@
+<div class="formtitle">
+    <span>房产信息</span>
+    <img src="/img/add_red.png" class="add-zz" id="addHouseInfo"/>
+</div>
+
+<div class="toolsli" id="houseInfos">
+	<th:block th:if="${not #lists.isEmpty(houseLists)}">
+		<th:block th:each="house,iter : ${houseLists}">
+			<ul class="nbbdgl-Ui clearfix">
+		    	<form>
+			        <li>
+			        	<input type="hidden" name="id" th:value="${house.id}"/>
+			        	<input type="hidden" name="orderNo" th:value="${house.orderNo}"/>
+						<input type="hidden" name="custId" th:value="${house.custId}"/>
+			            <span class="tips">产权证编号：</span>
+			            <input type="text" class="txt" name="propertyNum" th:value="${house.propertyNum}"/>
+			            <th:block th:if="${not #lists.isEmpty(houseExtendList)}">
+				            <th:block th:each="emp,iter : ${houseLists}">
+						       <span th:if="${emp.propertyNum } eq ${house.propertyNum}" class="tips"><a style=" color:#FF0000; font-size:12px;" id="getHouseExtend">*该房产申请过贷款</a></span>
+						    </th:block>
+			            </th:block>
+			        </li>
+			        <li>
+			            <span class="tips">产权人：</span>
+			            <input type="text" class="txt" name="propertyName" th:value="${house.propertyName}"/>
+			        </li>
+			        <li>
+			            <span class="tips">建筑面积：</span>
+			            <input type="text" class="txt" name="buildArea" th:value="(${house.buildArea})?${#numbers.formatDecimal(house.buildArea,1,2)}"/>
+			            <span>㎡</span>
+			        </li>
+			        <li style="width: 80%;" th:with="addr=(${house.houseAddress})?(${#strings.arraySplit(house.houseAddress,'-')}):(${#strings.arraySplit('','-')})">
+			            <span class="tips">抵押物坐落：</span>
+			            <div class="vocation">
+			                <select class="select-common select3 provinceSelect" name="houseAddress_sub_1"
+			                th:attr="data-val=(${#arrays.length(addr)} ge 1)?${addr[0]}:''">
+			                </select>
+			            </div>
+			            <span>省</span>
+			            <div class="vocation">
+			                <select class="select-common select3 citySelect" name="houseAddress_sub_2"
+			                th:attr="data-val=(${#arrays.length(addr)} ge 2)?${addr[1]}:''">
+			                </select>
+			            </div>
+			            <span>市</span>
+			            <input type="text" class="txt" name="houseAddress_sub_3"
+			            th:value="(${#arrays.length(addr)} ge 3)?${addr[2]}:''"/>
+			        </li>
+			        <li>
+			            <span class="tips">建成年代：</span>
+			            <input type="text" class="txt" name="builtAge" th:value="${house.builtAge}"/>
+			            <span>年</span>
+			        </li>
+			        <li>
+			            <span class="tips">楼盘名称：</span>
+			            <input type="text" class="txt" name="realName" th:value="${house.realName}"/>
+			        </li>
+			        <li>
+			            <span class="tips">居住情况：</span>
+			            <div class="vocation">
+			                <select class="select-common select1" name="liveSituation">
+			                    <option value="">请选择</option>
+			                    <option value="0" th:attr="selected=(${house.liveSituation} eq 0)?true:false">出租</option>
+			                    <option value="1" th:attr="selected=(${house.liveSituation} eq 1)?true:false">自住</option>
+			                    <option value="2" th:attr="selected=(${house.liveSituation} eq 2)?true:false">亲戚居住</option>
+			                    <option value="3" th:attr="selected=(${house.liveSituation} eq 3)?true:false">其他</option>
+			                </select>
+			            </div>
+			        </li>
+			        <li>
+			            <span class="tips">查询状态：</span>
+			            <input type="text" class="txt" name="queryStatus" th:value="${house.queryStatus}"/>
+			        </li>
+			        <li>
+			            <span class="tips">评估价：</span>
+			            <input type="text" class="txt" name="valuationPrice" th:value="${house.valuationPrice}?${#numbers.formatDecimal(house.valuationPrice,1,2)}"/>
+			            <span>万元</span>
+			        </li>
+			        <li>
+			            <span class="tips">快卖价：</span>
+			            <input type="text" class="txt" name="sellingPrice" th:value="${house.sellingPrice}?${#numbers.formatDecimal(house.sellingPrice,1,2)}"/>
+			            <span>万元</span>
+			        </li>
+			        <li>
+			            <span class="tips">抵押率：</span>
+			            <input type="text" class="txt" name="mortgageRate" th:value="${house.mortgageRate}?${#numbers.formatDecimal(house.mortgageRate,1,2)}"/>
+			            <span>%</span>
+			        </li>
+			        <li>
+			            <span class="tips">有无抵押：</span>
+			            <cite>
+			                <input type="radio" id="isMortgage0" name="isMortgage" value="0" 
+			                th:checked="${house.isMortgage} eq 0"/>
+			                <label for="isMortgage0">有抵押</label>
+			                <input type="radio" id="isMortgage1" name="isMortgage" value="1" 
+			                th:checked="${house.isMortgage} eq 1"/>
+			                <label for="isMortgage1">无抵押</label>
+			            </cite>
+			        </li>
+			        <li>
+			            <span class="tips">剩余价值：</span>
+			            <input type="text" class="txt" name="surplusValue" th:value="${house.surplusValue}"/>
+			            <span>万元</span>
+			        </li>
+			        <li>
+			            <span class="tips">抵押顺位：</span>
+			            <div class="vocation">
+			                <select class="select-common select1" name="mortgagePosition">
+			                    <option value="">请选择</option>
+			                    <option value="0" th:attr="selected=(${house.mortgagePosition} eq 0)?true:false">一抵</option>
+			                    <option value="1" th:attr="selected=(${house.mortgagePosition} eq 1)?true:false">二抵</option>
+			                    <option value="2" th:attr="selected=(${house.mortgagePosition} eq 2)?true:false">解查封</option>
+			                    <option value="3" th:attr="selected=(${house.mortgagePosition} eq 3)?true:false">垫资过桥</option>
+			                </select>
+			            </div>
+			        </li>
+			        <li>
+			            <span class="tips">类型：</span>
+			            <div class="vocation">
+			                <select class="select-common select1" name="houseType">
+			                    <option value="">请选择</option>
+			                    <option value="0" th:attr="selected=(${house.houseType} eq 0)?true:false">住宅</option>
+			                    <option value="1" th:attr="selected=(${house.houseType} eq 1)?true:false">商住</option>
+			                    <option value="2" th:attr="selected=(${house.houseType} eq 2)?true:false">公寓</option>
+			                    <option value="3" th:attr="selected=(${house.houseType} eq 3)?true:false">底商</option>
+			                    <option value="4" th:attr="selected=(${house.houseType} eq 4)?true:false">别墅</option>
+			                    <option value="5" th:attr="selected=(${house.houseType} eq 5)?true:false">办公</option>
+			                    <option value="6" th:attr="selected=(${house.houseType} eq 6)?true:false">其他</option>
+			                </select>
+			            </div>
+			        </li>
+			        <li>
+			            <span class="tips">房产第二抵押权人：</span>
+			            <input type="text" class="txt" name="secondMortgageOwner" th:value="${house.secondMortgageOwner}"/>
+			        </li>
+			        <li>
+			            <th:block th:if="${not #lists.isEmpty(orderCredentialsList)}">
+			               <span class="tips"  style="color:#FF0000;">*</span>
+					       <span class="tips"><a style=" color:#FF0000; font-size:14px;" onClick="getUrls();"	>点击查看图片信息</a></span>
+					    </th:block>
+			        </li>
+		        </form>
+		    </ul>
+			<div class="lines" th:if="${not iter.last}"><img class="del-zz" src="/img/loan_reduce.png"/></div>
+		</th:block>
+	    
+	</th:block>
+	
+	<th:block th:if="${#lists.isEmpty(houseLists)}">
+	    <ul class="nbbdgl-Ui clearfix" style="display:none;">
+	    	<form>
+		        <li>
+			        <input type="hidden" name="orderNo"/>
+					<input type="hidden" name="custId"/>
+		            <span class="tips">产权证编号：</span>
+		            <input type="text" class="txt" name="propertyNum"/>
+		        </li>
+		        <li>
+		            <span class="tips">产权人：</span>
+		            <input type="text" class="txt" name="propertyName"/>
+		        </li>
+		        <li>
+		            <span class="tips">建筑面积：</span>
+		            <input type="text" class="txt" name="buildArea"/>
+		            <span>㎡</span>
+		        </li>
+		        <li style="width: 80%;">
+		            <span class="tips">抵押物坐落：</span>
+		            <div class="vocation">
+		                <select class="select-common select3 provinceSelect" name="houseAddress_sub_1">
+		                </select>
+		            </div>
+		            <span>省</span>
+		            <div class="vocation">
+		                <select class="select-common select3 citySelect" name="houseAddress_sub_2">
+		                </select>
+		            </div>
+		            <span>市</span>
+		            <input type="text" class="txt" name="houseAddress_sub_3"/>
+		        </li>
+		        <li>
+		            <span class="tips">建成年代：</span>
+		            <input type="text" class="txt" name="builtAge"/>
+		            <span>年</span>
+		        </li>
+		        <li>
+		            <span class="tips">楼盘名称：</span>
+		            <input type="text" class="txt" name="realName"/>
+		        </li>
+		        <li>
+		            <span class="tips">居住情况：</span>
+		            <div class="vocation">
+		                <select class="select-common select1" name="liveSituation">
+		                    <option value="">请选择</option>
+		                    <option value="0">出租</option>
+		                    <option value="1">自住</option>
+		                    <option value="2">亲戚居住</option>
+		                    <option value="3">其他</option>
+		                </select>
+		            </div>
+		        </li>
+		        <li>
+		            <span class="tips">查询状态：</span>
+		            <input type="text" class="txt" name="queryStatus"/>
+		        </li>
+		        <li>
+		            <span class="tips">评估价：</span>
+		            <input type="text" class="txt" name="valuationPrice"/>
+		            <span>万元</span>
+		        </li>
+		        <li>
+		            <span class="tips">快卖价：</span>
+		            <input type="text" class="txt" name="sellingPrice"/>
+		            <span>万元</span>
+		        </li>
+		        <li>
+		            <span class="tips">抵押率：</span>
+		            <input type="text" class="txt" name="mortgageRate"/>
+		            <span>%</span>
+		        </li>
+		        <li>
+		            <span class="tips">有无抵押：</span>
+		            <cite>
+		                <input type="radio" id="isMortgage0" name="isMortgage" value="0"/>
+		                <label for="isMortgage0">有抵押</label>
+		                <input type="radio" id="isMortgage1" name="isMortgage" value="1"/>
+		                <label for="isMortgage1">无抵押</label>
+		            </cite>
+		        </li>
+		        <li>
+		            <span class="tips">剩余价值：</span>
+		            <input type="text" class="txt" name="surplusValue"/>
+		            <span>万元</span>
+		        </li>
+		        <li>
+		            <span class="tips">抵押顺位：</span>
+		            <div class="vocation">
+		                <select class="select-common select1" name="mortgagePosition">
+		                    <option value="">请选择</option>
+		                    <option value="0">一抵</option>
+		                    <option value="1">二抵</option>
+		                    <option value="2">解查封</option>
+		                    <option value="3">垫资过桥</option>
+		                </select>
+		            </div>
+		        </li>
+		        <li>
+		            <span class="tips">类型：</span>
+		            <div class="vocation">
+		                <select class="select-common select1" name="houseType">
+		                    <option value="">请选择</option>
+		                    <option value="0">住宅</option>
+		                    <option value="1">商住</option>
+		                    <option value="2">公寓</option>
+		                    <option value="3">底商</option>
+		                    <option value="4">别墅</option>
+		                    <option value="5">办公</option>
+		                    <option value="6">其他</option>
+		                </select>
+		            </div>
+		        </li>
+		        <li>
+		            <span class="tips">房产第二抵押权人：</span>
+		            <input type="text" class="txt" name="secondMortgageOwner"/>
+		        </li>
+		    </form>
+	    </ul>
+	</th:block>
+</div>
+<div class="formtitle">
+    <span>车产信息</span>
+    <img src="/img/add_red.png" class="add-zz" id="addCarInfo"/>
+</div>
+<div class="toolsli" id="carInfos">
+	<th:block th:unless="${#lists.isEmpty(carLists)}">
+		<th:block th:each="car,iter : ${carLists}">
+		    <ul class="nbbdgl-Ui clearfix">
+		    	<form>
+			        <li>
+			        	<input type="hidden" name="id" th:value="${car.id}"/>
+			        	<input type="hidden" name="orderNo" th:value="${car.orderNo}"/>
+						<input type="hidden" name="custId" th:value="${car.custId}"/>
+			            <span class="tips">车牌号：</span>
+			            <input type="text" class="txt" name="licensePlate" th:value="${car.licensePlate}"/>
+			        </li>
+			        <li>
+			            <span class="tips">品牌型号：</span>
+			            <input type="text" class="txt" name="brandModel" th:value="${car.brandModel}"/>
+			        </li>
+			        <li>
+			            <span class="tips">车龄：</span>
+			            <input type="text" class="txt" name="carAge" th:value="${car.carAge}"/>
+			            <span>年</span>
+			        </li>
+			        <li>
+			            <span class="tips">排量：</span>
+			            <input type="text" class="txt" name="displacement" th:value="${car.displacement}"/>
+			            <span>L</span>
+			        </li>
+			        <li>
+			            <span class="tips">公里数：</span>
+			            <input type="text" class="txt" name="kilometers" th:value="${car.kilometers}"/>
+			            <span>km</span>
+			        </li>
+			        <li>
+			            <span class="tips">购车年份：</span>
+			            <input type="text" class="txt" name="purchaseYear" th:value="${car.purchaseYear}"/>
+			            <span>年</span>
+			        </li>
+			        <li>
+			            <span class="tips">颜色：</span>
+			            <input type="text" class="txt" name="colour" th:value="${car.colour}"/>
+			        </li>
+			        <li>
+			            <span class="tips">机动车登记证编号：</span>
+			            <input type="text" class="txt" name="vehicleNum" th:value="${car.vehicleNum}"/>
+			        </li>
+			        <li>
+			            <span class="tips">驾驶证编号：</span>
+			            <input type="text" class="txt" name="driveCardNum" th:value="${car.driveCardNum}"/>
+			        </li>
+			        <li  style="width:80%;">
+			            <span class="tips">备注：</span>
+			            <textarea class="area" name="remark" th:text="${car.remark}"></textarea>
+			        </li>
+			       <li>
+			            <th:block th:if="${not #lists.isEmpty(orderCredentialsList)}">
+			               <span class="tips"  style="color:#FF0000;">*</span>
+					       <span class="tips"><a style=" color:#FF0000; font-size:14px;" onClick="getUrls();">点击查看图片信息</a></span>
+					    </th:block>
+			        </li>
+			    </form>
+		    </ul>
+			<div class="lines" th:if="${not iter.last}"><img class="del-zz" src="/img/loan_reduce.png"/></div>
+		</th:block>
+	</th:block>
+	<th:block th:if="${#lists.isEmpty(carLists)}">
+	    <ul class="nbbdgl-Ui clearfix" style="display:none;">
+	    	<form>
+		        <li>
+		        	<input type="hidden" name="orderNo"/>
+					<input type="hidden" name="custId"/>
+		            <span class="tips">车牌号：</span>
+		            <input type="text" class="txt" name="licensePlate"/>
+		        </li>
+		        <li>
+		            <span class="tips">品牌型号：</span>
+		            <input type="text" class="txt" name="brandModel"/>
+		        </li>
+		        <li>
+		            <span class="tips">车龄：</span>
+		            <input type="text" class="txt" name="carAge"/>
+		            <span>年</span>
+		        </li>
+		        <li>
+		            <span class="tips">排量：</span>
+		            <input type="text" class="txt" name="displacement"/>
+		            <span>L</span>
+		        </li>
+		        <li>
+		            <span class="tips">公里数：</span>
+		            <input type="text" class="txt" name="kilometers"/>
+		            <span>km</span>
+		        </li>
+		        <li>
+		            <span class="tips">购车年份：</span>
+		            <input type="text" class="txt" name="purchaseYear"/>
+		            <span>年</span>
+		        </li>
+		        <li>
+		            <span class="tips">颜色：</span>
+		            <input type="text" class="txt" name="colour"/>
+		        </li>
+		        <li>
+		            <span class="tips">机动车登记证编号：</span>
+		            <input type="text" class="txt" name="vehicleNum"/>
+		        </li>
+		        <li>
+		            <span class="tips">驾驶证编号：</span>
+		            <input type="text" class="txt" name="driveCardNum"/>
+		        </li>
+		        <li  style="width:80%;">
+		            <span class="tips">备注：</span>
+		            <textarea class="area" name="remark"></textarea>
+		        </li>
+		    </form>
+	    </ul>
+	</th:block>
+</div>
+<p class="textCt">
+    <input type="button" class="scbtn" value="保 存" id="mortgageInfoSave"/>
+    <input type="button" class="scbtn2 mlt10" value="取 消" onclick="javascript:history.go(-1);"/>
+</p>
+<script type="text/javascript">
+  	seajs.use("auditing/mortgageInfo");
+</script>

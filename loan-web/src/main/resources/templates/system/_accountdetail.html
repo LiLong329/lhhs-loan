@@ -1,0 +1,25 @@
+<div class="table-title" style="margin-top: 20px;">
+	<p class="tab-font">修改记录</p>
+</div>
+<table class="tablelist">
+	<thead>
+		<tr>
+			<th>开户银行</th>
+			<th>开户支行</th>
+			<th>银行卡号</th>
+			<th>更新时间</th>
+		</tr>
+	</thead>
+	<tbody>
+	    <tr:block th:unless="${#lists.isEmpty(cardRevises)}" >
+        <tr th:each="cardRevises : ${cardRevises}">
+		<tr>
+			<td th:text="${cardRevises.bankName}"></td>
+			<td th:text="${cardRevises.branchName}"></td>
+			<td th:text="${cardRevises.bankCardNoNew}">6214827671678787</td>
+			<td th:text="${cardRevises.createTime}?${#dates.format(cardRevises.createTime, 'yyyy-MM-dd HH:mm:ss')}:''"></td>
+		</tr>
+		</tr>
+        </tr:block>
+   </tbody>
+</table>

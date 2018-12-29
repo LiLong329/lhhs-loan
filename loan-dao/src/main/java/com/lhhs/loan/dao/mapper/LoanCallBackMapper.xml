@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanCallBackMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanCallBack" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="attach_datas" property="attachDatas" jdbcType="VARCHAR" />
+    <result column="local_ip" property="localIp" jdbcType="VARCHAR" />
+    <result column="callerId_number" property="calleridNumber" jdbcType="VARCHAR" />
+    <result column="destination_number" property="destinationNumber" jdbcType="VARCHAR" />
+    <result column="context" property="context" jdbcType="VARCHAR" />
+    <result column="start_stamp" property="startStamp" jdbcType="BIGINT" />
+    <result column="answer_stamp" property="answerStamp" jdbcType="BIGINT" />
+    <result column="end_stamp" property="endStamp" jdbcType="BIGINT" />
+    <result column="duration" property="duration" jdbcType="INTEGER" />
+    <result column="billsec" property="billsec" jdbcType="INTEGER" />
+    <result column="hangup_cause" property="hangupCause" jdbcType="VARCHAR" />
+    <result column="uuid" property="uuid" jdbcType="CHAR" />
+    <result column="bleg_uuid" property="blegUuid" jdbcType="CHAR" />
+    <result column="account_sid" property="accountSid" jdbcType="CHAR" />
+    <result column="cti_call_id" property="ctiCallId" jdbcType="CHAR" />
+    <result column="direction" property="direction" jdbcType="VARCHAR" />
+    <result column="cti_call_type" property="ctiCallType" jdbcType="INTEGER" />
+    <result column="cti_tenant_dn" property="ctiTenantDn" jdbcType="VARCHAR" />
+    <result column="cti_record_path" property="ctiRecordPath" jdbcType="VARCHAR" />
+    <result column="cost" property="cost" jdbcType="DECIMAL" />
+    <result column="transfer_by" property="transferBy" jdbcType="VARCHAR" />
+    <result column="transfer_to" property="transferTo" jdbcType="VARCHAR" />
+    <result column="this_queue" property="thisQueue" jdbcType="VARCHAR" />
+    <result column="agent_id" property="agentId" jdbcType="VARCHAR" />
+    <result column="evaluate_level" property="evaluateLevel" jdbcType="INTEGER" />
+    <result column="media_type" property="mediaType" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="dept_id" property="deptId" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, attach_datas, local_ip, callerId_number, destination_number, context, start_stamp, 
+    answer_stamp, end_stamp, duration, billsec, hangup_cause, uuid, bleg_uuid, account_sid, 
+    cti_call_id, direction, cti_call_type, cti_tenant_dn, cti_record_path, cost, transfer_by, 
+    transfer_to, this_queue, agent_id, evaluate_level, media_type, user_id, dept_id, 
+    company_id, union_id, create_user, create_time, last_user, last_modify_time, field1, 
+    field2, field3, field4, field5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_call_back
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from loan_call_back
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanCallBack" >
+    insert into loan_call_back (id, attach_datas, local_ip, 
+      callerId_number, destination_number, context, 
+      start_stamp, answer_stamp, end_stamp, 
+      duration, billsec, hangup_cause, 
+      uuid, bleg_uuid, account_sid, 
+      cti_call_id, direction, cti_call_type, 
+      cti_tenant_dn, cti_record_path, cost, 
+      transfer_by, transfer_to, this_queue, 
+      agent_id, evaluate_level, media_type, 
+      user_id, dept_id, company_id, 
+      union_id, create_user, create_time, 
+      last_user, last_modify_time, field1, 
+      field2, field3, field4, 
+      field5)
+    values (#{id,jdbcType=INTEGER}, #{attachDatas,jdbcType=VARCHAR}, #{localIp,jdbcType=VARCHAR}, 
+      #{calleridNumber,jdbcType=VARCHAR}, #{destinationNumber,jdbcType=VARCHAR}, #{context,jdbcType=VARCHAR}, 
+      #{startStamp,jdbcType=BIGINT}, #{answerStamp,jdbcType=BIGINT}, #{endStamp,jdbcType=BIGINT}, 
+      #{duration,jdbcType=INTEGER}, #{billsec,jdbcType=INTEGER}, #{hangupCause,jdbcType=VARCHAR}, 
+      #{uuid,jdbcType=CHAR}, #{blegUuid,jdbcType=CHAR}, #{accountSid,jdbcType=CHAR}, 
+      #{ctiCallId,jdbcType=CHAR}, #{direction,jdbcType=VARCHAR}, #{ctiCallType,jdbcType=INTEGER}, 
+      #{ctiTenantDn,jdbcType=VARCHAR}, #{ctiRecordPath,jdbcType=VARCHAR}, #{cost,jdbcType=DECIMAL}, 
+      #{transferBy,jdbcType=VARCHAR}, #{transferTo,jdbcType=VARCHAR}, #{thisQueue,jdbcType=VARCHAR}, 
+      #{agentId,jdbcType=VARCHAR}, #{evaluateLevel,jdbcType=INTEGER}, #{mediaType,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=VARCHAR}, #{deptId,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, 
+      #{unionId,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastUser,jdbcType=VARCHAR}, #{lastModifyTime,jdbcType=TIMESTAMP}, #{field1,jdbcType=VARCHAR}, 
+      #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, #{field4,jdbcType=VARCHAR}, 
+      #{field5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanCallBack" >
+    insert into loan_call_back
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="attachDatas != null" >
+        attach_datas,
+      </if>
+      <if test="localIp != null" >
+        local_ip,
+      </if>
+      <if test="calleridNumber != null" >
+        callerId_number,
+      </if>
+      <if test="destinationNumber != null" >
+        destination_number,
+      </if>
+      <if test="context != null" >
+        context,
+      </if>
+      <if test="startStamp != null" >
+        start_stamp,
+      </if>
+      <if test="answerStamp != null" >
+        answer_stamp,
+      </if>
+      <if test="endStamp != null" >
+        end_stamp,
+      </if>
+      <if test="duration != null" >
+        duration,
+      </if>
+      <if test="billsec != null" >
+        billsec,
+      </if>
+      <if test="hangupCause != null" >
+        hangup_cause,
+      </if>
+      <if test="uuid != null" >
+        uuid,
+      </if>
+      <if test="blegUuid != null" >
+        bleg_uuid,
+      </if>
+      <if test="accountSid != null" >
+        account_sid,
+      </if>
+      <if test="ctiCallId != null" >
+        cti_call_id,
+      </if>
+      <if test="direction != null" >
+        direction,
+      </if>
+      <if test="ctiCallType != null" >
+        cti_call_type,
+      </if>
+      <if test="ctiTenantDn != null" >
+        cti_tenant_dn,
+      </if>
+      <if test="ctiRecordPath != null" >
+        cti_record_path,
+      </if>
+      <if test="cost != null" >
+        cost,
+      </if>
+      <if test="transferBy != null" >
+        transfer_by,
+      </if>
+      <if test="transferTo != null" >
+        transfer_to,
+      </if>
+      <if test="thisQueue != null" >
+        this_queue,
+      </if>
+      <if test="agentId != null" >
+        agent_id,
+      </if>
+      <if test="evaluateLevel != null" >
+        evaluate_level,
+      </if>
+      <if test="mediaType != null" >
+        media_type,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="deptId != null" >
+        dept_id,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUser != null" >
+        last_user,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="attachDatas != null" >
+        #{attachDatas,jdbcType=VARCHAR},
+      </if>
+      <if test="localIp != null" >
+        #{localIp,jdbcType=VARCHAR},
+      </if>
+      <if test="calleridNumber != null" >
+        #{calleridNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationNumber != null" >
+        #{destinationNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="context != null" >
+        #{context,jdbcType=VARCHAR},
+      </if>
+      <if test="startStamp != null" >
+        #{startStamp,jdbcType=BIGINT},
+      </if>
+      <if test="answerStamp != null" >
+        #{answerStamp,jdbcType=BIGINT},
+      </if>
+      <if test="endStamp != null" >
+        #{endStamp,jdbcType=BIGINT},
+      </if>
+      <if test="duration != null" >
+        #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="billsec != null" >
+        #{billsec,jdbcType=INTEGER},
+      </if>
+      <if test="hangupCause != null" >
+        #{hangupCause,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null" >
+        #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="blegUuid != null" >
+        #{blegUuid,jdbcType=CHAR},
+      </if>
+      <if test="accountSid != null" >
+        #{accountSid,jdbcType=CHAR},
+      </if>
+      <if test="ctiCallId != null" >
+        #{ctiCallId,jdbcType=CHAR},
+      </if>
+      <if test="direction != null" >
+        #{direction,jdbcType=VARCHAR},
+      </if>
+      <if test="ctiCallType != null" >
+        #{ctiCallType,jdbcType=INTEGER},
+      </if>
+      <if test="ctiTenantDn != null" >
+        #{ctiTenantDn,jdbcType=VARCHAR},
+      </if>
+      <if test="ctiRecordPath != null" >
+        #{ctiRecordPath,jdbcType=VARCHAR},
+      </if>
+      <if test="cost != null" >
+        #{cost,jdbcType=DECIMAL},
+      </if>
+      <if test="transferBy != null" >
+        #{transferBy,jdbcType=VARCHAR},
+      </if>
+      <if test="transferTo != null" >
+        #{transferTo,jdbcType=VARCHAR},
+      </if>
+      <if test="thisQueue != null" >
+        #{thisQueue,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId != null" >
+        #{agentId,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateLevel != null" >
+        #{evaluateLevel,jdbcType=INTEGER},
+      </if>
+      <if test="mediaType != null" >
+        #{mediaType,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanCallBack" >
+    update loan_call_back
+    <set >
+      <if test="attachDatas != null" >
+        attach_datas = #{attachDatas,jdbcType=VARCHAR},
+      </if>
+      <if test="localIp != null" >
+        local_ip = #{localIp,jdbcType=VARCHAR},
+      </if>
+      <if test="calleridNumber != null" >
+        callerId_number = #{calleridNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationNumber != null" >
+        destination_number = #{destinationNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="context != null" >
+        context = #{context,jdbcType=VARCHAR},
+      </if>
+      <if test="startStamp != null" >
+        start_stamp = #{startStamp,jdbcType=BIGINT},
+      </if>
+      <if test="answerStamp != null" >
+        answer_stamp = #{answerStamp,jdbcType=BIGINT},
+      </if>
+      <if test="endStamp != null" >
+        end_stamp = #{endStamp,jdbcType=BIGINT},
+      </if>
+      <if test="duration != null" >
+        duration = #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="billsec != null" >
+        billsec = #{billsec,jdbcType=INTEGER},
+      </if>
+      <if test="hangupCause != null" >
+        hangup_cause = #{hangupCause,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null" >
+        uuid = #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="blegUuid != null" >
+        bleg_uuid = #{blegUuid,jdbcType=CHAR},
+      </if>
+      <if test="accountSid != null" >
+        account_sid = #{accountSid,jdbcType=CHAR},
+      </if>
+      <if test="ctiCallId != null" >
+        cti_call_id = #{ctiCallId,jdbcType=CHAR},
+      </if>
+      <if test="direction != null" >
+        direction = #{direction,jdbcType=VARCHAR},
+      </if>
+      <if test="ctiCallType != null" >
+        cti_call_type = #{ctiCallType,jdbcType=INTEGER},
+      </if>
+      <if test="ctiTenantDn != null" >
+        cti_tenant_dn = #{ctiTenantDn,jdbcType=VARCHAR},
+      </if>
+      <if test="ctiRecordPath != null" >
+        cti_record_path = #{ctiRecordPath,jdbcType=VARCHAR},
+      </if>
+      <if test="cost != null" >
+        cost = #{cost,jdbcType=DECIMAL},
+      </if>
+      <if test="transferBy != null" >
+        transfer_by = #{transferBy,jdbcType=VARCHAR},
+      </if>
+      <if test="transferTo != null" >
+        transfer_to = #{transferTo,jdbcType=VARCHAR},
+      </if>
+      <if test="thisQueue != null" >
+        this_queue = #{thisQueue,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId != null" >
+        agent_id = #{agentId,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateLevel != null" >
+        evaluate_level = #{evaluateLevel,jdbcType=INTEGER},
+      </if>
+      <if test="mediaType != null" >
+        media_type = #{mediaType,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        dept_id = #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanCallBack" >
+    update loan_call_back
+    set attach_datas = #{attachDatas,jdbcType=VARCHAR},
+      local_ip = #{localIp,jdbcType=VARCHAR},
+      callerId_number = #{calleridNumber,jdbcType=VARCHAR},
+      destination_number = #{destinationNumber,jdbcType=VARCHAR},
+      context = #{context,jdbcType=VARCHAR},
+      start_stamp = #{startStamp,jdbcType=BIGINT},
+      answer_stamp = #{answerStamp,jdbcType=BIGINT},
+      end_stamp = #{endStamp,jdbcType=BIGINT},
+      duration = #{duration,jdbcType=INTEGER},
+      billsec = #{billsec,jdbcType=INTEGER},
+      hangup_cause = #{hangupCause,jdbcType=VARCHAR},
+      uuid = #{uuid,jdbcType=CHAR},
+      bleg_uuid = #{blegUuid,jdbcType=CHAR},
+      account_sid = #{accountSid,jdbcType=CHAR},
+      cti_call_id = #{ctiCallId,jdbcType=CHAR},
+      direction = #{direction,jdbcType=VARCHAR},
+      cti_call_type = #{ctiCallType,jdbcType=INTEGER},
+      cti_tenant_dn = #{ctiTenantDn,jdbcType=VARCHAR},
+      cti_record_path = #{ctiRecordPath,jdbcType=VARCHAR},
+      cost = #{cost,jdbcType=DECIMAL},
+      transfer_by = #{transferBy,jdbcType=VARCHAR},
+      transfer_to = #{transferTo,jdbcType=VARCHAR},
+      this_queue = #{thisQueue,jdbcType=VARCHAR},
+      agent_id = #{agentId,jdbcType=VARCHAR},
+      evaluate_level = #{evaluateLevel,jdbcType=INTEGER},
+      media_type = #{mediaType,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

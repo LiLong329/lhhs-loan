@@ -1,0 +1,49 @@
+<div class="formtitle">
+    <span>关联企业信息</span>
+</div>
+<div class="toolsli">
+	<th:block th:unless="${#lists.isEmpty(enterpriseInfoList)}">
+		<th:block th:each="single, iter : ${enterpriseInfoList}">
+			<ul class="nbbdgl-Ui clearfix">
+		        <li>
+		            <span class="tips">公司名称：</span>
+		           	<span th:text="${single.companyName}"></span>
+		        </li>
+		        <li>
+		            <span class="tips">姓名：</span>
+		            <span th:text="${single.name}"></span>
+		        </li>
+		        <li>
+		            <span class="tips">职务：</span>
+		            <span th:text="${single.position}"></span>
+		        </li>
+		        <li style="width: 80%;">
+		            <span class="tips">公司地址：</span>
+		            <span th:text="${single.companyAddress}"></span>
+		        </li>
+		        <li style="width:100%;">
+                    <span class="tips">公司说明：</span>
+                    <span style="width: 80%;"  th:text="${single.companyExplain}"></span>
+                </li>
+		        <li style="width: 80%;">
+		            <h5>【上传调查资料】</h5>
+		        </li>
+		        <li style="width: 90%;">
+		            <ul class="imglist">
+		            	<th:block th:unless="${#lists.isEmpty(single.urlList)}">
+		            		<li th:each="url : ${single.urlList}">
+	                            <span>
+                           			<img th:src="${url.pathUrl}"/>
+	                            </span>
+	                        </li>
+		            	</th:block>
+                    </ul>
+		        </li>
+		    </ul>
+			<div class="lines" th:if="${not iter.last}"></div>
+		</th:block>
+	</th:block>
+</div>
+<p class="textCt" id="goBackBtn">
+    <input type="button" class="scbtn2 mlt10" value="返  回" onclick="javascript:history.go(-1);"/>
+</p>

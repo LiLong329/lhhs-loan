@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<body>
+	<div class="father">
+		<header th:replace="common/top"></header>
+		<div class="common-content">
+			<div th:replace="common/left"></div>
+			<div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>合同管理</li>
+                        <li th:switch="${isAuditing}">
+							<th:block th:case="0">待审核合同</th:block>
+							<th:block th:case="1">所有合同</th:block>
+						</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual">
+                    		<form  id="myForm" th:attr="action='/agreement/list/'+${isAuditing}">
+                    			<input type="hidden" name="pageIndex" th:value="${page.pageIndex}" id="currentPageNo"/>
+	                            <ul class="seachform1">
+	                                <li>
+	                                    <label>合同编号：</label>
+	                                    <input type="text" class="scinput1" name="agreementNo" th:value="${params.agreementNo}"/>
+	                                </li>
+	                                <li>
+	                                    <label>借款人：</label>
+	                                    <input type="text" class="scinput1" name="borrowerName" th:value="${params.borrowerName}"/>
+	                                </li>
+	                                <li>
+	                                    <input type="button" class="scbtn" value="查询" id="searcher"/>
+	                                </li>
+	                            </ul>
+                    		</form>
+                            <div class="table-title">
+	                            <p class="tab-font" th:switch="${isAuditing}">
+									<th:block th:case="0">待审核合同列表</th:block>
+									<th:block th:case="1">全部合同列表</th:block>
+								</p>
+                            </div>
+                            <table class="tablelist">
+								<thead>
+									<tr>
+										<th>序号</th>
+										<th>合同编号</th>
+										<th>报单编号</th>
+										<th>借款人</th>
+										<th>合同金额</th>
+										<th>开始时间</th>
+										<th>结束时间</th>
+										<th>添加时间</th>
+										<th>合同状态</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<th:block th:unless="${#lists.isEmpty(page.resultList)}">
+										<tr th:each="agreement,iter : ${page.resultList}">
+											<td th:text="${iter.index+1}"></td>
+											<td th:text="${agreement.agreementNo}"></td>
+											<td th:text="${agreement.orderNo}"></td>
+											<td th:text="${agreement.borrowerName}"></td>
+											<td th:text="${agreement.amount}?${#numbers.formatDecimal(agreement.amount,1,2)}:''"></td>
+											<td th:text="${agreement.startDate}?${#dates.format(agreement.startDate,'yyyy-MM-dd HH:mm:ss')}"></td>
+											<td th:text="${agreement.endDate}?${#dates.format(agreement.endDate,'yyyy-MM-dd HH:mm:ss')}"></td>
+											<td th:text="${agreement.createTime}?${#dates.format(agreement.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+											<td th:switch="${agreement.auditingStatus}">
+												<th:block th:case="0">待审核</th:block>
+												<th:block th:case="1">审核通过</th:block>
+												<th:block th:case="2">审核失败</th:block>
+											</td>
+											<td th:switch="${isAuditing}">
+												<th:block th:case="0">
+													<a sec:authorize="hasRole('ROLE_HTSH')" th:href="@{/agreement/auditing(id=${agreement.id})}" class="tablelink">审核</a>
+													<a sec:authorize="hasRole('ROLE_HTZZSC')" th:href="@{/agreement/credentials/0(orderNo=${agreement.orderNo},isAuditing=${isAuditing})}" class="tablelink">上传</a>
+												</th:block>
+												<th:block th:case="1">
+													<a sec:authorize="hasRole('ROLE_HTCK')" th:href="@{/agreement/details(id=${agreement.id})}" class="tablelink">查看</a>
+													<a sec:authorize="hasRole('ROLE_HTZZXZ')" th:href="@{/agreement/credentials/1(orderNo=${agreement.orderNo},isAuditing=${isAuditing})}" class="tablelink">下载</a>
+												</th:block>
+											</td>
+										</tr>
+									</th:block>
+									<th:block th:if="${#lists.isEmpty(page.resultList)}">
+										<tr>
+											<td colspan="10" class="textCt">暂无数据</td>
+										</tr>
+									</th:block>
+								</tbody>
+							</table>
+							
+							<div class="pagin" th:unless="${#lists.isEmpty(page.resultList)}">
+								<div class="message">
+									共 <i class="blue" th:text="${page.totalCount}"></i> 
+									条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+								</div>
+								<ul class="paginList">
+									<li class="paginItem" th:if="${page.pageIndex} gt 1">
+										<a th:attr="data-pagenum=(${page.pageIndex}-1),data-pagesize=${page.pageSize}" class="pagepre"></a>
+									</li>
+									<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" 
+									th:classappend="(${page.pageIndex} eq ${x})?'current'">
+										<a th:attr="data-pagenum=${x},data-pagesize=(${page.pageSize})" th:text="${x}"></a>
+									</li>
+									<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+										<a th:attr="data-pagenum=(${page.pageIndex}+1),data-pagesize=(${page.pageSize})" class="pagenxt"></a>
+									</li> 
+								</ul>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+		<footer th:replace="common/footer"></footer>
+	</div>
+	<script th:inline="javascript">
+    	/*<![CDATA[*/
+	    	seajs.use("agreement/agreementList");
+    	/*]]>*/
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<script type="text/javascript" src="/js/public/area.js"></script>
+<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<body>
+	<div class="father">
+		<header th:replace="common/top"></header>
+		<div class="common-content">
+			<div th:replace="common/left"></div>
+			<div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                     <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>资金管理</li>
+                        <li>提现管理</li>
+                        <li>提现申请列表</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                	<div style="position: relative;">
+	                    <div class="formbody">
+	                        <div id="usual1" class="usual">
+	                        	<form id="myForm">
+		                            <ul class="seachform1">
+		                                <li>
+		                                    <label>订单号：</label>
+		                                    <input type="text" class="scinput1" name="transNo"/>
+		                                </li>
+		                                <li>
+		                                    <label>报单编号：</label>
+		                                    <input type="text" class="scinput1" name="orderNo" th:value="${entity.orderNo}"/>
+		                                </li>
+		                                <li>
+		                                    <label>手机号：</label>
+		                                    <input type="text" class="scinput1" name="mobile"/>
+		                                </li>
+		                                <!-- 客户性质customerNature -->
+		                                 <li>
+	                                        <span class="tips">客户性质：</span>
+	                                        <div class="vocation">
+	                                            <select class="select-common select1 validate[required]" name="customerNature">
+	                                                <option value="">请选择</option>
+	                                                <option th:each="nature : ${natureList}" th:text="${nature.typeName}" th:value="${nature.typeId}"></option>
+	                                            </select>
+	                                        </div>
+                                        </li>
+		                                <li>
+		                                    <label>申请时间：</label>
+		                                    <input type="text" class="scinput1" name="beginTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+		                                    <span> 至 </span>
+		                                    <input type="text" class="scinput1" name="endTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+		                                </li>
+		                                <li>
+		                                	<input type="hidden" name="page.pageIndex" th:value="${page.pageIndex}"/>
+		                                	<input type="hidden" name="page.pageSize" th:value="${page.pageSize}"/>
+		                                    <input type="button" class="scbtn" value="查询" id="queryId"/>
+		                                </li>
+		                            </ul>
+	                            </form>
+	                            <div class="table-title">
+	                                <p class="tab-font">提现申请列表</p>
+	                            </div>
+	                            <div id="depositApplyId" th:include="accountInOut/_depositApplyTemp">
+	                            </div>
+	                        </div>
+	                    </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+		<script src="/js/public/select.js"></script>
+		<footer th:replace="common/footer"></footer>
+	</div>
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+	<script th:inline="javascript">
+    	/*<![CDATA[*/
+	    	seajs.use("accountInOut/transApply");
+    	/*]]>*/
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<table class="tablelist">
+    <thead>
+        <tr>
+			
+				<th>流程ID</th>
+				<th>流程标识</th>
+				<th>流程名称</th>
+				<th>流程版本</th>
+				<th>流程XML</th>
+				<th>流程图片</th>
+				<th>部署时间</th>
+				<th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        <th:block th:unless="${#lists.isEmpty(page.resultList)}">
+			<tr th:each="model : ${page.resultList}">
+				<td th:text="${model.procDefId}"></td>
+				<td th:text="${model.procDefKey}"></td>
+				<td th:text="${model.procName}"></td>
+				<td th:text="${model.procVersion}"></td>
+				<td>
+				<a target="_blank" th:href="@{/workflow/url/actprocess/resource/read(procDefId=${model.procDefId},resType=xml)}" th:text="${model.resourceName}" ></a>
+	                    
+				</td>
+				<td>
+				
+				<a target="_blank" th:href="@{/workflow/url/actprocess/resource/read(procDefId=${model.procDefId},resType=image)}"  th:text="${model.diagramResourceName}" ></a>
+				</td>
+				<td th:text="${model.deploymentTime}?${#dates.format(model.deploymentTime,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+				<td>
+				
+				<a th:if="${model.suspended}" th:href="@{/workflow/url/actprocess/updateState(state=active,procDefId=${model.procDefId})}" onclick="return confirmx('确认要激活吗？', this.href)">激活</a>
+						<a th:if="${!model.suspended}" th:href="@{/workflow/url/actprocess/updateState(state=suspend,procDefId=${model.procDefId})}" onclick="return confirmx('确认挂起除吗？', this.href)">挂起</a>
+						<a th:href="@{/workflow/url/actprocess/delete(deploymentId=${model.deploymentId})}"  onclick="return confirmx('确认要删除该流程吗？', this.href)">删除</a>
+	                    <a th:href="@{/workflow/url/actprocess/convert/toModel(procDefId=${model.procDefId})}" onclick="return confirmx('确认要转换为模型吗？', this.href)">转换为模型</a>
+				</td>
+			</tr>
+		</th:block>
+		<th:block th:if="${#lists.isEmpty(page.resultList)}">
+			<tr>
+				<td colspan="9" class="textCt">暂无数据</td>
+			</tr>
+		</th:block>
+    </tbody>
+</table>
+<th:block th:unless="${#lists.isEmpty(page.resultList)}">
+    
+    <div class="pagin" style="margin-top: 0px;">
+    	<div class="message">
+    		共 <i class="blue" th:text="${page.totalCount}"></i> 
+			条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+		</div>
+		<ul class="paginList">
+			<li class="paginItem" th:if="${page.pageIndex} gt 1">
+				<a th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+			</li>
+			<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" th:classappend="(${page.pageIndex} eq ${x})?'current'">
+				<a th:attr="data-pagenum=${x}" th:text="${x}"></a>
+			</li>
+			<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+				<a th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+			</li> 
+		</ul>
+    </div>
+</th:block>

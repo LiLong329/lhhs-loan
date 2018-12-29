@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script src="/js/public/area.js"></script>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<style>
+	.reportForm {padding: 12px;}
+	.tab-font span{ display: inline-block; padding-right: 20px;}
+</style>
+<script type="text/javascript">
+    $(document).ready(function (e) {
+        $(".select3").uedSelect({
+            width: 152
+        });
+    });
+</script>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>报表统计</li>
+                        <li>报单量统计报表</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                    	<div class="reportForm">
+							<ul class="seachform1">
+								<li><label>按时间统计：</label>
+									<div class="vocation">
+										<select class="select3" id="echartsSelect">
+											<option>月</option>
+											<option>周</option>
+											<option>日</option>
+										</select>
+									</div>
+								</li>
+							</ul>
+							<!-- <canvas id="showChart"  width="500" height="200"></canvas> -->
+							 <div id='showChart' style="height:500px;border:1px solid #ccc;padding:10px;"></div>
+						</div>
+                        <div id="usual1" class="usual">
+                            <ul class="seachform1">
+                                <form id="myForm">
+                                 <input  name="pageIndex" type="hidden" value="" id="currentPageNo"/>
+                                 <li>
+                                   	<span class="tips">省市：</span>
+                                   <!--  <span th:value="${entity.customerManagerProvince}" ></span> -->
+			                        <div class="vocation">
+							          	<select class="select-common select3 provinceSelect" name="customerManagerProvince"  th:attr="data-val=(${entity.customerManagerProvince})" style="width:100px;"></select>
+						            </div>
+			                        <div class="vocation" style="margin-left:10px;">
+							          	<select class="select-common select3 citySelect" name="customerManagerCity" th:attr="data-val=(${entity.customerManagerCity})" style="width:100px;" id="cityName"></select>
+						            </div>
+	                            </li>
+                                <li>
+                                   <label>分公司：</label>
+                                    <div class="vocation">
+		                            	 <select class="select-common select3 common-company" name="customerManagerComponyId" id="customerManagerComponyId" >
+		                                       <option value="">请选择</option>
+		                                       <option th:each="company : ${companys}" th:value="${company.companyId}" th:text="${company.companyName}"  th:attr="selected=(${company.companyId} eq ${entity.customerManagerComponyId})?true:false"></option>
+		                                 </select>
+                                 	</div>
+                                </li>
+                                <li>
+                                    <label>事业部：</label>
+                                    <div class="vocation">
+                                        <select class="select-common select3 common-dept" name="customerManagerDeptId" id="customerManagerDeptId" th:attr="data-val=${entity.customerManagerDeptId}">
+                                        	    <option value="" >请选择</option>
+                                        	    <!--  <option th:each="dept : ${depts}" th:value="${dept.ldDeptId}" th:text="${dept.ldName}" th:attr="selected=(${dept.ldDeptId} eq ${entity.customerManagerDeptId})?true:false"></option> -->
+                                        </select>
+                                    </div>
+                                </li>
+                                
+                                 <!-- <li>
+                                   <label>组别：</label>
+                                   <div class="vocation">
+                                       <select class="select-common select3" name="customerManagerGroupId" id="customerManagerGroupId" >
+                                       	   <option value="" >请选择</option>
+                                       	   <option th:each="group : ${groups}" th:value="${group.lgGroupId}" th:text="${group.lgName}" th:attr="selected=(${group.lgGroupId} eq ${entity.customerManagerGroupId})?true:false"></option>
+                                       </select>
+                                   </div>
+                                </li> -->
+                                
+                                 <li>
+                                     <label>客户经理：</label>
+		                              <input type="text" class="scinput1" id="customerManagerName" name="customerManagerName" th:value="${entity.customerManagerName}"/>
+                                </li>
+                                
+                                 <li>
+                                     <label>添加时间：</label>
+                                    
+		                             <input type="text" class="scinput1" name="customerManagerBeginingTime" id="customerManagerBeginingTime"  th:value="${entity.customerManagerBeginingTime}?${#dates.format(entity.customerManagerBeginingTime, 'yyyy-MM-dd')}"  onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd '})" readonly="readonly"/>
+	                                 <span> 至 </span>																																																					    
+	                                
+	                                 <input type="text" class="scinput1" name="customerManagerEndingTime" id="customerManagerEndingTime"  th:value="${entity.customerManagerEndingTime}?${#dates.format(entity.customerManagerEndingTime, 'yyyy-MM-dd')}"  onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd '})" readonly="readonly"/>
+                                </li>
+                                
+                                <li>
+                                    <input type="button" class="scbtn searcher"  id="crmCountSearch"  value="查询"/>
+                                    <input type="button" value="导出" class="scbtn1" style="width: 49px;" id="export"/>
+                                </li>
+                                </form>
+                            </ul>
+                            <div class="table-title">
+                               <p class="tab-font">
+                                <span>放款总金额：   <th:block th:text="${totalCountMap}?(${totalCountMap.totalDealAmount}?${totalCountMap.totalDealAmount}:0):0">人   </th:block>元</span>
+                               </p>
+                            </div>
+                            <table class="tablelist">
+                                <thead>
+                                    <tr>
+                                        <th>省市</th>
+                                        <th>分公司</th>
+                                        <th>部门</th>
+                                        <th>组别</th>
+                                        <th>客户经理</th>
+                                        <th>报单量</th>
+                                        <th>成交量</th>
+                                       <!--  <th>添加时间</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+	                               <th:block th:unless="${#lists.isEmpty(page.resultList)}">
+										<tr th:each="crmIntent,iterStat : ${page.resultList}">
+											<td th:text="${crmIntent.customerManagerCity}"></td>
+											<td th:text="${crmIntent.customerManagerComponyName}"></td>
+											<td th:text="${crmIntent.customerManagerDeptName}"></td>
+											<td th:text="${crmIntent.customerManagerGroupName}"></td>
+											<td th:text="${crmIntent.customerManagerName}"></td>
+											<td th:text="${crmIntent.orderCount}? ${crmIntent.orderCount}:0"></td>
+											<td th:text="${crmIntent.dealAmount}? ${crmIntent.dealAmount}:0"></td>
+											<!-- <td th:text="${crmIntent.customerManagerCreateTime}?${#dates.format(crmIntent.customerManagerCreateTime,'yyyy-MM-dd HH:mm:ss')}:''"></td> -->
+	                               		</tr>
+	                               </th:block>
+                                <th:block th:if="${#lists.isEmpty(page.resultList)}">
+									<tr>
+										<td colspan="7" class="textCt">暂无数据</td>
+									</tr>
+								</th:block>
+                                </tbody>
+                            </table>
+                            <div class="pagin" th:unless="${#lists.isEmpty(page.resultList)}">
+								<div class="message">
+									&nbsp;&nbsp;&nbsp;共 <i class="blue" th:text="${page.totalCount}"></i> 条记录，当前显示第 <i
+										class="blue" th:text="${page.pageIndex}"></i> 页
+								</div>
+								<ul class="paginList">
+									<li class="paginItem" th:if="${page.pageIndex} gt 1"><a
+										th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+									</li>
+									<li class="paginItem"
+										th:each="x:${#numbers.sequence(page.startNum, page.endNum)}"
+										th:classappend="(${page.pageIndex} eq ${x})?'current'"><a
+										th:attr="data-pagenum=${x}" th:text="${x}"></a></li>
+									<li class="paginItem"
+										th:if="${page.pageIndex} lt ${page.pageCount}"><a
+										th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+									</li>
+								</ul>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <script src="/js/public/select.js"></script>
+         <script src="/js/public/echarts/echarts.min.js"></script>
+         <footer th:replace="common/footer"></footer>
+         <script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+         <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	     <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+         <script>seajs.use("orderInfo/orderInfoCount");</script>
+       </div>
+</body>
+</html>

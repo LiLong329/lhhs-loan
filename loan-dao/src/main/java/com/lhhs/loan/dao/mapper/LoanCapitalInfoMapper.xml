@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanCapitalInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanCapitalInfo" >
+    <id column="capital_info_id" property="capitalInfoId" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="account_name" property="accountName" jdbcType="VARCHAR" />
+    <result column="bankcard_id" property="bankcardId" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="branch_bank" property="branchBank" jdbcType="VARCHAR" />
+    <result column="amount_paid" property="amountPaid" jdbcType="DECIMAL" />
+    <result column="amount_rate" property="amountRate" jdbcType="DECIMAL" />
+    <result column="amount_rate_unit" property="amountRateUnit" jdbcType="CHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="customer_type" property="customerType" jdbcType="VARCHAR" />
+    <result column="customer_nature" property="customerNature" jdbcType="VARCHAR" />
+    <result column="lci_apply_date" property="lciApplyDate" jdbcType="TIMESTAMP" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+    <result column="account_type" property="accountType" jdbcType="VARCHAR" />
+    <result column="owner_id" property="ownerId" jdbcType="VARCHAR" />
+    <result column="amount_paid_already" property="amountPaidAlready" jdbcType="DECIMAL" />
+    <result column="amount_paid_this" property="amountPaidThis" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    capital_info_id, account_id, account_name, bankcard_id, bank_name, branch_bank, amount_paid, 
+    amount_rate, amount_rate_unit, org_id, org_name, order_no, customer_type, customer_nature, 
+    lci_apply_date, mobile, balance, account_type, owner_id, amount_paid_already, amount_paid_this
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_capital_info
+    where capital_info_id = #{capitalInfoId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_capital_info
+    where capital_info_id = #{capitalInfoId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanCapitalInfo" >
+    insert into loan_capital_info (capital_info_id, account_id, account_name, 
+      bankcard_id, bank_name, branch_bank, 
+      amount_paid, amount_rate, amount_rate_unit, 
+      org_id, org_name, order_no, 
+      customer_type, customer_nature, lci_apply_date, 
+      mobile, balance, account_type, 
+      owner_id, amount_paid_already, amount_paid_this
+      )
+    values (#{capitalInfoId,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, #{accountName,jdbcType=VARCHAR}, 
+      #{bankcardId,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, #{branchBank,jdbcType=VARCHAR}, 
+      #{amountPaid,jdbcType=DECIMAL}, #{amountRate,jdbcType=DECIMAL}, #{amountRateUnit,jdbcType=CHAR}, 
+      #{orgId,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, 
+      #{customerType,jdbcType=VARCHAR}, #{customerNature,jdbcType=VARCHAR}, #{lciApplyDate,jdbcType=TIMESTAMP}, 
+      #{mobile,jdbcType=VARCHAR}, #{balance,jdbcType=DECIMAL}, #{accountType,jdbcType=VARCHAR}, 
+      #{ownerId,jdbcType=VARCHAR}, #{amountPaidAlready,jdbcType=DECIMAL}, #{amountPaidThis,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanCapitalInfo" >
+    insert into loan_capital_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="capitalInfoId != null" >
+        capital_info_id,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="accountName != null" >
+        account_name,
+      </if>
+      <if test="bankcardId != null" >
+        bankcard_id,
+      </if>
+      <if test="bankName != null" >
+        bank_name,
+      </if>
+      <if test="branchBank != null" >
+        branch_bank,
+      </if>
+      <if test="amountPaid != null" >
+        amount_paid,
+      </if>
+      <if test="amountRate != null" >
+        amount_rate,
+      </if>
+      <if test="amountRateUnit != null" >
+        amount_rate_unit,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="orgName != null" >
+        org_name,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="customerType != null" >
+        customer_type,
+      </if>
+      <if test="customerNature != null" >
+        customer_nature,
+      </if>
+      <if test="lciApplyDate != null" >
+        lci_apply_date,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="accountType != null" >
+        account_type,
+      </if>
+      <if test="ownerId != null" >
+        owner_id,
+      </if>
+      <if test="amountPaidAlready != null" >
+        amount_paid_already,
+      </if>
+      <if test="amountPaidThis != null" >
+        amount_paid_this,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="capitalInfoId != null" >
+        #{capitalInfoId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null" >
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcardId != null" >
+        #{bankcardId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="branchBank != null" >
+        #{branchBank,jdbcType=VARCHAR},
+      </if>
+      <if test="amountPaid != null" >
+        #{amountPaid,jdbcType=DECIMAL},
+      </if>
+      <if test="amountRate != null" >
+        #{amountRate,jdbcType=DECIMAL},
+      </if>
+      <if test="amountRateUnit != null" >
+        #{amountRateUnit,jdbcType=CHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerType != null" >
+        #{customerType,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNature != null" >
+        #{customerNature,jdbcType=VARCHAR},
+      </if>
+      <if test="lciApplyDate != null" >
+        #{lciApplyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="accountType != null" >
+        #{accountType,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerId != null" >
+        #{ownerId,jdbcType=VARCHAR},
+      </if>
+      <if test="amountPaidAlready != null" >
+        #{amountPaidAlready,jdbcType=DECIMAL},
+      </if>
+      <if test="amountPaidThis != null" >
+        #{amountPaidThis,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanCapitalInfo" >
+    update loan_capital_info
+    <set >
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null" >
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcardId != null" >
+        bankcard_id = #{bankcardId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="branchBank != null" >
+        branch_bank = #{branchBank,jdbcType=VARCHAR},
+      </if>
+      <if test="amountPaid != null" >
+        amount_paid = #{amountPaid,jdbcType=DECIMAL},
+      </if>
+      <if test="amountRate != null" >
+        amount_rate = #{amountRate,jdbcType=DECIMAL},
+      </if>
+      <if test="amountRateUnit != null" >
+        amount_rate_unit = #{amountRateUnit,jdbcType=CHAR},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerType != null" >
+        customer_type = #{customerType,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNature != null" >
+        customer_nature = #{customerNature,jdbcType=VARCHAR},
+      </if>
+      <if test="lciApplyDate != null" >
+        lci_apply_date = #{lciApplyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="accountType != null" >
+        account_type = #{accountType,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerId != null" >
+        owner_id = #{ownerId,jdbcType=VARCHAR},
+      </if>
+      <if test="amountPaidAlready != null" >
+        amount_paid_already = #{amountPaidAlready,jdbcType=DECIMAL},
+      </if>
+      <if test="amountPaidThis != null" >
+        amount_paid_this = #{amountPaidThis,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where capital_info_id = #{capitalInfoId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanCapitalInfo" >
+    update loan_capital_info
+    set account_id = #{accountId,jdbcType=VARCHAR},
+      account_name = #{accountName,jdbcType=VARCHAR},
+      bankcard_id = #{bankcardId,jdbcType=VARCHAR},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      branch_bank = #{branchBank,jdbcType=VARCHAR},
+      amount_paid = #{amountPaid,jdbcType=DECIMAL},
+      amount_rate = #{amountRate,jdbcType=DECIMAL},
+      amount_rate_unit = #{amountRateUnit,jdbcType=CHAR},
+      org_id = #{orgId,jdbcType=VARCHAR},
+      org_name = #{orgName,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      customer_type = #{customerType,jdbcType=VARCHAR},
+      customer_nature = #{customerNature,jdbcType=VARCHAR},
+      lci_apply_date = #{lciApplyDate,jdbcType=TIMESTAMP},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      balance = #{balance,jdbcType=DECIMAL},
+      account_type = #{accountType,jdbcType=VARCHAR},
+      owner_id = #{ownerId,jdbcType=VARCHAR},
+      amount_paid_already = #{amountPaidAlready,jdbcType=DECIMAL},
+      amount_paid_this = #{amountPaidThis,jdbcType=DECIMAL}
+    where capital_info_id = #{capitalInfoId,jdbcType=VARCHAR}
+  </update>
+  
+  
+  
+   <!-- 查询资金方基本信息 出借人信息 -->
+   <select id="getCapitalInfoByOrderNo" parameterType="java.lang.String" resultType="com.lhhs.loan.dao.domain.LoanCapitalInfo">
+    SELECT 
+    	lci.org_name,lcbi.customer_name ownerName
+    FROM
+	loan_capital_info lci
+    	left JOIN loan_customer_base_info lcbi on lci.owner_id = lcbi.customer_id
+    WHERE
+    	order_no = #{orderNo}
+   </select>
+   <!-- ########################################### Li Jianjun Start ########################################### -->
+   
+   <!-- 查询放款申请表-资金方基本信息 -->
+   <select id="selectLoanCapitalInfo" parameterType="java.util.Map" resultType="com.lhhs.loan.dao.domain.LoanCapitalInfo">
+   	SELECT 
+    	<include refid="Base_Column_List" />,ld.type_name
+    FROM
+	loan_capital_info lci
+    	left join loan_dictionary  ld on lci.customer_nature= ld.type_id and ld.category='invest_customer_nature'
+    WHERE
+    	order_no = #{orderNo}
+   </select>
+   
+   <!-- 根据订单号查询放款申请表中的实体bean -->
+   <select id="selectLoanCapitalInfoByBankCardIdAndOrderno" parameterType="java.util.Map" resultMap="BaseResultMap">
+   	SELECT 
+    	<include refid="Base_Column_List" />
+    FROM 
+    	loan_capital_info
+    WHERE
+    	order_no = #{orderNo}
+   </select>
+   
+   <update id="updateByBankCardIdAndOrderno" parameterType="com.lhhs.loan.dao.domain.LoanCapitalInfo" >
+    update loan_capital_info
+    <set >
+    	capital_info_id = #{capitalInfoId,jdbcType=VARCHAR},
+      <if test="accountName != null" >
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcardId != null" >
+        bankcard_id = #{bankcardId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="branchBank != null" >
+        branch_bank = #{branchBank,jdbcType=VARCHAR},
+      </if>
+      <if test="amountPaid != null" >
+        amount_paid = #{amountPaid,jdbcType=DECIMAL},
+      </if>
+      <if test="amountRate != null" >
+        amount_rate = #{amountRate,jdbcType=DECIMAL},
+      </if>
+      <if test="amountRateUnit != null" >
+        amount_rate_unit = #{amountRateUnit,jdbcType=CHAR},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custVariety != null" >
+        customer_type = #{customerType,jdbcType=INTEGER},
+      </if>
+      <if test="custProperty != null" >
+        customer_nature = #{customerNature,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="ownerId != null" >
+        owner_id = #{ownerId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    WHERE 
+    	bankcard_id = #{bankcardId,jdbcType=VARCHAR}
+    AND
+    	order_no = #{orderNo}
+  </update>
+   <!-- ########################################### Li Jianjun End ########################################### -->
+   
+   <delete id="delByOrderNo" parameterType="String">
+     delete from loan_capital_info where order_no=#{orderNo}
+   </delete>
+   
+   <select id="searchAmountPaidByOrderNo" parameterType="String" resultType="map">
+    select  sum(lci.amount_paid) as sumAmount ,lci.amount_rate as amountRate ,amount_rate_unit as amountRateUnit from loan_capital_info lci 
+    where order_no = #{orderNo} limit 1
+   </select>
+   
+   <select id="queryLoanRecordByOrderNo" parameterType="String" resultType="com.lhhs.loan.dao.domain.LoanRecordTemp">
+    SELECT loi.customer_id,lci.account_id,lci.order_no,lai.owner_id lender_id,lci.account_name lender_name,lci.org_id,
+		lci.org_name,lci.customer_nature,lci.amount_paid_this loan_amount,loid.loan_term,lci.amount_rate loan_rate,
+		lci.amount_rate_unit loan_rate_unit,loi.company_id,loi.union_id,loi.apply_date apply_time,
+		ld.type_name customer_nature_name,lai.owner_name field1
+	FROM loan_order_info loi,loan_order_info_detail loid,loan_account_info lai,loan_capital_info lci
+		LEFT JOIN loan_dictionary ld ON (lci.customer_nature=ld.type_id AND ld.category='invest_customer_nature')
+	WHERE lci.account_id=lai.account_id AND lci.order_no=loi.order_no 
+		AND loi.order_no=loid.order_no AND lci.order_no=#{orderNo} AND lci.amount_paid_this>0
+   </select>
+   
+</mapper>

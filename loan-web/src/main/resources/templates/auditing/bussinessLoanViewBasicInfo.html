@@ -1,0 +1,533 @@
+<div class="formtitle"><span>报单基本信息</span></div>
+<div class="toolsli">
+	    <ul class="nbbdgl-Ui" th:unless="${#maps.isEmpty(basicInfo)}">
+				<input name="orderNo" id="orderNo" th:value="${basicInfo.order_no}" type="hidden"/>
+				<input name="providerNo" id="providerNo" th:value="${basicInfo.provider_no}" type="hidden"/>
+		       <form id="orderInfo">
+		       	<li>
+		            <span class="tips">报单编号：</span>
+		            <span th:text="${#maps.containsKey(basicInfo,'order_no')}?${basicInfo.order_no}"></span>
+		        </li>
+		       	<li>
+		            <span class="tips">申请时间：</span>
+		            <span th:text="${#maps.containsKey(basicInfo,'apply_date')}?${#dates.format(basicInfo.apply_date,'yyyy-MM-dd HH:mm:ss')}"></span>
+		        </li>
+		       <th:block th:if="${basicInfo.approval_node} eq 0 ">
+		        <li>
+		            <span class="tips">报单人：</span>
+		             <th:block th:unless="${#lists.isEmpty(providerList)}">
+		             <div class="vocation">
+		                <select class="select-common select1" name="providerNo" id="providerNo">
+		                    <option value="">请选择</option>
+		                    <option th:each="provider : ${providerList}" 
+		                    		th:value="${provider.providerNo}" 
+		                    		th:text="(${provider.providerName} and (${provider.providerName}!=''))?${provider.providerName}:${provider.mobileNo}" 
+		                    		th:attr="selected=(${basicInfo.provider_no} eq ${provider.providerNo})?true:false">
+                    		</option>
+		                </select>
+		            </div>
+		             </th:block>
+		             <th:block th:if="${#lists.isEmpty(providerList)}">
+		               <span th:text="${#maps.containsKey(basicInfo,'provider_name')}?${basicInfo.provider_name}"></span>
+		             </th:block>
+		        </li>
+		        </th:block>
+		         <th:block th:unless="${basicInfo.approval_node} eq 0">
+		        <li>
+		            <span class="tips">报单人：</span>
+		            <span name="providerNo" th:value="${basicInfo.provider_no}" th:text="${#maps.containsKey(basicInfo,'provider_name')}?${basicInfo.provider_name}"></span>
+		        </li>
+		        </th:block>
+		        <li>
+		            <span class="tips">报单人手机号：</span>
+		            <span th:text="${#maps.containsKey(basicInfo,'mobile_no')}?${basicInfo.mobile_no}"></span>
+		        </li>
+		        <li>
+		            <span class="tips">业务类型：</span>
+		            <span>
+		            	<th:block th:if="${#maps.containsKey(basicInfo,'org_business_type')}?(${basicInfo.org_business_type} eq 2):false">非资金批发</th:block>
+		            	<th:block th:if="${#maps.containsKey(basicInfo,'org_business_type')}?(${basicInfo.org_business_type} eq 1):false">资金批发</th:block>
+		            </span>
+		        </li>
+		        <li>
+		            <span class="tips">客户来源：</span>
+		            <div class="vocation">
+		                <select class="select-common select1" name="customerOrigin" id="customerOrigin">
+		                    <option value="">请选择</option>
+		                    <option value="0" th:attr="selected=${#maps.containsKey(basicInfo,'customer_origin')}?((${basicInfo.customer_origin} eq 0)?true:false):false">公户</option>
+		                    <option value="1" th:attr="selected=${#maps.containsKey(basicInfo,'customer_origin')}?((${basicInfo.customer_origin} eq 1)?true:false):false">自主开发</option>
+		                    <option value="2" th:attr="selected=${#maps.containsKey(basicInfo,'customer_origin')}?((${basicInfo.customer_origin} eq 2)?true:false):false">平台渠道</option>
+		                    <option value="3" th:attr="selected=${#maps.containsKey(basicInfo,'customer_origin')}?((${basicInfo.customer_origin} eq 3)?true:false):false">独立经纪人</option>
+		                    <option value="4" th:attr="selected=${#maps.containsKey(basicInfo,'customer_origin')}?((${basicInfo.customer_origin} eq 4)?true:false):false">同行机构</option>
+		                    <option value="5" th:attr="selected=${#maps.containsKey(basicInfo,'customer_origin')}?((${basicInfo.customer_origin} eq 5)?true:false):false">非银行金融机构</option>
+		                    <option value="6" th:attr="selected=${#maps.containsKey(basicInfo,'customer_origin')}?((${basicInfo.customer_origin} eq 6)?true:false):false">银行机构</option>
+		                </select>
+		            </div>
+		        </li>
+		         <th:block th:if="${basicInfo.approval_node} eq 0 ">
+		        <li>
+		            <span class="tips">客户经理：</span>
+		            <div class="vocation">
+		                <select class="select-common select1" name="customerManager">
+		                    <option value="">请选择</option>
+		                    <option th:each="emp : ${empList}" 
+		                    	th:value="${emp.userId}" 
+		                    	th:text="${emp.staffName}" 
+		                    	th:attr="selected=(${basicInfo.customer_manager} eq ${emp.userId})?true:false,
+		                    		data-legroupid=${emp.deptId},
+		                    		data-ledeptid=${emp.deptId}"></option>
+		                </select>
+		            </div>
+		            <input id="depId" name="depId" type="hidden" th:value="${#maps.containsKey(basicInfo,'dep_id')}?${basicInfo.dep_id}"/>
+		        </li>
+		        </th:block>
+		          <th:block th:unless="${basicInfo.approval_node} eq 0">
+		        <li>
+		            <span class="tips">客户经理：</span>
+		            <span id="leStaffName" name="customerManager" th:value="${basicInfo.customer_manager}" th:text="${#maps.containsKey(basicInfo,'le_staff_name')}?${basicInfo.le_staff_name}"></span>
+		        </li>
+		        </th:block>
+		        </form>
+		        <li>
+		            <span class="tips">资金方：</span>
+		            <span id="org_name" th:text="${#maps.containsKey(basicInfo,'org_name')}?${basicInfo.org_name}"></span>
+		        </li>
+		        <li>
+		            <span class="tips">产品类型：</span>
+		            <span id="product_type" th:text="${#maps.containsKey(basicInfo,'product_type')}?${basicInfo.product_type}"></span>
+		        </li>
+		        <li>
+		            <span class="tips">产品名称：</span>
+		            <span id="product_name" th:text="${#maps.containsKey(basicInfo,'product_name')}?${basicInfo.product_name}"></span>
+		        </li>
+		    <form id="orderInfoDetail">
+		        <li>
+		            <span class="tips">借款金额：</span>
+		            <input type="text" class="txt validate[custom[numberTwo]]" th:value="${#maps.containsKey(basicInfo,'loan_amount')}?${#numbers.formatDecimal(basicInfo.loan_amount,1,2)}:0.00" id="loanAmount" name="loanAmount"/><span>万元</span>
+		        </li>
+		        <li>
+		            <span class="tips">借款期限：</span>
+		            <input type="text" class="txt loan_term validate[custom[integer]]" style="width: 160px;" th:value="${#maps.containsKey(basicInfo,'loan_term')}?${basicInfo.loan_term}" name="loanTerm"/>
+		            <div class="vocation">
+		                <select class="select-common select1 loan_term_unit" style="width: 80px;" name="loanTermUnit">
+		                    <option th:text="个月" th:attr="selected=${#maps.containsKey(basicInfo,'loan_term_unit')}?((${basicInfo.loan_term_unit} eq '个月')?true:false):false"></option>
+		                    <option th:text="天" th:attr="selected=${#maps.containsKey(basicInfo,'loan_term_unit')}?((${basicInfo.loan_term_unit} eq '天')?true:false):false"></option>
+		                </select>
+		            </div>
+		        </li>
+		        <li>
+		            <span class="tips">借款利率：</span>
+		            <input type="text" class="txt validate[custom[numberThree]]" th:value="${#maps.containsKey(basicInfo,'loan_rate')}?${#numbers.formatDecimal(basicInfo.loan_rate,1,3)}:0.000" id="loanRate" name="loanRate"/>
+		            <span>%/</span>
+		            <div class="vocation">
+		                <select class="select-common select1" style="width: 80px;" name="loanRateUnit" id="loanRateUnit">
+		                    <option th:text="年" th:attr="selected=${#maps.containsKey(basicInfo,'loan_rate_unit')}?((${basicInfo.loan_rate_unit} eq '年')?true:false):false"></option>
+		                    <option th:text="月" th:attr="selected=${#maps.containsKey(basicInfo,'loan_rate_unit')}?((${basicInfo.loan_rate_unit} eq '月')?true:false):false"></option>
+		                    <option th:text="天" th:attr="selected=${#maps.containsKey(basicInfo,'loan_rate_unit')}?((${basicInfo.loan_rate_unit} eq '天')?true:false):false"></option>
+		                    <option th:text="次" th:attr="selected=${#maps.containsKey(basicInfo,'loan_rate_unit')}?((${basicInfo.loan_rate_unit} eq '次')?true:false):false"></option>
+		                </select>
+		            </div>
+		        </li>
+		        <li>
+		            <span class="tips">还款方式：</span>
+		            <div class="vocation">
+		                <select class="select-common select1" name="repayment">
+		                    <option value="">请选择</option>
+                            <option value="0" th:attr="selected=${#maps.containsKey(basicInfo,'repayment')}?(${basicInfo.repayment} eq 0 ?true:false):false">每月还息,到期还本</option>
+                            <option value="2" th:attr="selected=${#maps.containsKey(basicInfo,'repayment')}?(${basicInfo.repayment} eq 2 ?true:false):false">一次性还款</option>
+		                </select>
+		            </div>
+		        </li>
+		   </form>
+	    </ul>
+</div>
+<div class="formtitle"><span>借款人信息</span></div>
+<th:block th:unless="${#lists.isEmpty(loanOrderBorrowerExtendBLOBsList)}">
+	<th:block th:each="borrower:${loanOrderBorrowerExtendBLOBsList}">
+		<form id="borrower">
+			<div class="toolsli">
+			    <ul class="nbbdgl-Ui">
+			    	<input name="custId" th:value="${borrower.custId}" type="hidden"/>
+			    	<input name="orderNo" th:value="${borrower.orderNo}" type="hidden"/>
+			    	<li>
+			            <span class="tips">借款人姓名：</span>
+			            <input type="text" class="txt" th:value="${borrower.bname}" name="bname"/>
+			             <th:block th:if="${borrowerExtend} eq borrowerExtend">
+					       <span class="tips"><a style=" color:#FF0000; font-size:12px;" id="getBorrowerExtend">*该用户申请过贷款</a></span>
+					    </th:block>
+			            <th:block th:if="${borrowerName} and ${borrowerName} ne ${borrower.bname}">
+				            <span style="color: red;">借款人姓名与合同不一致</span>
+			            </th:block>
+			            <th:block th:if="${credentialsBorrowerName} and ${credentialsBorrowerName} ne ${borrower.bname}">
+				            <span style="color: red;">姓名与资质信息不一致</span>
+			            </th:block>
+			        </li>
+			        <li>
+			            <span class="tips">性别：</span>
+			            <cite>
+			            	<input type="radio" id="sex0" name="sex" value="1" th:checked="${borrower.sex} eq 1"/>
+				            <label for="sex0">男</label>
+			                <input type="radio" id="sex1" name="sex" value="0" th:checked="${borrower.sex} eq 0"/>
+			                <label for="sex1">女</label>
+			            </cite>
+			        </li>
+			        <li>
+			            <span class="tips">手机号码：</span>
+			            <input type="text" class="txt validateMobile validate[custom[mobile]]" th:value="${borrower.mobile}" name="mobile"/>
+			        </li>
+			        <li>
+			            <span class="tips">银行卡号：</span>
+			           <!--  <input type="text" class="txt validate[custom[bankCard]]" th:value="${borrower.bankCardNo}" name="bankCardNo"/> -->
+			        	  <div class="vocation">
+			        	 <select class="select-common select1" name="bankCardNo" id="bankCardNo" >
+							<option value="">请选择</option>
+							<th:block th:unless="${#lists.isEmpty(accountCardList)}">
+								<th:block th:each="emp,iter : ${accountCardList}">
+									<option th:if="${emp}" th:value="${emp.bankCardNo}" th:text="${emp.bankCardNo}" th:attr="selected=(${borrower.bankCardNo} eq ${emp.bankCardNo})?true:false"></option>
+								</th:block>
+							</th:block>
+						</select>
+						</div>
+			        </li>
+			        <li>
+			            <span class="tips">开户行：</span>
+                            <input type="hidden" name="bankId" th:value="${borrower.bankId}"/>
+                            <input name="bankName" id="bankName" th:value="${borrower.bankName}" class="txt" type="text"/>
+			        </li>
+			        <li>
+			            <span class="tips">开户支行：</span>
+			            <input type="text" class="txt validate[custom[chineseName]]" th:value="${borrower.branchName}" name="branchName"/>
+			        </li>
+			        <li>
+			            <span class="tips">客户类型：</span>
+			            <div class="vocation">
+			                <select class="select-common select1" name="custType">
+			                    <option value="10" th:attr="selected=(${borrower.custType} eq 10)?true:false">个人</option>
+			                </select>
+			            </div>
+			        </li>
+			        <li>
+			            <span class="tips">客户性质：</span>
+			            <div class="vocation">
+			                <select class="select-common select1" name="custNature">
+			                   <option value="">请选择</option>
+			                   <option value="11" th:attr="selected=(${borrower.custNature} eq 11)?true:false">个人</option>
+			                   <option value="15" th:attr="selected=(${borrower.custNature} eq 15)?true:false">公户</option>
+			                </select>
+			            </div>
+			        </li>
+			        <li>
+			            <span class="tips">身份证号：</span>
+			            <input type="text" class="txt" th:value="${borrower.idNum}" name="idNum" id="idCard" maxLength="18"/>
+			             <th:block th:if="${not #lists.isEmpty(orderCredentialsList)}">
+					            <span><a style=" color:#FF0000; font-size:14px;" id="getUrls">* 点击查看图片信息</a></span>
+					     </th:block>
+			            <th:block th:if="${borrowerIdNum} and ${borrowerIdNum} ne ${borrower.idNum}">
+				            <span style="color: red;">借款人身份证与合同不一致</span>
+			            </th:block>
+			            <th:block th:if="${credentialsBorrowerIdNum} and ${credentialsBorrowerIdNum} ne ${borrower.idNum}">
+				            <span style="color: red;">身份证与资质信息不一致</span>
+			            </th:block>
+			        </li>
+			        <li>
+			            <span class="tips">教育程度：</span>
+			            <div class="vocation">
+			                <select class="select-common select1" name="education">
+			                    <option value="">请选择</option>
+				                    <option value="0" th:attr="selected=(${borrower.education} eq 0)?true:false">小学</option>
+				                    <option value="1" th:attr="selected=(${borrower.education} eq 1)?true:false">中学</option>
+				                    <option value="2" th:attr="selected=(${borrower.education} eq 2)?true:false">高中</option>
+				                    <option value="3" th:attr="selected=(${borrower.education} eq 3)?true:false">中专</option>
+				                    <option value="4" th:attr="selected=(${borrower.education} eq 4)?true:false">大专</option>
+				                    <option value="5" th:attr="selected=(${borrower.education} eq 5)?true:false">本科</option>
+				                    <option value="6" th:attr="selected=(${borrower.education} eq 6)?true:false">研究生</option>
+				                    <option value="7" th:attr="selected=(${borrower.education} eq 7)?true:false">博士</option>
+			                </select>
+			            </div>
+			        </li>
+			        <li style="width: 80%;" th:with="addr=(${borrower.liveAddress})?(${#strings.arraySplit(borrower.liveAddress,'-')}):(${#strings.arraySplit('','-')})">
+			            <span class="tips">现居住地址：</span>
+			            <div class="vocation">
+			                <select class="select-common select3 provinceSelect" name="liveAddress_sub_1"
+			               		th:attr="data-val=(${#arrays.length(addr)} ge 1)?${addr[0]}:''">
+			                </select>
+			            </div>
+			            <span>省</span>
+			            <div class="vocation">
+							<select class="select-common select3 citySelect" name="liveAddress_sub_2"
+								th:attr="data-val=(${#arrays.length(addr)} ge 2)?${addr[1]}:''">
+							</select>
+						</div>
+			            <span>市</span>
+			            <input type="text" class="txt" name="liveAddress_sub_3"
+			            th:value="(${#arrays.length(addr)} ge 3)?${addr[2]}:''" maxlength="50"  placeholder="最多输入50个字符"/>
+			        </li>
+			        <li>
+			            <span class="tips">公司名称：</span>
+			            <input type="text" class="txt" th:value="${borrower.corName}" name="corName" maxlength="50"  placeholder="最多输入50个字符"/>
+			        </li>
+			        <li style="width: 80%;" th:with="addr=(${borrower.corAddress})?(${#strings.arraySplit(borrower.corAddress,'-')}):(${#strings.arraySplit('','-')})">
+			            <span class="tips">公司地址：</span>
+			            <div class="vocation">
+			                <select class="select-common select3 provinceSelect" name="corAddress_sub_1"
+			               		th:attr="data-val=(${#arrays.length(addr)} ge 1)?${addr[0]}:''">
+			                </select>
+			            </div>
+			            <span>省</span>
+			            <div class="vocation">
+			                <select class="select-common select3 citySelect" name="corAddress_sub_2"
+			               		th:attr="data-val=(${#arrays.length(addr)} ge 2)?${addr[1]}:''">
+			                </select>
+			            </div>
+			            <span>市</span>
+			            <input type="text" class="txt" name="corAddress_sub_3"
+			            th:value="(${#arrays.length(addr)} ge 3)?${addr[2]}:''" maxlength="30"  placeholder="最多输入30个字符"/>
+			        </li>
+			        <li style="width: 80%;">
+			            <span class="tips">婚姻状况：</span>
+			            <div class="vocation">
+			                <select class="select-common select1" name="marStatus">
+			                    <option value="">请选择</option>
+			                    <option value="0" th:attr="selected=(${borrower.marStatus} eq 0)?true:false">已婚</option>
+			                    <option value="1" th:attr="selected=(${borrower.marStatus} eq 1)?true:false">未婚</option>
+			                    <option value="2" th:attr="selected=(${borrower.marStatus} eq 2)?true:false">离异</option>
+			                    <option value="3" th:attr="selected=(${borrower.marStatus} eq 3)?true:false">丧偶</option>
+			                </select>
+			                <th:block th:if="${not #lists.isEmpty(orderCredentialsList)}">
+					            <span><a style=" color:#FF0000; font-size:14px;" onClick="getUrls();">* 点击查看图片信息</a></span>
+					        </th:block>
+			            </div>
+			        </li>
+			        <li style="width: 80%;">
+			            <span class="tips">征信情况：</span>
+			            <textarea class="area" th:text="${borrower.creditStatus}" name="creditStatus" maxlength="200" placeholder="最多输入200个字符"></textarea>
+			        	<th:block th:if="${not #lists.isEmpty(orderCredentialsList)}">
+					            <span><a style=" color:#FF0000; font-size:14px;" onClick="getUrls();">* 点击查看图片信息</a></span>
+					    </th:block>
+			        </li>
+			        <li style="width: 80%;">
+			            <span class="tips">配偶征信情况：</span>
+			            <textarea class="area" th:text="${borrower.spouseCredit}" name="spouseCredit" maxlength="200" placeholder="最多输入200个字符"></textarea>
+			        	<th:block th:if="${not #lists.isEmpty(orderCredentialsList)}">
+					            <span><a style=" color:#FF0000; font-size:14px;" onClick="getUrls();">* 点击查看图片信息</a></span>
+					    </th:block>
+			        </li>
+			        <li style="width: 80%;">
+			            <span class="tips">诉讼情况：</span>
+			            <textarea class="area" th:text="${borrower.litigaStatus}" name="litigaStatus" maxlength="200" placeholder="最多输入200个字符"></textarea>
+			        	<th:block th:if="${not #lists.isEmpty(orderCredentialsList)}">
+					            <span><a style=" color:#FF0000; font-size:14px;" onClick="getUrls();">* 点击查看图片信息</a></span>
+					    </th:block>
+			        </li>
+			        <li style="width: 80%;">
+			            <span class="tips">借款用途：</span>
+			            <textarea class="area" th:text="${borrower.loadPurpose}" name="loadPurpose" maxlength="200" placeholder="最多输入200个字符"></textarea>
+			        </li>
+			        <li style="width: 80%;">
+			            <span class="tips">还款来源：</span>
+			            <textarea class="area" th:text="${borrower.payment}" name="payment" maxlength="200" placeholder="最多输入200个字符"></textarea>
+			        </li>
+			        <li style="width: 80%;">
+			            <span class="tips">配偶诉讼情况：</span>
+			           <textarea class="area" th:text="${borrower.spouseLitiga}" name="spouseLitiga" maxlength="200" placeholder="最多输入200个字符"></textarea>
+			        	<th:block th:if="${not #lists.isEmpty(orderCredentialsList)}">
+					            <span><a style=" color:#FF0000; font-size:14px;" onClick="getUrls();">* 点击查看图片信息</a></span>
+					    </th:block>
+			        </li>
+			    </ul>
+			</div>
+		</form>
+		<div class="formtitle">
+			<span>联系人信息</span>
+			<img src="/img/add_red.png" class="add-zz" id="addContacts"/>
+		</div>
+		<div class="toolsli" id="contactsInfo">
+			<th:block th:if="${#lists.isEmpty(contactsList)}">
+				<ul class="nbbdgl-Ui" style="display: inline-block; width:100%;">
+					<form>
+				        <li style="width: 30%;">
+				        	<input type="hidden" value="1" name="type"/>
+				            <span class="tips" style="width: 50px;">关系：</span>
+				            <input type="text" class="txt validate[custom[chinese]]" style="width: 200px;" maxLength="30" name="relation" value=""/>
+				        </li>
+				        <li style="width: 30%;">
+				            <span class="tips" style="width: 50px;">姓名：</span>
+				            <input type="text" class="txt validate[minSize[2],maxSize[15],custom[chineseName]]" style="width: 200px;" name="name" maxLength="15" value=""/>
+				        </li>
+				        <li style="width: 30%;">
+				            <span class="tips" style="width: 80px;">手机号码：</span>
+				            <input type="text" class="txt validate[custom[mobile]]" style="width: 200px;" name="mobile" maxLength="11" value=""/>
+				        </li>
+			        </form>
+			    </ul>
+			</th:block>
+		    <th:block th:unless="${#lists.isEmpty(contactsList)}">
+		    	<ul class="nbbdgl-Ui" style="display: inline-block; width:100%;"
+		    		th:each="single:${contactsList}">
+		    		<form>
+				        <li style="width: 30%;">
+				        	<input type="hidden" value="1" name="type"/>
+				            <span class="tips" style="width: 50px;">关系：</span>
+				            <input type="text" class="txt validate[custom[chinese]]" style="width: 200px;" maxLength="30" name="relation" th:value="${single.relation}"/>
+				        </li>
+				        <li style="width: 30%;">
+				            <span class="tips" style="width: 50px;">姓名：</span>
+				            <input type="text" class="txt validate[minSize[2],maxSize[15],custom[chineseName]]" style="width: 200px;" name="name" maxLength="15" th:value="${single.name}"/>
+				        </li>
+				        <li style="width: 30%;">
+				            <span class="tips" style="width: 80px;">手机号码：</span>
+				            <input type="text" class="txt validate[custom[mobile]]" style="width: 200px;" name="mobile" maxLength="11" th:value="${single.mobile}"/>
+				        </li>
+			        </form>
+			    </ul>
+		    </th:block>
+		</div>
+		<div class="formtitle">
+			<span>共同借款人信息</span>
+			<img src="/img/add_red.png" class="add-zz" id="addCoborrower"/>
+		</div>
+		<div class="toolsli" id="coborrowerInfo">
+			<th:block th:if="${#lists.isEmpty(coborrowerList)}">
+			    <ul class="nbbdgl-Ui" style="display: inline-block; width:100%;">
+			        <form>
+				        <li style="width: 27%;">
+				        	<input type="hidden" value="2" name="type"/>
+				            <span class="tips" style="width: 50px;">姓名：</span>
+				            <input type="text" class="txt validate[minSize[2],maxSize[15],custom[chineseName]]" maxLength="15" style="width: 150px;" name="name" value=""/>
+				        	<th:block th:if="${not #lists.isEmpty(orderCredentialsList)}">
+					            <span><a style=" color:#FF0000; font-size:14px;" onClick="getUrls();">* 点击查看图片信息</a></span>
+					   		 </th:block>
+				        </li>
+				        <li style="width: 17%;">
+				            <span class="tips" style="width: 37px;">性别：</span>
+				        	<cite>
+				            	<input type="radio" value="1" name="sex"/>
+					            <label>男</label>
+				                <input type="radio" value="0" name="sex"/>
+				                <label>女</label>
+				            </cite>
+				        </li>
+				        <li style="width: 27%;">
+				            <span class="tips" style="width: 80px;">身份证号：</span>
+				            <input type="text" class="txt validate[custom[chinaIdLoose]]" maxLength="18" style="width: 150px;" name="idNum" value=""/>
+				        </li>
+				        <li style="width: 27%;">
+				            <span class="tips" style="width: 80px;">手机号码：</span>
+				            <input type="text" class="txt validate[custom[mobile]]" maxLength="11" style="width: 150px;" name="mobile" value=""/>
+				        </li>
+			        </form>
+			    </ul>
+		    </th:block>
+		    <th:block th:unless="${#lists.isEmpty(coborrowerList)}">
+		    	<ul class="nbbdgl-Ui" style="display: inline-block; width:100%;"
+		    		th:each="single:${coborrowerList}">
+			        <form>
+				        <li style="width: 27%;">
+				        	<input type="hidden" value="2" name="type"/>
+				            <span class="tips" style="width: 50px;">姓名：</span>
+				            <input type="text" class="txt validate[minSize[2],maxSize[15],custom[chineseName]]" maxLength="15" style="width: 150px;" name="name" th:value="${single.name}"/>
+					        <span class="differentTip" style="color: red;" th:text="${single.isNameDifferent}"></span>
+				        </li>
+				        <li style="width: 17%;">
+				            <span class="tips" style="width: 37px;">性别：</span>
+				        	<cite>
+				            	<input type="radio" value="1" name="sex" th:checked="${single.sex} eq 1"/>
+					            <label>男</label>
+				                <input type="radio" value="0" name="sex" th:checked="${single.sex} eq 0"/>
+				                <label>女</label>
+				            </cite>
+				        </li>
+				        <li style="width: 27%;">
+				            <span class="tips" style="width: 80px;">身份证号：</span>
+				            <input type="text" class="txt validate[custom[chinaIdLoose]]" maxLength="18" style="width: 150px;" name="idNum" th:value="${single.idNum}"/>
+				            <span style="color: red;" th:text="${single.isIdNumDifferent}"></span>
+				        </li>
+				        <li style="width: 27%;">
+				            <span class="tips" style="width: 80px;">手机号码：</span>
+				            <input type="text" class="txt validate[custom[mobile]]" maxLength="11" style="width: 150px;" name="mobile" th:value="${single.mobile}"/>
+				        </li>
+			        </form>
+			    </ul>
+		    </th:block>
+		</div>
+		<div class="formtitle">
+			<span>担保人信息</span>
+			<img src="/img/add_red.png" class="add-zz" id="addGuarantee"/>
+		</div>
+		<div class="toolsli" id="guaranteeInfo">
+			<th:block th:if="${#lists.isEmpty(guaranteeList)}">
+			    <ul class="nbbdgl-Ui" style="display: inline-block; width:100%;">
+			        <form>
+				        <li style="width: 27%;">
+				        	<input type="hidden" value="3" name="type"/>
+				            <span class="tips" style="width: 50px;">姓名：</span>
+				            <input type="text" class="txt validate[minSize[2],maxSize[15],custom[chineseName]]" maxLength="15" style="width: 150px;" name="name" value=""/>
+				       		<th:block th:if="${not #lists.isEmpty(orderCredentialsList)}">
+					            <span><a style=" color:#FF0000; font-size:14px;" onClick="getUrls();">* 点击查看图片信息</a></span>
+					   		 </th:block>
+				        </li>
+				        <li style="width: 17%;">
+				            <span class="tips" style="width: 37px;">性别：</span>
+				        	<cite>
+				            	<input type="radio" value="1" name="sex"/>
+					            <label>男</label>
+				                <input type="radio" value="0" name="sex"/>
+				                <label>女</label>
+				            </cite>
+				        </li>
+				        <li style="width: 27%;">
+				            <span class="tips" style="width: 80px;">身份证号：</span>
+				            <input type="text" class="txt validate[custom[chinaIdLoose]]" maxLength="18" style="width: 150px;" name="idNum" value=""/>
+				        </li>
+				        <li style="width: 27%;">
+				            <span class="tips" style="width: 80px;">手机号码：</span>
+				            <input type="text" class="txt validate[custom[mobile]]" maxLength="11" style="width: 150px;" name="mobile" value=""/>
+				        </li>
+			        </form>
+			    </ul>
+		    </th:block>
+		    <th:block th:unless="${#lists.isEmpty(guaranteeList)}">
+		    	<ul class="nbbdgl-Ui" style="display: inline-block; width:100%;"
+		    		th:each="single:${guaranteeList}">
+			        <form>
+				        <li style="width: 27%;">
+				        	<input type="hidden" value="3" name="type"/>
+				            <span class="tips" style="width: 37px;">姓名：</span>
+				            <input type="text" class="txt validate[minSize[2],maxSize[15],custom[chineseName]]" maxLength="15" style="width: 150px;" name="name" th:value="${single.name}"/>
+				            <span class="differentTip" style="color: red;" th:text="${single.isNameDifferent}"></span>
+				        </li>
+				        <li style="width: 17%;">
+				            <span class="tips" style="width: 50px;">性别：</span>
+				        	<cite>
+				            	<input type="radio" value="1" name="sex" th:checked="${single.sex} eq 1"/>
+					            <label>男</label>
+				                <input type="radio" value="0" name="sex" th:checked="${single.sex} eq 0"/>
+				                <label>女</label>
+				            </cite>
+				        </li>
+				        <li style="width: 27%;">
+				            <span class="tips" style="width: 80px;">身份证号：</span>
+				            <input type="text" class="txt validate[custom[chinaIdLoose]]" maxLength="18" style="width: 150px;" name="idNum" th:value="${single.idNum}"/>
+				            <span style="color: red;" th:text="${single.isIdNumDifferent}"></span>
+				        </li>
+				        <li style="width: 27%;">
+				            <span class="tips" style="width: 80px;">手机号码：</span>
+				            <input type="text" class="txt validate[custom[mobile]]" maxLength="11" style="width: 150px;" name="mobile" th:value="${single.mobile}"/>
+				        </li>
+			        </form>
+			    </ul>
+		    </th:block>
+		</div>
+	</th:block>
+</th:block>
+<p class="textCt">
+    <input type="button" class="scbtn saveBasicInfo" value="保 存" id="saveBasicInfo"/>
+    <input type="button" class="scbtn2 mlt10" value="取 消" onclick="javascript:history.go(-1);"/>
+</p>
+<script type="text/javascript">
+	//查看资质图片
+	function getUrls(){
+		  window.open('/mortgageInfo/toViewPageByDetails?orderNo='+$("#orderNo").val());
+	}
+  	seajs.use("auditing/basicInfo");
+</script>

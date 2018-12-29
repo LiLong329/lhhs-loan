@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.AgreementMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.Agreement" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="agreement_no" property="agreementNo" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="borrower_name" property="borrowerName" jdbcType="VARCHAR" />
+    <result column="borrower_id_num" property="borrowerIdNum" jdbcType="VARCHAR" />
+    <result column="investor_name" property="investorName" jdbcType="VARCHAR" />
+    <result column="capital_name" property="capitalName" jdbcType="VARCHAR" />
+    <result column="loan_amount" property="loanAmount" jdbcType="DECIMAL" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="loan_term" property="loanTerm" jdbcType="INTEGER" />
+    <result column="loan_term_unit" property="loanTermUnit" jdbcType="CHAR" />
+    <result column="start_date" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="auditing_status" property="auditingStatus" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="dept_id" property="deptId" jdbcType="VARCHAR" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, agreement_no, order_no, borrower_name, borrower_id_num, investor_name, capital_name, 
+    loan_amount, amount, loan_term, loan_term_unit, start_date, end_date, create_time, 
+    update_time, auditing_status, remark, company_id, union_id, dept_id, field1, field2, field3, 
+    field4, field5, type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_agreement
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from loan_agreement
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.Agreement" >
+    insert into loan_agreement (id, agreement_no, order_no, 
+      borrower_name, borrower_id_num, investor_name, 
+      capital_name, loan_amount, amount, 
+      loan_term, loan_term_unit, start_date, 
+      end_date, create_time, update_time, 
+      auditing_status, remark, company_id, 
+      union_id, dept_id, field1, field2, 
+      field3, field4, field5, 
+      type)
+    values (#{id,jdbcType=INTEGER}, #{agreementNo,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, 
+      #{borrowerName,jdbcType=VARCHAR}, #{borrowerIdNum,jdbcType=VARCHAR}, #{investorName,jdbcType=VARCHAR}, 
+      #{capitalName,jdbcType=VARCHAR}, #{loanAmount,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, 
+      #{loanTerm,jdbcType=INTEGER}, #{loanTermUnit,jdbcType=CHAR}, #{startDate,jdbcType=TIMESTAMP}, 
+      #{endDate,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{auditingStatus,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, 
+      #{unionId,jdbcType=VARCHAR},#{deptId,jdbcType=VARCHAR}, #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, 
+      #{field3,jdbcType=VARCHAR}, #{field4,jdbcType=VARCHAR}, #{field5,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.Agreement" >
+    insert into loan_agreement
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="agreementNo != null" >
+        agreement_no,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="borrowerName != null" >
+        borrower_name,
+      </if>
+      <if test="borrowerIdNum != null" >
+        borrower_id_num,
+      </if>
+      <if test="investorName != null" >
+        investor_name,
+      </if>
+      <if test="capitalName != null" >
+        capital_name,
+      </if>
+      <if test="loanAmount != null" >
+        loan_amount,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="loanTerm != null" >
+        loan_term,
+      </if>
+      <if test="loanTermUnit != null" >
+        loan_term_unit,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="auditingStatus != null" >
+        auditing_status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+      <if test="deptId != null" >
+        dept_id,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="agreementNo != null" >
+        #{agreementNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerName != null" >
+        #{borrowerName,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerIdNum != null" >
+        #{borrowerIdNum,jdbcType=VARCHAR},
+      </if>
+      <if test="investorName != null" >
+        #{investorName,jdbcType=VARCHAR},
+      </if>
+      <if test="capitalName != null" >
+        #{capitalName,jdbcType=VARCHAR},
+      </if>
+      <if test="loanAmount != null" >
+        #{loanAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="loanTerm != null" >
+        #{loanTerm,jdbcType=INTEGER},
+      </if>
+      <if test="loanTermUnit != null" >
+        #{loanTermUnit,jdbcType=CHAR},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditingStatus != null" >
+        #{auditingStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.Agreement" >
+    update loan_agreement
+    <set >
+      <if test="agreementNo != null" >
+        agreement_no = #{agreementNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerName != null" >
+        borrower_name = #{borrowerName,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerIdNum != null" >
+        borrower_id_num = #{borrowerIdNum,jdbcType=VARCHAR},
+      </if>
+      <if test="investorName != null" >
+        investor_name = #{investorName,jdbcType=VARCHAR},
+      </if>
+      <if test="capitalName != null" >
+        capital_name = #{capitalName,jdbcType=VARCHAR},
+      </if>
+      <if test="loanAmount != null" >
+        loan_amount = #{loanAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="loanTerm != null" >
+        loan_term = #{loanTerm,jdbcType=INTEGER},
+      </if>
+      <if test="loanTermUnit != null" >
+        loan_term_unit = #{loanTermUnit,jdbcType=CHAR},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditingStatus != null" >
+        auditing_status = #{auditingStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        dept_id = #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.Agreement" >
+    update loan_agreement
+    set agreement_no = #{agreementNo,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      borrower_name = #{borrowerName,jdbcType=VARCHAR},
+      borrower_id_num = #{borrowerIdNum,jdbcType=VARCHAR},
+      investor_name = #{investorName,jdbcType=VARCHAR},
+      capital_name = #{capitalName,jdbcType=VARCHAR},
+      loan_amount = #{loanAmount,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=DECIMAL},
+      loan_term = #{loanTerm,jdbcType=INTEGER},
+      loan_term_unit = #{loanTermUnit,jdbcType=CHAR},
+      start_date = #{startDate,jdbcType=TIMESTAMP},
+      end_date = #{endDate,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      auditing_status = #{auditingStatus,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=VARCHAR},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 合同信息分页查询 -->
+  <select id="queryListPage" parameterType="com.lhhs.loan.dao.domain.Agreement" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from loan_agreement
+    where 1=1
+    <if test="authgroupList != null">
+ 		and 
+         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+            (1=1
+	             <if test="item.orgId != null and item.orgId != ''">
+				  		and company_id =  #{item.orgId}
+				 </if>
+				 <if test="item.deptId != null and item.deptId != ''">
+				  		and dept_id =  #{item.deptId}
+				 </if>
+			  )
+         </foreach>
+	</if>
+  	<if test="agreementNo != null and agreementNo != ''">
+  		and agreement_no like CONCAT('%', #{agreementNo}, '%')
+  	</if>
+  	<if test="borrowerName != null and borrowerName !=''" >
+        and borrower_name like CONCAT('%', #{borrowerName}, '%')
+    </if>
+  	<if test="auditingStatus != null and auditingStatus != '' and auditingStatus != 3">
+  		and auditing_status = #{auditingStatus}
+  	</if>
+  	<if test="auditingStatus == 3">
+  		and auditing_status in (1,2)
+  	</if>
+  	<if test="unionId != null and unionId != ''">
+  		and union_id = #{unionId}
+  	</if>
+  		order by create_time desc
+  	<if test="page != null">
+  		limit #{page.pageStartIndex},#{page.pageSize}
+  	</if>
+  </select>
+  
+  <!-- 机构信息总条数查询 -->
+  <select id="queryCount" parameterType="com.lhhs.loan.dao.domain.Agreement" resultType="int">
+  	select count(1)
+  	from loan_agreement
+    where 1=1
+    <if test="authgroupList != null">
+ 		and 
+         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+         	(1=1
+	             <if test="item.orgId != null and item.orgId != ''">
+				  		and company_id =  #{item.orgId}
+				 </if>
+				 <if test="item.deptId != null and item.deptId != ''">
+				  		and dept_id =  #{item.deptId}
+				 </if>
+			  )
+          </foreach>
+	</if>
+  	<if test="agreementNo != null and agreementNo != ''">
+  		and agreement_no like CONCAT('%', #{agreementNo}, '%')
+  	</if>
+  	<if test="borrowerName != null and borrowerName !=''" >
+        and borrower_name like CONCAT('%', #{borrowerName}, '%')
+    </if>
+  	<if test="auditingStatus != null and auditingStatus != '' and auditingStatus != 3">
+  		and auditing_status = #{auditingStatus}
+  	</if>
+  	<if test="auditingStatus == 3">
+  		and auditing_status in (1,2)
+  	</if>
+  	<if test="unionId != null and unionId != ''">
+  		and union_id = #{unionId}
+  	</if>
+  </select>
+  
+  <!-- 根据实体参数查询实体 -->
+  <select id="getByEntity" resultMap="BaseResultMap" parameterType="com.lhhs.loan.dao.domain.Agreement" >
+  	select 
+    <include refid="Base_Column_List" />
+    from loan_agreement
+    where 1=1
+  	<if test="id != null">
+  		and id = #{id}
+  	</if>
+  	<if test="agreementNo != null and agreementNo !=''" >
+        and agreement_no = #{agreementNo}
+    </if>
+    <if test="orderNo != null and orderNo !=''" >
+        and order_no = #{orderNo}
+    </if>
+    <if test="borrowerName != null and borrowerName !=''" >
+        and borrower_name = #{borrowerName}
+    </if>
+    <if test="borrowerIdNum != null and borrowerIdNum !=''" >
+        and borrower_id_num = #{borrowerIdNum}
+    </if>
+    <if test="investorName != null and investorName !=''" >
+        and investor_name = #{investorName}
+    </if>
+    <if test="capitalName != null and capitalName !=''" >
+        and capital_name = #{capitalName}
+    </if>
+    <if test="auditingStatus != null and auditingStatus !=''" >
+        and auditing_status = #{auditingStatus}
+    </if>
+    <if test="companyId != null and companyId !=''" >
+       and company_id = #{companyId}
+    </if>
+    <if test="unionId != null and unionId !=''" >
+        and union_id = #{unionId}
+    </if>
+    <if test="deptId != null and deptId !=''" >
+        and dept_id = #{deptId}
+    </if>
+    <if test="type != null and type !=''" >
+        and type = #{type}
+    </if>
+  	limit 1
+  </select>
+</mapper>

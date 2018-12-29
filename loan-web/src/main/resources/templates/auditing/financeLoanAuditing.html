@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+		<div class="common-content">
+			<div th:replace="common/left"></div>
+			<div class="common-right">
+				<div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>我的任务</li>
+                        <li><a href="/workflow/acttask/todoList/1">待办任务</a></li>
+                        <li th:text="${basicInfo.next_task_name}"></li>
+                        <li>审核</li>
+					</ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                    	<input type="hidden" th:value="${basicInfo.proc_ins_id}" id="procInsId"/>
+						<input type="hidden" th:value="${actVo.taskId}" id="taskId"/>
+						<input type="hidden" th:value="${actVo.taskDefKey}" id="processNodeNo"/>
+						<input type="hidden" th:value="${basicInfo.order_no}" id="orderNo"/>
+						<input type="hidden" th:value="${basicInfo.approval_node}" id="approvalNode"/>
+                        <div class="itab">
+                            <ul>
+                                <li><a data-show="#tab1">项目信息</a></li>
+                                <li><a data-show="#tab5">放款审核表</a></li>
+                            </ul>
+                        </div>
+                        <div id="tab1" class="tabson">
+                            <div class="table-title">
+                                <p class="tab-font">报单基本信息</p>
+                            </div>
+                            <table class="tablelist">
+                                <tbody>
+	                                <tr>
+	                                    <td class="textCt">报单编号</td>
+	                                    <td class="textCt" th:text="${basicInfo.order_no}"></td>
+	                                    <td class="textCt">借款金额(万元)</td>
+	                                    <td class="textCt" th:text="${#maps.containsKey(basicInfo,'loan_amount')}?${#numbers.formatDecimal(basicInfo.loan_amount,1,2)}:0.00"></td>
+	                                </tr>
+	                                <tr>
+	                                    <td class="textCt">申请时间</td>
+	                                    <td class="textCt" th:text="${#maps.containsKey(basicInfo,'apply_date')}?${#dates.format(basicInfo.apply_date,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+	                                    <td class="textCt">借款利率</td>
+	                                    <td class="textCt" th:text="${#maps.containsKey(basicInfo,'loan_rate')}?${#numbers.formatDecimal(basicInfo.loan_rate,1,3)}+'%/'+${basicInfo.loan_rate_unit}"></td>
+	                                </tr>
+                                <tr>
+                                    <td class="textCt">合同编号</td>
+                                    <td class="textCt" th:text="${#maps.containsKey(basicInfo,'contract_no')}?${basicInfo.contract_no}"></td>
+                                    <td class="textCt">借款期限</td>
+                                    <td class="textCt" th:text="${#maps.containsKey(basicInfo,'loan_term')}?${basicInfo.loan_term}+${basicInfo.loan_term_unit}"></td>
+                                </tr>
+                                <tr>
+                                    <td class="textCt">档案编号</td>
+                                    <td class="textCt" th:text="${#maps.containsKey(basicInfo,'archives_no')}?${basicInfo.archives_no}"></td>
+                                    <td class="textCt">还款方式</td>
+                                    <td class="textCt">
+                                    	<th:block th:if="${#maps.containsKey(basicInfo,'repayment')}">
+                                    		<th:block th:if="${basicInfo.repayment} eq 0">每月还息,到期还本</th:block>
+                                    		<th:block th:if="${basicInfo.repayment} eq 2">一次性还款</th:block>
+                                    	</th:block>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="textCt">报备人</td>
+                                    <td class="textCt" th:text="${#maps.containsKey(basicInfo,'report_name')}?${basicInfo.report_name}"></td>
+                                    <td class="textCt">对接人</td>
+                                    <td class="textCt" th:text="${#maps.containsKey(basicInfo,'abutment_name')}?${basicInfo.abutment_name}"></td>
+                                </tr>
+                                <tr>
+                                    <td class="textCt">客户经理</td>
+                                    <td class="textCt" th:text="${#maps.containsKey(basicInfo,'le_staff_name')}?${basicInfo.le_staff_name}"></td>
+                                    <td class="textCt">所属编制</td>
+                                    <td class="textCt" th:text="${teamArray[0]}"></td>
+                                </tr>
+                                <tr>
+                                    <td class="textCt">团队经理</td>
+                                    <td class="textCt" th:text="${teamArray[1]}"></td>
+                                    <td class="textCt">事业部总经理</td>
+                                    <td class="textCt" th:text="${teamArray[2]}"></td>
+                                </tr>
+                                <tr>
+                                    <td class="textCt">产品名称</td>
+                                    <td class="textCt" th:text="${#maps.containsKey(basicInfo,'product_name')}?${basicInfo.product_name}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="table-title">
+                                <p class="tab-font">借款人基本信息</p>
+                            </div>
+                       		<table class="tablelist" th:unless="${#lists.isEmpty(loanOrderBorrowerExtendBLOBsList)}">
+                          		<tbody>
+                          			<th:block th:each="borrower:${loanOrderBorrowerExtendBLOBsList}">
+	                          			<tr>
+		                                    <td class="textCt">借款人</td>
+		                                    <td class="textCt" th:text="${borrower.bname}"></td>
+		                                    <td class="textCt">性别</td>
+		                                    <td class="textCt">
+		                                    	<th:block th:if="${borrower.sex} eq 0">女</th:block>
+		                                    	<th:block th:if="${borrower.sex} eq 1">男</th:block>
+		                                    </td>
+		                                    <td class="textCt">身份证号</td>
+		                                    <td class="textCt" th:text="${borrower.idNum}"></td>
+		                                </tr>
+		                                <tr>
+		                                    <td class="textCt">借款人移动电话</td>
+		                                    <td colspan="2" class="textCt"  th:text="${borrower.mobile}"></td>
+		                                    <td class="textCt">借款人固定电话</td>
+		                                    <td colspan="2" class="textCt" th:text="${borrower.telephone}"></td>
+		                                </tr>
+		                                <tr>
+		                                    <td class="textCt">现住址</td>
+		                                    <td colspan="5" class="textCt" th:text="${borrower.liveAddress}"></td>
+		                                </tr>
+		                                <tr>
+		                                    <td class="textCt">借款用途</td>
+		                                    <td colspan="5" class="textCt" th:text="${borrower.loadPurpose}"></td>
+		                                </tr>
+		                                 <tr>
+			                                    <td class="textCt">银行卡号</td>
+			                                    <td class="textCt" th:text="${borrower.bankCardNo}"></td>
+			                                    <td class="textCt">开户行</td>
+			                                    <td class="textCt" th:text="${borrower.bankName}"></td>
+			                                    <td class="textCt">开户支行</td>
+			                                    <td class="textCt" th:text="${borrower.branchName}"></td>
+			                                </tr>
+	                                </th:block>
+			                        <th:block th:if="${#lists.isEmpty(coborrowerList)}">
+			                        	<tr>
+		                                    <td class="textCt">共借人</td>
+		                                    <td class="textCt">&nbsp;</td>
+		                                    <td class="textCt">性别</td>
+		                                    <td class="textCt">&nbsp;</td>
+		                                    <td class="textCt">身份证号</td>
+		                                    <td class="textCt">&nbsp;</td>
+		                                </tr>
+				                        <tr>
+		                                    <td class="textCt">共借人移动电话</td>
+		                                    <td colspan="2" class="textCt">&nbsp;</td>
+		                                    <td class="textCt">共借人固定电话</td>
+		                                    <td colspan="2" class="textCt">&nbsp;</td>
+		                                </tr>
+	                                </th:block>
+			                        <th:block th:unless="${#lists.isEmpty(coborrowerList)}">
+										<th:block th:each="single:${coborrowerList}">
+											<tr>
+			                                    <td class="textCt">共借人</td>
+			                                    <td class="textCt" th:text="${single.name}"></td>
+			                                    <td class="textCt">性别</td>
+			                                    <td class="textCt">
+			                                    	<th:block th:if="${single.sex} eq 0">女</th:block>
+										            <th:block th:if="${single.sex} eq 1">男</th:block>
+			                                    </td>
+			                                    <td class="textCt">身份证号</td>
+			                                    <td class="textCt" th:text="${single.idNum}"></td>
+			                                </tr>
+					                        <tr>
+			                                    <td class="textCt">共借人移动电话</td>
+			                                    <td colspan="2" class="textCt" th:text="${single.mobile}"></td>
+			                                    <td class="textCt">共借人固定电话</td>
+			                                    <td colspan="2" class="textCt" th:text="${single.phone}"></td>
+			                                </tr>
+										</th:block>
+									</th:block>   	
+                          		</tbody>
+                       		</table>
+                            <div class="table-title">
+                                <p class="tab-font">抵押物基本信息</p>
+                            </div>
+                            <table class="tablelist">
+                                <tbody>
+                                	<th:block th:unless="${#lists.isEmpty(houseLists)}">
+										<th:block th:each="house,iter : ${houseLists}">
+			                                <tr>
+			                                    <td class="textCt">抵押物坐落</td>
+			                                    <td colspan="5" class="textCt" th:text="${house.houseAddress}"></td>
+			                                </tr>
+			                                <tr>
+			                                    <td class="textCt">产权证编号</td>
+			                                    <td class="textCt" th:text="${house.propertyNum}"></td>
+			                                    <td class="textCt">朝向</td>
+			                                    <td class="textCt" th:text="${house.houseFacing}"></td>
+			                                    <td class="textCt">厅室</td>
+			                                    <td class="textCt" th:text="${house.houseLayout}"></td>
+			                                </tr>
+			                                <tr>
+			                                    <td class="textCt">产权人</td>
+			                                    <td class="textCt" th:text="${house.propertyName}"></td>
+			                                    <td class="textCt">建筑面积（㎡）</td>
+			                                    <td class="textCt" th:text="${house.buildArea}"></td>
+			                                    <td class="textCt">房龄（年）</td>
+			                                    <td class="textCt" th:text="${house.builtAge}"></td>
+			                                </tr>
+			                                <tr>
+			                                    <td class="textCt">快出价值（万元）</td>
+			                                    <td class="textCt" th:text="${house.sellingPrice}"></td>
+			                                    <td class="textCt">查询状态</td>
+			                                    <td class="textCt" th:text="${house.queryStatus}"></td>
+			                                    <td class="textCt">抵押率（%）</td>
+			                                    <td class="textCt" th:text="${house.mortgageRate}"></td>
+			                                </tr>
+		                              	</th:block>
+		                            </th:block>
+		                            <th:block th:if="${#lists.isEmpty(orderHouse)}">
+		                            	<tr><td colspan="5" align="center">暂无数据 </td></tr>
+		                            </th:block>
+                                </tbody>
+                            </table>
+                            <div class="formtitle"><span>项目审核信息</span></div>
+                            <div id="histoicFlow"></div>
+                        </div>
+                        <div id="tab5" class="tabson">
+                            <div class="formtitle"><span>资金方基本信息</span></div>
+                            <table class="tablelist">
+                                <thead>
+	                                <tr>
+	                                    <th style="width: 30px;">序号</th>
+	                                    <th>客户性质</th>
+	                                    <th>手机号/机构ID/公司ID</th>
+	                                    <th>账户名</th>
+	                                    <th>银行卡号</th>
+	                                    <th>开户银行</th>
+	                                    <th>开户行</th>
+	                                    <th>放款金额（元）</th>
+	                                    <th>放款利率</th>
+	                                    <th>可用余额（元）</th>
+	                                    <th>所属资金方</th>
+	                                </tr>
+                                </thead>
+                                <tbody>
+	                                <th:block th:unless="${#lists.isEmpty(loanCapitalInfoList)}">
+	        							<tr th:each="capitalInfo,iterStat:${loanCapitalInfoList}">
+											<td th:text="${iterStat.count}"></td>
+											<td th:text="${capitalInfo.typeName}"></td>
+											<td th:text="${capitalInfo.mobile}"></td>
+											<td th:text="${capitalInfo.accountName}"></td>
+								            <td th:text="${capitalInfo.bankcardId}"></td>
+								            <td th:text="${capitalInfo.bankName}"></td>
+								            <td th:text="${capitalInfo.branchBank}"></td>
+								            <td th:text="${capitalInfo.amountPaid}?${#numbers.formatDecimal(capitalInfo.amountPaid,1,2)}"></td>
+								            <td th:text="${capitalInfo.amountRate}?${#numbers.formatDecimal(capitalInfo.amountRate,1,3)}+'%/'+${capitalInfo.amountRateUnit}"></td>
+											<td th:text="${capitalInfo.balance}?${#numbers.formatDecimal(capitalInfo.balance,1,2)}:0.00"></td>
+											<td th:text="${capitalInfo.orgName}"></td>
+										</tr>
+									</th:block>
+									<th:block th:if="${#lists.isEmpty(loanCapitalInfoList)}">
+										<tr><td colspan="11" align="center">暂无数据 </td></tr>
+									</th:block>
+                            	</tbody>
+                            </table>
+                            <div class="formtitle pt20"><span>收入列表</span></div>
+                            <table class="tablelist">
+                                <thead>
+	                                <tr>
+	                                    <th style="width: 30px;">序号</th>
+	                                    <th>收入类型</th>
+	                                    <th>金额（元）</th>
+	                                    <th>收入方式</th>
+	                                    <th>备注</th>
+	                                </tr>
+                                </thead>
+                                <tbody>
+	                                <th:block th:unless="${#lists.isEmpty(loanCapitalEarningList)}">
+								        <tr th:each="capitalEarning,iterStat:${loanCapitalEarningList}">
+								            <input type="hidden" th:value="${capitalEarning.capitalEarningId}" name="capitalEarningId"/>
+								            <td th:text="${iterStat.count}"></td>
+								            <td th:unless="${#lists.isEmpty(inSubjectList)}">
+								                <th:block th:each="cust,iter : ${inSubjectList}">
+													<th:block th:if="${capitalEarning.earningVariety} eq ${cust.subjectId}" th:text="${cust.subjectName}"></th:block>
+											 	</th:block>
+								            </td>
+								            <td th:text="${capitalEarning.earningAmount}?${#numbers.formatDecimal(capitalEarning.earningAmount,1,2)}:0.00"></td>
+								            <td>
+							                	<th:block th:if="${capitalEarning.earningApproach} eq 0">一次性收入</th:block>
+							                	<th:block th:if="${capitalEarning.earningApproach} eq 1">按月收入</th:block>
+								            </td>
+								            <td th:text="${capitalEarning.remark}"></td>
+								        </tr>
+									</th:block>
+									<th:block th:if="${#lists.isEmpty(loanCapitalEarningList)}">
+										<tr><td colspan="5" align="center">暂无数据 </td></tr>
+									</th:block>
+                                </tbody>
+                            </table>
+                            <div class="formtitle pt20"><span>支出列表</span></div>
+                            <table class="tablelist">
+                                <thead>
+	                                <tr>
+	                                    <th style="width: 30px;">序号</th>
+	                                    <th>支出类型</th>
+	                                    <th>金额（元）</th>
+	                                    <th>发放方式</th>
+	                                    <th>返费账户</th>
+	                                    <th>银行卡号</th>
+	                                    <th>开户银行</th>
+	                                    <th>开户行</th>
+	                                    <th>备注</th>
+	                                </tr>
+                                </thead>
+                                <tbody>
+                                	<th:block th:unless="${#lists.isEmpty(loanCapitalExpenditureList)}">
+									    <tr th:each="capitalExpenditure,iterStat:${loanCapitalExpenditureList}">
+									        <input type="hidden" th:value="${capitalExpenditure.capitalExpenditureId}" name="capitalExpenditureId"/>
+									        <td th:text="${iterStat.count}"></td> 
+									        <td th:unless="${#lists.isEmpty(outSubjectList)}">
+								                <th:block th:each="cust,iter : ${outSubjectList}">
+													<th:block th:if="${capitalExpenditure.expenditureVariety} eq ${cust.subjectId}" th:text="${cust.subjectName}"></th:block>
+												</th:block>
+									        </td>
+									        <td th:text="${capitalExpenditure.amount}?${#numbers.formatDecimal(capitalExpenditure.amount,1,2)}:0.00"></td>
+									        <td>
+								            	<th:block th:if="${capitalExpenditure.disbursement} eq 0">一次性发放</th:block>
+								            	<th:block th:if="${capitalExpenditure.disbursement} eq 1">按月发放</th:block>
+									        </td>
+									        <td th:text="${capitalExpenditure.accountName}"></td>
+									        <td th:text="${capitalExpenditure.bankcardId}"></td>
+									        <td th:text="${capitalExpenditure.bankName}"></td>
+									        <td th:text="${capitalExpenditure.branchBank}"></td>
+									        <td th:text="${capitalExpenditure.remark}"></td>
+									    </tr>
+									</th:block>
+									<th:block th:if="${#lists.isEmpty(loanCapitalExpenditureList)}">
+										<tr><td colspan="9" align="center">暂无数据 </td></tr>
+									</th:block>
+                            	</tbody>
+                            </table>
+                            <div class="formtitle pt20"><span>参数设置</span></div>
+                            <table class="tablelist">
+                                <thead>
+	                                <tr>
+	                                    <th style="width: 30px;">序号</th>
+								    	<th>是否担保</th>
+										<th>是否垫还</th>
+										<th>结息方式</th>
+										<th>结息固定日</th>
+										<th>付息方式</th>
+										<th>付息固定日</th>
+										<th>逾期贷款利率(%/天)</th>
+										<th>债务利率(%/天)</th>
+										<th>还款违约金率(%/天)</th>
+										<th>逾期付款利率(%/天)</th>
+										<th>付款违约金率(%/天)</th>
+										<th>备注</th>
+	                                </tr>
+                                </thead>
+                                <tbody>
+                                	<tr th:if="${loanParasConfig}">
+	                                    <td>1</td>
+	                                    <td>
+	                                    	<th:block th:if="${loanParasConfig.lpcIsGuarantee} eq 0">不支持</th:block>
+	                                    	<th:block th:if="${loanParasConfig.lpcIsGuarantee} eq 1">支持</th:block>
+	                                    </td>
+	                                    <td>
+	                                    	<th:block th:if="${loanParasConfig.lpcIsAdvance} eq 0">不支持</th:block>
+	                                    	<th:block th:if="${loanParasConfig.lpcIsAdvance} eq 1">支持</th:block>
+	                                    </td>
+	                                    <td>
+								        	<th:block th:if="${loanParasConfig.lpcInterestType} eq 0">放款日结息</th:block>
+								        	<th:block th:if="${loanParasConfig.lpcInterestType} eq 1">到期日结息</th:block>
+								        	<th:block th:if="${loanParasConfig.lpcInterestType} eq 2">固定日结息</th:block>
+								        </td>
+								        <td>
+								        	<th:block th:if="${loanParasConfig.lpcInterestType} eq 2" 
+								        		th:text="${loanParasConfig.lpcInterestRegular}?${#dates.format(loanParasConfig.lpcInterestRegular,'yyyy-MM-dd HH:mm:ss')}:''"></th:block>
+								        </td>
+								        <td>
+								        	<th:block th:if="${loanParasConfig.lpcPayType} eq 0">放款日付息</th:block>
+								        	<th:block th:if="${loanParasConfig.lpcPayType} eq 1">到期日付息</th:block>
+								        	<th:block th:if="${loanParasConfig.lpcPayType} eq 2">固定日付息</th:block>
+								        </td>
+								        <td>
+								        	<th:block th:if="${loanParasConfig.lpcPayType} eq 2" 
+								        		th:text="${loanParasConfig.lpcPayRegular}?${#dates.format(loanParasConfig.lpcPayRegular,'yyyy-MM-dd HH:mm:ss')}:''"></th:block>
+								        </td>
+	                                    <td th:text="${loanParasConfig.lpcOverdueInteType}?${#numbers.formatDecimal(loanParasConfig.lpcOverdueInteType,1,3)}:0.000"></td>
+								        <td th:text="${loanParasConfig.lpcDebtInteRate}?${#numbers.formatDecimal(loanParasConfig.lpcDebtInteRate,1,3)}:0.000"></td>
+								        <td th:text="${loanParasConfig.lpcRepayLiquRate}?${#numbers.formatDecimal(loanParasConfig.lpcRepayLiquRate,1,3)}:0.000"></td>
+								        <td th:text="${loanParasConfig.lpcOverOutRate}?${#numbers.formatDecimal(loanParasConfig.lpcOverOutRate,1,3)}:0.000"></td>
+								        <td th:text="${loanParasConfig.lpcPayLiquRate}?${#numbers.formatDecimal(loanParasConfig.lpcPayLiquRate,1,3)}:0.000"></td>
+								        <td th:text="${loanParasConfig.remark}"></td>
+                                	</tr>
+                                </tbody>
+                            </table>
+                            <!-- 放款审核 -->
+                            <div class="clearfix" style="margin-top:30px;" th:if="(${actVo.taskDefKey} eq 'fangkuan_sh') or (${actVo.taskDefKey} eq 'fangkuan_sh_hq')">
+                                <div class="formtitle"><span>放款审核</span></div>
+                                <div class="toolsli">
+                                    <ul class="nbbdgl-Ui">
+	                                    <form id="shForm">
+	                                        <li class="treatmentResult">
+	                                            <span class="tips">处理结果：</span>
+	                                            <div class="vocation">
+	                                                <select class="select-common select1" name="letResult">
+	                                                    <option value="1">同意</option>
+	                                                    <option value="92">拒贷</option>
+	                                                    <option value="5">会签</option>
+	                                                    <option value="-2">驳回修改</option>
+	                                                </select>
+	                                            </div>
+	                                        </li>
+	                                        <li>
+	                                            <span class="tips">审核员：</span>
+	                                            <span th:text="${loanEmp.leStaffName}"></span>
+	                                        </li>
+	                                        <li class="jointlySign">
+								                <span class="tips">会签人：</span>
+								                <div class="vocation">
+								                    <select class="select-common select1" id="signer" >
+								                        <option value="">请选择</option>
+								                        <option value="BranchOfficeGM">分公司总经理</option>
+														<option value="AreaManager">区域总经理</option>
+														<option value="Approval">审贷会</option>
+														<option value="GroupCEO">集团执行总裁</option>
+								                    </select>
+								                </div>
+								            </li>
+	                                        <li style="width: 80%;">
+	                                            <span class="tips">审核意见：</span>
+	                                            <textarea class="area" name="letRemark" maxLength="200" placeholder="最多输入200个字符"></textarea>
+	                                        </li>
+	                                    </form>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- 放款确认 -->
+                            <div class="clearfix" style="margin-top:30px;" th:if="(${actVo.taskDefKey} eq 'fangkuan_jsqr') or (${actVo.taskDefKey} eq 'fangkuan_qzqr')">
+                                <div class="formtitle"><span>放款确认</span></div>
+                                <div class="toolsli">
+                                   	<ul class="nbbdgl-Ui">
+                                    	<form id="shForm">
+                                    		<li class="treatmentResult">
+	                                            <span class="tips">处理结果：</span>
+	                                            <div class="vocation">
+	                                                <select class="select-common select1" name="letResult">
+	                                                    <option value="1">同意</option>
+	                                                    <option value="-2">驳回修改</option>
+	                                                </select>
+	                                            </div>
+	                                        </li>
+	                                        <li>
+	                                            <span class="tips">审核员：</span>
+	                                            <span th:text="${loanEmp.leStaffName}"></span>
+	                                        </li>
+	                                        <li style="width: 80%;">
+	                                            <span class="tips">审核意见：</span>
+	                                            <textarea class="area" name="letRemark" maxLength="200" placeholder="最多输入200个字符"></textarea>
+	                                        </li>
+                                        </form>
+                                   	</ul>
+                                </div>
+                            </div>
+                            <p class="textCt pt20">
+								<input type="button" id="auditingSubmit" class="scbtn auditingSubmit" value="提 交"/>
+                               	<input type="button" class="scbtn2 mlt10" value="取 消" onclick="javascript:history.go(-1);"/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+    <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/js/jsxd/workflow/actTaskHistoricFlow.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+	  	seajs.use("auditing/projectAuditing");
+	</script>
+</body>
+</html>

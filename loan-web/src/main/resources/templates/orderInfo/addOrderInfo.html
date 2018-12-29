@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<script src="/js/public/area.js"></script>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>报单管理</li>
+                        <li>新增报单</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div class="formtitle"><span>新增报单</span></div>
+                        <div class="toolsli">
+                            <ul class="nbbdgl-Ui">
+                            	<form id="myForm">
+                            		<li>
+	                                    <span class="tips">资金方：</span>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1 validate[required]" name="fundOwner" id="fundOwner">
+	                                            <option value="">请选择</option>
+	                                            <th:block th:unless="${#lists.isEmpty(loanOrgSupportAreas)}">
+					                        		<option th:each="loanOrganization:${loanOrgSupportAreas}" 
+						                        		th:value="${loanOrganization.orgId}" 
+						                        		th:text="${loanOrganization.orgName}"></option>
+						                        </th:block>
+	                                        </select>
+	                                    </div>
+	                                </li>
+                            		<li>
+	                                    <span class="tips">产品名称：</span>
+	                                    <input type="hidden" name="productNo" id="productNo"/>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1 validate[required]" name="childProductNo" id="productName">
+	                                            <option value="">请选择</option>
+	                                        </select>
+	                                    </div>
+	                                </li>
+                            		<li>
+	                                    <span class="tips">报单人：</span>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1 validate[required]" name="providerNo">
+	                                            <option value="">请选择</option>
+	                                            <th:block th:unless="${#lists.isEmpty(providerList)}">
+					                        		<option th:each="provider:${providerList}" 
+						                        		th:value="${provider.providerNo}" 
+						                        		th:text="(${provider.providerName} and (${provider.providerName}!=''))?${provider.providerName}:${provider.mobileNo}"></option>
+						                        </th:block>
+	                                        </select>
+	                                    </div>
+	                                </li>
+                            		<li>
+	                                    <span class="tips">客户经理：</span>
+	                                    <input type="hidden" name="businessType" value="0"/>
+	                                    <input type="hidden" name="unionId" id="unionId"/>
+	                                    <input type="hidden" name="companyId" id="companyId"/>
+	                                    <input type="hidden" name="depId" id="depId"/>
+	                                    <input type="hidden" name="province" id="province"/>
+	                                    <input type="hidden" name="city" id="city"/>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1 validate[required]" name="customerManager" id="customerManager">
+	                                            <option value="">请选择</option>
+	                                            <th:block th:unless="${#lists.isEmpty(empList)}">
+					                        		<option th:each="emp:${empList}" 
+						                        		th:value="${emp.leEmpId}" 
+						                        		th:text="${emp.leStaffName}"
+						                        		th:attr="data-province=${emp.provinceName},
+						                        			data-city=${emp.leCity},
+						                        			data-unionid=${emp.companyId},
+						                        			data-companyid=${emp.branchCompanyId},
+						                        			data-deptid=${emp.leDeptId},
+						                        			data-groupid=${emp.leGroupId}"></option>
+						                        </th:block>
+	                                        </select>
+	                                    </div>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">借款人姓名：</span>
+	                                    <input type="text" class="txt validate[required,custom[chineseName]]" name="bname" maxLength="15"/>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">借款人手机号：</span>
+	                                    <input type="text" class="txt validate[required,custom[mobile]]" name="mobile"/>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">借款人身份证：</span>
+	                                    <input type="text" class="txt validate[required,custom[chinaIdLoose]]" name="idNum" maxLength="18"/>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">借款金额：</span>
+	                                    <input type="text" class="txt validate[required,custom[numberTwo]]" name="loanAmount"/>
+	                                    <span>万元</span>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">借款期限：</span>
+	                                    <input type="text" class="txt validate[required,custom[integer]]" name="loanTerm" style="width: 160px;"/>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1" name="loanTermUnit" style="width: 80px;">
+	                                            <option value="个月">个月</option>
+	                                            <option value="天">天</option>
+	                                        </select>
+	                                    </div>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">借款利率：</span>
+	                                    <input type="text" class="txt validate[required,custom[numberThree]]" name="loanRate" style="width: 135px;"/>
+	                                    <span>%/</span>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1" name="loanRateUnit" style="width: 80px;">
+	                                            <option value="年">年</option>
+	                                            <option value="月">月</option>
+	                                            <option value="天">天</option>
+	                                            <option value="次">次</option>
+	                                        </select>
+	                                    </div>
+	                                </li>
+                            		<li style="width: 80%;">
+	                                    <span class="tips">&nbsp;</span>
+	                                    <input type="button" class="scbtn mlt10" value="保 存" id="save_btn"/>
+	                                    <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);"/>
+	                                </li>
+                                </form>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	    <script src="/js/public/select.js"></script>
+	    <footer th:replace="common/footer"></footer>
+    </div>
+    <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+	<script th:inline="javascript">
+       	seajs.use("orderInfo/addOrderInfo");
+	</script>
+</body>
+</html>

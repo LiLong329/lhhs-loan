@@ -1,0 +1,24 @@
+  <div style="margin-left: 50px">
+    <ul class="nbbdgl-Ui clearfix">
+            <li>
+                <span class="tips">按时间统计：</span>
+                <div class="vocation">
+                    <select class="select-common select1 validate[required]" id="type">
+                        <option value="1">月</option>
+                        <option value="2">周</option>
+                        <option value="3">日</option>
+                    </select>
+                </div>
+            </li>
+    </ul>   
+    <div id="chartDiv">
+     <!--  <canvas id="myChart" width="600" height="400"></canvas>
+      <canvas id="myChart2" width="600" height="400" style="margin-left: 60px"></canvas> -->
+      <div id='showChart' style="height:500px; border:1px solid #ccc; width:100%;"></div>
+    </div>
+  </div>
+  <div style="margin-left: 50px;margin-top: 30px;margin-bottom: 20px">
+   <input type="button" class="scbtn searcher" th:attr="data-id='1'" value="事业部"/>
+   <input type="button" class="scbtn searcher" th:attr="data-id='2'" value="借款人"/>
+   <input type="button" class="scbtn searcher" th:attr="data-id='3'" value="放款人"/>
+  </div> 

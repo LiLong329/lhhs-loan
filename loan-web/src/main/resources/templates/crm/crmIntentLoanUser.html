@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script src="/js/public/area.js"></script>
+<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<style>
+	.searchUlCon{border:1px solid #b6cad2; padding-top:15px; margin-bottom:20px;}
+	.searchUlCon .itemUl{margin-bottom:15px; margin-left:15px;}
+	.searchUlCon .itemUl .title{width:100px; text-align:right;}
+	.searchUlCon .itemUl li {height:30px; line-height:26px;float:left;margin-right:15px;}
+	.searchUlCon .itemUl li span{display:inline-block;width:70px; text-align:center; height:26px; line-height:26px; cursor: pointer;}
+	.searchUlCon .itemUl .on span{color:#fff;background:#18b4e7;}
+	.searchUlCon .itemUl .timeSearch{display:none;}
+	.searchUlCon .itemUl .timeSearch span{float:left; width:30px;}
+	.preview{max-width:600px; margin-left:auto; margin-right:auto;}
+	.content-txt{line-height:30px; margin:20px;}
+	.importBtn{cursor:pointer; margin-left:32px; width:115px; height:33px; line-height:33px; text-align:center; background:#3b89b5; color:#fff; border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
+	input.importBtn{filter:alpha(Opacity=0);-moz-opacity:0;opacity: 0; position: absolute;top:0;}
+	.call-mobile{display:inline-block; width:22px; height:22px; overflow:hidden; vertical-align: bottom; background: url("/img/call-moblie.png") no-repeat; background-size: auto 100%;}
+	.call-mobile:hover{background-position: -22.5px 0px;}
+</style>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+        <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>客户管理</li>
+                        <li>客户信息管理</li>
+                        <th:block th:if="${isAssign} eq 'assign' and ( ${flag} neq 'assignlist') and   ( ${flag} neq 'changelist')">
+				        <li>指派意向客户</li>
+				        </th:block>	
+                        <th:block th:if="${isAssign} eq 'list' ">
+				        <li>客户列表</li>
+				        </th:block>	
+				        <th:block th:if="${isAssign} eq 'follow' and ( ${flag} neq 'assignlist') and   ( ${flag} neq 'changelist')">
+				        <li>回访意向客户</li>
+				        </th:block>
+				         <th:block th:if="${isAssign} eq 'change' ">
+				        <li>转移意向客户</li>
+				        </th:block>
+				        <th:block th:if="${flag} eq 'changelist' and (${isAssign} neq 'assign') ">
+				        <li>已分配客户</li>
+				        </th:block>
+				        <th:block th:if="${flag} eq 'assignlist' and (${isAssign} neq 'follow')">
+				        <li>待分配客户</li>
+				        </th:block>
+	
+                    </ul>
+                </div>
+                <div class="right-content">
+                	<div style="position: relative;">
+	                    <div class="formbody">
+	                     <div class="searchUlCon">
+	                     	<ul class="itemUl clearfix" data-name="businessStatus">
+	                     		<li class="title">客户状态：</li>
+	                     		<li data-value="" th:attr="class=(${entity.businessStatus} and (${entity.businessStatus} neq ''))?'':'on'"><span>全部</span></li>
+	                     		<li data-value="01" th:attr="class=(${entity.businessStatus} eq '01')?'on':''"><span>初步接触</span></li>
+	                     		<li data-value="02" th:attr="class=(${entity.businessStatus} eq '02')?'on':''"><span>意向客户</span></li>
+	                     		<li data-value="03" th:attr="class=(${entity.businessStatus} eq '03')?'on':''"><span>跟进客户</span></li>
+	                     		<li data-value="04" th:attr="class=(${entity.businessStatus} eq '04')?'on':''"><span>签约客户</span></li>
+	                     		<li data-value="05" th:attr="class=(${entity.businessStatus} eq '05')?'on':''"><span>放弃客户</span></li>
+	                     		<li data-value="06" th:attr="class=(${entity.businessStatus} eq '06')?'on':''"><span>黑名单</span></li>
+	                     		<li data-value="07" th:attr="class=(${entity.businessStatus} eq '07')?'on':''"><span>面谈客户</span></li>
+	                     		<li data-value="08" th:attr="class=(${entity.businessStatus} eq '08')?'on':''"><span>已报单</span></li>
+	                     		<li data-value="90" th:attr="class=(${entity.businessStatus} eq '90')?'on':''"><span>已拒贷</span></li>
+	                     		<li data-value="99" th:attr="class=(${entity.businessStatus} eq '99')?'on':''"><span>无效</span></li>
+	                     		
+	                     	</ul>
+	                     	<ul class="itemUl clearfix" data-name="grade">
+	                     		<li class="title">客户等级：</li>
+	                     		<li data-value="" th:attr="class=(${entity.grade} and (${entity.grade} neq ''))?'':'on'"><span>全部</span></li>
+	                     		<li data-value="01" th:attr="class=(${entity.grade} eq '01')?'on':''"><span>普通客户</span></li>
+	                     		<li data-value="02" th:attr="class=(${entity.grade} eq '02')?'on':''"><span>重要客户</span></li>
+	                     		<li data-value="03" th:attr="class=(${entity.grade} eq '03')?'on':''"><span>重要紧急</span></li>
+	                     	</ul>
+	                     	<ul class="itemUl clearfix" data-name="source">
+	                     		<li class="title">客户来源：</li>
+	                     		<li data-value="" th:attr="class=(${entity.source} and (${entity.source} neq ''))?'':'on'"><span>全部</span></li>
+	                     		<li data-value="01" th:attr="class=(${entity.source} eq '01')?'on':''"><span>陌拜</span></li>
+	                     		<li data-value="02" th:attr="class=(${entity.source} eq '02')?'on':''"><span>电销</span></li>
+	                     		<li data-value="03" th:attr="class=(${entity.source} eq '03')?'on':''"><span>转介绍</span></li>
+	                     		<li data-value="04" th:attr="class=(${entity.source} eq '04')?'on':''"><span>网络</span></li>
+	                     		<li data-value="05" th:attr="class=(${entity.source} eq '05')?'on':''"><span>报刊</span></li>
+	                     		<li data-value="06" th:attr="class=(${entity.source} eq '06')?'on':''"><span>其他</span></li>
+	                     		<li data-value="07" th:attr="class=(${entity.source} eq '07')?'on':''"><span>中视天脉</span></li>
+	                     	</ul>
+	                     	<ul class="itemUl clearfix" data-name="dateFlag">
+	                     		<li class="title">最新跟进时间：</li>
+	                     		<li data-value="" th:attr="class=(((!${entity.dateFlag}) or (${entity.dateFlag} eq '')) and ((!${entity.beginingTime}) or (${entity.beginingTime} eq '')) and ((!${entity.endTime}) or (${entity.endTime} eq '')))?'on':''"><span>全部</span></li>
+	                     		<li data-value="01" th:attr="class=(${entity.dateFlag} eq '01')?'on':''"><span>今天</span></li>
+	                     		<li data-value="02" th:attr="class=(${entity.dateFlag} eq '02')?'on':''"><span>昨天</span></li>
+	                     		<li data-value="03" th:attr="class=(${entity.dateFlag} eq '03')?'on':''"><span>最近7天</span></li>
+	                     		<li data-value="04" th:attr="class=(${entity.dateFlag} eq '04')?'on':''"><span>最近30天</span></li>
+	                     		<li data-value="5"  th:attr="class=((${entity.beginingTime} and ${entity.beginingTime} neq '') or (${entity.endTime} and ${entity.endTime} neq ''))?'on':''"><span class="timeClick">自定义</span></li>
+	                     		<li class="timeSearch" th:attr="style=((${entity.beginingTime} and ${entity.beginingTime} neq '') or (${entity.endTime} and ${entity.endTime} neq ''))?'display:block;':'display:none;'">
+	                                <input type="text" th:value="${entity.beginingTime}?${#dates.format(entity.beginingTime, 'yyyy-MM-dd')}" class="scinput1" name="beginingTime" id="startTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd ',maxDate:'#F{$dp.$D(\'endTime\')}',onpicked:timeChange})" readonly="readonly"/>
+	                                <span> 至 </span>
+	                                <input type="text" th:value="${entity.endingTime}?${#dates.format(entity.endingTime, 'yyyy-MM-dd')}" class="scinput1" name="endingTime" id="endTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd ',minDate:'#F{$dp.$D(\'startTime\')}',onpicked:timeChange})" readonly="readonly"/>
+	                            </li>
+	                     	</ul>
+	                     </div>
+	                        <div id="usual1" class="usual">
+	                            <form id="myForm" action="/crmIntentLoanUser/crmIntentList" method="get">
+	                                <input type="hidden" id="businessStatus" name="businessStatus"  th:value="${entity.businessStatus}"/>
+	                                <input type="hidden" id="grade" name="grade"  th:value="${entity.grade}"/>
+	                                <input type="hidden" id="source" name="source"  th:value="${entity.source}"/>
+	                                <input type="hidden" id="dateFlag" name="dateFlag"  th:value="${entity.dateFlag}"/>
+	                                <input type="hidden" id="beginingTime" name="beginingTime"  th:value="${entity.beginingTime}?${#dates.format(entity.beginingTime, 'yyyy-MM-dd')}"/>
+	                                <input type="hidden" id="endingTime" name="endingTime"  th:value="${entity.endingTime}?${#dates.format(entity.endingTime, 'yyyy-MM-dd')}"/>
+	                                <input type="hidden" id="isAssign" name="isAssign"  th:value="${isAssign}"/>
+				                    <input  name="pageIndex" type="hidden" value="" id="currentPageNo"/>
+		                            <ul class="seachform1">
+		                                <li >
+		                                    <span class="tips">省市：</span>
+		                                    <span th:value="${entity.province}" ></span>
+					                        <div class="vocation">
+									          	<select class="select-common select3 provinceSelect" name="province" th:attr="data-val=(${entity.province})" style="width:100px;"></select>
+								            </div>
+					                        <div class="vocation" style="margin-left:10px;">
+									          	<select class="select-common select3 citySelect" name="city" th:attr="data-val=(${entity.city})" style="width:100px;"></select>
+								            </div>
+		                            	</li>
+		                            	<li>
+		                                    <label>分公司：</label>
+		                                    <div class="vocation">
+				                            	 <!-- <select class="select-common select3 common-company" name="appointCompanyId" id="appointCompanyId" >
+				                                       <option value="">请选择</option>
+				                                       <option th:each="company : ${companys}" th:value="${company.companyId}" th:text="${company.companyName}"  th:attr="selected=(${company.companyId} eq ${entity.appointCompanyId})?true:false"></option>
+				                                 </select> -->
+				                                  <select class="select-common select3 common-company" name="appointCompanyId" id="companyId" >
+				                                       <option value="">请选择</option>
+				                                       <option th:each="company : ${companys}" th:value="${company.companyId}" th:text="${company.companyName}"
+				                                       th:attr="selected=(${entity.appointCompanyId} eq ${company.companyId})?true:false" ></option>
+				                                  </select>
+	                                  		</div>
+	                                	</li>
+	                                	
+	                                	 <th:block th:if="('fenpei' neq ${fpOrzy})">
+		                                	<li>
+			                                    <label>事业部：</label>
+			                                    <div class="vocation">
+				                                    <select class="select-common select3 common-dept" name="appointDepId" id="depId" th:attr="data-val=${entity.appointDepId}">
+		                                        	  <option value="" >请选择</option>
+		                                        	  <!--  <option th:each="dept : ${dept}" th:value="${dept.ldDeptId}" th:text="${dept.ldName}"
+				                                       th:attr="selected=(${entity.appointDepId} eq ${dept.ldDeptId})?true:false" ></option> -->
+		                                             </select>
+			                                       <!--  <select class="select-common select3" name="appointDepId" id="appointDepId">
+			                                        	    <option value="" >请选择</option>
+			                                        	     <option th:each="dept : ${depts}" th:value="${dept.ldDeptId}" th:text="${dept.ldName}" th:attr="selected=(${dept.ldDeptId} eq ${entity.appointDepId})?true:false"></option>
+			                                        </select> -->
+			                                    </div>
+		                                	</li>
+		                                	<!-- <li>
+			                                    <label>组别：</label>
+			                                    <div class="vocation">
+			                                        <select class="select-common select3" name="appointGroupId" id="appointGroupId" >
+			                                        	   <option value="" >请选择</option>
+			                                        	   <option th:each="group : ${groups}" th:value="${group.lgGroupId}" th:text="${group.lgName}" th:attr="selected=(${group.lgGroupId} eq ${entity.appointGroupId})?true:false"></option>
+			                                        </select>
+			                                    </div>
+		                                	</li> -->
+	                                	</th:block>
+	                                	 <li>
+		                                    <label>客户经理：</label>
+		                                    <input type="text" class="scinput1" id="appointEmpName" name="appointEmpName" th:value="${entity.appointEmpName}"/>
+		                                </li>
+		                                <li>
+		                                    <label>客户姓名：</label>
+		                                    <input type="text" class="scinput1" id="bname" name="name" th:value="${entity.name}"/>
+		                                </li>
+		                                <li>
+		                                    <label>业务类型：</label>
+		                                     <div class="vocation">
+		                                        <select class="select-common select3" name="businessType" >
+		                                            <option value="">请选择</option>
+		                                             <option th:each="pro : ${productList}" th:value="${pro.product_no}" th:text="${pro.product_type}"></option>
+		                                            <!-- <option value="1" th:attr="selected=('1' eq ${entity.businessType})?true:false">房产抵押贷</option>
+		                                            <option value="2" th:attr="selected=('2' eq ${entity.businessType})?true:false">信用贷</option>
+		                                            <option value="3" th:attr="selected=('3' eq ${entity.businessType})?true:false">车辆抵押贷</option>
+		                                            <option value="4" th:attr="selected=('4' eq ${entity.businessType})?true:false">垫资过桥</option>
+		                                            <option value="5" th:attr="selected=('5' eq ${entity.businessType})?true:false">解查封</option>
+		                                            <option value="6" th:attr="selected=('6' eq ${entity.businessType})?true:false">其他</option> -->
+		                                        </select>
+		                                    </div>
+	                                	</li>
+		                                <li>
+		                                    <input id="queryBorrowerInfo" name="queryBorrowerInfo" type="button" class="scbtn fl" value="查询"/>
+		                                    <th:block th:if="${isAssign} eq 'list'">
+		                                    	<input sec:authorize="hasRole('ROLE_TOADDCRMVIEW')"  type="button" class="scbtn mlt10 fl" value="新建" onclick="javascrtpt:window.location.href='/crmIntentLoanUser/toAddCrmView'"/>
+		                                		<input sec:authorize="hasRole('ROLE_INTENTLOANUSERIMPORT')" type="button" class="scbtn1 mlt10 fl" value="导入" id="importBtn" />
+		                                		<span sec:authorize="hasRole('ROLE_INTENTLOANUSERIMPORT')"><a href="/excelTemplate/CrmIntentTemplate.xlsx" style="color:#007fff;">点击下载导入模板</a></span>
+											</th:block>
+		                                </li>
+		                            </ul>
+	                            </form>
+	                            <div class="table-title">
+	                                <p class="tab-font">意向客户管理</p>
+	                            </div>
+	                            <div id="recordList" th:include="crm/_crmIntentLoanUserSub"></div>
+								<div th:if="${fpOrzy}" >
+									<p class="operationLine">
+										 <th:block th:if="'fenpei' eq ${fpOrzy}">
+										 	<span class="choose" sec:authorize="hasRole('ROLE_ASSIGNRECORDZP')">已选<span class="checkNum" style="float:none;"></span>位客户</span>
+											<em class="YHicon" sec:authorize="hasRole('ROLE_ASSIGNRECORDZP')"></em>
+										 	<span class="operation" sec:authorize="hasRole('ROLE_ASSIGNRECORDZP')" >指派</span>
+										 </th:block>
+										<th:block th:if="'zhuanyi' eq ${fpOrzy}">
+											<span class="choose" sec:authorize="hasRole('ROLE_CRMINTENTCHANGELIST')">已选<span class="checkNum" style="float:none;"></span>位客户</span>
+											<em class="YHicon" sec:authorize="hasRole('ROLE_CRMINTENTCHANGELIST')"></em>
+											<span class="operation" sec:authorize="hasRole('ROLE_CRMINTENTCHANGELIST')" >转移</span>
+										 </th:block>
+									</p>
+								</div>
+	                        </div>
+	                       <div id="preview" style="display:none;">
+	                        	<div class="previewBack"></div>
+								<div class="preview">
+								    <div class="formbody" style="padding:16px 18px;">
+							            <div class="table-title">
+							                <p class="tab-font">导入客户</p>
+							            </div>
+							            <div class="content-txt">
+							            	<p>1、<a href="/excelTemplate/CrmIntentTemplate.xlsx" style="color:#ff0000;">点击下载导入模板</a>将要导入的数据填充到导入模板中<br/>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注意：<br/>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1）表头不可修改；<br/>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2）单词导入的数据不可超过5000条
+											</p>
+											<p>2、选择要导入的数据文件</p>
+											<form id="myFileForm" action="." method="post" enctype="multipart/form-data">
+                       							<div style="position: relative; margin-top:10px;">
+	                       							<span class="importBtn">选择文件</span>
+	                       							<input type="file" id="importFile" multiple="multiple" class="importBtn" name="file" />
+	                       							<!-- <span >afafaf</span> -->
+                       							</div>
+	                        				</form>
+							            </div>
+								        <p class="textCt" style="margin-top:30px;">
+								            <input type="button" class="scbtn" value="保 存" id="previewSubmit"/>
+								            <input type="button" class="scbtn2 mlt10" value="取 消" id="previewCancel"/>
+								        </p>
+								    </div>
+								</div>
+	                        </div>
+	                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/js/public/select.js"></script>
+        <footer th:replace="common/footer"></footer>
+    </div>
+    <div class="YHalertCon" >
+		<p class="YHalertCon-title">转移</p>
+		<div class="clearfix">
+			<div class="ZYFPConWrap">
+				<p class="title">* 选择分公司</p>
+				<div class="ZYFPCon">
+					<ul class="customer" id="zyCompany">
+						<th:block th:unless="${#lists.isEmpty(companyList)}">
+						  <li th:each="company:${companyList}" th:value="${company.companyId}" th:text="${company.companyName}"></li>
+						</th:block>
+					</ul>
+				</div>
+			</div>
+			<div class="ZYFPConWrap">
+				<p class="title">* 选择姓名</p>
+				<div class="ZYFPCon">
+					<ul class="customer" id="zyCustomer">
+						<th:block th:unless="${#lists.isEmpty(allManager)}">
+						  <li th:each="companyEmp:${allManager}" th:value="${companyEmp.userId}" th:text="${companyEmp.staffName}${companyEmp.mobile}"></li>
+						</th:block>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<p class="textCt pt10">
+			<input name="" type="button" class="scbtn mlt10" value="保存" style="width: 80px;" id="zySave"/>
+			<input name="" type="button" class="scbtn2 mlt10 closeAlert" value="取消" style="width: 80px;" />
+		</p>
+	</div>
+    <div class="FPalertCon" >
+		<p class="YHalertCon-title">分配</p>
+		<div class="clearfix">
+			<div class="ZYFPConWrap">
+				<p class="title">* 选择姓名</p>
+				<div class="ZYFPCon">
+					<ul class="customer" id="fpCustomer">
+						
+						<th:block th:unless="${#lists.isEmpty(allManager)}">
+						  <li th:each="allManager:${allManager}" th:value="${allManager.userId}" th:text="${allManager.staffName}${allManager.mobile}"></li>
+						</th:block>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<p class="textCt pt10">
+			<input name="" type="button" class="scbtn mlt10" value="保存" style="width: 80px;" id="fpSave"/>
+			<input name="" type="button" class="scbtn2 mlt10 closeAlert" value="取消" style="width: 80px;" />
+		</p>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+  	seajs.use("crm/crmIntent");
+</script>

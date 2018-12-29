@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li>我的任务</li>
+                        <li>任务分配</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                    <!-- /workflow/url/actmodel/create -->
+                   <form id="inputForm" class="form-horizontal">
+                    <input type="hidden" name="taskId"  th:attr="value=${task.taskId}"/>
+                    <div class="formtitle"><span>任务信息</span></div>
+                    <div class="toolsli">
+                        <ul class="nbbdgl-Ui">
+                            <li >
+                                <span class="tips">标题：</span>
+								<span  th:text="${task.title}"></span>
+                            </li>
+                            <li >
+                                <span class="tips">任务名称：</span>
+								<span  th:text="${task.taskName}"></span>
+                            </li>
+							<li >
+                                <span class="tips">任务编号：</span>
+								<span  th:text="${task.taskId}"></span>
+                            </li>
+                            <li >
+                                <span class="tips">流程名称：</span>
+								<span  th:text="${task.procName}"></span>
+                            </li>
+                           <li >
+                                <span class="tips">业务编号：</span>
+								<span  th:text="${task.businessId}"></span>
+                            </li>
+                            <li>
+                                <span class="tips">申请人：</span>
+								<span  th:text="${task.operatorName}"></span>
+                            </li>
+							<li >
+                                <span class="tips">所属公司编码：</span>
+								<span  th:text="${task.companyId}"></span>
+                            </li>
+                            <li >
+                                <span class="tips">备注：</span>
+								<span  th:text="${task.remark}"></span>
+                            </li>
+							<li >
+                                <span class="tips">待办人：</span>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1 validate[required]" name="userId">
+	                                            <option value="">请选择</option>
+	                                            <th:block th:unless="${#lists.isEmpty(allManager)}">
+					                        		<option th:each="allManager:${allManager}" th:value="${allManager.leAccount}" th:text="${allManager.leStaffName}"
+					                        		th:attr="selected=(${allManager.leAccount} eq ${task.userId})?true:false">
+						                        	</option>
+						                        </th:block>
+	                                        </select>
+	                                    </div>
+                            </li>
+                            <li style="width: 80%;">
+                                <span class="tips">&nbsp;</span>
+                                <input type="button" class="scbtn mlt10" id="btn_save"  value="保 存"/>
+                                <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);"/>
+                            </li>
+                        </ul>
+                    </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+      <script th:inline="javascript">
+    	/*<![CDATA[*/
+	    	seajs.use("workflow/actTaskTodoList");
+    	/*]]>*/
+    </script>
+</body>
+</html>

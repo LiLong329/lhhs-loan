@@ -1,0 +1,8 @@
+@charset "utf-8";
+.err-bg{ width:1000px; margin:50px auto 0;}
+.err-txt{ width:290px; position: relative;}
+.describe{margin-top:250px; font-size:18px; color:#FF9800;}
+.operation{position:absolute; left:0; top:330px;}
+.err-txt h1{ font-size:30px; color:#0566aa; }
+.err-txt p{ font-size:14px; color:#656667; line-height:30px; letter-spacing:1px;}
+.err-txt p a{color:#0566aa;}

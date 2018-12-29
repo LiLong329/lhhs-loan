@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>系统管理</li>
+                        <li>权限设置</li>
+                        <li>部门管理</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual">
+                            <ul class="seachform1">
+                             <form id="myForm">
+                             	<input  name="pageNumber" type="hidden" value="" id="currentPageNo"/>
+                             		<li>
+									<th:block th:if="${isAdmin} eq 'admin'">
+										<label>分公司：</label>
+										<div class="vocation">
+									       <select class="select-common select3 common-company" name="companyId"  id="company" >
+												<option value="">请选择</option>
+												<option th:each="company : ${companys}" 
+													th:value="${company.companyId}" 
+													th:text="${company.companyName}"
+													th:selected="${companyId} eq ${company.companyId}?true:false"></option>
+												 <!-- th:attr="selected=(${companyId} eq ${company.companyId})?true:false"></option> -->
+											</select>
+										</div>
+									 </th:block>
+								</li>
+								<li>
+									 <th:block th:if="${isAdmin} eq 'admin'">
+										<label>事业部：</label>
+										<div class="vocation">
+										    <select class="select-common select3" name="ldDeptId" id="depId">
+									               <option value="" >请选择</option>
+	                                            <option th:each="search : ${searchList}" 
+	                                            	th:value="${search.deptId}" 
+	                                            	th:text="${search.name}"
+	                                            	th:selected="${ldDeptId} eq ${search.deptId}?true:false"></option>
+	                                             <!--  th:attr="selected=selected"></option> -->
+										     </select>
+										</div>
+									 </th:block>
+								</li>
+                                <li>
+                                	 <th:block th:if="${isAdmin} neq 'admin'">
+	                                    <label>部门名称：</label>
+	                                    <div class="vocation">
+	                                        <select class="select-common select3" name="ldDeptId">
+	                                            <option value="" >请选择</option>
+	                                            <option th:each="search : ${searchList}" th:value="${search.deptId}" th:text="${search.name}"
+	                                              th:attr="selected=
+	                                              (${ldDeptId} eq ${search.deptId})?true:false"></option>
+	                                        </select>
+	                                    </div>
+                                     </th:block>
+                                </li>
+                                <li>
+                                    <label>状态：</label>
+                                    <div class="vocation">
+                                        <select class="select-common select3" name="status">
+                                            <option value="" >请选择</option>
+                                            <option value="1" th:attr="selected=(${status} eq '1')?true:false">正常</option>
+                                            <option value="0" th:attr="selected=(${status} eq '0')?true:false">禁用</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                </form>
+                                <li>
+                                    <input type="button" class="scbtn deptSearch" value="查询"/>
+                                </li>
+                                <li class="sarchbtn" style="float: right;">
+                                    <input sec:authorize="hasRole('ROLE_ DEPARTMENTSINSERT')" type="button" class="scbtn1" value="新增" onclick="javascrtpt:window.location.href='/systemManager/toDeptInsert'"/>
+                                </li>
+                            </ul>
+                            <div class="table-title">
+                                <p class="tab-font">部门管理</p>
+                            </div>
+                            <table class="tablelist">
+                                <thead>
+                                    <tr>
+                                        <th>部门编号</th>
+                                        <th>部门名称</th>
+                                        <th>所属公司</th>
+                                        <th>创建时间</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                 <th:block th:unless="${#lists.isEmpty(LoanDepartmentsList)}">
+                                    <tr th:each="dept : ${LoanDepartmentsList}">
+                                        <input type="hidden" th:value="${dept.status}" class="ldStatus"/> 
+                                        <input type="hidden" th:value="${dept.deptId}" class="ldDeptId"/> 
+                                        <td th:text="${dept.deptId}"></td>
+                                        <td th:text="${dept.name}"></td>
+                                        <td th:text="${dept.companyName}"></td>
+                                        <td th:text="${dept.createTime}?${#dates.format(dept.createTime,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+                                        <td>
+                                        <th:block th:if="${dept.status} eq 1">正常</th:block>
+                                        <th:block th:if="${dept.status} eq 0">禁用</th:block>
+                                        </td>
+                                        <td>
+                                            <a sec:authorize="hasRole('ROLE_DEPARTMENTUPDATE')" th:href="@{/systemManager/toDeptUpdate(deptId=${dept.deptId})}" class="tablelink">修改</a>
+                                            <th:block th:if="${dept.status} eq 1">
+                                            <a sec:authorize="hasRole('ROLE_ IFDEPTENABLE')" href="javascript:void(0);" class="tablelink mlt10 buttonclick"  >
+                                                                                                                             禁用
+                                            </a>                                                                                 
+                                            </th:block>
+                                            <th:block th:if="${dept.status} eq 0">
+                                            <a sec:authorize="hasRole('ROLE_ IFDEPTENABLE')" href="javascript:void(0);" class="tablelink mlt10 buttonclick" >
+                                                                                                                             启用
+                                            </a>                                                                                
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    </th:block>
+                                    <th:block th:if="${#lists.isEmpty(LoanDepartmentsList)}">                                              
+                                    </th:block>
+                                </tbody>
+                            </table>
+                            <div class="pagin" th:unless="${#lists.isEmpty(page.resultList)}">
+								<div class="message">
+									共 <i class="blue" th:text="${page.totalCount}"></i> 条记录，当前显示第 <i
+										class="blue" th:text="${page.pageIndex}"></i> 页
+								</div>
+								<ul class="paginList">
+									<li class="paginItem" th:if="${page.pageIndex} gt 1"><a
+										th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+									</li>
+									<li class="paginItem"
+										th:each="x:${#numbers.sequence(page.startNum, page.endNum)}"
+										th:classappend="(${page.pageIndex} eq ${x})?'current'"><a
+										th:attr="data-pagenum=${x}" th:text="${x}"></a></li>
+									<li class="paginItem"
+										th:if="${page.pageIndex} lt ${page.pageCount}"><a
+										th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+									</li>
+								</ul>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <script type="text/javascript" src="/js/public/area.js"></script>
+        <script src="/js/public/select.js"></script>
+        <footer th:replace="common/footer"></footer>
+    </div>
+     <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+     <script> seajs.use("login/department");</script>
+</body>
+</html>

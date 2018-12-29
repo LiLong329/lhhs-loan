@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<script src="/js/public/area.js"></script>
+<body>
+	<div class="father">
+		<header th:replace="common/top"></header>
+		<div class="common-content">
+			<div th:replace="common/left"></div>
+			<div class="common-right">
+				<div class="place" id="place">
+					<span>位置：</span>
+					<ul class="placeul">
+						<li><a href="/index/index">首页</a></li>
+						<li>财务管理</li>
+                        <li>放款管理</li>
+                        <li><a href="/approval/selectLoanApplyList/4">放款申请</a></li>
+                        <li>审核</li>
+					</ul>
+				</div>
+				<div class="right-content">
+					<div class="formbody">
+						<div class="itab">
+							<ul>
+								<li><a data-show="#tab1">项目信息</a></li>
+								<li><a data-show="#tab5">放款申请表</a></li>
+							</ul>
+						</div>
+						<div id="tab1" class="tabson">
+							<div class="table-title">
+								<p class="tab-font">报单基本信息</p>
+							</div>
+							<form id="orderInfo">
+								<table class="tablelist">
+									<tbody>
+									<input type="hidden" name="orderNo" id="orderNo" th:value="${loanOrderInfo.orderNo}"/>
+										<tr>
+											<td class="textCt">报单编号</td>
+								            <td th:text="${loanOrderInfo.orderNo}"></td>
+								            <td class="textCt">借款金额(万元)</td>
+								            <td><input th:value="${loanOrderInfo.loanAmount}?${#numbers.formatDecimal(loanOrderInfo.loanAmount,1,2)}" name="loanAmount" id="loanAmount" class="table-txt validate[required,custom[numberTwo]]" type="text"/></td>
+										</tr>
+										<tr>
+											<td class="textCt">申请时间</td>
+								            <td th:text="${loanOrderInfo.applyDate}?${#dates.format(loanOrderInfo.applyDate,'yyyy-MM-dd HH:mm:ss')}:''"/>
+								            <td class="textCt">借款利率</td>
+								            <td>
+								            	<input th:value="${loanOrderInfo.loanRate}?${#numbers.formatDecimal(loanOrderInfo.loanRate,1,3)}" id="loanRate"
+								            		name="loanRate"  class="table-txt  validate[required,custom[numberThree]]" type="text" style="width:65%;"/>
+							            		<span style="float:left; line-height:34px;"> %/ </span>
+							            		<div class="vocation">
+								                    <select class="select-common select1" id="loanRateUnit" name="loanRateUnit" style="width: 25%;">
+								                        <option value="年" th:attr="selected=${loanOrderInfo.loanRateUnit}?((${loanOrderInfo.loanRateUnit} eq '年')?true:false):false">年</option>
+								                        <option value="月" th:attr="selected=${loanOrderInfo.loanRateUnit}?((${loanOrderInfo.loanRateUnit} eq '月')?true:false):false">月</option>
+								                        <option value="天" th:attr="selected=${loanOrderInfo.loanRateUnit}?((${loanOrderInfo.loanRateUnit} eq '天')?true:false):false">天</option>
+								                        <option value="次" th:attr="selected=${loanOrderInfo.loanRateUnit}?((${loanOrderInfo.loanRateUnit} eq '次')?true:false):false">次</option>
+								                    </select>
+								                </div>
+						            		</td>
+										</tr>
+										<tr>
+											<td class="textCt">合同编号</td>
+								            <td><input th:value="${loanOrderInfo.contractNo}"  name="contractNo" class="table-txt  validate[maxSize[20]]" type="text"/></td>
+								            <td class="textCt">借款期限</td>
+								            <td>
+								            	<th:block th:if="${loanOrderInfo.loanTermUnit}">
+								            		<th:block th:if="${loanOrderInfo.loanTermUnit} eq '个月'">
+								            			<input th:value="${loanOrderInfo.loanTerm}" name="loanTerm"  class="table-txt validate[required,custom[integer],max[60]]" type="text" style="width:65%;"/>
+								            		</th:block>
+								            		<th:block th:if="${loanOrderInfo.loanTermUnit} eq '天'">
+								            			<input th:value="${loanOrderInfo.loanTerm}" name="loanTerm"  class="table-txt validate[required,custom[integer],max[1825]]" type="text" style="width:65%;"/>
+								            		</th:block>
+								            	</th:block>
+								            	<th:block th:unless="${loanOrderInfo.loanTermUnit}">
+								            		<input th:value="${loanOrderInfo.loanTerm}" name="loanTerm"  class="table-txt validate[required,custom[integer],max[60]]" type="text" style="width:65%;"/>
+								            	</th:block>
+								            	<div class="vocation">
+									                <select class="select-common select1 loan_term_unit" name="loanTermUnit" style="width: 33%;">
+									                    <option th:text="个月" th:attr="selected=${loanOrderInfo.loanTermUnit}?((${loanOrderInfo.loanTermUnit} eq '个月')?true:false):false"></option>
+									                    <option th:text="天" th:attr="selected=${loanOrderInfo.loanTermUnit}?((${loanOrderInfo.loanTermUnit} eq '天')?true:false):false"></option>
+									                </select>
+									            </div>
+							            	</td>
+										</tr>
+										<tr>
+											<td class="textCt">档案编号</td>
+								            <td><input th:value="${loanOrderInfo.archivesNo}" name="archivesNo" class="table-txt  validate[maxSize[30]]" type="text"/></td>
+								            <td class="textCt">还款方式</td>
+								            <td>
+								                <select class="select-common select1  validate[required]" name="repayment">
+								                    <option value="">请选择</option>
+						                            <option value="0" th:attr="selected=(${loanOrderInfo.repayment} eq 0)?true:false">每月还息,到期还本</option>
+						                            <option value="2" th:attr="selected=(${loanOrderInfo.repayment} eq 2)?true:false">一次性还款</option>
+								                </select>
+								            </td>
+										</tr>
+										<tr>
+											<td class="textCt">报备人</td>
+								            <td><input th:value="${loanOrderInfo.reportName}" name="reportName"  class="table-txt" type="text"/></td>
+								            <td class="textCt">对接人</td>
+								            <td><input th:value="${loanOrderInfo.abutmentName}" name="abutmentName" class="table-txt" type="text"/></td>
+										</tr>
+										<tr>
+											<td class="textCt">客户经理</td>
+											<td>
+												<div class="vocation">
+													<select class="select-common select1" style="width: 100%;" name="customerManager" id="leEmpId" >
+														<option value="">请选择</option>
+														<th:block th:unless="${#lists.isEmpty(empList)}">
+															<th:block th:each="emp,iter : ${empList}">
+																<option th:value="${emp.leEmpId}" th:text="${emp.leStaffName}" th:attr="selected=(${emp.leEmpId} eq ${loanOrderInfo.customerManager}?true:false)">
+															</option>
+															</th:block>
+														</th:block>
+													</select>
+												</div>
+											</td>
+											<td class="textCt">所属编制</td>
+											<td><input th:value="${loanOrderInfo.ldName}" readOnly="readOnly" id="ldName" name="ldName" class="table-txt" type="text" /></td>
+										</tr>
+										<tr>
+											<td class="textCt">团队经理</td>
+											<td>
+												<input type="text" class="table-txt" readOnly="readOnly"   id="tuandui" />
+											</td>
+											<td class="textCt">事业部总经理</td>
+											<td> <input type="text" class="table-txt"  readOnly="readOnly"  id="zongjingli" /> </td>
+										</tr>
+										<tr>
+											<td class="textCt">产品名称</td>
+											<td th:text="${loanOrderInfo.productName}"></td>
+											<td class="textCt">实勘风控经理</td>
+											<td>
+												<div class="vocation">
+													<select class="select-common select1" style="width: 100%;" id="letEmployeeno" >
+														<th:block th:unless="${#lists.isEmpty(fkempList)}">
+															<th:block th:each="emp,iter : ${fkempList}">
+																<option th:value="${emp.leEmpId}" th:text="${emp.leStaffName}" >
+															</option>
+															</th:block>
+														</th:block>
+													</select>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</form>
+							
+							
+							<div class="table-title">
+								<p class="tab-font">借款人基本信息</p>
+							</div>
+							<th:block th:if="${orderBorrower}">
+							
+							<form id="borrower">
+								<table class="tablelist">
+								<tbody>
+									<input type="hidden" name="custId" th:value="${orderBorrower.custId}"/>
+									<tr>
+										<td class="textCt">借款人</td>
+										<td><input th:value="${orderBorrower.bname}" name="bname" class="table-txt" type="text" /></td>
+										<td class="textCt">性别</td>
+										<td>
+											<div class="vocation">
+												<select class="select-common select1" style="width:100%;" name="sex">
+													<option value="">请选择</option>
+													<option value="0" th:attr="selected=(${orderBorrower.sex} eq 0)?true:false">女</option>
+													<option value="1" th:attr="selected=(${orderBorrower.sex} eq 1)?true:false">男</option>
+												</select>
+											</div>
+										</td>
+										<td class="textCt">身份证号</td>
+										<td><input th:value="${orderBorrower.idNum}" name="idNum" class="table-txt  validate[custom[chinaId]]" type="text" maxLength="18"/></td>
+									</tr>
+									<tr>
+										<td class="textCt">共借人</td>
+										<td><input th:value="${orderBorrower.commonName}" name="commonName" class="table-txt" type="text" /></td>
+										<td class="textCt">性别</td>
+										<td>
+											<div class="vocation">
+												<select class="select-common select1" name="commonSex" style="width:100%;">
+													<option value="">请选择</option>
+													<option value="0" th:attr="selected=(${orderBorrower.commonSex} eq 0)?true:false">女</option>
+													<option value="1" th:attr="selected=(${orderBorrower.commonSex} eq 1)?true:false">男</option>
+												</select>
+											</div>
+										</td>
+										<td class="textCt">身份证号</td>
+										<td><input th:value="${orderBorrower.commonIdNum}" name="commonIdNum" class="table-txt validate[custom[chinaId]]" type="text" maxLength="18"/></td>
+									</tr>
+									<tr>
+										<td class="textCt">借款人移动电话</td>
+										<td colspan="2"><input th:value="${orderBorrower.mobile}" name="mobile" class="table-txt validate[custom[mobile]]" type="text" /></td>
+										<td class="textCt">借款人固定电话1</td>
+										<td colspan="2"><input th:value="${orderBorrower.telephone}" name="telephone" class="table-txt validate[custom[mobile]]" type="text" /></td>
+									</tr>
+									<tr>
+										<td class="textCt">共借人移动电话</td>
+										<td colspan="2"><input th:value="${orderBorrower.commonMobile}" name="commonMobile" class="table-txt" type="text" /></td>
+										<td class="textCt">共借人固定电话</td>
+										<td colspan="2"><input th:value="${orderBorrower.commonTelephone}" name="commonTelephone" class="table-txt" type="text" /></td>
+									</tr>
+									<tr>
+										<td class="textCt">现住址</td>
+										<td colspan="5" th:with="addr=(${orderBorrower.liveAddress})?(${#strings.arraySplit(orderBorrower.liveAddress,'-')}):(${#strings.arraySplit('','-')})">
+											<div class="vocation" >
+												<select class="select-common select3 provinceSelect" name="liveAddress_sub_1"
+								               		th:attr="data-val=(${#arrays.length(addr)} ge 1)?${addr[0]}:''">
+								                </select>
+											</div> <span class="table-span" style="width: 50px;"> 省/市</span>
+											<div class="vocation">
+													<select class="select-common select3 citySelect" name="liveAddress_sub_2"
+														th:attr="data-val=(${#arrays.length(addr)} ge 2)?${addr[1]}:''">
+													</select>
+											</div> <span class="table-span" style="width: 50px;"> 县/区</span> 
+											<input type="text" class="table-txt" style="width: 30%;" name="liveAddress_sub_3"    th:value="(${#arrays.length(addr)} ge 3)?${addr[2]}:''" maxlength="50"  placeholder="最多输入50个字符"/>
+										</td>
+									</tr>
+									<tr>
+										<td class="textCt">借款用途</td>
+										<td colspan="5"><input th:value="${orderBorrower.loadPurpose}" name="loadPurpose" class="table-txt" type="text" />
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							</form>
+							
+							</th:block>
+							<div class="table-title">
+								<p class="tab-font">抵押物基本信息</p>
+							</div>
+								<div id="orderHouse" th:unless="${#lists.isEmpty(orderHouse)}"  th:each="house,iter : ${orderHouse}">
+									<form >
+										<table class="tablelist" >
+										  	<input type="hidden" name="id" th:value="${house.id}"/>
+											<tbody >
+												<tr>
+													<td class="textCt">抵押物坐落</td>
+													
+													<td colspan="5" th:with="addr=(${house.houseAddress})?(${#strings.arraySplit(house.houseAddress,'-')}):(${#strings.arraySplit('','-')})">
+														<div class="vocation">
+															<select class="select-common select3 provinceSelect" name="houseAddress_sub_1"
+											               		th:attr="data-val=(${#arrays.length(addr)} ge 1)?${addr[0]}:''">
+															</select>
+														</div> <span class="table-span" style="width: 50px;"> 省/市</span>
+														<div class="vocation">
+															<select class="select-common select3 citySelect" name="houseAddress_sub_2"
+																th:attr="data-val=(${#arrays.length(addr)} ge 2)?${addr[1]}:''">
+															</select>
+														</div> <span class="table-span" style="width: 50px;"> 县/区</span> 
+														<input class="table-txt" type="text" style="width: 30%;" name="houseAddress_sub_3"
+											            th:value="(${#arrays.length(addr)} ge 3)?${addr[2]}:''" maxlength="50"  placeholder="最多输入50个字符" />
+													</td>
+												 </tr>
+												 <tr>
+													<td class="textCt">产权证编号</td>
+													<td><input th:value="${house.propertyNum}" name="propertyNum" class="table-txt" type="text" /></td>
+													<td class="textCt">朝向</td>
+													<td><input th:value="${house.houseFacing}" name="houseFacing" class="table-txt" type="text" /></td>
+													<td class="textCt">厅室</td>
+													<td><input th:value="${house.houseLayout}" name="houseLayout" class="table-txt" type="text" /></td>
+												 </tr>
+												 <tr>
+													<td class="textCt">产权人</td>
+													<td><input th:value="${house.propertyName}" name="propertyName" class="table-txt" type="text" /></td>
+													<td class="textCt">建筑面积（㎡）</td>
+													<td><input th:value="${house.buildArea}"  name="buildArea" class="table-txt" type="text" /></td>
+													<td class="textCt">房龄（年）</td>
+													<td><input th:value="${house.builtAge}" name="builtAge"  class="table-txt" type="text" /></td>
+												 </tr>
+												 <tr>
+													<td class="textCt">快出价值（万元）</td>
+													<td><input th:value="${house.sellingPrice}"  name="sellingPrice" class="table-txt" type="text" /></td>
+													<td class="textCt">查询状态</td>
+													<td><input th:value="${house.queryStatus}" name="queryStatus"  class="table-txt" type="text" /></td>
+													<td class="textCt">抵押率（%）</td>
+													<td><input th:value="${house.mortgageRate}" name="mortgageRate"  class="table-txt" type="text" /></td>
+												 </tr>
+												
+												
+											</tbody>
+										</table>
+									</form>
+									 <br/> <br/>
+								</div>
+								
+							<div class="formtitle"><span>项目审核信息</span></div>
+							<table class="tablelist">
+							    <thead>
+							        <tr>
+							            <th>审核节点</th>
+							            <th>操作员</th>
+							            <th>操作时间</th>
+							            <th>处理结果</th>
+							            <th>备注</th>
+							        </tr>
+							    </thead>
+							    <tbody>
+							    	<th:block th:unless="${#lists.isEmpty(handledRecordList)}">
+								        <tr th:each="handled:${handledRecordList}">
+								            <td>
+								            	<th:block th:if="${handled.letNodeStatus} eq 0">初评</th:block>
+								            	<th:block th:if="${handled.letNodeStatus} eq 1">下户</th:block>
+								            	<th:block th:if="${handled.letNodeStatus} eq 2">面审</th:block>
+								            	<th:block th:if="${handled.letNodeStatus} eq 3">终审</th:block>
+								            	<th:block th:if="${handled.letNodeStatus} eq 4">放款申请</th:block>
+								            	<th:block th:if="${handled.letNodeStatus} eq 5">放款审核</th:block>
+								            	<th:block th:if="${handled.letNodeStatus} eq 6">签约公证</th:block>
+								            	<th:block th:if="${handled.letNodeStatus} eq 7">权证抵押</th:block>
+								            	<th:block th:if="${handled.letNodeStatus} eq 8">放款确认</th:block>
+								            	<th:block th:if="${handled.letNodeStatus} eq 9">财务放款</th:block>
+								            	<th:block th:if="${handled.letNodeStatus} eq 13">初评(补件)</th:block>
+								            	<th:block th:if="${handled.letNodeStatus} eq 14">下户(补件)</th:block>
+								            	<th:block th:if="${handled.letNodeStatus} eq 15">终审(补件)</th:block>
+								            </td>
+								            <td th:text="${handled.letEmployeename}"></td>
+								            <td th:text="${handled.letTime}?${#dates.format(handled.letTime,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+								            <td>
+								            	<th:block th:if="${handled.letResult} eq 0">同意</th:block>
+								            	<th:block th:if="${handled.letResult} eq 1">拒贷</th:block>
+								            	<th:block th:if="${handled.letResult} eq 2">补件</th:block>
+								            	<th:block th:if="${handled.letResult} eq 3">撤单</th:block>
+								            	<th:block th:if="${handled.letResult} eq 4">补件完成</th:block>
+								            	<th:block th:if="${handled.letResult} eq 5">会签</th:block>
+								            	<th:block th:if="${handled.letResult} eq 6">同意</th:block>
+								            </td>
+								            <td th:text="${handled.letRemark}"></td>
+								        </tr>
+							        </th:block>
+							        <th:block th:if="${#lists.isEmpty(handledRecordList)}">
+							        	<tr><td colspan="5" align="center">暂无审批 </td></tr>
+							        </th:block>
+							    </tbody>
+							</table>
+							<p class="textCt pt20">
+								<input type="button" id="saveBasicInfo" class="scbtn saveBasicInfo" value="提 交" /> <input
+									type="button" class="scbtn2 mlt10" value="取 消"
+									onclick="javascript:history.go(-1);" />
+							</p>
+						</div>
+						
+						<div id="tab5" class="tabson">
+							<div class="formtitle">
+								<span>资金方基本信息</span><img src="/img/add_red.png" class="add-zz" id="addCapitalSideInfo"/>
+							</div>
+							<form >
+								<table class="tablelist" id="capitalSideInfo">
+									<thead>
+										<tr>
+											<th>客户性质</th>
+											<th>手机号/机构id/公司id</th>
+											<th>账户名</th>
+											<th>银行卡号</th>
+											<th>开户银行</th>
+											<th>开户行</th>
+											<th>放款金额（元）</th>
+											<th>放款利率</th>
+											<th>可用余额（元）</th>
+											<th>所属资金方</th>
+											<th style="width: 30px;">操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<th:block th:if="${#lists.isEmpty(loanCapitalInfoList)}">
+		        							<tr>
+												<td>
+												   <input type="hidden" class="table-txt" name="capitalInfoId"/>
+		        								       <input type="hidden" name="cardId"/>
+												   <input type="hidden" name="accountId"  />
+												   <input type="hidden" name="ownerId"  />
+												   <input type="hidden" name="ownerName"  />
+												   <input type="hidden" name="customerType"/>
+													
+													<div class="vocation">
+														<select class="select-common select1" name="customerNature" style="width: 100%;">
+															<th:block th:each="su : ${customerTypeList}">
+																<option th:attr="data-bigCategory=(${su.bigCategory})" th:value="${su.typeId}" th:text="${su.typeName}"></option>
+															</th:block>
+														</select>
+													</div>
+												</td>
+												<td>
+									                <input type="text" class="table-txt validate[required,custom[mobile]]"  name="mobile" maxLength="50"/>
+									            </td>
+												<td>
+									                <input type="text" class="table-txt validate[required]"   name="accountName" maxLength="50"/>
+									            </td>
+									            <td>
+									                <input type="text" class="table-txt validate[custom[bankCard]]"  name="bankcardId" maxLength="19"/>
+									            </td>
+									            <td>
+									                <input type="text" class="table-txt" name="bankName" maxLength="20"/>
+									            </td>
+									            <td>
+									                <input type="text" class="table-txt" name="branchBank" maxLength="100"/>
+									            </td>
+									            <td>
+									                <input type="text" class="table-txt validate[required,custom[numberTwo],max[100000000]]"  name="amountPaid"/>
+									            </td>
+									            <td>
+									                <input type="text" class="table-txt validate[required,custom[numberThree],max[100]]" style="width: 35%;"  name="amountRate"/>
+									                <span class="table-span">%/</span>
+									                <div class="vocation">
+									                    <select class="select-common select1" style="width: 42%;" name="amountRateUnit">
+									                        <option value="年" >年</option>
+									                        <option value="月" >月</option>
+									                        <option value="天" >天</option>
+									                        <option value="次" >次</option>
+									                    </select>
+									                </div>
+									            </td>
+												<td id="balance" >0
+									            </td>
+												<td id="orgName"  th:text="${basicInfo.org_name}" >
+												</td>
+												<td>  </td>
+											</tr>
+										</th:block>
+										<th:block th:unless="${#lists.isEmpty(loanCapitalInfoList)}">
+		        							<tr th:each="capitalInfo,iterStat:${loanCapitalInfoList}">
+		        								       
+												<td>
+												   <input type="hidden" class="table-txt" th:value="${capitalInfo.capitalInfoId}" name="capitalInfoId"/>
+		        								       <input type="hidden" name="cardId"/>
+												   <input type="hidden" name="accountId"  th:value="${capitalInfo.accountId}"/>
+												   <input type="hidden" name="ownerId"   th:value="${capitalInfo.ownerId}"/>
+												   <input type="hidden" name="ownerName"  />
+												   <input type="hidden" name="customerType"  th:value="${capitalInfo.customerType}"/>
+													
+													<div class="vocation">
+														<select class="select-common select1" name="customerNature" style="width: 100%;">
+															<th:block th:each="su : ${customerTypeList}">
+																<option th:attr="selected=(${capitalInfo.customerNature} eq ${su.typeId})?true:false , data-bigCategory=(${su.bigCategory})" th:value="${su.typeId}" th:text="${su.typeName}"></option>
+															</th:block>
+														</select>
+													</div>
+												</td>
+												<td>
+									                <input type="text" class="table-txt validate[required,custom[mobile]]" th:value="${capitalInfo.mobile}" name="mobile" maxLength="50"/>
+									            </td>
+												<td>
+									                <input type="text" class="table-txt validate[required]" th:value="${capitalInfo.accountName}"  name="accountName" maxLength="50"/>
+									            </td>
+									            <td>
+									                <input type="text" class="table-txt validate[custom[bankCard]]" th:value="${capitalInfo.bankcardId}" name="bankcardId" maxLength="19"/>
+									            </td>
+									            <td>
+									                <input type="text" class="table-txt" th:value="${capitalInfo.bankName}" name="bankName" maxLength="20"/>
+									            </td>
+									            <td>
+									                <input type="text" class="table-txt" th:value="${capitalInfo.branchBank}" name="branchBank" maxLength="100"/>
+									            </td>
+									            <td>
+									                <input type="text" class="table-txt validate[required,custom[numberTwo],max[100000000]]" th:value="${capitalInfo.amountPaid}?${#numbers.formatDecimal(capitalInfo.amountPaid,1,2)}" name="amountPaid"/>
+									            </td>
+									            <td>
+									                <input type="text" class="table-txt validate[required,custom[numberThree],max[100]]" style="width: 35%;" th:value="${capitalInfo.amountRate}?${#numbers.formatDecimal(capitalInfo.amountRate,1,3)}" name="amountRate"/>
+									                <span class="table-span">%/</span>
+									                <div class="vocation">
+									                    <select class="select-common select1" style="width: 42%;" name="amountRateUnit">
+									                        <option value="年" th:text="年" th:attr="selected=(${capitalInfo.amountRateUnit} eq '年')?true:false">年</option>
+									                        <option value="月" th:text="月" th:attr="selected=(${capitalInfo.amountRateUnit} eq '月')?true:false">月</option>
+									                        <option value="天" th:text="天" th:attr="selected=(${capitalInfo.amountRateUnit} eq '天')?true:false">天</option>
+									                        <option value="次" th:text="次" th:attr="selected=(${capitalInfo.amountRateUnit} eq '次')?true:false">次</option>
+									                    </select>
+									                </div>
+									            </td>
+												<td id="balance" th:text="${capitalInfo.balance}?${#numbers.formatDecimal(capitalInfo.balance,1,2)}:0.00">
+									            </td>
+												<td id="orgName"  th:text="${basicInfo.org_name}" >
+												</td>
+												<td>
+												
+									            	<td:block th:if="${iterStat.count} eq 1"></td:block>
+									            	<td:block th:unless="${iterStat.count} eq 1">
+									            		<a class="tablelink delTr">删除</a>
+									            	</td:block>
+									            </td>
+											</tr>
+										</th:block>
+									</tbody>
+								</table>
+							</form>
+							<div class="formtitle pt20">
+								<span>收入列表</span><img src="/img/add_red.png" class="add-zz" id="addIncomeInfo"/>
+							</div>
+							<form>
+								<table class="tablelist" id="incomeInfo">
+								<thead>
+									<tr>
+										<th>收入类型</th>
+										<th>金额（元）</th>
+										<th>收入方式</th>
+										<th>备注</th>
+										<th style="width: 30px;">操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<th:block th:if="${#lists.isEmpty(loanCapitalEarningList)}">
+										<tr>
+								            
+								            <td>
+								                <div class="vocation">
+								                    <select class="select-common select1" style="width: 100%;" name="earningVariety">
+									                    <option value="">无 </option>
+									                    <th:block th:unless="${#lists.isEmpty(inSubjectList)}" th:each="cust,iter : ${inSubjectList}">
+															<option  th:value="${cust.subjectId}" th:text="${cust.subjectName}">
+															</option>
+												       </th:block>
+									                </select>
+									                
+									            </div>
+									            <input type="hidden" name="subjectName" />
+								            </td>
+								            <td>
+								                <input type="text" class="table-txt validate[custom[numberTwo]]"  name="earningAmount"/>
+								            </td>
+								            <td>
+								                <div class="vocation">
+								                    <select class="select-common select1" style="width: 100%;" name="earningApproach">
+								                    	<option value="">无</option>
+								                    	<option value="0">一次性收入</option>
+								                    	<option value="1">按月收入</option>
+								                    </select>
+								                </div>
+								            </td>
+								            <td>
+								                <input type="text" class="table-txt" name="remark" maxLength="200"/>
+								            </td>
+								            <td></td>
+								          </tr>
+									</th:block>
+									<th:block th:unless="${#lists.isEmpty(loanCapitalEarningList)}">
+								        <tr th:each="capitalEarning,iterStat:${loanCapitalEarningList}">
+								            <td>
+								                 <div class="vocation">
+								                    <select class="select-common select1" style="width: 100%;" name="earningVariety">
+									                    <option value="">无 </option>
+									                    <th:block th:unless="${#lists.isEmpty(inSubjectList)}" th:each="cust,iter : ${inSubjectList}">
+															<option  th:attr="selected=(${capitalEarning.earningVariety} eq ${cust.subjectId})?true:false"
+															th:value="${cust.subjectId}" th:text="${cust.subjectName}">
+															</option>
+												       </th:block>
+									                </select>
+									                
+									            </div>
+									            <input type="hidden" name="subjectName"  th:value="${capitalEarning.subjectName}" />
+								                
+								            </td>
+								            <td>
+								                <input type="text" class="table-txt validate[custom[numberTwo]]" th:value="${capitalEarning.earningAmount}?${#numbers.formatDecimal(capitalEarning.earningAmount,1,2)}" name="earningAmount"/>
+								            </td>
+								            <td>
+								                <div class="vocation">
+								                    <select class="select-common select1" style="width: 100%;" name="earningApproach">
+								                    	<option value="">无</option>
+								                    	<option value="0" th:attr="selected=(${capitalEarning.earningApproach} eq 0)?true:false">一次性收入</option>
+								                    	<option value="1" th:attr="selected=(${capitalEarning.earningApproach} eq 1)?true:false">按月收入</option>
+								                    </select>
+								                </div>
+								            </td>
+								            <td>
+								                <input type="text" class="table-txt" th:value="${capitalEarning.remark}" name="remark" maxLength="200"/>
+								            </td>
+								            <td>
+								            	<td:block th:if="${iterStat.count} eq 1"></td:block>
+								            	<td:block th:unless="${iterStat.count} eq 1">
+								            		<a class="tablelink delTr">删除</a>
+								            	</td:block>
+								            </td>
+								        </tr>
+									</th:block>
+								</tbody>
+							</table>
+							</form>
+							
+							<div class="formtitle pt20">
+								<span>支出列表</span><img src="/img/add_red.png" class="add-zz" id="addExpenditureInfo"/>
+							</div>
+							<table class="tablelist" id="expenditureInfo">
+								<thead>
+									<tr>
+										
+										<th>支出类型</th>
+										<th>金额（元）</th>
+										<th>发放方式</th>
+										<th>返费账户</th>
+										<th>银行卡号</th>
+										<th>开户银行</th>
+										<th>开户行</th>
+										<th>备注</th>
+										<th style="width: 30px;">操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<th:block th:if="${#lists.isEmpty(loanCapitalExpenditureList)}">
+									    <tr>
+									        <td>
+									            <div class="vocation">
+									                <select class="select-common select1" style="width: 100%;" name="expenditureVariety">
+									                    <option value="">无 </option>
+									                    <th:block th:unless="${#lists.isEmpty(outSubjectList)}" th:each="cust,iter : ${outSubjectList}">
+															<option  th:value="${cust.subjectId}" th:text="${cust.subjectName}">
+															</option>
+												       </th:block>
+									                </select>
+									                
+									            </div>
+									            <input type="hidden" name="subjectName" />
+									        </td>
+									        <td>
+									            <input type="text" class="table-txt validate[custom[numberTwo]]"   name="amount"/>
+									        </td>
+									        <td>
+									            <div class="vocation">
+									                <select class="select-common select1" style="width: 100%;" name="disbursement">
+									                    <option value="">无</option>
+								                       	<option value="0" >一次性发放</option>
+								                    	    <option value="1">按月发放</option>
+									                </select>
+									            </div>
+									        </td>
+									        <td>
+									            <input type="text" class="table-txt"  name="accountName" maxLength="50"/>
+									        </td>
+									        <td>
+									            <input type="text" class="table-txt validate[custom[bankCard]]"   name="bankcardId"/>
+									        </td>
+									        <td>
+									            <input type="text" class="table-txt"  name="bankName" maxLength="20"/>
+									        </td>
+									        <td>
+									            <input type="text" class="table-txt" name="branchBank" maxLength="100"/>
+									        </td>
+									        <td>
+									            <input type="text" class="table-txt"  name="remark" maxLength="200"/>
+									        </td>
+									        <td></td>
+									    </tr>
+									</th:block>
+									<th:block th:unless="${#lists.isEmpty(loanCapitalExpenditureList)}">
+									    <tr th:each="capitalExpenditure,iterStat:${loanCapitalExpenditureList}">
+									        <input type="hidden"  th:value="${capitalExpenditure.capitalExpenditureId}" name="capitalExpenditureId"/>
+									        <td>
+									            <div class="vocation">
+									                <select class="select-common select1" style="width: 100%;" name="expenditureVariety">
+									                	   <option value="">无 </option>
+									                   <th:block th:unless="${#lists.isEmpty(outSubjectList)}" th:each="cust,iter : ${outSubjectList}">
+															<option th:attr="selected=(${capitalExpenditure.expenditureVariety} eq ${cust.subjectId})?true:false"
+															 th:value="${cust.subjectId}" th:text="${cust.subjectName}">
+															</option>
+												       </th:block>
+									                </select>
+									            </div>
+									             <input type="hidden" name="subjectName" th:value="${capitalExpenditure.subjectName}" />
+									        </td>
+									        <td>
+									            <input type="text" class="table-txt validate[custom[numberTwo]]" th:value="${capitalExpenditure.amount}?${#numbers.formatDecimal(capitalExpenditure.amount,1,2)}" name="amount"/>
+									        </td>
+									        <td>
+									            <div class="vocation">
+									                <select class="select-common select1" style="width: 100%;" name="disbursement">
+									                    <option value="">无</option>
+								                    	<option value="0" th:attr="selected=(${capitalExpenditure.disbursement} eq 0)?true:false">一次性发放</option>
+								                    	<option value="1" th:attr="selected=(${capitalExpenditure.disbursement} eq 1)?true:false">按月发放</option>
+									                </select>
+									            </div>
+									        </td>
+									        <td>
+									            <input type="text" class="table-txt" th:value="${capitalExpenditure.accountName}" name="accountName" maxLength="50"/>
+									        </td>
+									        <td>
+									            <input type="text" class="table-txt validate[custom[bankCard]]" th:value="${capitalExpenditure.bankcardId}" name="bankcardId"/>
+									        </td>
+									        <td>
+									            <input type="text" class="table-txt" th:value="${capitalExpenditure.bankName}" name="bankName" maxLength="20"/>
+									        </td>
+									        <td>
+									            <input type="text" class="table-txt" th:value="${capitalExpenditure.branchBank}" name="branchBank" maxLength="100"/>
+									        </td>
+									        <td>
+									            <input type="text" class="table-txt" th:value="${capitalExpenditure.remark}" name="remark" maxLength="200"/>
+									        </td>
+									        <td>
+								            	<td:block th:if="${iterStat.count} eq 1"></td:block>
+								            	<td:block th:unless="${iterStat.count} eq 1">
+								            		<a class="tablelink delTr">删除</a>
+								            	</td:block>
+								            </td>
+									    </tr>
+									</th:block>
+								</tbody>
+							</table>
+							<div class="formtitle pt20">
+								<span>参数设置</span>
+							</div>
+							<form id="parasConfig">
+								
+								
+								
+							    
+								<table class="tablelist">
+								<thead>
+									<tr>
+										<th>是否担保</th>
+										<th>是否垫还</th>
+										<th>结息方式</th>
+										<th>结息固定日</th>
+										<th>付息方式</th>
+										<th>付息固定日</th>
+										<th>逾期贷款利率(%/天)</th>
+										<th>债务利率(%/天)</th>
+										<th>还款违约金率(%/天)</th>
+										<th>逾期付款利率(%/天)</th>
+										<th>付款违约金率(%/天)</th>
+										<th>备注</th>
+									</tr>
+								</thead>
+								<tbody>
+								    <th:block th:unless="${loanParasConfig}">
+								       <tr>
+										<td>
+											<input type="hidden" name="orderNo" th:value="${loanOrderInfo.orderNo}" /> 
+											<div class="vocation">
+												<select class="select-common select1 validate[required]" style="width: 100%;" name="lpcIsGuarantee">
+													<option value="">请选择</option>
+													<option  value="1">支持</option>
+													<option value="0">不支持</option>
+												</select>
+											</div>
+										</td>
+										<td>
+											<div class="vocation">
+												<select class="select-common select1" style="width: 100%;" name="lpcIsAdvance" >
+													<option value="">请选择</option>
+													<option   value="1">支持</option>
+													<option   value="0">不支持</option>
+												</select>
+											</div>
+										</td>
+										<td>
+											<div class="vocation">
+												<select class="select-common select1 validate[required]" style="width: 100%;" name="lpcInterestType" id="lpcInterestType">
+													<option value="">请选择</option>
+													<option   value="0">放款日结息</option>
+													<option   value="1">到期日结息</option>
+													<option   value="2">固定日结息</option>
+												</select>
+											</div>
+										</td>
+										<td><input type="text" class="table-txt" name="lpcInterestRegular" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd'})"  readOnly='true'/> </td>
+										<td>
+											<div class="vocation">
+												<select class="select-common select1 validate[required]" style="width: 100%;" name="lpcPayType" id="lpcPayType" >
+													<option value="">请选择</option>
+													<option  value="0">放款日付息</option>
+													<option  value="1">到期日付息</option>
+													<option  value="2">固定日付息</option>
+												</select>
+											</div>
+										</td>
+										<td><input type="text" class="table-txt" name="lpcPayRegular" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd'})"  readOnly='true' />
+										
+										</td>
+										
+										<td>
+										    <input type="text" class="table-txt validate[required,custom[numberThree],max[100]]"   name="lpcOverdueInteType"  />
+										</td>                                                                                     
+										<td>                                                                                      
+										    <input type="text" class="table-txt validate[required,custom[numberThree],max[100]]"   name="lpcDebtInteRate" />
+										</td>                                                                                     
+										<td>                                                                                      
+										    <input type="text" class="table-txt validate[required,custom[numberThree],max[100]]"   name="lpcRepayLiquRate" />
+										</td>                                                                                     
+										<td>                                                                                      
+										    <input type="text" class="table-txt validate[required,custom[numberThree],max[100]]"   name="lpcOverOutRate"  />
+										</td>                                                                                     
+										<td>                                                                                      
+										    <input type="text" class="table-txt validate[required,custom[numberThree],max[100]]"   name="lpcPayLiquRate" />
+										</td>
+										<td>
+										 <input type="text" class="table-txt" name="remark" />
+										</td>
+										
+									</tr>
+								    
+								       
+								    </th:block>
+								
+								
+									<th:block th:if="${loanParasConfig}">
+									<tr>
+										<td>
+											<input type="hidden" name="lpcId" th:value="${loanParasConfig.lpcId}" /> 
+											<input type="hidden" name="orderNo" th:value="${loanOrderInfo.orderNo}" /> 
+											<div class="vocation">
+												<select class="select-common select1 validate[required]" style="width: 100%;" name="lpcIsGuarantee">
+													<option value="">请选择</option>
+													<option th:attr="selected=(${loanParasConfig.lpcIsGuarantee} eq 1)?true:false"  value="1">支持</option>
+													<option th:attr="selected=(${loanParasConfig.lpcIsGuarantee} eq 0)?true:false"  value="0">不支持</option>
+												</select>
+											</div>
+										</td>
+										<td>
+											<div class="vocation">
+												<select class="select-common select1" style="width: 100%;" name="lpcIsAdvance" >
+													<option value="">请选择</option>
+													<option th:attr="selected=(${loanParasConfig.lpcIsAdvance} eq 1)?true:false"  value="1">支持</option>
+													<option th:attr="selected=(${loanParasConfig.lpcIsAdvance} eq 0)?true:false"  value="0">不支持</option>
+												</select>
+											</div>
+										</td>
+										<td>
+											<div class="vocation">
+												<select class="select-common select1 validate[required]" style="width: 100%;" name="lpcInterestType" id="lpcInterestType">
+													<option value="">请选择</option>
+													<option th:attr="selected=(${loanParasConfig.lpcInterestType} eq 0)?true:false"  value="0">放款日结息</option>
+													<option th:attr="selected=(${loanParasConfig.lpcInterestType} eq 1)?true:false"  value="1">到期日结息</option>
+													<option th:attr="selected=(${loanParasConfig.lpcInterestType} eq 2)?true:false"  value="2">固定日结息</option>
+												</select>
+											</div>
+										</td>
+										<td><input type="text" class="table-txt" name="lpcInterestRegular" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd'})"  readOnly='true'
+										th:value="${loanParasConfig.lpcInterestRegular}?${#dates.format(loanParasConfig.lpcInterestRegular,'yyyy-MM-dd')}:''"/></td>
+										<td>
+											<div class="vocation">
+												<select class="select-common select1 validate[required]" style="width: 100%;" name="lpcPayType" id="lpcPayType" >
+													<option value="">请选择</option>
+													<option th:attr="selected=(${loanParasConfig.lpcPayType} eq 0)?true:false"  value="0">放款日付息</option>
+													<option th:attr="selected=(${loanParasConfig.lpcPayType} eq 1)?true:false"  value="1">到期日付息</option>
+													<option th:attr="selected=(${loanParasConfig.lpcPayType} eq 2)?true:false"  value="2">固定日付息</option>
+												</select>
+											</div>
+										</td>
+										<td><input type="text" class="table-txt" name="lpcPayRegular" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd'})"  readOnly='true'
+										th:value="${loanParasConfig.lpcPayRegular}?${#dates.format(loanParasConfig.lpcPayRegular,'yyyy-MM-dd')}:''"/>
+										</td>
+										
+										<td>
+										    <input type="text" class="table-txt validate[required,custom[numberThree],max[100]]"   name="lpcOverdueInteType" th:value="${#numbers.formatDecimal(loanParasConfig.lpcOverdueInteType,1,3)}"/>
+										</td>                                                                                     
+										<td>                                                                                      
+										    <input type="text" class="table-txt validate[required,custom[numberThree],max[100]]"   name="lpcDebtInteRate" th:value="${#numbers.formatDecimal(loanParasConfig.lpcDebtInteRate,1,3)}"/>
+										</td>                                                                                     
+										<td>                                                                                      
+										    <input type="text" class="table-txt validate[required,custom[numberThree],max[100]]"   name="lpcRepayLiquRate" th:value="${#numbers.formatDecimal(loanParasConfig.lpcRepayLiquRate,1,3)}"/>
+										</td>                                                                                     
+										<td>                                                                                      
+										    <input type="text" class="table-txt validate[required,custom[numberThree],max[100]]"   name="lpcOverOutRate" th:value="${#numbers.formatDecimal(loanParasConfig.lpcOverOutRate,1,3)}"/>
+										</td>                                                                                     
+										<td>                                                                                      
+										    <input type="text" class="table-txt validate[required,custom[numberThree],max[100]]"   name="lpcPayLiquRate" th:value="${#numbers.formatDecimal(loanParasConfig.lpcPayLiquRate,1,3)}"/>
+										</td>
+										<td>
+										 <input type="text" class="table-txt" name="remark" th:value="${loanParasConfig.remark}"/>
+										</td>
+										
+									</tr>
+									</th:block>
+								</tbody>
+							  </table>
+							
+							
+							
+							</form>
+							<p class="textCt pt20">
+								<input type="button" class="scbtn saveBasicInfo" value="提 交"/> <input
+									type="button" class="scbtn2 mlt10" value="取 消"
+									onclick="javascript:history.go(-1);"/>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+ 		<script  src="/js/public/select_order.js">
+ 		</script> 
+		<footer th:replace="common/footer"></footer>
+	</div>
+	 <script type="text/javascript" charset="utf-8" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+	 <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	 <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+	 <script> seajs.use("financeManagment/financeLoanApplyOne");</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<classPathEntry
+		location="/Users/zhangpenghong/.m2/repository/mysql/mysql-connector-java/6.0.4/mysql-connector-java-6.0.4.jar" />
+
+	<context id="context1">
+
+		<!-- 去除自动生成的注释 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://192.168.1.110:3306/loan?useUnicode=true&amp;characterEncoding=UTF-8"
+			userId="root" password="1122qq.." />
+
+		<!-- 数据表对应的model 层 -->
+		<javaModelGenerator targetPackage="com.lhhs.loan.dao.domain"
+			targetProject="loan-dao/src/main/java" />
+
+		<!-- sql mapper 映射配置文件 -->
+		<sqlMapGenerator targetPackage="com.lhhs.loan.dao.mapper"
+			targetProject="loan-dao/src/main/java" />
+
+		<!-- 生成DAO对象 -->
+		<javaClientGenerator targetPackage="com.lhhs.loan.dao"
+			targetProject="loan-dao/src/main/java" type="XMLMAPPER">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!-- 生成相关的接口方法 -->
+		<!--table schema="loan" tableName="auth" domainObjectName="Auth"
+			enableInsert="true" enableSelectByPrimaryKey="true"
+			enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"
+			enableSelectByExample="false" enableDeleteByExample="false"
+			enableCountByExample="false" enableUpdateByExample="false">
+		</table-->
+		<table schema="loan" tableName="loan_role" domainObjectName="LoanRole"
+			enableInsert="true" enableSelectByPrimaryKey="true"
+			enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"
+			enableSelectByExample="false" enableDeleteByExample="false"
+			enableCountByExample="false" enableUpdateByExample="false">
+		</table>
+		<!--table schema="loan" tableName="role_auth" domainObjectName="RoleAuth"
+			enableInsert="true" enableSelectByPrimaryKey="true"
+			enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"
+			enableSelectByExample="false" enableDeleteByExample="false"
+			enableCountByExample="false" enableUpdateByExample="false">
+		</table-->
+	</context>
+</generatorConfiguration>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanPayCertificatesInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanPayCertificatesInfo" >
+    <id column="certificates_no" property="certificatesNo" jdbcType="BIGINT" />
+    <result column="trans_no" property="transNo" jdbcType="VARCHAR" />
+    <result column="certificates_url" property="certificatesUrl" jdbcType="VARCHAR" />
+    <result column="trans_type" property="transType" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    certificates_no, trans_no, certificates_url, trans_type, remark, status, create_user, 
+    create_time, last_user, last_modify_time, field1, field2, field3, field4, field5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_pay_certificates_info
+    where certificates_no = #{certificatesNo,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from loan_pay_certificates_info
+    where certificates_no = #{certificatesNo,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanPayCertificatesInfo" >
+    insert into loan_pay_certificates_info (certificates_no, trans_no, certificates_url, 
+      trans_type, remark, status, 
+      create_user, create_time, last_user, 
+      last_modify_time, field1, field2, 
+      field3, field4, field5
+      )
+    values (#{certificatesNo,jdbcType=BIGINT}, #{transNo,jdbcType=VARCHAR}, #{certificatesUrl,jdbcType=VARCHAR}, 
+      #{transType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastUser,jdbcType=VARCHAR}, 
+      #{lastModifyTime,jdbcType=TIMESTAMP}, #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, 
+      #{field3,jdbcType=VARCHAR}, #{field4,jdbcType=VARCHAR}, #{field5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanPayCertificatesInfo" >
+    insert into loan_pay_certificates_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="certificatesNo != null" >
+        certificates_no,
+      </if>
+      <if test="transNo != null" >
+        trans_no,
+      </if>
+      <if test="certificatesUrl != null" >
+        certificates_url,
+      </if>
+      <if test="transType != null" >
+        trans_type,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUser != null" >
+        last_user,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="certificatesNo != null" >
+        #{certificatesNo,jdbcType=BIGINT},
+      </if>
+      <if test="transNo != null" >
+        #{transNo,jdbcType=VARCHAR},
+      </if>
+      <if test="certificatesUrl != null" >
+        #{certificatesUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="transType != null" >
+        #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanPayCertificatesInfo" >
+    update loan_pay_certificates_info
+    <set >
+      <if test="transNo != null" >
+        trans_no = #{transNo,jdbcType=VARCHAR},
+      </if>
+      <if test="certificatesUrl != null" >
+        certificates_url = #{certificatesUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="transType != null" >
+        trans_type = #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where certificates_no = #{certificatesNo,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanPayCertificatesInfo" >
+    update loan_pay_certificates_info
+    set trans_no = #{transNo,jdbcType=VARCHAR},
+      certificates_url = #{certificatesUrl,jdbcType=VARCHAR},
+      trans_type = #{transType,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where certificates_no = #{certificatesNo,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 根据交易编号查询凭证信息 -->
+   <select id="queryInfoByTransNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_pay_certificates_info
+    where trans_no = #{transNo,jdbcType=VARCHAR}
+  </select>
+</mapper>

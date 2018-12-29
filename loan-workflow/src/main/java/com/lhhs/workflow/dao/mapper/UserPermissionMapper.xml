@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lhhs.workflow.dao.UserPermissionMapper">
+	<sql id="Base_Column_List" >
+    user_id, user_name, password, des, role_id, no, name, sex, email, phone, status, 
+    department_id, company_id, union_id, create_user, create_time, last_user, last_modify_time, 
+    field1, field2, field3, field4, field5
+  </sql>
+  <!-- 查询用户信息 对接权限系统 -->
+	<select id="getByLoginName" resultType="com.lhhs.workflow.dao.domain.User" parameterType="java.lang.String" >
+    SELECT user_id,username user_name,staff_name name,dept_id departmentId,company_id
+		FROM  bump_user u
+		WHERE u.username = #{userName}
+  </select>
+	<!-- 查询用户信息 对接权限系统 -->
+	<select id="queryTastUserList" resultType="com.lhhs.workflow.dao.domain.User">
+	select u.user_id,u.username user_name,u.staff_name name,q.english_name role_id
+	from bump_user_quarters uq ,bump_user u,bump_quarters q
+		<where>
+			uq.user_id = u.user_id and uq.quarters_id=q.quarters_id
+			and u.status='03'
+			<if test="roleId != null and roleId != ''">
+				AND uq.english_name = #{roleId}
+			</if>
+			<!-- 系统标识-->
+			<if test="serverId != null and serverId != ''">
+				AND q.server_id = #{serverId}
+			</if>
+			<!-- 员工集团company_id，分公司： branch_company_id-->
+			<if test="unionId != null and unionId != ''">
+				AND u.union_id = #{unionId}
+			</if>
+			<if test="companyId != null and companyId != ''">
+			and (u.union_id=u.company_id or u.company_id=#{companyId})
+			</if>
+			<if test="isDepFlag != null and '1'.toString() ==isDepFlag">
+			and(
+				<!-- 限制部门，查询组为空，部门不为空，或者限制组查询组，集团的人员不受限制-->
+				u.dept_id in 
+				<foreach item="item1" index="index" collection="depList" open="(" separator="," close=")">
+	             #{item1}
+		         </foreach>
+				 or u.union_id=u.company_id)
+			</if>
+
+		</where>
+	</select>
+	<!-- 查询部门的上级部门 -->
+	<select id="finddepList" parameterType="com.lhhs.workflow.dao.domain.User" resultType="com.lhhs.workflow.dao.domain.User">
+		select dept_id department_id ,parent_ids department_parent from bump_dept where dept_id = #{departmentId} and parent_id !=0
+	</select>
+	<!-- 查询岗位信息 -->
+	<select id="findQuarters" parameterType="com.lhhs.workflow.dao.domain.User" resultType="com.lhhs.workflow.dao.domain.User">
+		select english_name role_id,limit_flag is_dep_flag from bump_quarters where english_name = #{roleId}
+	</select>
+ <!-- 查询用户信息 本地测试时使用 -->
+  <select id="selectByPrimaryKey" resultType="com.lhhs.workflow.dao.domain.User" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from act_user
+    where user_name = #{userName}
+  </select>
+
+	<!-- 查询用户信息 本地测试时使用 -->
+	<select id="findList" resultType="com.lhhs.workflow.dao.domain.User">
+		SELECT 
+		FROM ACT_USER a,act_user_role b
+		<where>
+			a.user_id=b.user_id and  a.status = '03'
+			<if test="roleId != null and  roleId != ''">
+				AND b.role_id = #{roleId}
+			</if>
+		</where>
+	</select>
+
+	
+</mapper>

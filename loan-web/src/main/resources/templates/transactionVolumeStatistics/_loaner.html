@@ -1,0 +1,57 @@
+<table class="tablelist">
+         <thead>
+             <tr>
+                 <th>省市</th>
+                 <th>放款方</th>
+                 <th>放款类型</th>
+                 <th>放款金额</th>
+                <!--  <th>放款时间</th> -->
+             </tr>
+         </thead>
+         <tbody>
+             <tr:block th:unless="${#lists.isEmpty(page.resultList)}" >
+             <tr th:each="emp , iter : ${page.resultList}">
+                 <td th:text="${emp.provienceName}+''+${emp.cityName}"></td>
+                 <td th:text="${emp.lenderName}"></td>
+                 <td th:if="${#strings.contains('10,11,12,13,14,15',emp.customerNature)}" th:text="对接放款"></td>
+                  <td th:if="${#strings.contains(emp.customerNature,'31')}" th:text="机构放款"></td>
+                   <td th:if="${#strings.contains(emp.customerNature,'33')}" th:text="同行放款"></td>
+                    <td th:if="${#strings.contains(emp.customerNature,'41')}" th:text="公司放款"></td>
+                 <td th:text="${#numbers.formatDecimal(emp.loanAmount,1,2)}"></td>
+                <!--  <td th:text="${emp.lendingTime}?${#dates.format(emp.lendingTime, 'yyyy-MM-dd HH:mm:ss')}"></td> -->
+             </tr>
+             </tr:block>
+        <th:block th:if="${#lists.isEmpty(page.resultList)}">
+	    	<tr>
+			  <td colspan="4" class="textCt">暂无数据</td>
+		     </tr>
+	    </th:block>
+    </tbody>
+</table>  
+
+
+<div class="pagin" style="margin-top: 0px;" th:unless="${#lists.isEmpty(page.resultList)}">
+	<div class="message">
+		统计数据(<b th:text="${page.totalCount}"></b>条);&nbsp;&nbsp;&nbsp;
+		放款总额：<b th:text="${total}?${#numbers.formatDecimal(total,1,2)}:0.00"></b>元&nbsp;&nbsp;&nbsp;
+	 </div>
+</div>
+
+<div class="pagin" style="margin-top: 0px;" th:unless="${#lists.isEmpty(page.resultList)}">
+	<div class="message">
+		共 <i class="blue" th:text="${page.totalCount}"></i> 
+		条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+	</div>
+	<ul class="paginList">
+		<li class="paginItem" th:if="${page.pageIndex} gt 1">
+			<a th:attr="data-pagenum=(${page.pageIndex}-1),data-pagesize=${page.pageSize}" class="pagepre"></a>
+		</li>
+		<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" 
+		th:classappend="(${page.pageIndex} eq ${x})?'current'">
+			<a th:attr="data-pagenum=${x},data-pagesize=(${page.pageSize})" th:text="${x}"></a>
+		</li>
+		<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+			<a th:attr="data-pagenum=(${page.pageIndex}+1),data-pagesize=(${page.pageSize})" class="pagenxt"></a>
+		</li> 
+	</ul>
+</div>

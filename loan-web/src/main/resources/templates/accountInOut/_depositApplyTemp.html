@@ -1,0 +1,76 @@
+<table class="tablelist">
+	<thead>
+		<tr>
+			<th>订单号</th>
+			<th>报单编号</th>
+			<th>提现类型摘要</th>
+			<th>手机号</th>
+			<th>客户类型</th>
+			<th>客户性质</th>
+			<th>姓名</th>
+			<th>提现金额(元)</th>
+			<th>提现银行</th>
+			<th>提现至银行卡</th>
+			<th>操作</th><!-- sec:authorize="hasRole('ROLE_task_START')" -->
+		</tr>
+	</thead>
+	<tbody>
+		<th:block th:unless="${#lists.isEmpty(page.resultList)}">
+			<tr th:each="emp : ${page.resultList}">
+				<td th:text="${emp.transNo}"></td>
+				<td th:text="${emp.orderNo}"></td>
+				<td th:if="${emp.subjectName}" th:text="${emp.subjectName}"></td>
+				<td th:if="!${emp.subjectName}"></td>
+				<td th:text="${emp.mobile}"></td>
+				<td th:if="${emp.customerType} eq 10">个人</td>
+				<td th:if="${emp.customerType} eq 20">企业</td>
+				<td th:if="${emp.customerType} eq 30">机构</td>
+				<td th:if="${emp.customerType} eq 40">公司</td>
+				<td th:if="!${emp.customerType}"></td>
+				<td th:if="${emp.customerNature} eq 12">固定银主</td>
+				<td th:if="${emp.customerNature} eq 13">对接银主</td>
+				<td th:if="${emp.customerNature} eq 14">投资人</td>
+				<td th:if="${emp.customerNature} eq 15">公户</td>
+				<td th:if="${emp.customerNature} eq 31">机构</td>
+				<td th:if="${emp.customerNature} eq 33">同行</td>
+				<td th:if="${emp.customerNature} eq 41">公司</td>
+				<td th:if="${emp.customerNature} eq 11">个人</td>
+				<td th:if="${emp.customerNature} eq 21">企业</td>
+				<td th:if="!${emp.customerNature}"></td>
+				<td th:text="${emp.customerName}"></td>
+				<td th:text="${emp.amount}"></td>
+				<td th:text="${emp.bankName}"></td>
+				<td th:text="${emp.bankCardNo}"></td>
+				<td><a th:href="@{/accountInOut/toWithdrawApply(transNo=${emp.transNo})}">申请</a></td>
+			</tr>
+		</th:block>
+		<th:block th:if="${#lists.isEmpty(page.resultList)}">
+			<tr>
+				<td colspan="11" class="textCt">暂无数据</td>
+			</tr>
+		</th:block>
+	</tbody>
+</table>
+<div class="pagin" style="margin-top: 0px;" th:unless="${#lists.isEmpty(page.resultList)}">
+      <div class="message">
+		统计数据(<b th:text="${page.totalCount}"></b>条);&nbsp;&nbsp;&nbsp;
+		提现申请总额：<b th:text="${#maps.isEmpty(map)}?0.00:(${#maps.containsKey(map, 'totalAmount')}?${#numbers.formatDecimal(map.totalAmount,1,2)}:0.00)"></b>元&nbsp;&nbsp;&nbsp;
+     </div>
+	<div class="message"><!-- sec:authorize="hasRole('ROLE_PAYPLAN_LIST_EXPORT')" -->
+	    <input  type="button" value="导出" class="scbtn1" style="width: 65px;" id="export"/>&nbsp;&nbsp;&nbsp;
+		共 <i class="blue" th:text="${page.totalCount}"></i> 
+		条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+	</div>
+	<ul class="paginList">
+		<li class="paginItem" th:if="${page.pageIndex} gt 1">
+			<a th:attr="data-pagenum=(${page.pageIndex}-1),data-pagesize=${page.pageSize}" class="pagepre"></a>
+		</li>
+		<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" 
+		th:classappend="(${page.pageIndex} eq ${x})?'current'">
+			<a th:attr="data-pagenum=${x},data-pagesize=(${page.pageSize})" th:text="${x}"></a>
+		</li>
+		<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+			<a th:attr="data-pagenum=(${page.pageIndex}+1),data-pagesize=(${page.pageSize})" class="pagenxt"></a>
+		</li> 
+	</ul>
+</div>

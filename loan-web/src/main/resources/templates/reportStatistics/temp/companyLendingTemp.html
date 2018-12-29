@@ -1,0 +1,87 @@
+<table class="tablelist">
+         <thead>
+             <tr>
+                 <th>序号</th>
+                 <th>省市</th>
+                 <th>出借人姓名</th>
+                 <th>客户性质</th>
+                 <th>放款金额(元)</th>
+                  <th>放款利率</th>
+                  <th>放款时间</th>
+                  <th>应收利息</th>
+                  <th>应收息时间</th>
+                  <th>实际收息时间</th>
+                  <th>应收本金</th>
+                  <th>应收本时间</th>
+                  <th>实际收本时间</th>
+                  <th>报单编号</th>
+                  <th>产品类型</th>
+                  <th>产品名称</th>
+                  <th>当前期数</th>
+                  <th>借款利率</th>	
+                  <th>借款人姓名</th>
+                  <th>部门</th>
+                  <th>客户经理</th>
+             </tr>
+         </thead>
+         <tbody>
+             <tr:block th:unless="${#lists.isEmpty(page.resultList)}" >
+             <tr th:each="emp , iter : ${page.resultList}">
+                 <td th:text="${iter.index+1}"></td>
+                 <td><span th:text="${emp.cityName}"></span></td>
+                 <td th:text="${emp.customerName}"></td>
+                 <td th:text="${emp.typeName}"></td>
+                 <td th:text="${#numbers.formatDecimal(emp.loanAmount,1,2)}"></td>
+                 <td th:text="${emp.field2}"></td>
+                 <td th:text="${emp.lendingTime}?${#dates.format(emp.lendingTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                 <td th:text="${#numbers.formatDecimal(emp.repaymentInterest,1,2)}"></td>
+                 <td th:text="${emp.repaymentInterestTime}?${#dates.format(emp.repaymentInterestTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                 <td th:text="${emp.interestTime}?${#dates.format(emp.interestTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                 <td th:text="${#numbers.formatDecimal(emp.repaymentCapital,1,2)}"></td>
+                 <td th:text="${emp.repaymentCapitalTime}?${#dates.format(emp.repaymentCapitalTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                 <td th:text="${emp.capitalTime}?${#dates.format(emp.capitalTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                 <td th:text="${emp.orderNo}"></td>
+                 <td th:text="${emp.productType}"></td>
+                 <td th:text="${emp.productName}"></td>
+                 <td th:text="${emp.period}+'/'+${emp.periodTotal}"></td><!-- +${emp.termUnit} -->
+                 <td th:text="${emp.field1}"></td>
+                 <td th:text="${emp.borrower}"></td>
+                 <td th:text="${emp.department}"></td>
+                 <td th:text="${emp.accountManager}"></td>
+             </tr>
+             </tr:block>
+        <th:block th:if="${#lists.isEmpty(page.resultList)}">
+	    	<tr>
+			  <td colspan="21" class="textCt">暂无数据</td>
+		     </tr>
+	    </th:block>
+    </tbody>
+</table>  
+
+
+<div class="pagin" style="margin-top: 0px;" th:unless="${#lists.isEmpty(page.resultList)}">
+	<div class="message">
+		统计数据(<b th:text="${page.totalCount}"></b>条);&nbsp;&nbsp;&nbsp;
+		放款总额：<b th:text="${total}?${#numbers.formatDecimal(total,1,2)}:0.00"></b>元&nbsp;&nbsp;&nbsp;
+	 </div>
+</div>
+
+<div class="pagin" style="margin-top: 0px;" th:unless="${#lists.isEmpty(page.resultList)}">
+	<div class="message">
+		<input type="button" value="导出" class="scbtn1" style="width: 65px;" id="export"/>&nbsp;&nbsp;&nbsp;
+		共 <i class="blue" th:text="${page.totalCount}"></i> 
+		条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+	</div>
+	<ul class="paginList">
+		<li class="paginItem" th:if="${page.pageIndex} gt 1">
+			<a th:attr="data-pagenum=(${page.pageIndex}-1),data-pagesize=${page.pageSize}" class="pagepre"></a>
+		</li>
+		<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" 
+		th:classappend="(${page.pageIndex} eq ${x})?'current'">
+			<a th:attr="data-pagenum=${x},data-pagesize=(${page.pageSize})" th:text="${x}"></a>
+		</li>
+		<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+			<a th:attr="data-pagenum=(${page.pageIndex}+1),data-pagesize=(${page.pageSize})" class="pagenxt"></a>
+		</li> 
+	</ul>
+</div>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanCapitalEarningMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanCapitalEarning" >
+    <id column="capital_earning_id" property="capitalEarningId" jdbcType="VARCHAR" />
+    <result column="earning_variety" property="earningVariety" jdbcType="VARCHAR" />
+    <result column="subject_name" property="subjectName" jdbcType="VARCHAR" />
+    <result column="earning_rate" property="earningRate" jdbcType="DECIMAL" />
+    <result column="earing_rate_unit" property="earingRateUnit" jdbcType="CHAR" />
+    <result column="earning_term" property="earningTerm" jdbcType="VARCHAR" />
+    <result column="earning_term_unit" property="earningTermUnit" jdbcType="CHAR" />
+    <result column="earning_amount" property="earningAmount" jdbcType="DECIMAL" />
+    <result column="earning_approach" property="earningApproach" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    capital_earning_id, earning_variety, subject_name, earning_rate, earing_rate_unit, earning_term, 
+    earning_term_unit, earning_amount, earning_approach, remark, order_id, org_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_capital_earning
+    where capital_earning_id = #{capitalEarningId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_capital_earning
+    where capital_earning_id = #{capitalEarningId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanCapitalEarning" >
+    insert into loan_capital_earning (capital_earning_id, earning_variety, subject_name,
+      earning_rate, earing_rate_unit, earning_term, 
+      earning_term_unit, earning_amount, earning_approach, 
+      remark, order_id, org_id
+      )
+    values (#{capitalEarningId,jdbcType=VARCHAR}, #{earningVariety,jdbcType=VARCHAR}, #{subjectName,jdbcType=VARCHAR}, 
+      #{earningRate,jdbcType=DECIMAL}, #{earingRateUnit,jdbcType=CHAR}, #{earningTerm,jdbcType=VARCHAR}, 
+      #{earningTermUnit,jdbcType=CHAR}, #{earningAmount,jdbcType=DECIMAL}, #{earningApproach,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanCapitalEarning" >
+    insert into loan_capital_earning
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="capitalEarningId != null" >
+        capital_earning_id,
+      </if>
+      <if test="earningVariety != null" >
+        earning_variety,
+      </if>
+      <if test="subjectName != null" >
+        subject_name,
+      </if>
+      <if test="earningRate != null" >
+        earning_rate,
+      </if>
+      <if test="earingRateUnit != null" >
+        earing_rate_unit,
+      </if>
+      <if test="earningTerm != null" >
+        earning_term,
+      </if>
+      <if test="earningTermUnit != null" >
+        earning_term_unit,
+      </if>
+      <if test="earningAmount != null" >
+        earning_amount,
+      </if>
+      <if test="earningApproach != null" >
+        earning_approach,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="capitalEarningId != null" >
+        #{capitalEarningId,jdbcType=VARCHAR},
+      </if>
+      <if test="earningVariety != null" >
+        #{earningVariety,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectName != null" >
+        #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="earningRate != null" >
+        #{earningRate,jdbcType=DECIMAL},
+      </if>
+      <if test="earingRateUnit != null" >
+        #{earingRateUnit,jdbcType=CHAR},
+      </if>
+      <if test="earningTerm != null" >
+        #{earningTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="earningTermUnit != null" >
+        #{earningTermUnit,jdbcType=CHAR},
+      </if>
+      <if test="earningAmount != null" >
+        #{earningAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="earningApproach != null" >
+        #{earningApproach,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanCapitalEarning" >
+    update loan_capital_earning
+    <set >
+      <if test="earningVariety != null" >
+        earning_variety = #{earningVariety,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectName != null" >
+        subject_name = #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="earningRate != null" >
+        earning_rate = #{earningRate,jdbcType=DECIMAL},
+      </if>
+      <if test="earingRateUnit != null" >
+        earing_rate_unit = #{earingRateUnit,jdbcType=CHAR},
+      </if>
+      <if test="earningTerm != null" >
+        earning_term = #{earningTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="earningTermUnit != null" >
+        earning_term_unit = #{earningTermUnit,jdbcType=CHAR},
+      </if>
+      <if test="earningAmount != null" >
+        earning_amount = #{earningAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="earningApproach != null" >
+        earning_approach = #{earningApproach,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where capital_earning_id = #{capitalEarningId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanCapitalEarning" >
+    update loan_capital_earning
+    set earning_variety = #{earningVariety,jdbcType=VARCHAR},
+      subject_name = #{subjectName,jdbcType=VARCHAR},
+      earning_rate = #{earningRate,jdbcType=DECIMAL},
+      earing_rate_unit = #{earingRateUnit,jdbcType=CHAR},
+      earning_term = #{earningTerm,jdbcType=VARCHAR},
+      earning_term_unit = #{earningTermUnit,jdbcType=CHAR},
+      earning_amount = #{earningAmount,jdbcType=DECIMAL},
+      earning_approach = #{earningApproach,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      org_id = #{orgId,jdbcType=VARCHAR}
+    where capital_earning_id = #{capitalEarningId,jdbcType=VARCHAR}
+  </update>
+  
+   <!-- ########################################### Li Jianjun Start ########################################### -->
+   
+   <!-- 查询放款申请表-收入信息 -->
+   <select id="selectLoanCapitalEarning" parameterType="java.util.Map" resultMap="BaseResultMap">
+   	SELECT 
+    	<include refid="Base_Column_List" />
+    FROM 
+    	loan_capital_earning
+    WHERE
+    	order_id = #{orderNo}
+   </select>
+   
+   <!-- ########################################### Li Jianjun End ########################################### -->
+   <!-- 删除放款申请表信息根据订单号 -->
+   <delete id="delByOrderNo" parameterType="String">
+    delete from loan_capital_earning where order_id=#{orderNo}
+   </delete>
+   
+   <select id="queryFeesPlanInByOrderNo" parameterType="String" resultType="com.lhhs.loan.dao.domain.LoanFeesPlan">
+   	SELECT lce.order_id order_no,lai.account_id,lce.earning_amount fees_amount,loi.customer_id,lce.earning_variety subject_id,
+		lce.subject_name,lce.remark,lce.earning_approach trans_way,loi.company_id,loi.union_id
+	FROM loan_capital_earning lce,loan_order_info loi,loan_account_info lai
+	WHERE lce.order_id=loi.order_no AND loi.customer_id=lai.owner_id AND lce.order_id=#{orderNo}
+   </select>
+   
+</mapper>

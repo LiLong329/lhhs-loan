@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="common/src"></head>
+	<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+	<style type="text/css">
+	 .area {
+		    border-color: #a7b5bc #ced9df #ced9df #a7b5bc;
+		    border-style: solid;
+		    border-width: 1px;
+		    height: 150px;
+		    line-height: 18px;
+		    text-indent: 0;
+		    width: 460px;
+		    resize: none;
+		}
+    	.downSelect{background:#fff; height:26px;  line-height:26px;padding-left:10px; border:1px solid #ced9df ; border-top:0;}
+    	.downSelect:hover{ color:#fff; background:#1e90ff;}
+    	.cityStyle{margin-left:142px;}
+    	.cityStyle li{width:80%;}
+    	.aStyle{cursor: pointer;color:#FF0000;}
+	</style>
+	<body>
+		<div class="father">
+			<header th:replace="common/top"></header>
+			<div class="common-content">
+				<div th:replace="common/left"></div>
+				<div class="common-right">
+					<div class="place" id="place">
+						<span>位置：</span>
+						<ul class="placeul">
+							<li><a href="/index/index">首页</a></li>
+							<li><a>产品管理</a></li>
+							<li><a th:href="@{/systemManager/productInfoList}">产品信息管理</a></li>
+							<li><a th:href="@{/systemManager/productChildrenList/1(productNo=${productNo})}">修改</a></li>
+							<li><a>修改二级产品</a></li>
+						</ul>
+					</div>
+					<div class="right-content">
+						<form id="updateForm" action="/systemManager/updateChildrenProduct">
+							<input type="hidden" name="productParentNo" th:value="${productNo}" id="productParentNo" />
+							<div class="formbody">
+								<div class="formtitle"><span>二级产品</span></div>
+								<div class="toolsli">
+									<ul class="nbbdgl-Ui">
+										<li style="width: 80%;">
+											<span class="tips">编号：</span>
+											<input type="text" class="txt" readonly="readonly" name="productId" th:value="${entity.productId}"/>
+										</li>
+										<li style="width: 80%;">
+											<span class="tips">产品名称：</span>
+											<input type="text" class="txt validate[required,maxSize[20]]" name="productName" th:value="${entity.productName}"/>
+										</li>
+										<li style="width: 80%;">
+											<span class="tips">资金方：</span>
+											<div class="vocation">
+			                                	<select class="select-common select1 cascade validate[required]"   name="fundOwner" id="zijin">
+			                                		<option value=''>请选择</option>
+		                                            <option th:each="sf : ${fundSideList}" th:text="${sf.orgName}" th:value="${sf.orgId}" th:attr="selected=(${sf.orgId} eq ${entity.fundOwner}?true:false)"></option>
+				                                </select>
+			                                </div>
+										</li>
+										<li>
+		                                	<span class="tips">支持城市：</span>
+		                                	<div class="vocation">
+		                                        <select class="select-common select3" id="provinceSelect">
+		                                        	<option value=''>请选择</option>
+		                                        </select>
+		                                    </div>
+		                                    <span>省</span>
+		                                    <div class="vocation">
+		                                        <select class="select-common select3" id="citySelect">
+		                                        	<option value=''>请选择</option>
+		                                        </select>
+		                                    </div>
+		                                    <span>市</span>
+		                                    <span class="scbtn1 cityAdd">添加</span>
+		                                </li>
+ 		                            	<li style="width:80%;">
+		                                	<ul class="cityStyle" id="cityList">
+		                                		<th:block th:unless="${#lists.isEmpty(entity.productSupportAreas)}" th:each="single:${entity.productSupportAreas}">
+			                                		<li>
+														<span class="provinceName" th:attr="provinceNo=${single.provinceNo}" th:text="${single.provinceName}"></span>
+														<span class="cityName" th:attr="cityNo=${single.cityNo}" th:text="${single.cityName}"></span>
+														<span class="aStyle">×</span>
+												    </li>
+	                                			</th:block>
+		                                	</ul>
+		                                </li> 
+										<li style="width: 80%;">
+											<span class="tips">金额范围：</span>
+											<input type="number" class="txt validate[required,min[0]]" style="width:100px" name="minAmount" th:value="${entity.minAmount}"/>
+											<span>万 —— </span>
+											<input type="number" class="txt validate[required,min[0]]" style="width:100px" name="maxAmount" th:value="${entity.maxAmount}"/>
+											<span>万 </span>
+										</li>
+										<li style="width: 80%;">
+											<span class="tips">期  	 限：</span>
+											<input type="number" class="txt validate[required,custom[integer],maxSize[4],min[0]]" style="width:100px" name="minExpires" th:value="${entity.minExpires}"/>
+											<span>—— </span>
+											<input type="number" class="txt validate[required,custom[integer],maxSize[4],min[0]]" style="width:100px" name="maxExpires" th:value="${entity.maxExpires}"/>
+											<div class="vocation">
+			                                	<select class="select-common " style="width:100px"  name="expiresUnit">
+				                                	<option value="年" th:attr="selected=('年' eq ${entity.expiresUnit}?true:false)">年</option>
+				                                	<option value="个月" th:attr="selected=('个月' eq ${entity.expiresUnit}?true:false)">个月</option>
+				                                	<option value="天" th:attr="selected=('天' eq ${entity.expiresUnit}?true:false)">天</option>
+				                                </select>
+				                             </div>
+										</li>
+										<li style="width: 100%;">
+											<span class="tips">利	率1：</span>
+											<input type="number" class="txt validate[required,custom[numberThree],max[100]]" style="width:100px" name="minRate" th:value="${entity.minRate}"/>
+											<span>—— </span>
+											<input type="number" class="txt validate[custom[numberThree],max[100]]" style="width:100px" name="maxRate" th:value="${entity.maxRate}"/>
+											<div class="vocation">
+				                                <select class="select-common " style="width:100px"  name="rateUnit">
+			                                		<option value="年" th:attr="selected=('年' eq ${entity.rateUnit}?true:false)">%/年</option>
+				                                	<option value="月" th:attr="selected=('月' eq ${entity.rateUnit}?true:false)">%/月</option>
+				                                	<option value="天" th:attr="selected=('天' eq ${entity.rateUnit}?true:false)">%/天</option>
+				                                	<option value="次" th:attr="selected=('次' eq ${entity.rateUnit}?true:false)">%/次</option>
+					                            </select>
+				                            </div>
+										</li>
+										<div id="lilv">
+											<li style="width: 120%;">
+												<span class="tips">利率2（资金批发类型）</span>
+												<input type="number" class="txt validate[required,custom[numberThree],max[100]]" style="width:100px" name="minRateTwo" th:value="${entity.minRateTwo}"/>
+												<span>—— </span>
+												<input type="number" class="txt validate[custom[numberThree],max[100]]" style="width:100px" name="maxRateTwo" th:value="${entity.maxRateTwo}"/>
+												<div class="vocation">
+					                                <select class="select-common " style="width:100px"  name="rateUnitTwo">
+						                                <option value="年" th:attr="selected=('年' eq ${entity.rateUnitTwo}?true:false)">%/年</option>
+					                                	<option value="月" th:attr="selected=('月' eq ${entity.rateUnitTwo}?true:false)">%/月</option>
+					                                	<option value="天" th:attr="selected=('天' eq ${entity.rateUnitTwo}?true:false)">%/天</option>
+					                                	<option value="次" th:attr="selected=('次' eq ${entity.rateUnitTwo}?true:false)">%/次</option>
+						                            </select>
+					                           </div>
+											</li>
+										</div>
+									</ul>
+								</div>
+								<div class="itab">
+									<ul>
+										<li>
+											<a data-show="#tab1">展示信息</a>
+										</li>
+										<li>
+											<a data-show="#tab2">上传资质</a>
+										</li>
+									</ul>
+								</div>
+								<div id="tab1" class="tabson">
+									<div class="formtitle">
+										<span>产品优势</span>
+									</div>
+									<div style="position: relative;">
+										<textarea class="area validate[required,maxSize[14]]" rows="6" style="resize:none; width:70%; " name="productAdvantage" th:text="${entity.productAdvantage}"></textarea>
+									</div>
+									<div class="formtitle">
+										<span>申请条件</span>
+									</div>
+									<div style="position: relative;">
+										<textarea class="area validate[required,maxSize[500]]" rows="6" style="resize:none; width:70%; " name="applicationConditions" th:text="${entity.applicationConditions}"></textarea>
+									</div>
+									<div class="formtitle">
+										<span>所需资料</span>
+									</div>
+									<div style="position: relative;">
+										<textarea class="area validate[required,maxSize[500]]" rows="6" style="resize:none; width:70%; " name="materialRequested" th:text="${entity.materialRequested}"></textarea>
+									</div>
+									<div class="formtitle">
+										<span>费用说明</span>
+									</div>
+									<div style="position: relative;">
+										<textarea class="area validate[required,maxSize[500]]" rows="6" style="resize:none; width:70%; " name="feeDescription" th:text="${entity.feeDescription}"></textarea>
+									</div>
+								</div>
+								<div id="tab2" class="tabson">
+									<div class="formtitle"><span>所需资质</span></div>
+									<th:block th:each="credentialsTypeVo : ${#ctx.servletContext.getAttribute('enumMap').credentialsTypeList}">
+										<div class="formtitle" style="margin-left:50px"><span style="border-bottom:1px" th:text="${credentialsTypeVo.value}"></span></div>
+										<div class="toolsli">
+											<ul class="nbbdgl-Ui">
+												<th:block th:each="cre,iter : ${entity.credentialList}">
+													<th:block th:if="${cre.credentialsType} eq ${credentialsTypeVo.order}">
+														<li>
+															<span class="tips" style="width:50%" th:text="${cre.credentialsName }"></span>
+															<span class="tips" style="text-align:left">
+							                                	 <input type ="hidden" th:attr="name='credentialList['+${iter.index}+'].credentialsId'" th:value="${cre.credentialsId }"/>
+							                                	 <th:block th:if="${cre.required} eq 1">
+								                                	<input type="radio"   th:attr="name='credentialList['+${iter.index}+'].proRequired'" checked="checked" readonly="readonly" value="1" /> 必填
+							                                	 </th:block>
+							                                	 <th:block th:if="${cre.required} eq 0">
+							                                		<input type="radio" class="checked" th:attr="name='credentialList['+${iter.index}+'].proRequired',checked=(${cre.proRequired} eq 1)?true:false" value="1"/> 必填
+							                                		<input type="radio" class="checked" th:attr="name='credentialList['+${iter.index}+'].proRequired',checked=(${cre.proRequired} eq 0)?true:false" value="0" /> 选填
+							                                	 </th:block>
+							                                </span>
+														</li>
+													</th:block>
+												</th:block>
+											</ul>
+										</div>
+									</th:block>
+								</div>
+								<div class="toolsli">
+									<ul class="nbbdgl-Ui">
+										<li style="width: 80%;">
+											<span class="tips">&nbsp;</span>
+											<input type="button" class="scbtn mlt10" value="保 存" id="updateButton" />
+											<input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);" />
+										</li>
+									</ul>
+								</div>
+							</div>	
+						</form>
+					</div>
+				</div>
+			</div>
+			<footer th:replace="common/footer"></footer>
+		</div>
+	 	<script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+		<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			seajs.use("childproduct/childproductEdit");
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanBankMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanBank" >
+    <id column="bank_id" property="bankId" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="bank_ab" property="bankAb" jdbcType="VARCHAR" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bank_id, bank_name, bank_ab, field1, field2, field3, field4, field5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_bank
+    where bank_id = #{bankId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_bank
+    where bank_id = #{bankId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanBank" >
+    insert into loan_bank (bank_id, bank_name, bank_ab, 
+      field1, field2, field3, 
+      field4, field5)
+    values (#{bankId,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, #{bankAb,jdbcType=VARCHAR}, 
+      #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, 
+      #{field4,jdbcType=VARCHAR}, #{field5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanBank" >
+    insert into loan_bank
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bankId != null" >
+        bank_id,
+      </if>
+      <if test="bankName != null" >
+        bank_name,
+      </if>
+      <if test="bankAb != null" >
+        bank_ab,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bankId != null" >
+        #{bankId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAb != null" >
+        #{bankAb,jdbcType=VARCHAR},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanBank" >
+    update loan_bank
+    <set >
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAb != null" >
+        bank_ab = #{bankAb,jdbcType=VARCHAR},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bank_id = #{bankId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanBank" >
+    update loan_bank
+    set bank_name = #{bankName,jdbcType=VARCHAR},
+      bank_ab = #{bankAb,jdbcType=VARCHAR},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where bank_id = #{bankId,jdbcType=VARCHAR}
+  </update>
+  
+    <sql id="Where_Clause" >
+    <where>
+	   <if test="bankId != null and bankId !=''" >
+	        and bank_id = #{bankId,jdbcType=VARCHAR}
+	   </if>
+       <if test="bankName != null and bankName !=''" >
+        and bank_name like concat('%',#{bankName},'%')
+      </if>
+      <if test="bankAb != null and bankAb !=''" >
+        and bank_ab = #{bankAb,jdbcType=VARCHAR}
+      </if>
+      <if test="field1 != null and field1 !=''" >
+        and field1 = #{field1,jdbcType=VARCHAR}
+      </if>
+      <if test="field2 != null and field2 !=''" >
+        and field2 = #{field2,jdbcType=VARCHAR}
+      </if>
+      <if test="field3 != null and field3 !=''" >
+        and field3 = #{field3,jdbcType=VARCHAR}
+      </if>
+      <if test="field4 != null and field4 !=''" >
+        and field4 = #{field4,jdbcType=VARCHAR}
+      </if>
+      <if test="field5 != null and field5 !=''" >
+        and field5 = #{field5,jdbcType=VARCHAR}
+      </if>
+     </where>
+  </sql>
+  <select id="queryList" resultMap="BaseResultMap" parameterType="com.lhhs.loan.dao.domain.LoanAccountInfo" >
+    select
+    <include refid="Base_Column_List" />
+    from loan_bank
+    <include refid="Where_Clause" />
+  </select>
+  <!-- 查询所有银行 -->
+  <select id="queryAllBank" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="Base_Column_List" /> from loan_bank
+  </select>
+  
+  <!-- 自定义方法  -->
+  <select id="selectByBankName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_bank
+    where bank_name = #{bankName}
+  </select>
+  
+</mapper>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>系统管理</li>
+                        <li>权限设置</li>
+                        <li><a th:href="@{/systemManager/groupList}">组别管理</a></li>
+                        <li>修改</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div class="formtitle"><span>修改组别</span></div>
+                        <div class="toolsli">
+                            <ul class="nbbdgl-Ui">
+                                <form id="myForm">
+                                <input type="hidden" th:value="${lgGroupId}" class="lgGroupId" />
+                                <li>
+                                    <input type="hidden" class="lgGroupId" th:value="${group.lgGroupId}"/>
+                                    <span class="tips">部门：</span>
+                                    <div class="vocation">
+                                        <select class="select-common select1  lgDeptId validate[required]" >
+                                            <option>请选择</option>
+                                             <option th:each="dept : ${deptList}" th:value="${dept.ld_dept_id}" th:text="${dept.ld_name}"
+                                              th:attr="selected=(${group.lgDeptId} eq ${dept.ld_dept_id})?true:false"></option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="tips">组别名称：</span>
+                                    <input type="text" class="txt lgName validate[required,maxSize[10]]" th:value="${group.lgName}" maxlength="10"  />
+                                </li>
+                                <li style="width: 80%;">
+                                    <span class="tips">描述：</span>
+                                    <textarea class="area lgDepict validate[maxSize[128]]" th:text="${group.lgDepict}" maxlength="128"></textarea>
+                                </li>
+                                <li style="width: 80%;">
+                                    <span class="tips">备注：</span>
+                                    <textarea class="area lgRemark validate[maxSize[128]]" th:text="${group.lgRemark}" maxlength="128"></textarea>
+                                </li>
+                                </form>
+                                <li style="width: 80%;">
+                                    <span class="tips">&nbsp;</span>
+                                    <input type="button" class="scbtn mlt10 groupInfoModify" value="保 存"/>
+                                    <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);"/>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+     <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+     <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+     <script> seajs.use("login/group");</script>
+</body>
+</html>

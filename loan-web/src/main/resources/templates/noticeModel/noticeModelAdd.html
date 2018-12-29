@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head th:replace="common/src"></head>
+	<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css" />
+	<style>
+		.levelTitle{font-size:15px; line-height:34px;padding-left:10px;}
+		.chooseUl{ padding-left:25px; display:inline-block;width:80%;}
+		.chooseUl li{ height:24px; line-height:24px; float:none; min-width:200px; margin-bottom:0;width:auto;}
+		.chooseUl li .chooseRdo{float:left;margin-top:5px;}
+		.chooseUl li p{ display:inline-block; line-height:24px;float:left;padding-left:8px;}
+		#noticeType{width:80%;}
+	   	.downSelect{background:#fff; height:35px;  line-height:26px;padding-left:10px;}
+	</style>
+	<body>
+		<div class="father">
+			<header th:replace="common/top"></header>
+			<div class="common-content">
+				<div th:replace="common/left"></div>
+				<div class="common-right">
+					<div class="place" id="place">
+						<span>位置：</span>
+						<ul class="placeul">
+							<li>
+								<a href="/index/index">首页</a>
+							</li>
+	                        <li>系统管理</li>
+	                        <li>通知信息管理</li>
+	                        <li>
+	                        	<a href="/noticeModel/list/1">通知模板管理</a>
+	                        </li>
+	                        <li>新增</li>
+						</ul>
+					</div>
+					<div class="right-content">
+						<div class="formbody">
+							<div class="formtitle"><span>添加通知模板</span></div>
+							<div class="toolsli">
+								<form id="myForm">
+									<ul class="nbbdgl-Ui">
+										<li style="width: 80%;">
+											<span class="tips">模板类型：</span>
+		                                    <div class="vocation">
+		                                        <select class="select-common select1 validate[required]" name="modelType" id="modelType">
+		                                            <option value="">请选择</option>
+		                                            <option value="1">业务类</option>
+		                                            <option value="2">资金类</option>
+		                                        </select>
+		                                    </div>
+										</li>
+										<li style="width: 80%;">
+											<span class="tips">模板名称：</span>
+		                                    <div class="vocation">
+		                                        <select class="select-common select1 validate[required]" name="englishName" id="englishName">
+		                                            <option value="">请选择</option>
+		                                        </select>
+		                                    </div>
+										</li>
+										<li style="width: 80%;">
+											<span class="tips" style="float:left;">通知类型：</span>
+											<div id="noticeType" style="float:left;">
+											</div>
+										</li>
+										<!-- <li>
+											<span class="tips">通知对象：</span>
+											<input type="text" class="txt" id="quartersName"/>
+											<div style="width: 252px;margin-left: 150px;margin-top: 34px;" id="quartersAuto">
+												<th:block th:unless="${#lists.isEmpty(allList)}" th:each="quarters : ${allList}">
+													<div class="downSelect"><input type="checkbox" th:value="${quarters.englishName}" style="float: left;margin-top: 10px;"/><span th:text="${quarters.name}"></span></div>
+												</th:block>
+											</div>
+										</li> -->
+										<li style="width: 80%;">
+											<span class="tips">&nbsp;</span>
+											<input type="button" class="scbtn mlt10" id="saveButton" value="保 存" />
+											<input type="button" class="scbtn2 mlt10" value="取 消" onclick="javascript:history.back(-1);" />
+										</li>
+									</ul>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<footer th:replace="common/footer"></footer>
+		</div>
+		<script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+		<script th:inline="javascript">
+	    	/*<![CDATA[*/
+		    	seajs.use("noticeModel/noticeModel");
+	    	/*]]>*/
+	    </script>
+	</body>
+
+</html>

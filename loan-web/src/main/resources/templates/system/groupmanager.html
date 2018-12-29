@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>系统管理</li>
+                        <li>权限设置</li>
+                        <li>组别管理</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual">
+                            <ul class="seachform1">
+                             <form id="myForm">
+                             <input  name="pageNumber" type="hidden" value="" id="currentPageNo"/>
+                                <li>
+                                    <label>部门：</label>
+                                    <div class="vocation">
+                                        <select class="select-common select3" name="deptId" id="leDept">
+                                            <option value="" >请选择</option>
+                                            <option th:each="dept : ${deptList}" th:value="${dept.ld_dept_id}" th:text="${dept.ld_name}"
+                                              th:attr="selected=(${deptId} eq ${dept.ld_dept_id})?true:false"></option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label>组别名称：</label>
+                                    <div class="vocation">
+                                        <select class="select-common select3" name="lgGroupId" id="leGroup" >
+                                            <option value="">请选择</option>
+                                            <option th:each="allGroup : ${allGroup}" th:value="${allGroup.lgGroupId}" th:text="${allGroup.lgName}"
+                                              th:attr="selected=(${groupname} eq ${allGroup.lgName})?true:false"></option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label>组别状态：</label>
+                                    <div class="vocation">
+                                        <select class="select-common select3" name="status">
+                                            <option value="" >请选择</option>
+                                            <option value="1" th:attr="selected=(${status} eq 1)?true:false">正常</option>
+                                            <option value="0" th:attr="selected=(${status} eq 0)?true:false" >禁用</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                </form> 
+                                <li>
+                                    <input type="button" id="searcher" class="scbtn" value="查询"/>
+                                </li>
+                                <li class="sarchbtn" style="float: right;">
+                                    <input type="button" class="scbtn1" value="新增" onclick="javascrtpt:window.location.href='/systemManager/addNewGroup'"/>
+                                </li>
+                            </ul>
+                            <div class="table-title">
+                                <p class="tab-font">组别管理</p>
+                            </div>
+                            <table class="tablelist">
+                                <thead>                               
+                                    <tr>
+                                        <th>组别编号</th>
+                                        <th>部门</th>
+                                        <th>组别名称</th>
+                                        <th>创建时间</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                   
+                                <tbody>
+                                   <th:block th:unless="${#lists.isEmpty(groupList)}"> 
+                                    <tr th:each="group : ${groupList}">
+                                        <input type="hidden" th:value="${group.lgStatus}" class="lgStatus"/> 
+                                        <input type="hidden" th:value="${group.lgGroupId}" class="lgGroupId"/> 
+                                        <td th:text="${group.lgGroupId}" ></td>
+                                        <td th:text="${group.ldName}" ></td>
+                                        <td th:text="${group.lgName}" ></td>
+                                        <td th:text="${group.lgTime}?${#dates.format(group.lgTime, 'yyyy-MM-dd HH:mm:ss')}:''" ></td>
+                                        <td>
+                                        <th:block th:if="${group.lgStatus} eq 1">正常</th:block>
+                                        <th:block th:if="${group.lgStatus} eq 0">禁用</th:block>
+                                        </td>
+                                        <td>
+                                            <a th:href="@{/systemManager/toGroupUpdate(lgGroupId=${group.lgGroupId})}" class="tablelink">修改</a>
+                                            <th:block th:if="${group.lgStatus} eq 1">
+                                            <a href="javascript:void(0);" class="tablelink mlt10 buttonclick"  >
+                                                                                                                             禁用
+                                            </a>                                                                                 
+                                            </th:block>
+                                            <th:block th:if="${group.lgStatus} eq 0">
+                                            <a href="javascript:void(0);" class="tablelink mlt10 buttonclick" >
+                                                                                                                             启用
+                                            </a>                                                                                
+                                            </th:block>
+                                           
+                                        </td>
+                                    </tr>
+                                  </th:block>
+                                  <th:block th:if="${#lists.isEmpty(groupList)}"> 
+                                       <!-- tr colspan="5" align="center">暂无数据</tr -->
+                                  </th:block> 
+                                </tbody>
+                            </table>
+                            
+							<div class="pagin" th:unless="${#lists.isEmpty(page.resultList)}">
+								<div class="message">
+									共 <i class="blue" th:text="${page.totalCount}"></i> 条记录，当前显示第 <i
+										class="blue" th:text="${page.pageIndex}"></i> 页
+								</div>
+								<ul class="paginList">
+									<li class="paginItem" th:if="${page.pageIndex} gt 1"><a
+										th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+									</li>
+									<li class="paginItem"
+										th:each="x:${#numbers.sequence(page.startNum, page.endNum)}"
+										th:classappend="(${page.pageIndex} eq ${x})?'current'"><a
+										th:attr="data-pagenum=${x}" th:text="${x}"></a></li>
+									<li class="paginItem"
+										th:if="${page.pageIndex} lt ${page.pageCount}"><a
+										th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+    <script> seajs.use("login/group");</script>
+</body>
+</html>

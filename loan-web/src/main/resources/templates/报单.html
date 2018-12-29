@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script src="/js/public/area.js"></script>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>快速报单</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div class="formtitle"><span>快速报单</span></div>
+                        <div class="toolsli">
+                            <ul class="nbbdgl-Ui">
+                            	<form id="loan_order_info">
+	                                <li>
+	                                    <span class="tips">一级产品：</span>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1" name="productNo" id="productNoId">
+	                                            <option value="">请选择</option>
+	                                            <option th:each="pro : ${productList}" th:value="${pro.productNo}" th:text="${pro.productType}"></option>
+	                                        </select>
+	                                    </div>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">报单人编号：</span>
+	                                    <input type="text" class="txt" name="providerNo"/>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">二级产品：</span>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1" name="childProductNo" id="childProductNoId">
+	                                            <option value="">请选择</option>
+	                                        </select>
+	                                    </div>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">客户经理：</span>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1" name="customer_manager">
+	                                            <option value="">请选择</option>
+	                                            <option th:each="emp : ${empList}" th:value="${emp.leEmpId}" th:text="${emp.leStaffName}"></option>
+	                                        </select>
+	                                    </div>
+	                                </li>
+	                                <li style="width: 80%;">
+	                                    <span class="tips">省市：</span>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1 provinceSelect" name="province">
+	                                            <option>请选择</option>
+	                                        </select>
+	                                    </div>
+	                                    <span>省</span>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1 citySelect" name="city">
+	                                            <option>请选择</option>
+	                                        </select>
+	                                    </div>
+	                                    <span>市</span>
+	                                </li>
+                                </form>
+                                <form id="loan_order_info_detail">
+	                                <li>
+	                                	<input type="hidden" id="orgId" name="fundOwner"/>
+	                                    <span class="tips">借款金额：</span>
+	                                    <input type="text" class="txt" name="loanAmount"/>
+	                                    <span>万元</span>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">借款期限：</span>
+	                                    <input type="text" class="txt" name="loanTerm"/>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1" name="loanTermUnit" style="width: 50px;">
+	                                            <option value="天">天</option>
+	                                            <option value="个月">个月</option>
+	                                        </select>
+	                                    </div>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">借款利率：</span>
+	                                    <input type="text" class="txt" name="loanRate"/>
+	                                    <span>%/</span>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1" name="loanRateUnit" style="width: 50px;">
+	                                            <option value="月">月</option>
+	                                            <option value="天">天</option>
+	                                            <option value="次">次</option>
+	                                        </select>
+	                                    </div>
+	                                </li>
+                                </form>
+                                <form id="loanOrderBorrowerExtend">
+	                                <li>
+	                                    <span class="tips">借款人姓名：</span>
+	                                    <input type="text" class="txt" name="bname"/>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">借款人手机号：</span>
+	                                    <input type="text" class="txt" name="mobile"/>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">借款人身份证：</span>
+	                                    <input type="text" class="txt" name="idNum"/>
+	                                </li>
+	                                <li style="width: 80%;">
+	                                    <span class="tips">&nbsp;</span>
+	                                    <input type="button" class="scbtn mlt10" value="保 存" id="saveId"/>
+	                                    <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);"/>
+	                                </li>
+                                </form>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/js/public/select.js"></script>
+        <footer th:replace="common/footer"></footer>
+        <script th:inline="javascript">
+        	/*<![CDATA[*/
+        	      $("#productNoId").on("change",function(){
+        	    	  $.post("/test/findChildProductList",{"productNo":$(this).val()},function(data){
+        	    		  var html = "<option value=''>请选择</option>";
+        	    		  if(data){
+        	    			  $.each(data,function(i,n){
+        	    				  html += "<option value='"+ n.productId +"' data-orgid='"+n.fundOwner+"'>"+ n.productName +"</option>";
+        	    			  });
+        	    		  }
+        	    		  $("#childProductNoId").html(html);
+        	    		  $("#childProductNoId").prev(".uew-select-value").find(".uew-select-text").html("请选择");
+        	    	  })
+        	      });
+        	      $("#childProductNoId").on("change",function(){
+        	    	  $("#orgId").val($(this).find("option:selected").data("orgid"));
+        	      });
+        		 $("#saveId").on("click",function(){
+        			 var orderInfo = $("#loan_order_info").serializeJson();
+        			 var orderInfoDetail = $("#loan_order_info_detail").serializeJson();
+        			 var borrowerInfo = $("#loanOrderBorrowerExtend").serializeJson();
+        			 $.post("/test/saveOderInfo",{
+        				 "orderInfo":JSON.stringify(orderInfo),
+        				 "orderInfoDetail":JSON.stringify(orderInfoDetail),
+        				 "borrowerInfo":JSON.stringify(borrowerInfo)
+        			 },function(data){
+        				 if(data.retCode == "00"){
+        					 alert("报单成功",false,function(){
+        						 window.location.reload();
+        					 });
+        				 }else{
+        					 alert("报单失败",false,function(){
+        						 window.location.reload();
+        					 });
+        				 }
+        			 })
+        		 })	
+			/*]]>*/
+        </script>
+    </div>
+</body>
+</html>

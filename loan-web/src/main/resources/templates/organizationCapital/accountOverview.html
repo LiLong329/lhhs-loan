@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>资金管理</li>
+                        <li>机构资金账目管理</li>
+                        <li>账户总览</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual">
+                            <form id="myForm">
+	                            <ul class="seachform1">
+	                                <li>
+	                                    <label>机构ID：</label>
+	                                    <input type="text" class="scinput1" name="ownerId"/>
+	                                </li>
+	                                <li>
+	                                    <label>机构名称：</label>
+	                                    <input type="text" class="scinput1" name="ownerName"/>
+	                                </li>
+
+	                                <li>
+	                                    <label>账户ID：</label>
+	                                    <input type="text" class="scinput1" name="accountId"/>
+	                                </li>
+	                                <li class="sarchbtn">
+	                                    <input type="button" class="scbtn" id="queryBtn" value="查询"/>
+	                                </li>
+	                            </ul>
+                            </form>
+                            <div class="table-title">
+                                <p class="tab-font">机构账户总览</p>
+                            </div>
+                            <div id="recordList" th:include="organizationCapital/_accountOverviewSub"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+    <script>
+    	seajs.use("organizationCapital/accountOverview");
+    </script>
+</body>
+</html>

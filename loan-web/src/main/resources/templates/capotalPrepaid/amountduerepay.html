@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script src="/js/public/area.js"></script>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+        <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>财务管理</li>
+                        <li>垫付管理</li>
+                        <li>债务偿还记录</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual">
+                            <ul class="seachform1">
+                                <form id="myForm">
+		                            <ul class="seachform1">
+		                                <li>
+		                                    <label>省市：</label>
+		                                    <div class="vocation">
+		                                        <select class="select-common select3 provinceSelect"></select>
+		                                    </div>
+		                                    <span>省</span>
+		                                    <div class="vocation">
+		                                        <select class="select-common select3 citySelect" name="cityNo"></select>
+		                                    </div>
+		                                    <span>市</span>
+		                                </li>
+		                                <li>
+		                                    <label>业务编号：</label>
+		                                    <input type="text" class="scinput1" name="orderNo"/>
+		                                </li>
+		                                <li>
+		                                    <label>借款人姓名：</label>
+		                                    <input type="text" class="scinput1" name="customerName"/>
+		                                </li>
+		                                <li>
+		                                    <label>还款时间：</label>
+		                                    <input type="text" class="scinput1" name="beginTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+		                                    <span> 至 </span>
+		                                    <input type="text" class="scinput1" name="endTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+		                                </li>
+		                                
+		                                <li>
+		                                	<input type="hidden" name="page.pageIndex" th:value="${page.pageIndex}"/>
+		                                	<input type="hidden" name="page.pageSize" th:value="${page.pageSize}"/>
+		                                    <input type="button" class="scbtn" value="查询" id="queryId"/>
+		                                </li>
+		                            </ul>
+	                            </form>
+                            </ul>
+                             <div class="table-title">
+	                               <p class="tab-font">债务偿还记录</p>
+	                         </div>
+	                         <div id="payPlanId" th:include="capotalPrepaid/_amountduerepay"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+          <script src="/js/public/select.js"></script>
+          <footer th:replace="common/footer"></footer>
+          <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	      <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+          <script>seajs.use("custManagment/repayamount");</script>
+    </div>
+</body>
+</html>

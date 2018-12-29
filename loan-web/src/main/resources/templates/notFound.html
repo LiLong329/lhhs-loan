@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<title>出错了</title>
+<link href="/css/err.css" rel="stylesheet" type="text/css"/>
+<body>
+    <div class="clearfix err-bg">
+        <div class="fl ml20">
+            <img src="/img/404.jpg"/>
+        </div>
+        <div class="fr err-txt">
+            <div class="describe">
+                         请求未找到
+            </div>
+            <div class="operation">
+                <h1>您可以：</h1>
+                <p>1.检查您刚才的输入内容</p>
+                <p>2.试试选择<a href="javascript:void(0);" onclick="window.location.reload();">重新打开</a>
+                    或者<a href="javascript:history.go(-1);">返回上一级</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

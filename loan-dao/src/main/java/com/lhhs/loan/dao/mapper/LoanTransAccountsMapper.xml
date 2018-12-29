@@ -1,0 +1,1061 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanTransAccountsMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanTransAccounts" >
+    <id column="trans_id" property="transId" jdbcType="VARCHAR" />
+    <result column="trans_main_id" property="transMainId" jdbcType="VARCHAR" />
+    <result column="recharge_order_no" property="rechargeOrderNo" jdbcType="VARCHAR" />
+    <result column="out_account_cust_type" property="outAccountCustType" jdbcType="VARCHAR" />
+    <result column="out_account_cust_property" property="outAccountCustProperty" jdbcType="VARCHAR" />
+    <result column="out_account_cust_id" property="outAccountCustId" jdbcType="VARCHAR" />
+    <result column="out_account_mobile" property="outAccountMobile" jdbcType="VARCHAR" />
+    <result column="out_account_real_name" property="outAccountRealName" jdbcType="VARCHAR" />
+    <result column="out_account_cardholder" property="outAccountCardholder" jdbcType="VARCHAR" />
+    <result column="out_account_bank_card" property="outAccountBankCard" jdbcType="VARCHAR" />
+    <result column="out_account_pre_balance" property="outAccountPreBalance" jdbcType="DECIMAL" />
+    <result column="out_account_suf_balance" property="outAccountSufBalance" jdbcType="DECIMAL" />
+    <result column="in_account_cust_type" property="inAccountCustType" jdbcType="VARCHAR" />
+    <result column="in_account_cust_property" property="inAccountCustProperty" jdbcType="VARCHAR" />
+    <result column="in_account_cust_id" property="inAccountCustId" jdbcType="VARCHAR" />
+    <result column="in_account_mobile" property="inAccountMobile" jdbcType="VARCHAR" />
+    <result column="in_account_real_name" property="inAccountRealName" jdbcType="VARCHAR" />
+    <result column="in_account_cardholder" property="inAccountCardholder" jdbcType="VARCHAR" />
+    <result column="in_account_bank_card" property="inAccountBankCard" jdbcType="VARCHAR" />
+    <result column="in_account_pre_balance" property="inAccountPreBalance" jdbcType="DECIMAL" />
+    <result column="in_account_suf_balance" property="inAccountSufBalance" jdbcType="DECIMAL" />
+    <result column="financial_amount" property="financialAmount" jdbcType="DECIMAL" />
+    <result column="financial_term" property="financialTerm" jdbcType="BIGINT" />
+    <result column="financial_term_unit" property="financialTermUnit" jdbcType="VARCHAR" />
+    <result column="financial_interest_rate" property="financialInterestRate" jdbcType="BIGINT" />
+    <result column="financial_interest_rate_unit" property="financialInterestRateUnit" jdbcType="VARCHAR" />
+    <result column="repayment_method" property="repaymentMethod" jdbcType="VARCHAR" />
+    <result column="Interest_payment_method" property="interestPaymentMethod" jdbcType="VARCHAR" />
+    <result column="Interest_payment_day" property="interestPaymentDay" jdbcType="DATE" />
+    <result column="repayment_penalty_interest_rate" property="repaymentPenaltyInterestRate" jdbcType="BIGINT" />
+    <result column="overdue_penalty_interest_rate" property="overduePenaltyInterestRate" jdbcType="BIGINT" />
+    <result column="actual_lending_time" property="actualLendingTime" jdbcType="TIMESTAMP" />
+    <result column="contract_no" property="contractNo" jdbcType="VARCHAR" />
+    <result column="contract_start_time" property="contractStartTime" jdbcType="TIMESTAMP" />
+    <result column="contract_end_time" property="contractEndTime" jdbcType="TIMESTAMP" />
+    <result column="contract_term" property="contractTerm" jdbcType="BIGINT" />
+    <result column="contract_term_unit" property="contractTermUnit" jdbcType="VARCHAR" />
+    <result column="contract_amount" property="contractAmount" jdbcType="DECIMAL" />
+    <result column="contract_interest_rate" property="contractInterestRate" jdbcType="BIGINT" />
+    <result column="contract_interest_rate_unit" property="contractInterestRateUnit" jdbcType="VARCHAR" />
+    <result column="account_manager_no" property="accountManagerNo" jdbcType="VARCHAR" />
+    <result column="account_manager_name" property="accountManagerName" jdbcType="VARCHAR" />
+    <result column="account_manager_department_no" property="accountManagerDepartmentNo" jdbcType="VARCHAR" />
+    <result column="account_manager_department_name" property="accountManagerDepartmentName" jdbcType="VARCHAR" />
+    <result column="contract_cardholder" property="contractCardholder" jdbcType="VARCHAR" />
+    <result column="contract_cardholder_id_card" property="contractCardholderIdCard" jdbcType="VARCHAR" />
+    <result column="contract_cardholder_bank_card" property="contractCardholderBankCard" jdbcType="VARCHAR" />
+    <result column="out_account_real_summary" property="outAccountRealSummary" jdbcType="VARCHAR" />
+    <result column="in_account_real_summary" property="inAccountRealSummary" jdbcType="VARCHAR" />
+    <result column="transfer_time" property="transferTime" jdbcType="TIMESTAMP" />
+    <result column="in_account" property="inAccount" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+    <result column="lastmodify_time" property="lastmodifyTime" jdbcType="TIMESTAMP" />
+    <result column="proc_inst_id" property="procInstId" jdbcType="VARCHAR" />
+    <result column="next_auditor" property="nextAuditor" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+    <result column="assignee_name" property="assigneeName" jdbcType="VARCHAR" />
+    <result column="msg" property="msg" jdbcType="VARCHAR" />
+    <result column="pass" property="pass" jdbcType="VARCHAR" />
+    <result column="task_create_date" property="taskCreateDate" jdbcType="VARCHAR" />
+    <result column="task_end_date" property="taskEndDate" jdbcType="VARCHAR" />
+    <result column="trans_type" property="transType" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="inTypeName" property="inTypeName" jdbcType="VARCHAR" />
+    <result column="inPropertyName" property="inPropertyName" jdbcType="VARCHAR" />
+    <result column="outTypeName" property="outTypeName" jdbcType="VARCHAR" />
+    <result column="outPropertyName" property="outPropertyName" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="outSubjectName" property="outSubjectName" jdbcType="VARCHAR" />
+    <result column="inSubjectName" property="inSubjectName" jdbcType="VARCHAR" />
+    <result column="le_company_id" property="leCompanyId" jdbcType="VARCHAR" />
+    <result column="branch_company_id" property="branchCompanyId" jdbcType="VARCHAR" />
+    <result column="le_staff_name" property="leStaffName" jdbcType="VARCHAR" />
+    <result column="le_dept_id" property="leGroupId" jdbcType="VARCHAR" />
+    <result column="appoint_lending_time" property="appointLendingTime" jdbcType="TIMESTAMP" />
+  	<result column="account_type" property="accountType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    trans_id, trans_main_id, recharge_order_no, out_account_cust_type, out_account_cust_property, 
+    out_account_cust_id, out_account_mobile, out_account_real_name, out_account_cardholder, 
+    out_account_bank_card, out_account_pre_balance, out_account_suf_balance, in_account_cust_type, 
+    in_account_cust_property, in_account_cust_id, in_account_mobile, in_account_real_name, 
+    in_account_cardholder, in_account_bank_card, in_account_pre_balance, in_account_suf_balance, 
+    financial_amount, financial_term, financial_term_unit, financial_interest_rate, financial_interest_rate_unit, 
+    repayment_method, Interest_payment_method, Interest_payment_day, repayment_penalty_interest_rate, 
+    overdue_penalty_interest_rate, actual_lending_time, contract_no, contract_start_time, 
+    contract_end_time, contract_term, contract_term_unit, contract_amount, contract_interest_rate, 
+    contract_interest_rate_unit, account_manager_no, account_manager_name, account_manager_department_no, 
+    account_manager_department_name, contract_cardholder, contract_cardholder_id_card, 
+    contract_cardholder_bank_card, out_account_real_summary, in_account_real_summary, 
+    transfer_time, in_account, status, create_user, create_time, last_user, lastmodify_time, 
+    proc_inst_id, next_auditor, company_id, union_id, field1, field2, field3, field4, 
+    field5,appoint_lending_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select  trans_id,trans_main_id,recharge_order_no,out_account_cust_type,out_account_cust_property, 
+		    out_account_cust_id,out_account_mobile,out_account_real_name,out_account_cardholder, 
+		    out_account_bank_card,out_account_pre_balance, out_account_suf_balance,in_account_cust_type, 
+		    in_account_cust_property,in_account_cust_id, in_account_mobile,in_account_real_name, 
+		    in_account_cardholder,in_account_bank_card, in_account_pre_balance,in_account_suf_balance, 
+		    financial_amount,financial_term, financial_term_unit, financial_interest_rate,financial_interest_rate_unit, 
+		    repayment_method,Interest_payment_method, Interest_payment_day,repayment_penalty_interest_rate, 
+		    overdue_penalty_interest_rate,actual_lending_time,contract_no,contract_start_time, 
+		    contract_end_time, contract_term,contract_term_unit,contract_amount, contract_interest_rate, 
+		    contract_interest_rate_unit,account_manager_no, account_manager_name, account_manager_department_no, 
+		    account_manager_department_name,contract_cardholder,contract_cardholder_id_card, 
+		    contract_cardholder_bank_card,out_account_real_summary,in_account_real_summary,lts.trans_type,lts.remarks, 
+		    transfer_time,in_account,lts.status,lts.create_user,lts.create_time,lts.last_user,lts.lastmodify_time, 
+		    proc_inst_id,next_auditor,lts.company_id,lts.union_id,ac.assignee_name,ac.msg,ac.pass,ac.task_create_date,ac.task_end_date,
+	        ld.type_name as inPropertyName,ldy.type_name as inTypeName,ldyo.type_name as outTypeName,ldyout.type_name as outPropertyName,
+  			laf.account_id,las.subject_name as outSubjectName,las2.subject_name as inSubjectName,emp.staff_name as le_staff_name,lts.appoint_lending_time
+      from loan_trans_accounts lts
+	     LEFT JOIN act_comment  ac on lts.trans_id=ac.business_id
+	     LEFT JOIN loan_dictionary ldy ON lts.in_account_cust_type = ldy.type_id  
+		 LEFT JOIN loan_dictionary ld ON lts.in_account_cust_property = ld.type_id 
+		 LEFT JOIN loan_dictionary ldyo ON lts.out_account_cust_type = ldyo.type_id 
+		 LEFT JOIN loan_dictionary ldyout ON lts.out_account_cust_property = ldyout.type_id 
+		 LEFT JOIN loan_account_info laf ON lts.out_account_cust_id = laf.owner_id
+		 LEFT JOIN loan_accounts_subject_info las ON lts.out_account_real_summary = las.subject_id <!-- and  las.direction='OUT' -->
+		 LEFT JOIN loan_accounts_subject_info las2 ON lts.in_account_real_summary = las2.subject_id <!-- and  las2.direction='IN' -->
+		 LEFT JOIN bump_user emp ON lts.create_user = emp.user_id
+      where trans_id = #{transId,jdbcType=VARCHAR} limit 1
+  </select>
+  
+ 
+    <sql id="Where_Common">
+    <if test="authgroupList != null">
+		 	and 
+	         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+		         (1=1
+		             <if test="item.orgId != null and item.orgId != ''">
+					  		and lta.company_id =  #{item.orgId}
+					 </if>
+					 <if test="item.deptId != null and item.deptId != ''">
+					  		and lta.account_manager_department_no =  #{item.deptId}
+					 </if>
+					 <if test="item.dataOwner != null and item.dataOwner != ''">
+					  		and lta.create_user =  #{item.dataOwner}
+					 </if>
+				  )
+	          </foreach>
+		</if>
+  	
+	<if test="unionId != null and unionId != ''">
+  		and lta.union_id = #{unionId}
+  	</if>
+  </sql>
+  
+    <!-- 固定理财转账申请 查询线下充值订单详情 suncj -->
+   <select id="getAccountInOutInfo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+	  SELECT
+			trans_no,
+			lai.customer_id AS out_account_cust_id,
+			lai.customer_type AS out_account_cust_type,
+			lai.customer_nature AS out_account_cust_property,
+			lai.customer_name AS out_account_real_name,
+			lai.mobile AS out_account_mobile,
+			lai.bank_card_no AS out_account_bank_card,
+			lai.account_holder AS out_account_cardholder,
+			lat.balance AS out_account_pre_balance,
+			lato.balance AS in_account_pre_balance,
+			laf.mobile AS in_account_mobile,
+			laf.owner_id AS in_account_cust_id,
+			laf.owner_name AS in_account_real_name,
+			laf.account_type,
+			lac.account_holder AS in_account_cardholder,
+			lac.bank_card_no AS in_account_bank_card
+		FROM
+			loan_account_in_out_info lai
+		LEFT JOIN loan_accounts_total lat ON lai.account_id = lat.account_id
+		LEFT JOIN loan_accounts_total lato ON lai.co_account_id = lato.account_id
+		LEFT JOIN loan_account_info laf ON lai.co_account_id = laf.account_id
+		LEFT JOIN loan_account_card lac ON lai.co_account_id = lac.account_id and lai.bank_id=lac.id
+	  where trans_no = #{transNo,jdbcType=VARCHAR} limit 1 
+  </select>
+   
+   <!-- 根据用户id或公司id  查询账户信息 getAccountsByCustId -->
+   <select id="getAccountsByCustId" resultMap="BaseResultMap"  parameterType="map" >
+	  SELECT lai.mobile as out_account_mobile,
+	    lai.owner_name as out_account_real_name,
+		lat.balance as out_account_suf_balance
+	  FROM loan_account_info lai 
+	    LEFT JOIN loan_accounts_total lat ON lai.account_id = lat.account_id
+	  WHERE lai.owner_id = #{custId,jdbcType=VARCHAR} 
+      <if test="outCustType != null and ''!=outCustType" >
+	       and lai.account_type=#{outCustType}
+	  </if>
+	  limit 1
+   </select>
+   
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_trans_accounts
+    where trans_id = #{transId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanTransAccounts" >
+    insert into loan_trans_accounts
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="transId != null" >
+        trans_id,
+      </if>
+      <if test="transMainId != null" >
+        trans_main_id,
+      </if>
+      <if test="rechargeOrderNo != null" >
+        recharge_order_no,
+      </if>
+      <if test="outAccountCustType != null" >
+        out_account_cust_type,
+      </if>
+      <if test="outAccountCustProperty != null" >
+        out_account_cust_property,
+      </if>
+      <if test="outAccountCustId != null" >
+        out_account_cust_id,
+      </if>
+      <if test="outAccountMobile != null" >
+        out_account_mobile,
+      </if>
+      <if test="outAccountRealName != null" >
+        out_account_real_name,
+      </if>
+      <if test="outAccountCardholder != null" >
+        out_account_cardholder,
+      </if>
+      <if test="outAccountBankCard != null" >
+        out_account_bank_card,
+      </if>
+      <if test="outAccountPreBalance != null" >
+        out_account_pre_balance,
+      </if>
+      <if test="outAccountSufBalance != null" >
+        out_account_suf_balance,
+      </if>
+      <if test="inAccountCustType != null" >
+        in_account_cust_type,
+      </if>
+      <if test="inAccountCustProperty != null" >
+        in_account_cust_property,
+      </if>
+      <if test="inAccountCustId != null" >
+        in_account_cust_id,
+      </if>
+      <if test="inAccountMobile != null" >
+        in_account_mobile,
+      </if>
+      <if test="inAccountRealName != null" >
+        in_account_real_name,
+      </if>
+      <if test="inAccountCardholder != null" >
+        in_account_cardholder,
+      </if>
+      <if test="inAccountBankCard != null" >
+        in_account_bank_card,
+      </if>
+      <if test="inAccountPreBalance != null" >
+        in_account_pre_balance,
+      </if>
+      <if test="inAccountSufBalance != null" >
+        in_account_suf_balance,
+      </if>
+      <if test="financialAmount != null" >
+        financial_amount,
+      </if>
+      <if test="financialTerm != null" >
+        financial_term,
+      </if>
+      <if test="financialTermUnit != null" >
+        financial_term_unit,
+      </if>
+      <if test="financialInterestRate != null" >
+        financial_interest_rate,
+      </if>
+      <if test="financialInterestRateUnit != null" >
+        financial_interest_rate_unit,
+      </if>
+      <if test="repaymentMethod != null" >
+        repayment_method,
+      </if>
+      <if test="interestPaymentMethod != null" >
+        Interest_payment_method,
+      </if>
+      <if test="interestPaymentDay != null" >
+        Interest_payment_day,
+      </if>
+      <if test="repaymentPenaltyInterestRate != null" >
+        repayment_penalty_interest_rate,
+      </if>
+      <if test="overduePenaltyInterestRate != null" >
+        overdue_penalty_interest_rate,
+      </if>
+      <if test="actualLendingTime != null" >
+        actual_lending_time,
+      </if>
+      <if test="contractNo != null" >
+        contract_no,
+      </if>
+      <if test="contractStartTime != null" >
+        contract_start_time,
+      </if>
+      <if test="contractEndTime != null" >
+        contract_end_time,
+      </if>
+      <if test="contractTerm != null" >
+        contract_term,
+      </if>
+      <if test="contractTermUnit != null" >
+        contract_term_unit,
+      </if>
+      <if test="contractAmount != null" >
+        contract_amount,
+      </if>
+      <if test="contractInterestRate != null" >
+        contract_interest_rate,
+      </if>
+      <if test="contractInterestRateUnit != null" >
+        contract_interest_rate_unit,
+      </if>
+      <if test="accountManagerNo != null" >
+        account_manager_no,
+      </if>
+      <if test="accountManagerName != null" >
+        account_manager_name,
+      </if>
+      <if test="accountManagerDepartmentNo != null" >
+        account_manager_department_no,
+      </if>
+      <if test="accountManagerDepartmentName != null" >
+        account_manager_department_name,
+      </if>
+      <if test="contractCardholder != null" >
+        contract_cardholder,
+      </if>
+      <if test="contractCardholderIdCard != null" >
+        contract_cardholder_id_card,
+      </if>
+      <if test="contractCardholderBankCard != null" >
+        contract_cardholder_bank_card,
+      </if>
+      <if test="outAccountRealSummary != null" >
+        out_account_real_summary,
+      </if>
+      <if test="inAccountRealSummary != null" >
+        in_account_real_summary,
+      </if>
+      <if test="transferTime != null" >
+        transfer_time,
+      </if>
+      <if test="inAccount != null" >
+        in_account,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUser != null" >
+        last_user,
+      </if>
+      <if test="lastmodifyTime != null" >
+        lastmodify_time,
+      </if>
+      <if test="procInstId != null" >
+        proc_inst_id,
+      </if>
+      <if test="nextAuditor != null" >
+        next_auditor,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+       <if test="field5 != null" >
+        field5,
+      </if>
+       <if test="transType != null" >
+        trans_type,
+      </if>
+       <if test="remarks != null" >
+        remarks,
+      </if>
+       <if test="appointLendingTime != null" >
+        appoint_lending_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="transId != null" >
+        #{transId,jdbcType=VARCHAR},
+      </if>
+      <if test="transMainId != null" >
+        #{transMainId,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeOrderNo != null" >
+        #{rechargeOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="outAccountCustType != null" >
+        #{outAccountCustType,jdbcType=VARCHAR},
+      </if>
+      <if test="outAccountCustProperty != null" >
+        #{outAccountCustProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="outAccountCustId != null" >
+        #{outAccountCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="outAccountMobile != null" >
+        #{outAccountMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="outAccountRealName != null" >
+        #{outAccountRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="outAccountCardholder != null" >
+        #{outAccountCardholder,jdbcType=VARCHAR},
+      </if>
+      <if test="outAccountBankCard != null" >
+        #{outAccountBankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="outAccountPreBalance != null" >
+        #{outAccountPreBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="outAccountSufBalance != null" >
+        #{outAccountSufBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="inAccountCustType != null" >
+        #{inAccountCustType,jdbcType=VARCHAR},
+      </if>
+      <if test="inAccountCustProperty != null" >
+        #{inAccountCustProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="inAccountCustId != null" >
+        #{inAccountCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="inAccountMobile != null" >
+        #{inAccountMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="inAccountRealName != null" >
+        #{inAccountRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="inAccountCardholder != null" >
+        #{inAccountCardholder,jdbcType=VARCHAR},
+      </if>
+      <if test="inAccountBankCard != null" >
+        #{inAccountBankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="inAccountPreBalance != null" >
+        #{inAccountPreBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="inAccountSufBalance != null" >
+        #{inAccountSufBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="financialAmount != null" >
+        #{financialAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="financialTerm != null" >
+        #{financialTerm,jdbcType=BIGINT},
+      </if>
+      <if test="financialTermUnit != null" >
+        #{financialTermUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="financialInterestRate != null" >
+        #{financialInterestRate,jdbcType=BIGINT},
+      </if>
+      <if test="financialInterestRateUnit != null" >
+        #{financialInterestRateUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentMethod != null" >
+        #{repaymentMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="interestPaymentMethod != null" >
+        #{interestPaymentMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="interestPaymentDay != null" >
+        #{interestPaymentDay,jdbcType=DATE},
+      </if>
+      <if test="repaymentPenaltyInterestRate != null" >
+        #{repaymentPenaltyInterestRate,jdbcType=BIGINT},
+      </if>
+      <if test="overduePenaltyInterestRate != null" >
+        #{overduePenaltyInterestRate,jdbcType=BIGINT},
+      </if>
+      <if test="actualLendingTime != null" >
+        #{actualLendingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractNo != null" >
+        #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractStartTime != null" >
+        #{contractStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractEndTime != null" >
+        #{contractEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractTerm != null" >
+        #{contractTerm,jdbcType=BIGINT},
+      </if>
+      <if test="contractTermUnit != null" >
+        #{contractTermUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="contractAmount != null" >
+        #{contractAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="contractInterestRate != null" >
+        #{contractInterestRate,jdbcType=BIGINT},
+      </if>
+      <if test="contractInterestRateUnit != null" >
+        #{contractInterestRateUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="accountManagerNo != null" >
+        #{accountManagerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountManagerName != null" >
+        #{accountManagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountManagerDepartmentNo != null" >
+        #{accountManagerDepartmentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountManagerDepartmentName != null" >
+        #{accountManagerDepartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="contractCardholder != null" >
+        #{contractCardholder,jdbcType=VARCHAR},
+      </if>
+      <if test="contractCardholderIdCard != null" >
+        #{contractCardholderIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="contractCardholderBankCard != null" >
+        #{contractCardholderBankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="outAccountRealSummary != null" >
+        #{outAccountRealSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="inAccountRealSummary != null" >
+        #{inAccountRealSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="transferTime != null" >
+        #{transferTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inAccount != null" >
+        #{inAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastmodifyTime != null" >
+        #{lastmodifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="procInstId != null" >
+        #{procInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="nextAuditor != null" >
+        #{nextAuditor,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+      <if test="transType != null" >
+        #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="appointLendingTime != null" >
+        #{appointLendingTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanTransAccounts" >
+    update loan_trans_accounts
+    <set >
+      <if test="transMainId != null" >
+        trans_main_id = #{transMainId,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeOrderNo != null" >
+        recharge_order_no = #{rechargeOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="outAccountCustType != null" >
+        out_account_cust_type = #{outAccountCustType,jdbcType=VARCHAR},
+      </if>
+      <if test="outAccountCustProperty != null" >
+        out_account_cust_property = #{outAccountCustProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="outAccountCustId != null" >
+        out_account_cust_id = #{outAccountCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="outAccountMobile != null" >
+        out_account_mobile = #{outAccountMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="outAccountRealName != null" >
+        out_account_real_name = #{outAccountRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="outAccountCardholder != null" >
+        out_account_cardholder = #{outAccountCardholder,jdbcType=VARCHAR},
+      </if>
+      <if test="outAccountBankCard != null" >
+        out_account_bank_card = #{outAccountBankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="outAccountPreBalance != null" >
+        out_account_pre_balance = #{outAccountPreBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="outAccountSufBalance != null" >
+        out_account_suf_balance = #{outAccountSufBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="inAccountCustType != null" >
+        in_account_cust_type = #{inAccountCustType,jdbcType=VARCHAR},
+      </if>
+      <if test="inAccountCustProperty != null" >
+        in_account_cust_property = #{inAccountCustProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="inAccountCustId != null" >
+        in_account_cust_id = #{inAccountCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="inAccountMobile != null" >
+        in_account_mobile = #{inAccountMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="inAccountRealName != null" >
+        in_account_real_name = #{inAccountRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="inAccountCardholder != null" >
+        in_account_cardholder = #{inAccountCardholder,jdbcType=VARCHAR},
+      </if>
+      <if test="inAccountBankCard != null" >
+        in_account_bank_card = #{inAccountBankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="inAccountPreBalance != null" >
+        in_account_pre_balance = #{inAccountPreBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="inAccountSufBalance != null" >
+        in_account_suf_balance = #{inAccountSufBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="financialAmount != null" >
+        financial_amount = #{financialAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="financialTerm != null" >
+        financial_term = #{financialTerm,jdbcType=BIGINT},
+      </if>
+      <if test="financialTermUnit != null" >
+        financial_term_unit = #{financialTermUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="financialInterestRate != null" >
+        financial_interest_rate = #{financialInterestRate,jdbcType=BIGINT},
+      </if>
+      <if test="financialInterestRateUnit != null" >
+        financial_interest_rate_unit = #{financialInterestRateUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentMethod != null" >
+        repayment_method = #{repaymentMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="interestPaymentMethod != null" >
+        Interest_payment_method = #{interestPaymentMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="interestPaymentDay != null" >
+        Interest_payment_day = #{interestPaymentDay,jdbcType=DATE},
+      </if>
+      <if test="repaymentPenaltyInterestRate != null" >
+        repayment_penalty_interest_rate = #{repaymentPenaltyInterestRate,jdbcType=BIGINT},
+      </if>
+      <if test="overduePenaltyInterestRate != null" >
+        overdue_penalty_interest_rate = #{overduePenaltyInterestRate,jdbcType=BIGINT},
+      </if>
+      <if test="actualLendingTime != null" >
+        actual_lending_time = #{actualLendingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractNo != null" >
+        contract_no = #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractStartTime != null" >
+        contract_start_time = #{contractStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractEndTime != null" >
+        contract_end_time = #{contractEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractTerm != null" >
+        contract_term = #{contractTerm,jdbcType=BIGINT},
+      </if>
+      <if test="contractTermUnit != null" >
+        contract_term_unit = #{contractTermUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="contractAmount != null" >
+        contract_amount = #{contractAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="contractInterestRate != null" >
+        contract_interest_rate = #{contractInterestRate,jdbcType=BIGINT},
+      </if>
+      <if test="contractInterestRateUnit != null" >
+        contract_interest_rate_unit = #{contractInterestRateUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="accountManagerNo != null" >
+        account_manager_no = #{accountManagerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountManagerName != null" >
+        account_manager_name = #{accountManagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountManagerDepartmentNo != null" >
+        account_manager_department_no = #{accountManagerDepartmentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountManagerDepartmentName != null" >
+        account_manager_department_name = #{accountManagerDepartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="contractCardholder != null" >
+        contract_cardholder = #{contractCardholder,jdbcType=VARCHAR},
+      </if>
+      <if test="contractCardholderIdCard != null" >
+        contract_cardholder_id_card = #{contractCardholderIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="contractCardholderBankCard != null" >
+        contract_cardholder_bank_card = #{contractCardholderBankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="outAccountRealSummary != null" >
+        out_account_real_summary = #{outAccountRealSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="inAccountRealSummary != null" >
+        in_account_real_summary = #{inAccountRealSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="transferTime != null" >
+        transfer_time = #{transferTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inAccount != null" >
+        in_account = #{inAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastmodifyTime != null" >
+        lastmodify_time = #{lastmodifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="procInstId != null" >
+        proc_inst_id = #{procInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="nextAuditor != null" >
+        next_auditor = #{nextAuditor,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+      <if test="appointLendingTime != null" >
+        appoint_lending_time = #{appointLendingTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where trans_id = #{transId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanTransAccounts" >
+    update loan_trans_accounts
+    set trans_main_id = #{transMainId,jdbcType=VARCHAR},
+      recharge_order_no = #{rechargeOrderNo,jdbcType=VARCHAR},
+      out_account_cust_type = #{outAccountCustType,jdbcType=VARCHAR},
+      out_account_cust_property = #{outAccountCustProperty,jdbcType=VARCHAR},
+      out_account_cust_id = #{outAccountCustId,jdbcType=VARCHAR},
+      out_account_mobile = #{outAccountMobile,jdbcType=VARCHAR},
+      out_account_real_name = #{outAccountRealName,jdbcType=VARCHAR},
+      out_account_cardholder = #{outAccountCardholder,jdbcType=VARCHAR},
+      out_account_bank_card = #{outAccountBankCard,jdbcType=VARCHAR},
+      out_account_pre_balance = #{outAccountPreBalance,jdbcType=DECIMAL},
+      out_account_suf_balance = #{outAccountSufBalance,jdbcType=DECIMAL},
+      in_account_cust_type = #{inAccountCustType,jdbcType=VARCHAR},
+      in_account_cust_property = #{inAccountCustProperty,jdbcType=VARCHAR},
+      in_account_cust_id = #{inAccountCustId,jdbcType=VARCHAR},
+      in_account_mobile = #{inAccountMobile,jdbcType=VARCHAR},
+      in_account_real_name = #{inAccountRealName,jdbcType=VARCHAR},
+      in_account_cardholder = #{inAccountCardholder,jdbcType=VARCHAR},
+      in_account_bank_card = #{inAccountBankCard,jdbcType=VARCHAR},
+      in_account_pre_balance = #{inAccountPreBalance,jdbcType=DECIMAL},
+      in_account_suf_balance = #{inAccountSufBalance,jdbcType=DECIMAL},
+      financial_amount = #{financialAmount,jdbcType=DECIMAL},
+      financial_term = #{financialTerm,jdbcType=BIGINT},
+      financial_term_unit = #{financialTermUnit,jdbcType=VARCHAR},
+      financial_interest_rate = #{financialInterestRate,jdbcType=BIGINT},
+      financial_interest_rate_unit = #{financialInterestRateUnit,jdbcType=VARCHAR},
+      repayment_method = #{repaymentMethod,jdbcType=VARCHAR},
+      Interest_payment_method = #{interestPaymentMethod,jdbcType=VARCHAR},
+      Interest_payment_day = #{interestPaymentDay,jdbcType=DATE},
+      repayment_penalty_interest_rate = #{repaymentPenaltyInterestRate,jdbcType=BIGINT},
+      overdue_penalty_interest_rate = #{overduePenaltyInterestRate,jdbcType=BIGINT},
+      actual_lending_time = #{actualLendingTime,jdbcType=TIMESTAMP},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      contract_start_time = #{contractStartTime,jdbcType=TIMESTAMP},
+      contract_end_time = #{contractEndTime,jdbcType=TIMESTAMP},
+      contract_term = #{contractTerm,jdbcType=BIGINT},
+      contract_term_unit = #{contractTermUnit,jdbcType=VARCHAR},
+      contract_amount = #{contractAmount,jdbcType=DECIMAL},
+      contract_interest_rate = #{contractInterestRate,jdbcType=BIGINT},
+      contract_interest_rate_unit = #{contractInterestRateUnit,jdbcType=VARCHAR},
+      account_manager_no = #{accountManagerNo,jdbcType=VARCHAR},
+      account_manager_name = #{accountManagerName,jdbcType=VARCHAR},
+      account_manager_department_no = #{accountManagerDepartmentNo,jdbcType=VARCHAR},
+      account_manager_department_name = #{accountManagerDepartmentName,jdbcType=VARCHAR},
+      contract_cardholder = #{contractCardholder,jdbcType=VARCHAR},
+      contract_cardholder_id_card = #{contractCardholderIdCard,jdbcType=VARCHAR},
+      contract_cardholder_bank_card = #{contractCardholderBankCard,jdbcType=VARCHAR},
+      out_account_real_summary = #{outAccountRealSummary,jdbcType=VARCHAR},
+      in_account_real_summary = #{inAccountRealSummary,jdbcType=VARCHAR},
+      transfer_time = #{transferTime,jdbcType=TIMESTAMP},
+      in_account = #{inAccount,jdbcType=DECIMAL},
+      status = #{status,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      lastmodify_time = #{lastmodifyTime,jdbcType=TIMESTAMP},
+      proc_inst_id = #{procInstId,jdbcType=VARCHAR},
+      next_auditor = #{nextAuditor,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR},
+      appoint_lending_time = #{appointLendingTime,jdbcType=VARCHAR}
+    where trans_id = #{transId,jdbcType=VARCHAR}
+  </update>
+    <!-- 转账记录列表查询总数 -->
+   <select id="transAccountsListCount"  parameterType="map" resultType="Integer">
+        select count(1) 
+         FROM loan_trans_accounts lta
+			LEFT JOIN act_comment ac ON lta.trans_id = ac.business_id
+			LEFT JOIN loan_dictionary ld ON lta.out_account_cust_type = ld.type_id and  ld.category='invest_customer_nature'
+			LEFT JOIN loan_dictionary ldy ON lta.out_account_cust_property = ldy.type_id and ldy.category='invest_customer_nature'
+			LEFT JOIN loan_dictionary ld2 ON lta.in_account_cust_type = ld2.type_id and ld2.category='invest_customer_nature'
+			LEFT JOIN loan_dictionary ldy2 ON lta.in_account_cust_property = ldy2.type_id and ldy2.category='invest_customer_nature'
+			where 1=1 
+          <if test="transId != null and ''!=transId" >
+	       and lta.trans_id=#{transId}
+	      </if>
+	        <if test="createTime!=null and createTime!=''">
+	         <![CDATA[and  lta.create_time>=#{createTime}]]>
+             <!--   <![CDATA[AND DATE_FORMAT(lta.create_time, '%Y-%m-%d %H:%i:%S') >= #{createTime}]]>  -->
+          </if>
+		  <if test="createEndTime!=null and createEndTime!=''">
+		    <![CDATA[and  lta.create_time<=#{createEndTime}]]>
+		   <!-- <![CDATA[AND DATE_FORMAT(lta.create_time, '%Y-%m-%d %H:%i:%S') <= #{createEndTime}]]> -->
+          </if>
+	        <if test="outAccountCustProperty != null and ''!=outAccountCustProperty" >
+	       and lta.out_account_cust_property=#{outAccountCustProperty}
+	      </if>
+	        <if test="outAccountRealSummary != null and ''!=outAccountRealSummary" >
+	       and lta.out_account_real_summary=#{outAccountRealSummary}
+	      </if>
+	        <if test="outAccountMobile != null and ''!=outAccountMobile" >
+	       and lta.out_account_mobile=#{outAccountMobile}
+	      </if>
+	        <if test="outAccountRealName != null and ''!=outAccountRealName" >
+	       and lta.out_account_real_name=#{outAccountRealName}
+	      </if>
+	       <if test="outAccountCustId != null and ''!=outAccountCustId" >
+	       and lta.out_account_cust_id=#{outAccountCustId}
+	      </if>
+	       <if test="transType != null and ''!=transType" >
+	       and lta.trans_type =#{transType}
+	      </if>
+	       <if test="status != null and ''!=status" >
+	       and lta.status =#{status}
+	      </if>
+	       <if test="examineStatus != null and ''!=examineStatus" >
+	       and lta.status in ('90','91')
+	      </if>
+	         <include refid="Where_Common"/>	      
+  </select>
+  
+  <!-- 转账记录列表查询 -->
+   <select id="transAccountsList" resultMap="BaseResultMap" parameterType="map">
+    SELECT  DISTINCT
+			trans_id,
+			out_account_cust_property,
+			out_account_real_name,
+			in_account_cust_property,
+			in_account_real_name,
+			financial_amount,
+			transfer_time,
+			lta.create_user,
+			lta.create_time,
+			lta.remarks,
+			lta.in_account,
+			ac.organiser,
+			ac.organiser_name,
+			ac.assignee_name,
+			ac.msg,
+			ac.`status`,
+		    ac.task_end_date,
+			ld.type_name as outTypeName,
+			ldy.type_name as outPropertyName,
+			ld2.type_name as inTypeName,
+			ldy2.type_name as inPropertyName,
+		    emp.staff_name AS le_staff_name,
+		    emp.union_id as le_company_id,
+		    emp.company_id AS branch_company_id,
+		    emp.dept_id AS le_dept_id,
+		    appoint_lending_time
+	  FROM loan_trans_accounts lta
+		LEFT JOIN act_comment ac ON lta.trans_id = ac.business_id
+		LEFT JOIN loan_dictionary ld ON lta.out_account_cust_type = ld.type_id and  ld.category='invest_customer_nature'
+		LEFT JOIN loan_dictionary ldy ON lta.out_account_cust_property = ldy.type_id and ldy.category='invest_customer_nature'
+		LEFT JOIN loan_dictionary ld2 ON lta.in_account_cust_type = ld2.type_id and ld2.category='invest_customer_nature'
+		LEFT JOIN loan_dictionary ldy2 ON lta.in_account_cust_property = ldy2.type_id and ldy2.category='invest_customer_nature'
+		LEFT JOIN bump_user emp ON lta.create_user = emp.user_id
+		where 1=1 
+          <if test="transId != null and ''!=transId" >
+	        and lta.trans_id=#{transId}
+	      </if>
+	       <if test="createTime!=null and createTime!=''">
+	         <![CDATA[and  lta.create_time>=#{createTime}]]>
+             <!--   <![CDATA[AND DATE_FORMAT(lta.create_time, '%Y-%m-%d %H:%i:%S') >= #{createTime}]]>  -->
+          </if>
+		  <if test="createEndTime!=null and createEndTime!=''">
+		    <![CDATA[and  lta.create_time<=#{createEndTime}]]>
+		   <!-- <![CDATA[AND DATE_FORMAT(lta.create_time, '%Y-%m-%d %H:%i:%S') <= #{createEndTime}]]> -->
+          </if>
+	        <if test="outAccountCustProperty != null and ''!=outAccountCustProperty" >
+	       and lta.out_account_cust_property=#{outAccountCustProperty}
+	      </if>
+	        <if test="outAccountRealSummary != null and ''!=outAccountRealSummary" >
+	       and lta.out_account_real_summary=#{outAccountRealSummary}
+	      </if>
+	        <if test="outAccountMobile != null and ''!=outAccountMobile" >
+	       and lta.out_account_mobile=#{outAccountMobile}
+	      </if>
+	        <if test="outAccountRealName != null and ''!=outAccountRealName" >
+	       and lta.out_account_real_name=#{outAccountRealName}
+	      </if>
+	       <if test="outAccountCustId != null and ''!=outAccountCustId" >
+	       and lta.out_account_cust_id=#{outAccountCustId}
+	      </if>
+	       <if test="transType != null and ''!=transType" >
+	       and lta.trans_type =#{transType}
+	      </if>
+	       <if test="status != null and ''!=status" >
+	       and lta.status =#{status}
+	      </if>
+	          <if test="examineStatus != null and ''!=examineStatus" >
+	       and lta.status in ('90','91')
+	      </if>
+          <include refid="Where_Common"/>	      
+           order by lta.create_time desc 
+	     <if test="page!=null and page.pageStartIndex != null and page.pageSize != null">
+    	  Limit #{page.pageStartIndex},#{page.pageSize}
+         </if>
+  </select>
+  
+  <!-- 字典表-客户类型查询 -->
+  <select id="queryAccountCustType" resultType="map">
+  	select t.type_id,t.type_name from loan_dictionary t where t.category='customer_type'
+  </select>
+  <!-- 字典表-投资人客户性质 -->
+  <select id="queryAccountCustProperty" resultType="map" parameterType="map">
+  	select t.type_id,t.type_name from loan_dictionary t where t.category='invest_customer_nature'
+  	 <if test="big_category != null and ''!=big_category" >
+	        and t.big_category =#{big_category}
+	 </if>
+	 <if test="typeId != null and ''!=typeId" >
+	        and t.type_id =#{typeId}
+	 </if>
+  </select>
+  
+  <!-- 转账摘要 -->
+  <select id="queryAccountSubject" parameterType="map" resultType="map">
+	  	SELECT
+		t.subject_id,
+		t.subject_name
+		FROM
+			loan_accounts_subject_info t
+		WHERE  t.subject_type IN ('106', '107', '108', '109')
+		   and t.status='03'
+		   <if test="direction != null and ''!=direction" >
+	        and t.direction =#{direction}
+	      </if>
+  </select>
+  
+  <!-- 校验用户id(账户所有者编码)是否存在 -->
+   <select id="selectByCustId"  parameterType="java.lang.String" resultType="Integer">
+      select count(1) from loan_account_info t where t.owner_id=#{custId}
+   </select>
+   
+    <!-- 部门-客户经理级联查询 -->
+   <select id="queryAllManager" parameterType="java.lang.String" resultType="map">
+      select t.user_id as le_emp_id,t.staff_name as le_staff_name,t.username as le_account from bump_user t where  t.status='03' and t.dept_id = #{accountManagerDepartmentNo}
+  </select>
+</mapper>

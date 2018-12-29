@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>系统管理</li>
+                        <li>权限设置</li>
+                        <li>固定理财转账记录</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual">
+                            <ul class="seachform1">
+                             <form id="myForm">
+                              <input type="hidden"  value="1" name="transType"/>
+                               <input  name="pageNumber" type="hidden" value="" id="currentPageNo"/>
+                                <li>
+                                    <label>交易ID：</label>
+                                    <input name="transId" type="text" class="scinput1" th:value="${transId}"/>
+                                </li>
+                                <li>
+                                    <label>客户性质：</label>
+                                    <div class="vocation">
+                                        <select class="select-common select3" id="outAccountCustProperty" name="outAccountCustProperty" style="width:251px;">
+                                            <option value="">请选择</option>
+                                            <option th:each="property : ${accountCustProperty}" th:value="${property.type_id}" th:text="${property.type_name}"
+                                              th:attr="selected=(${property.type_id} eq ${outAccountCustProperty})?true:false"></option>
+                                           </select>
+                                    </div>
+                                </li>
+                                  <li>
+                                    <label>申请时间：</label>
+                                    <input type="text" class="scinput1" name="createTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})" th:value="${createTime}"/><span>-</span>
+                                	<input type="text" class="scinput1"  name="createEndTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})" th:value="${createEndTime}"/>
+                                    <!-- <input type="text" class="scinput1" name="createTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})" th:value="${createTime}?${#dates.format(createTime, 'yyyy-MM-dd HH:mm:ss')}:''"/><span>-</span>
+                                	<input type="text" class="scinput1"  name="createEndTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})" th:value="${createEndTime}?${#dates.format(createEndTime, 'yyyy-MM-dd HH:mm:ss')}:''"/> -->
+                                </li>
+                                 <li>
+                                    <label>手机号码：</label>
+                                    <input name="outAccountMobile" type="text" class="scinput1" th:value="${outAccountMobile}"/>
+                                </li>
+                                 <li>
+                                    <label>姓名：</label>
+                                    <input name="outAccountRealName" type="text" class="scinput1" th:value="${outAccountRealName}"/>
+                                </li>
+                                 <li>
+                                    <label>转账摘要：</label>
+                                    <div class="vocation">
+                                        <select class="select-common select3" name="outAccountRealSummary">
+                                            <option value="">请选择</option>         
+                                            <option th:each="outSubject : ${outAccountSubject}" th:value="${outSubject.subjectId}" th:text="${outSubject.subjectName}"
+                                              th:attr="selected=(${outSubject.subjectId} eq ${outAccountRealSummary})?true:false"></option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label>用户ID：</label>
+                                    <input name="outAccountCustId" type="text" class="scinput1" th:value="${outAccountCustId}"/>
+                                </li>
+                                </form>
+                                <li>
+                                    <input type="button" class="scbtn searcher" value="查询"/>
+                                </li>
+                            </ul>
+                            <div class="table-title">
+                                <p class="tab-font">固定理财转账记录</p>
+                            </div>
+                            <table class="tablelist">
+                                <thead>
+                                    <tr>
+                                        <th>交易ID</th>
+                                        <th>转出客户性质</th>
+                                        <th>转出账号姓名</th>
+                                        <th>转入客户性质</th>
+                                        <th>收款账户姓名</th>
+                                        <th>理财金额</th>
+                                         <th>申请时间</th>
+                                         <th>申请人</th>
+                                         <th>审核时间</th>
+                                         <th>审核结果</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr:block th:unless="${#lists.isEmpty(transAccountsList)}" >
+                                    <tr th:each="emp : ${transAccountsList}">
+                                        <td ><a th:href="@{/transAccountsManager/TotransAccountsById(transId=${emp.transId},transType='1')}"><span th:text="${emp.transId}"></span></a></td>
+                                        <td th:text="${emp.outPropertyName}"></td>
+                                        <td th:text="${emp.outAccountRealName}"></td>
+                                        <td th:text="${emp.inPropertyName}"></td>
+                                        <td th:text="${emp.inAccountRealName}"></td>
+                                        <td th:text="${#numbers.formatDecimal(emp.financialAmount,1,2)}"></td>
+                                        <td th:text="${emp.createTime}?${#dates.format(emp.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                        <td th:text="${emp.leStaffName}"></td>
+                                        <td th:text="${emp.taskEndDate}?${#dates.format(emp.taskEndDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                         <td>
+                                         <th:block th:if="${emp.status} eq 90">成功</th:block>
+                                         <th:block th:if="${emp.status} eq 91">失败</th:block>
+                                         </td>
+                                    </tr>
+                                    </tr:block>
+                                </tbody>
+                            </table>               
+                              <div class="pagin" style="margin-top: 0px;">
+                                <div class="message">
+                                    	统计数据（<nobr th:text="${page.totalCount}"></nobr>条);&nbsp;&nbsp;&nbsp;转账发生额总额 ：<nobr th:text="${financialAmountSum}?${#numbers.formatDecimal(financialAmountSum,1,2)}:0.00"></nobr>元
+                                </div>
+                                <input type="button" value="导出列表" class="scbtn1" style="width: 65px;" id="export"/>
+                            </div>
+                            <div class="pagin" th:unless="${#lists.isEmpty(page.resultList)}">
+                                <div class="message">
+									&nbsp;&nbsp;&nbsp;共 <i class="blue" th:text="${page.totalCount}"></i> 条记录，当前显示第 <i
+										class="blue" th:text="${page.pageIndex}"></i> 页
+								</div>
+								<ul class="paginList">
+									<li class="paginItem" th:if="${page.pageIndex} gt 1"><a
+										th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+									</li>
+									<li class="paginItem"
+										th:each="x:${#numbers.sequence(page.startNum, page.endNum)}"
+										th:classappend="(${page.pageIndex} eq ${x})?'current'"><a
+										th:attr="data-pagenum=${x}" th:text="${x}"></a></li>
+									<li class="paginItem"
+										th:if="${page.pageIndex} lt ${page.pageCount}"><a
+										th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+									</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+        <footer th:replace="common/footer"></footer>
+        <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	    <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+        <script>seajs.use("login/transAccounts");</script>
+    </div>
+</body>
+</html>

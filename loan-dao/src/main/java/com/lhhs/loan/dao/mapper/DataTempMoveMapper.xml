@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.DataTempMoveMapper" >
+	<delete id="deleteDeptBack">
+		<![CDATA[   
+  			 DELETE from loan_dept where ld_dept_id < 1000 
+  		]]>
+	</delete>
+	<delete id="deleteDeptBackIsEmp">
+  		DELETE from loan_dept  where ld_company !='10001' and parent_id=0 and 
+  		  <if test="oaOrgIdList != null">
+				ld_dept_id  in 
+		         <foreach item="item" index="index" collection="oaOrgIdList" open="(" separator="," close=")">
+		             #{item}
+		          </foreach>
+			</if>
+	</delete>
+	<select id="queryDeptNotEmp" resultType="java.lang.String" >
+  		select ld_dept_id from loan_dept  where ld_company !='10001' and parent_id=0 and ld_dept_id not in 
+  		(
+  			select le_dept_id from loan_emp UNION select parent_id from loan_dept  where ld_dept_id in (select le_dept_id from loan_emp)
+		) 
+	</select>
+	<delete id="deleteDeptTemp">
+	    DELETE from loan_dept_temp 
+	</delete>
+	
+	<insert id="insertDeptBack" >
+		insert into loan_dept_temp 
+		select ld_dept_id,ld_name,ld_depict,ld_remark,ld_time,ld_status,ld_company from loan_dept
+	</insert>
+	<!-- 部门领导、分公司总、职能部门权限初始化-->
+	<insert id="insertAuthgroupUserByEmp" >
+		INSERT INTO loan_authgroup_user (user_id,group_id) 
+		select le_emp_id user_id,3 group_id 
+		from loan_emp le where le.le_grade in (1,2) 
+		UNION 
+		select ler.ler_emp_id  user_id,2 group_id  from loan_role lr,loan_emp_role ler  
+		where lr.lr_role_id =ler.ler_role_id and (lr.lr_name like '%公司总%' or lr.lr_name like '管理员%')
+		UNION
+		SELECT le.le_emp_id user_id, 2 group_id
+		FROM loan_emp le
+		WHERE
+		le.field1 IN (
+			SELECT
+				ldt.ld_dept_id
+			FROM
+				loan_dept_temp ldt
+			WHERE
+				(
+					ldt.ld_name LIKE '财务部%'
+					OR ldt.ld_name LIKE '结算部%' or ldt.ld_name LIKE '风控部%' or ldt.ld_name LIKE '权证部%'
+				)
+			)
+	</insert>
+  <select id="getDep" resultType="com.lhhs.loan.dao.domain.LoanDept" parameterType="java.lang.Long" >
+    select *  from loan_dept
+    where ld_dept_id = #{ldDeptId}
+  </select>
+    <select id="getDept" resultType="com.lhhs.loan.dao.domain.LoanDept" parameterType="com.lhhs.loan.dao.domain.LoanDept" >
+    select *  from loan_dept where field1 = #{field1} and ld_company=#{ldCompany} and ld_union=#{ldUnion}
+  </select>
+   <!-- 按条件检索部门列表 排除集团 -->
+  <select id="queryDeptList" resultType="com.lhhs.loan.dao.domain.LoanDept"  >
+    select a.* ,a.ld_dept_id field1 from loan_dept_temp a where ld_status='1' and a.ld_dept_id  not in (10,14,15,16,17) order by ld_dept_id asc
+  </select>
+   <!-- 按条件检索部门列表 -->
+  <select id="queryGroupList" resultType="com.lhhs.loan.dao.domain.LoanDept" >
+    select lg_group_id ld_dept_id, lg_dept_id parent_id, lg_name ld_name, lg_depict ld_depict,
+     lg_time ld_time, lg_remark ld_remark,lg_group_id field1  
+    from loan_group where ld_status='1' order by ld_dept_id asc
+  </select>
+  
+     <!-- 按部门、组、集团、公司分组 列表 -->
+  <select id="queryGroupListFromEmp" resultType="com.lhhs.loan.dao.domain.LoanDept" >
+	   select eg.*,eg.ld_dept_id field1 from (
+		SELECT
+			le.le_group_id ld_dept_id,
+			le.le_dept_id parent_id,
+			le.company_id ld_union,
+			le.branch_company_id ld_company,
+			lg.lg_name ld_name
+		FROM
+			loan_emp le,loan_group lg
+		WHERE
+			le.le_group_id > 100
+		AND le.company_id = '10001'
+		AND le.branch_company_id is NOT NULL
+		and le.le_group_id =lg.lg_group_id
+		GROUP BY
+			le.le_dept_id,
+			le.le_group_id,
+			le.company_id,
+			le.branch_company_id,
+			lg.lg_name) eg
+</select>
+ <update id="updateEmpBack"  >
+    update loan_emp set field1=le_dept_id, field2=le_group_id
+ </update>
+ <update id="updateEmpByDep">
+    update loan_emp le,loan_dept ld 
+    set le.le_dept_id=ld.ld_dept_id
+    where le.company_id=ld.ld_union and le.branch_company_id=ld.ld_company and le.field1=ld.field1 
+  </update>
+  <update id="updateEmpByGroup">
+    update loan_emp le,loan_dept ld 
+    set le.le_dept_id=ld.ld_dept_id
+    where le.field2 is not null and le.company_id=ld.ld_union and le.branch_company_id=ld.ld_company and le.field2=ld.field1 
+  </update>
+  <update id="clearEmpGroup">
+    update loan_emp le  set le.le_group_id = null
+  </update>
+   <!-- 更新意向客户部门和组 列表 -->
+  <update id="updateCrmUserBack"  >
+    update crm_intent_loan_user set field3=creater_dep_id, field4=creater_group_id,field5=creater_org,
+    field6=appoint_dep_id,field7=appoint_group_id,field8=appoint_org
+ </update>
+   <update id="updateCrmUserByCreaterDep">
+    update crm_intent_loan_user cu,loan_dept ld 
+    set cu.creater_dep_id=ld.ld_dept_id
+    where  cu.creater_company_id=ld.ld_company and cu.field3=ld.field1 
+  </update>
+  <update id="updateCrmUserByCreaterGroup">
+    update crm_intent_loan_user cu,loan_dept ld 
+    set cu.creater_dep_id=ld.parent_id,cu.creater_group_id=ld.ld_dept_id
+    where cu.creater_group_id is not null  and cu.creater_company_id=ld.ld_company and cu.field4=ld.field1 
+  </update>
+  <update id="updateCrmUserByCreaterOrg">
+  	update crm_intent_loan_user   set creater_org= creater_dep_id
+  </update>
+  <update id="updateCrmUserByCreaterOrgByGroup">
+  	update crm_intent_loan_user   set creater_org= creater_group_id where creater_group_id is not null
+  </update>
+  <update id="updateCrmUserByAppointDep">
+    update crm_intent_loan_user cu,loan_dept ld 
+    set cu.appoint_dep_id=ld.ld_dept_id
+    where cu.appoint_company_id=ld.ld_company and cu.field6=ld.field1 
+  </update>
+  <update id="updateCrmUserByAppointGroup">
+    update crm_intent_loan_user cu,loan_dept ld 
+    set cu.appoint_dep_id=ld.parent_id,cu.appoint_group_id=ld.ld_dept_id
+    where cu.appoint_group_id is not null and  cu.appoint_company_id=ld.ld_company and cu.field7=ld.field1 
+  </update>
+  <update id="updateCrmUserByAppointOrg">
+    update crm_intent_loan_user   set appoint_org= appoint_dep_id
+  </update>
+  <update id="updateCrmUserByAppointOrgByGroup">
+  	update crm_intent_loan_user   set appoint_org= appoint_group_id where appoint_group_id is not null
+  </update>
+  <!-- 更新意向客户记录部门和组 列表 -->
+  <update id="updateCrmUserRecordBack"  >
+    update crm_intent_loan_user_record set field3=creater_dep_id, field4=creater_group_id,field5=creater_org,
+    field6=appoint_dep_id,field7=appoint_group_id,field8=appoint_org
+ </update>
+   <update id="updateCrmUserRecordByCreaterDep">
+    update crm_intent_loan_user_record cu,loan_dept ld 
+    set cu.creater_dep_id=ld.ld_dept_id
+    where cu.creater_union_id=ld.ld_union and cu.creater_company_id=ld.ld_company and cu.field3=ld.field1 
+  </update>
+  <update id="updateCrmUserRecordByCreaterGroup">
+    update crm_intent_loan_user_record cu,loan_dept ld 
+    set cu.creater_dep_id=ld.parent_id,cu.creater_group_id=ld.ld_dept_id
+    where cu.creater_group_id is not null and cu.creater_union_id=ld.ld_union and cu.creater_company_id=ld.ld_company and cu.field4=ld.field1 
+  </update>
+  <update id="updateCrmUserRecordByCreaterOrg">
+    update crm_intent_loan_user_record set creater_org=creater_dep_id
+  </update>
+  
+  <update id="updateCrmUserRecordByCreaterOrgByGroup">
+    update crm_intent_loan_user_record set creater_org=creater_group_id where creater_group_id is not null
+  </update>
+
+  <update id="updateCrmUserRecordByAppointDep">
+    update crm_intent_loan_user_record cu,loan_dept ld 
+    set cu.appoint_dep_id=ld.ld_dept_id
+    where cu.appoint_union_id=ld.ld_union and cu.appoint_company_id=ld.ld_company and cu.field6=ld.field1 
+  </update>
+  <update id="updateCrmUserRecordByAppointGroup">
+    update crm_intent_loan_user_record cu,loan_dept ld 
+    set cu.appoint_dep_id=ld.parent_id,cu.appoint_group_id=ld.ld_dept_id
+    where cu.appoint_group_id is not null and cu.appoint_union_id=ld.ld_union and cu.appoint_company_id=ld.ld_company and cu.field7=ld.field1 
+  </update>
+  <update id="updateCrmUserRecordByAppointOrg">
+     update crm_intent_loan_user_record   set appoint_org= appoint_dep_id
+  </update>
+  <update id="updateCrmUserRecordByAppointOrgByGroup">
+  	update crm_intent_loan_user_record   set appoint_org= appoint_group_id where appoint_group_id is not null
+  </update>
+  <!-- 更新借款人客户信息 -->
+  <update id="updateCustomerInfoBack"  >
+    update loan_customer_info set field1=dept_id
+ </update>
+  <update id="updateCustomerInfoDep">
+    update loan_customer_info cu,loan_dept ld 
+    set cu.dept_id=ld.ld_dept_id
+    where  cu.company_id is not null and cu.company_id=ld.ld_company and cu.field1=ld.field1 
+  </update>
+  
+   <!-- 更新投资人客户信息 -->
+  <update id="updateInvestCustomerInfoBack"  >
+    update loan_invest_customer_info set field1=account_manager_department_no,field2=account_manager_group_id
+ </update>
+  <update id="updateInvestCustomerInfoDep">
+    update loan_invest_customer_info cu,loan_dept ld 
+    set cu.account_manager_department_no=ld.ld_dept_id
+    where  cu.company_id is not null and cu.company_id=ld.ld_company and cu.field1=ld.field1 
+  </update>
+  <update id="updateInvestCustomerInfoGroup">
+    update loan_invest_customer_info cu,loan_dept ld 
+    set cu.account_manager_group_id=ld.ld_dept_id
+    where  cu.company_id is not null and cu.company_id=ld.ld_company and cu.field2=ld.field1 
+  </update>
+  
+   <!-- 更新订单信息 -->
+  <update id="updateOrderInfoBack"  >
+    update loan_order_info set field1=dep_id
+ </update>
+  <update id="updateOrderInfoDep">
+    update loan_order_info cu,loan_dept ld 
+    set cu.dep_id=ld.ld_dept_id
+    where  cu.company_id is not null and cu.company_id=ld.ld_company and cu.field1=ld.field1 
+  </update>
+  <!-- 备份审批记录部门 -->
+  <update id="updateActCommentBack">
+    update act_comment set field6=field4
+  </update>
+  <!-- 更新审批记录 -->
+  <update id="updateActCommentDep">
+    update act_comment cu,loan_dept ld 
+    set cu.field4=ld.ld_dept_id
+    where  cu.field3 is not null and cu.field3=ld.ld_company and cu.field6=ld.field1 
+  </update>
+  <!-- 更新放款主表 -->
+  <update id="updateLoanTransMain">
+      UPDATE loan_trans_main ltm ,loan_order_info loi
+		set ltm.field1=loi.dep_id,ltm.field4=loi.customer_manager
+		WHERE ltm.business_id=loi.order_no
+  </update>
+
+</mapper>

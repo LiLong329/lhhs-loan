@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+             <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>资金管理</li>
+                        <li>审核管理</li>
+                        <li>转账记账审核</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div class="formtitle"><span>1、转账记账审核</span></div>
+                         <div class="toolsli">
+                            <ul class="nbbdgl-Ui clearfix">
+                                <li>
+                                    <span class="tips">交易ID：</span>
+                                    <span th:text="${transAccountInfo.transId}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">申请时间：</span>
+                                    <span th:text="${transAccountInfo.createTime}?${#dates.format(transAccountInfo.createTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">申请人：</span>
+                                    <span th:text="${transAccountInfo.leStaffName}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">转账金额：</span>
+                                    <span th:text="${#numbers.formatDecimal(transAccountInfo.inAccount,1,2)}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">转账时间：</span>
+                                    <span th:text="${transAccountInfo.transferTime}?${#dates.format(transAccountInfo.transferTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">备注：</span>
+                                    <span th:text="${transAccountInfo.remarks}"></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="toolsli">
+                            <strong style="padding-bottom:15px; display:inline-block;">转出账户信息：</strong>
+                            <ul class="nbbdgl-Ui clearfix">
+                                 <li>
+                                    <span class="tips">客户类型：</span>
+                                    <span th:text="${transAccountInfo.outTypeName}">个人</span>
+                                </li>
+                                <li>
+                                    <span class="tips">客户性质：</span>
+                                    <span th:text="${transAccountInfo.outPropertyName}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">手机号：</span>
+                                    <span th:text="${transAccountInfo.outAccountMobile}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">姓名：</span>
+                                    <span th:text="${transAccountInfo.outAccountRealName}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">转出摘要：</span>
+                                    <span th:text="${transAccountInfo.outSubjectName}"></span>
+                                </li>
+                                 <li>
+                                    <span class="tips">账户余额（转账前）：</span>
+                                    <span th:text="${transAccountInfo.outAccountPreBalance}?${#numbers.formatDecimal(transAccountInfo.outAccountPreBalance,1,2)}:0.00">元</span>
+                                    <span>元</span>
+                                </li>
+                                <li>
+                                    <span class="tips">账户余额（转账后）：</span>
+                                    <span th:text="${transAccountInfo.outAccountSufBalance}?${#numbers.formatDecimal(transAccountInfo.outAccountSufBalance,1,2)}:0.00"></span>
+                                	<span>元</span>
+                                </li>
+                            </ul>
+                            <div class="lines"></div>
+                            <strong style="padding-bottom:15px; display:inline-block;">收款账户信息：</strong>
+                            <ul class="nbbdgl-Ui clearfix">
+                                 <li>
+                                    <span class="tips">客户类型：</span>
+                                    <span th:text="${transAccountInfo.inTypeName}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">客户性质：</span>
+                                    <span th:text="${transAccountInfo.inPropertyName}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">手机号：</span>
+                                    <span th:text="${transAccountInfo.inAccountMobile}">13800138000</span>
+                                </li>
+                                <li>
+                                    <span class="tips">姓名：</span>
+                                    <span th:text="${transAccountInfo.inAccountRealName}">张永平</span>
+                                </li>
+                                <li>
+                                    <span class="tips">转入摘要：</span>
+                                    <span th:text="${transAccountInfo.inSubjectName}">张永平</span>
+                                </li>
+                                 <li>
+                                    <span class="tips">账户余额（转账前）：</span>
+                                    <span th:text="${transAccountInfo.inAccountPreBalance}?${#numbers.formatDecimal(transAccountInfo.inAccountPreBalance,1,2)}:0.00"></span>
+                                	 <span>元</span>
+                                </li>
+                                <li>
+                                    <span class="tips">账户余额（转账后）：</span>
+                                    <span th:text="${transAccountInfo.inAccountSufBalance}?${#numbers.formatDecimal(transAccountInfo.inAccountSufBalance,1,2)}:0.00"></span>
+                                    <span>元</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="formtitle"><span>审核意见</span></div>
+                        <div class="toolsli">
+                          <form id="myForm">
+                           <input type="hidden"  th:value="${transAccountInfo.transId}"   name="transId"/>
+                            <ul class="nbbdgl-Ui clearfix">
+                                <li>
+                                    <span class="tips">审核人：</span>
+                                    <span th:text="${transAccountInfo.leStaffName}">张三</span>
+                                </li>
+                                <li>
+                                    <span class="tips">审核结果：</span>
+	                                <cite>
+	                                    <input type="radio" id="AuditPass1" name="pass" value="90"/>
+	                                    <label for="AuditPass1">通过</label>
+	                                    <input type="radio" id="AuditPass0" name="pass" value="91"/>
+	                                    <label for="AuditPass0">不通过</label>
+	                                </cite>
+                                </li>
+                                <li>
+                                    <span class="tips">审核时间：</span>
+                                    <input type="text" class="txt validate[required]" name="taskEndDate" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+                                </li>
+                                <li style="width:80%;">
+                                    <span class="tips">备注：</span>
+                                    <textarea class="area" name="msg"></textarea>
+                                </li>
+                            </ul>
+                            </form>
+                        </div>
+                         <p class="textCt pt20 pb20">
+                                <input type="button" class="scbtn" id="examine_save" value="提交" style="width:120px;"/>
+                         </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+        <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	    <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+        <script>seajs.use("login/transAccountsExamine");</script>
+    </div>
+</body>
+</html>

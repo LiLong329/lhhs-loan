@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanDictionaryMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanDictionary" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="type_id" property="typeId" jdbcType="VARCHAR" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+    <result column="big_category" property="bigCategory" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, type_id, type_name, category, category_name, big_category
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_dictionary
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+    <select id="getCustPropertyByTypeId" parameterType="java.util.Map"  resultMap="BaseResultMap" >
+	    select distinct type_id,type_name
+	    from loan_dictionary
+	    where 1=1
+	      <if test="bigCategory != null and bigCategory != ''" >
+             and  big_category=#{bigCategory}
+	      </if>
+	       <if test="invest_customer_nature != null and invest_customer_nature!=''" >
+	         and category=#{invest_customer_nature}
+	      </if>
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from loan_dictionary
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanDictionary" >
+    insert into loan_dictionary (id, type_id, type_name, 
+      category, category_name, big_category
+      )
+    values (#{id,jdbcType=BIGINT}, #{typeId,jdbcType=VARCHAR}, #{typeName,jdbcType=VARCHAR}, 
+      #{category,jdbcType=VARCHAR}, #{categoryName,jdbcType=VARCHAR}, #{bigCategory,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanDictionary" >
+    insert into loan_dictionary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="typeName != null" >
+        type_name,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="categoryName != null" >
+        category_name,
+      </if>
+      <if test="bigCategory != null" >
+        big_category,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=VARCHAR},
+      </if>
+      <if test="typeName != null" >
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryName != null" >
+        #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="bigCategory != null" >
+        #{bigCategory,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanDictionary" >
+    update loan_dictionary
+    <set >
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=VARCHAR},
+      </if>
+      <if test="typeName != null" >
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryName != null" >
+        category_name = #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="bigCategory != null" >
+        big_category = #{bigCategory,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanDictionary" >
+    update loan_dictionary
+    set type_id = #{typeId,jdbcType=VARCHAR},
+      type_name = #{typeName,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      category_name = #{categoryName,jdbcType=VARCHAR},
+      big_category = #{bigCategory,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <!-- *************************** 小贷系统 II 期 LiJian jun Start ***************************  -->
+  <!-- 根据分类名称查询客户性质的名称 -->
+  <select id="selectCustNatureByCategory" resultMap="BaseResultMap">
+  	SELECT 
+    	<include refid="Base_Column_List" />
+    FROM 
+    	loan_dictionary
+    WHERE 
+    	category = 'loan_customer_nature'
+    AND
+    	big_category = '10'
+  </select>
+  <!-- *************************** 小贷系统 II 期 LiJian jun End   ***************************  -->
+  
+  <!-- 根据类型名称查询 -->
+   <select id="queryByCategory" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_dictionary
+    where category = #{category,jdbcType=VARCHAR}
+  </select>
+  
+   <!-- 查询所有客户性质 -->
+   <select id="queryAllcustomerNature" resultMap="BaseResultMap" >
+    select  distinct(d.type_id),d.type_name from loan_dictionary  d   where d.category ='invest_customer_nature'  or  d.category='loan_customer_nature'
+  </select>
+</mapper>

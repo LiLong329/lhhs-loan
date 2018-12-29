@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li><a>产品管理</a></li>
+                        <li><a th:href="@{/systemManager/productInfoList}">产品信息管理</a></li>
+                        <li><a>查看</a></li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div class="formtitle"><span>查看产品信息</span></div>
+                        <div class="toolsli">
+                            <ul class="nbbdgl-Ui">
+                                <li style="width:80%;">
+                                    <span class="tips">产品类型：</span>
+                                    <span th:text="${product.productType}"></span>
+                                </li>
+                                <li style="width: 80%;">
+                                    <span class="tips">产品背景图片：</span><span><img class="imgs" th:attr="src=(${product.thumbnailPicture})"/></span>
+                                </li>
+                                <!-- <li style="width:80%;">
+                                    <span class="tips">金额范围：</span>
+                                    <span th:text="${product.productMoney}+'元'"></span>                                  
+                                </li>
+                                <li style="width:80%;">
+                                    <span class="tips">期 限：</span>
+                                    <span th:text="${product.productTerm}+${product.productTermUnit}"></span>                                 
+                                </li>
+                                <li style="width:80%;">
+                                    <span class="tips">利 率：</span>
+                                    <span th:text="${product.productInterest}"></span>
+                                </li> -->
+                            </ul>
+                        </div>
+                        <form  id="myForm" action="/systemManager/productChildrenList/0">
+                    			<input type="hidden" name="pageNumber" th:value="${page.pageIndex}" id="currentPageNo"/>
+                    			<input type="hidden" name="productNo" th:value="${product.productNo}"/>
+                    		</form>
+                        <div class="formtitle">
+                            <span>产品列表</span>
+                        </div>
+                        <div id="usual1" class="usual">
+                            <table class="tablelist">
+                                <thead>
+                                
+                                <tr>
+                                    <th>产品名称</th>
+                                    <th>编号</th>
+                                    <th>资金方</th>
+                                    <th>金额范围</th>
+                                    <th>期限</th>
+                                    <th>利率1</th>
+                                    <th>利率2</th>
+                                    <!-- <th>添加时间</th> -->
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <th:block th:unless="${#lists.isEmpty(productList)}">
+                                <tr th:each="children : ${productList}">
+                                    <td th:text="${children.productName}"></td>
+                                    <td th:text="${children.productId}"></td>
+                                    <td th:text="${children.orgName}"></td>
+                                    <td th:text="${children.minAmount}+'-'+${children.maxAmount}+'万元'"></td>
+                                    <td th:text="${children.minExpires}+'-'+${children.maxExpires}+${children.expiresUnit}"></td>
+                                    <td>
+                                    	<th:block th:if="${children.maxRate}" th:text="${#numbers.formatDecimal(children.minRate,1,2)}+'-'+${#numbers.formatDecimal(children.maxRate,1,2)}+'%/'+${children.rateUnit}"></th:block>
+                                    	<th:block th:unless="${children.maxRate}" th:text="${#numbers.formatDecimal(children.minRate,1,2)}+'%/'+${children.rateUnit}+'起'"></th:block>
+                                    </td>
+                                    <td>
+                                    	<th:block th:if="${children.minRateTwo}">
+                                    		<th:block th:if="${children.maxRateTwo}" th:text="${#numbers.formatDecimal(children.minRateTwo,1,2)}+'-'+${#numbers.formatDecimal(children.maxRateTwo,1,2)}+'%/'+${children.rateUnitTwo}"></th:block>
+                                    		<th:block th:unless="${children.maxRateTwo}" th:text="${#numbers.formatDecimal(children.minRateTwo,1,2)}+'%/'+${children.rateUnitTwo}+'起'"></th:block>
+                                    	</th:block>
+                                    </td>
+                                    <!-- <td th:text="${children.createTime}?${#dates.format(children.createTime, 'yyyy-MM-dd HH:mm:ss')}:''"></td> -->
+                                    <td>
+                                      <th:block th:if="${children.productStatus} eq 1">正常</th:block>
+                                      <th:block th:if="${children.productStatus} eq 0">禁用</th:block>
+                                    </td>
+                                    <td>
+                                        <a th:href="@{/systemManager/productChildInfo(productId=${children.productId})}" class="tablelink">查看</a>
+                                        <th:block th:if="${children.productStatus} eq 1">
+                                        	<a href="javascript:void(0);" class="tablelink mlt10" data-enable="0" th:attr="data-numb=(${children.productId})" >禁用</a>
+                                        </th:block>
+                                        <th:block th:if="${children.productStatus} eq 0">
+                                        	<a href="javascript:void(0);" class="tablelink mlt10" data-enable="1" th:attr="data-numb=(${children.productId})" >启用</a>
+                                        </th:block>
+                                    </td>
+                                </tr>                               
+                                </th:block>
+                                <th:block th:if="${#lists.isEmpty(productList)}">
+                                    <tr><td colspan="9" class="textCt">暂无产品数据</td></tr>
+                                </th:block>
+                                </tbody>
+                            </table>
+                            <div class="pagin" th:unless="${#lists.isEmpty(productList)}">
+								<div class="message">
+									共 <i class="blue" th:text="${page.totalCount}"></i> 
+									条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+								</div>
+								<ul class="paginList">
+									<li class="paginItem" th:if="${page.pageIndex} gt 1">
+										<a th:attr="data-pagenum=(${page.pageIndex}-1),data-pagesize=${page.pageSize}" class="pagepre"></a>
+									</li>
+									<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" 
+									th:classappend="(${page.pageIndex} eq ${x})?'current'">
+										<a th:attr="data-pagenum=${x},data-pagesize=(${page.pageSize})" th:text="${x}"></a>
+									</li>
+									<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+										<a th:attr="data-pagenum=(${page.pageIndex}+1),data-pagesize=(${page.pageSize})" class="pagenxt"></a>
+									</li> 
+								</ul>
+							</div>
+                        </div>
+                        <p class="textCt pt15">
+                            <input type="button" class="scbtn2" value="返 回" onclick="javascript:history.go(-1);"/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+</body>
+    <script>
+		seajs.use("product/productUpload");
+	</script>
+	<script type="text/javascript">
+	$(function(){
+		//禁用启用
+		$(".tablelink.mlt10").on("click",function(){
+			var productStatus = $(this).attr('data-enable');
+			var productId = $(this).attr('data-numb');
+			$.post("/systemManager/enabled",{productStatus:productStatus,productId:productId},function(data){
+				 if(data.retCode=="00"){
+					 alert(data.retMsg,false,function(){
+						 window.location.reload(true);
+						});
+				  }else{
+					alert(data.retMsg,function(){
+						window.location.reload(true);
+					});
+				  }
+			})
+		});
+		//分页
+		var $ur_a = $(".paginItem a");
+		$ur_a.on("click",function(){
+			var currentPageNo = $(this).attr("data-pagenum");			
+			$("#currentPageNo").val(currentPageNo);
+			$("#myForm").submit();		
+		});	
+	})
+	
+	</script>
+</html>

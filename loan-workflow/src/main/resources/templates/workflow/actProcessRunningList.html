@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li>流程管理</li>
+                        <li>运行中的流程</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual">
+                        	<form id="myForm">
+                        	<ul class="seachform1">
+		                                <li>
+		                                    <label>实例编号：</label>
+		                                    <input style="width:140px;" type="text" class="scinput1" name="procInsId"/>
+		                                </li>
+		                                <li>
+		                                    <label>业务编号：</label>
+		                                    <input style="width:140px;" type="text" class="scinput1" name="businessKey"/>
+		                                </li>
+		                                
+		                                <li>
+		                                    <label>流程KEY：</label>
+		                                    <input style="width:140px;" type="text" class="scinput1" name="procDefKey"/>
+		                                </li>
+		                                <li>
+		                                    <label>流程名称：</label>
+		                                    <input style="width:140px;" type="text" class="scinput1" name="procName"/>
+		                                </li>
+		                                
+		                                <li>
+		                                	<input type="hidden" name="page.pageIndex" th:value="${page.pageIndex}"/>
+		                       				 <input type="hidden" name="page.pageSize" th:value="${page.pageSize}"/>
+		                                    <input type="button" class="scbtn" value="查询" id="queryId"/>
+		                                </li>
+		                            </ul>
+        						
+        					</form>
+                            <div id="recordList" th:include="workflow/_actProcessRunningList"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+<script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+	<script th:inline="javascript">
+    	/*<![CDATA[*/
+	    	seajs.use("workflow/actProcess");
+    	/*]]>*/
+    </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script type="text/javascript" charset="utf-8" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/">首页</a></li>
+                        <li>系统管理</li>
+                        <li>操作日志</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual">
+	                        <form id="myForm">
+	                            <ul class="seachform1">
+	                            	<li>
+	                                    <label>每页显示：</label>
+	                                    <div class="vocation">
+	                                        <select class="select-common select3" name="pageSize">
+	                                            <option value="10">10</option>
+	                                            <option value="25">25</option>
+	                                            <option value="50">50</option>
+	                                            <option value="100">100</option>
+	                                        </select>
+	                                    </div>
+	                                    <span>条</span>
+	                                </li>
+	                                <li>
+	                                    <label>时间：</label>
+                                   	   	<input type="text" name="beginTime" readOnly='true' class="scinput1" 
+                                   	   		onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd'})"/>
+										<span>至</span>
+	                                    <input type="text" name="endTime" readOnly='true' class="scinput1" 
+	                                    	onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd'})"/>
+	                                </li>
+	                                <li>
+	                                    <label>操作人姓名：</label>
+	                                    <input type="text" class="scinput1" name="username"/>
+	                                    <input type="hidden" name="pageIndex" value="1"/>
+	                                </li>
+	                                <li>
+	                                    <input type="button" class="scbtn" value="查询" id="queryBtn"/>
+	                                </li>
+	                            </ul>
+                            </form>
+						</div>
+                        <div class="table-title">
+                            <p class="tab-font">日志信息列表</p>
+                        </div>
+                        <div id="recordList" th:include="operateRecord/_operateRecordTemp"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+    <script>
+    	seajs.use("operateRecord/operateRecord");
+    </script>
+</body>
+</html>

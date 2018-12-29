@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<body>
+    <div class="father">
+     <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <script type="text/javascript" src="/js/public/siderbar.js"></script>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>资金管理</li>
+                        <li>转账管理</li>
+                        <li>固定理财转账申请</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                	<div style="position: relative;">
+	                    <div class="formbody">
+	                        <div>
+	                            <form id="myForm">
+		                            <input type="hidden"  value="1" name="transType"/>
+		                            <input type="hidden"  name="outAccountCustPropertySed"/>
+		                            <input type="hidden"  name="outAccountPreBalance"/>
+		                            <input type="hidden"  name="inAccountPreBalance"/>
+		                            <input type="hidden"  name="transId" th:value="${transId}" />
+		                             <div class="toolsli">
+		                             	 <ul class="nbbdgl-Ui clearfix">
+		                                 	<li style="width:100%;">
+		                                      	<span class="tips">充值订单编号：</span>
+		                                        <input type="text" id="rechargeOrderNo" name="rechargeOrderNo" class="txt" />
+		                                   		<input type="button" class="scbtn2 mlt10" id="searchTransInfo"  value="检索"/>
+		                                 	</li>
+		                             	 </ul>
+		                             </div>
+	                            	<div class="formtitle"><span>1、客户基本信息</span></div>
+		                            <div class="toolsli">
+		                                <strong style="padding-bottom:15px; display:inline-block;">转出账户信息：</strong>
+		                                <ul class="nbbdgl-Ui clearfix">
+		                                    <li>
+		                                        <span class="tips">客户类型：</span>
+		                                        <div class="vocation">
+		                                             <select class="select-common select3 validate[required]" data-category="invest_customer_nature" id="outAccountCustType" name="outAccountCustType" style="width:251px;">
+		                                            <option value="">请选择</option>
+		                                            <option th:each="allAccountCustType : ${allAccountCustType}" th:value="${allAccountCustType.type_id}" th:text="${allAccountCustType.type_name}"
+		                                              ></option>
+		                                              <!-- th:attr="selected=(${allAccountCustType.type_id} eq ${outAccountCustType})?true:false" -->
+		                                        </select>
+		                                        </div>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">客户性质：</span>
+		                                        <div class="vocation">
+		                                          <select class="select-common select3" id="outAccountCustProperty" name="outAccountCustProperty" style="width:251px;">
+		                                            <option value="">请选择</option>
+		                                            <option th:each="property : ${accountCustProperty}" th:value="${property.type_id}" th:text="${property.type_name}"
+		                                              ></option>
+		                                             <!--  th:attr="selected=(${property.type_id} eq ${outAccountCustProperty})?true:false" -->
+		                                           </select>
+		                                        </div>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">用户ID：</span>
+		                                        <input type="text" name="outAccountCustId"   class="txt validate[required,custom[number]]" />
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">手机号：</span>
+		                                        <input type="text" name="outAccountMobile" class="txt validate[custom[mobile]]" />
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">姓名：</span>
+		                                        <input type="text" name="outAccountRealName" class="txt validate[custom[chinese]]" />
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">持卡人：</span>
+		                                        <input type="text" name="outAccountCardholder" class="txt validate[custom[chinese]]" />
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">银行卡号：</span>
+		                                        <input type="text" name="outAccountBankCard" class="txt validate[custom[number]]" />
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">账户金额：</span><span id="outAccountPreBalance">0.00元</span>
+		                                    </li>
+		                                </ul>
+		                            </div>
+	                            	<div class="lines"></div>
+		                            <div class="toolsli">
+		                                <strong style="padding-bottom:15px; display:inline-block;">收款账户信息：</strong>
+		                                <ul class="nbbdgl-Ui clearfix">
+		                                    <li>
+		                                        <span class="tips">客户类型：</span>
+		                                         <div class="vocation">
+		                                             <select class="select-common select3 validate[required]" data-category="invest_customer_nature" id="inAccountCustType" name="inAccountCustType" style="width:251px;">
+		                                            <option value="">请选择</option>
+		                                            <option th:each="allAccountCustType : ${allAccountCustType}" th:value="${allAccountCustType.type_id}" th:text="${allAccountCustType.type_name}"
+		                                             th:attr="selected=(${allAccountCustType.type_id} eq ${inAccountCustType})?true:false" ></option>
+		                                        </select>
+		                                       </div>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">客户性质：</span>
+		                                        <div class="vocation">
+		                                             <select class="select-common select3" id="inAccountCustProperty" name="inAccountCustProperty" style="width:251px;">
+		                                            <option value="">请选择</option>
+		                                           </select>
+		                                        </div>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">用户ID：</span>
+		                                        <input type="text" name="inAccountCustId" class="txt validate[required,custom[number]]" />
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">手机号：</span>
+		                                        <input type="text" name="inAccountMobile"  class="txt validate[custom[mobile]]" />
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">姓名：</span>
+		                                        <input type="text" name="inAccountRealName" class="txt validate[custom[chinese]]" />
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">持卡人：</span>
+		                                        <input type="text" name="inAccountCardholder" class="txt validate[custom[chinese]]" />
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">银行卡号：</span>
+		                                        <input type="text" name="inAccountBankCard" class="txt validate[custom[number]]" />
+		                                    </li>
+		                                    <li><!-- name="inAccountPreBalance" -->
+		                                        <span class="tips">账户金额：</span><span id="inAccountPreBalance">0.00元</span>
+		                                    </li>
+		                                </ul>
+		                            </div>
+	                            	<div class="formtitle"><span>2、理财信息</span></div>
+		                            <div class="toolsli">
+		                                <ul class="nbbdgl-Ui">
+		                                    <li>
+		                                        <span class="tips">理财金额：</span>
+		                                        <input type="text" name="financialAmount" class="txt validate[required,custom[numberTwo]]"/><span>元</span>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">理财期限：</span>
+		                                        <input type="text" name="financialTerm" class="txt validate[required,custom[number]]"/><span>个月</span>
+		                                         <input type="hidden" name="financialTermUnit" value="个月" class="txt"/>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">利率：</span>
+		                                        <input type="text" name="financialInterestRate" class="txt validate[required]"/><span>%/</span>
+		                                        <div class="vocation">
+		                                            <select name="financialInterestRateUnit" class="select-common select1" style="width: 80px;">
+		                                                <option valeu="1">月</option>
+		                                                <option valeu="2">年</option>
+		                                            </select>
+		                                        </div>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">还款方式：</span>
+		                                        <div class="vocation">
+		                                            <select name="repaymentMethod" class="select-common select1 validate[required]">
+		                                                <option value="">请选择</option>
+		                                                <option value="0">每月还息，到期还本</option>
+		                                                <option value="2">一次性支付</option>
+		                                            </select>
+		                                        </div>
+		                                    </li>
+		                                    <li style="width: 100%;">
+		                                        <span class="tips">付息方式：</span>
+		                                        <div class="vocation">
+		                                            <select name="interestPaymentMethod"  id="interestPaymentMethod" class="select-common select1 validate[required]">
+		                                                <option value="">请选择</option>
+		                                                <option value="0">放款日付息</option>
+		                                                <option value="1">到期日结息</option>
+		                                                <option value="2">指定日付息</option>
+		                                            </select>
+		                                        </div>
+		                                    </li>
+		                                     <li id="appointLendingTime" style="display:none;">
+		                                        <span class="tips">指定日付息时间：</span>
+		                                    	<input type="text" class="txt validate[required]" name="appointLendingTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">还款违约金率：</span>
+		                                        <input type="text" name="repaymentPenaltyInterestRate" class="txt"/><span>%/ 天</span>
+		                                    </li> 
+		                                    <li>
+		                                        <span class="tips">逾期罚息率：</span>
+		                                        <input type="text" name="overduePenaltyInterestRate"  class="txt"/><span>%/ 天</span>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">实际放款时间：</span>
+		                                    	<input type="text" class="txt validate[required]" name="actualLendingTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+		                                    </li>
+		                                </ul>
+		                            </div>
+		                            <div class="formtitle"><span>3、合同信息</span></div>
+		                            <div class="toolsli">
+		                                <ul class="nbbdgl-Ui">
+		                                    <li>
+		                                        <span class="tips">合同编号：</span>
+		                                        <input type="text" name="contractNo" class="txt validate[custom[onlyLetterNumber],maxSize[20]]" maxLength="20"/>
+		                                    </li>
+		                                    <li style="width: 100%;">
+		                                        <span class="tips">合同起止时间：</span>
+		                                        <input type="text" class="txt validate[required]" name="contractStartTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+		                                        <span>至</span>
+		                                        <input type="text" class="txt validate[required]" name="contractEndTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">合同期限：</span>
+		                                        <input type="text" name="contractTerm" class="txt validate[required,custom[number]]"/><span>个月</span>
+		                                    	<input type="hidden" name="contractTermUnit" value="个月" class="txt"/>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">合同金额：</span>
+		                                        <input type="text" class="txt validate[required,custom[numberTwo]]"/><span>元</span>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">利率：</span>
+		                                        <input type="text" name="contractInterestRate"  class="txt validate[required]"/><span>%/</span>
+		                                        <div class="vocation">
+		                                            <select name="contractInterestRateUnit" class="select-common select1" style="width: 80px;">
+		                                               <option valeu="1">月</option>
+		                                                <option valeu="2">年</option>
+		                                            </select>
+		                                        </div>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">所属部门：</span>
+		                                        <div class="vocation">
+		                                            <select class="select-common select1 validate[required]" name="accountManagerDepartmentNo" id="accountManagerDepartmentNo">
+				                                       <option value="">请选择</option>
+				                                       <option th:each="deptList : ${deptList}" th:value="${deptList.deptId}" th:text="${deptList.name}"></option>
+				                                    </select>
+		                                        </div>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">客户经理：</span>
+		                                       <!--  <input type="text" name="accountManagerName" class="txt"/> -->
+				                                      <div class="vocation">
+				                                        <select class="select-common select1" name="accountManagerNo" id="accountManagerNo" >
+				                                            <option value="">请选择</option>
+				                                        </select>
+                                    			      </div>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">持卡人：</span>
+		                                        <input type="text" name="contractCardholder" class="txt"/>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">身份证号：</span>
+		                                        <input type="text" class="txt"/>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">银行卡号：</span>
+		                                        <input type="text" name="contractCardholderBankCard"  class="txt"/>
+		                                    </li>
+		                                </ul>
+		                            </div>
+		                            <p class="textCt pt20 pb20">
+		                                 <input type="button" class="scbtn" id="btn_preview" value="我要预览" style="width:120px;"/>
+		                            </p>
+	                             </form>
+	                        </div>
+	                        <div id="preview"></div>
+	                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+         <!-- <script src="/js/public/select.js"></script> -->
+        <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	    <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+        <script>seajs.use("login/transAccounts");</script>
+    </div>
+</body>
+</html>

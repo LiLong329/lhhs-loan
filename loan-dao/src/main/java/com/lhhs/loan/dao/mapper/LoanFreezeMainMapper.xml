@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanFreezeMainMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanFreezeMain" >
+    <id column="trans_id" property="transId" jdbcType="VARCHAR" />
+    <result column="business_id" property="businessId" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="account_name" property="accountName" jdbcType="VARCHAR" />
+    <result column="amount_in" property="amountIn" jdbcType="DECIMAL" />
+    <result column="amount_out" property="amountOut" jdbcType="DECIMAL" />
+    <result column="trans_type" property="transType" jdbcType="VARCHAR" />
+    <result column="subject_id" property="subjectId" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="trans_main_id" property="transMainId" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="provience_no" property="provienceNo" jdbcType="VARCHAR" />
+    <result column="provience_name" property="provienceName" jdbcType="VARCHAR" />
+    <result column="city_no" property="cityNo" jdbcType="VARCHAR" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="is_flag" property="isFlag" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    trans_id, business_id, account_id, account_name, amount_in, amount_out, trans_type, 
+    subject_id, company_id, trans_main_id, union_id, provience_no, provience_name, city_no, 
+    city_name, is_flag, status, create_user, create_time, last_user, last_modify_time, 
+    field1, field2, field3, field4, field5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_freeze_main
+    where trans_id = #{transId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_freeze_main
+    where trans_id = #{transId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanFreezeMain" >
+    insert into loan_freeze_main (trans_id, business_id, account_id, 
+      account_name, amount_in, amount_out, 
+      trans_type, subject_id, company_id, 
+      trans_main_id, union_id, provience_no, 
+      provience_name, city_no, city_name, 
+      is_flag, status, create_user, 
+      create_time, last_user, last_modify_time, 
+      field1, field2, field3, 
+      field4, field5)
+    values (#{transId,jdbcType=VARCHAR}, #{businessId,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, 
+      #{accountName,jdbcType=VARCHAR}, #{amountIn,jdbcType=DECIMAL}, #{amountOut,jdbcType=DECIMAL}, 
+      #{transType,jdbcType=VARCHAR}, #{subjectId,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, 
+      #{transMainId,jdbcType=VARCHAR}, #{unionId,jdbcType=VARCHAR}, #{provienceNo,jdbcType=VARCHAR}, 
+      #{provienceName,jdbcType=VARCHAR}, #{cityNo,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, 
+      #{isFlag,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastUser,jdbcType=VARCHAR}, #{lastModifyTime,jdbcType=TIMESTAMP}, 
+      #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, 
+      #{field4,jdbcType=VARCHAR}, #{field5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanFreezeMain" >
+    insert into loan_freeze_main
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="transId != null" >
+        trans_id,
+      </if>
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="accountName != null" >
+        account_name,
+      </if>
+      <if test="amountIn != null" >
+        amount_in,
+      </if>
+      <if test="amountOut != null" >
+        amount_out,
+      </if>
+      <if test="transType != null" >
+        trans_type,
+      </if>
+      <if test="subjectId != null" >
+        subject_id,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="transMainId != null" >
+        trans_main_id,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+      <if test="provienceNo != null" >
+        provience_no,
+      </if>
+      <if test="provienceName != null" >
+        provience_name,
+      </if>
+      <if test="cityNo != null" >
+        city_no,
+      </if>
+      <if test="cityName != null" >
+        city_name,
+      </if>
+      <if test="isFlag != null" >
+        is_flag,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUser != null" >
+        last_user,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="transId != null" >
+        #{transId,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null" >
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="amountIn != null" >
+        #{amountIn,jdbcType=DECIMAL},
+      </if>
+      <if test="amountOut != null" >
+        #{amountOut,jdbcType=DECIMAL},
+      </if>
+      <if test="transType != null" >
+        #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectId != null" >
+        #{subjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="transMainId != null" >
+        #{transMainId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="provienceNo != null" >
+        #{provienceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provienceName != null" >
+        #{provienceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="isFlag != null" >
+        #{isFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanFreezeMain" >
+    update loan_freeze_main
+    <set >
+      <if test="businessId != null" >
+        business_id = #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null" >
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="amountIn != null" >
+        amount_in = #{amountIn,jdbcType=DECIMAL},
+      </if>
+      <if test="amountOut != null" >
+        amount_out = #{amountOut,jdbcType=DECIMAL},
+      </if>
+      <if test="transType != null" >
+        trans_type = #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectId != null" >
+        subject_id = #{subjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="transMainId != null" >
+        trans_main_id = #{transMainId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="provienceNo != null" >
+        provience_no = #{provienceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provienceName != null" >
+        provience_name = #{provienceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        city_no = #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="isFlag != null" >
+        is_flag = #{isFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where trans_id = #{transId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanFreezeMain" >
+    update loan_freeze_main
+    set business_id = #{businessId,jdbcType=VARCHAR},
+      account_id = #{accountId,jdbcType=VARCHAR},
+      account_name = #{accountName,jdbcType=VARCHAR},
+      amount_in = #{amountIn,jdbcType=DECIMAL},
+      amount_out = #{amountOut,jdbcType=DECIMAL},
+      trans_type = #{transType,jdbcType=VARCHAR},
+      subject_id = #{subjectId,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      trans_main_id = #{transMainId,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      provience_no = #{provienceNo,jdbcType=VARCHAR},
+      provience_name = #{provienceName,jdbcType=VARCHAR},
+      city_no = #{cityNo,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      is_flag = #{isFlag,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where trans_id = #{transId,jdbcType=VARCHAR}
+  </update>
+   <sql id="Where_Clause" >
+    <where >
+      <if test="businessId != null" >
+        and business_id = #{businessId}
+      </if>
+      <if test="accountId != null" >
+         and account_id = #{accountId}
+      </if>
+      <if test="accountName != null" >
+         and account_name = #{accountName}
+      </if>
+      <if test="amountIn != null" >
+         and amount_in = #{amountIn}
+      </if>
+      <if test="amountOut != null" >
+         and amount_out = #{amountOut}
+      </if>
+      <if test="subjectId != null" >
+        and  subject_id = #{subjectId}
+      </if>
+      
+      <if test="transType != null" >
+         and trans_type = #{transType}
+      </if>
+      <if test="companyId != null" >
+         and company_id = #{companyId}
+      </if>
+      <if test="unionId != null" >
+         and union_id = #{unionId}
+      </if>
+      <if test="isFlag != null" >
+         and is_flag = #{isFlag}
+      </if>
+      <if test="status != null" >
+         and status = #{status}
+      </if>
+      <if test="createUser != null" >
+         and create_user = #{createUser}
+      </if>
+      <if test="createTime != null" >
+         and create_time = #{createTime}
+      </if>
+      <if test="lastUser != null" >
+         and last_user = #{lastUser}
+      </if>
+      <if test="lastModifyTime != null" >
+        and last_modify_time = #{lastModifyTime}
+      </if>
+
+    </where>
+  </sql>
+  <select id="queryList" resultType="com.lhhs.loan.dao.domain.LoanFreezeMain" parameterType="com.lhhs.loan.dao.domain.LoanFreezeMain" >
+    select    *    from loan_freeze_main
+    <include refid="Where_Clause" />
+    order by create_time desc
+    <if test="page!=null and page.pageStartIndex != null and page.pageSize != null">
+    	Limit #{page.pageStartIndex},#{page.pageSize}
+    </if>
+  </select>
+   <select id="queryCount" resultType="int" parameterType="com.lhhs.loan.dao.domain.LoanFreezeMain" >
+    select  count(*)   from loan_freeze_main
+    <include refid="Where_Clause" />
+  </select>
+ <update id="updateAmount" parameterType="com.lhhs.loan.dao.domain.LoanFreezeMain" >
+    update loan_freeze_main
+    set 
+      <if test="amountIn != null" >
+        amount_in = amount_in+#{amountIn},
+      </if>
+      <if test="amountOut != null" >
+        amount_out = amount_out+#{amountOut},
+      </if>
+      last_user = #{lastUser},
+      last_modify_time = now()
+    where trans_id = #{transId} and last_modify_time=#{lastModifyTime}
+  </update>
+  <!-- 汇总应收、已收总额 或者应付、已付总金额-->
+  <select id="querySum" parameterType="com.lhhs.loan.dao.domain.LoanFreezeMain" resultType="com.lhhs.loan.dao.domain.LoanFreezeMain">
+    select sum(amount_in-amount_out) balance,sum(amount_in) amount_in ,sum(amount_out) amount_out
+    from loan_freeze_main where trans_main_id=#{transMainId} 
+      <if test="transType != null" >
+        and trans_type = #{transType} 
+      </if>
+      <if test="subjectId != null" >
+        subject_id = #{subjectId}
+      </if>
+      and  is_flag ='N' and status ='03' 
+  </select>
+</mapper>

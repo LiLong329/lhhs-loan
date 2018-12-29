@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<script type="text/javascript" src="/js/public/area.js"></script>
+<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<body>
+	<div class="father">
+		<header th:replace="common/top"></header>
+		<div class="common-content">
+			<div th:replace="common/left"></div>
+			<div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li><a href="/unionCompany/companyList">集团/公司管理</a></li>
+                        <li>新增</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                <div class="formbody">
+                    <div class="formtitle"><span>公司基本信息</span></div>
+                    <div class="toolsli">
+                    <form id="myForm">
+                        <ul class="nbbdgl-Ui">
+                            <li style="width: 80%;">
+                                <span class="tips">所属集团：</span>
+                                <div class="vocation">
+                                    <select class="select-common select1 validate[required]" name="unionId">
+                                    	<option value="">请选择</option>
+                                    	<option th:each="com : ${comList}" th:value="${com.companyId}" th:text="${com.companyName}"></option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li style="width: 80%;">
+                                <span class="tips">公司名称：</span>
+                                <input type="text" class="txt validate[required,maxSize[100]]" name="companyName" id="companyNameId"/>
+                            </li>
+                            <li style="width: 80%;">
+                                <span class="tips">公司简称：</span>
+                                <input type="text" class="txt validate[required,maxSize[100]]" name="englishName"/>
+                            </li>
+                            <li style="width: 80%;">
+                                <span class="tips">法人代表：</span>
+                                <input type="text" class="txt validate[custom[chineseName],maxSize[15]]" name="legalRepresentative"/>
+                            </li>
+                            <li style="width: 80%;">
+                                <span class="tips">地址：</span>
+                                <div class="vocation">
+                                    <select class="select-common select3 provinceSelect validate[required]"  name="provinceNo">
+                                    </select>
+                                </div>
+                                <span>省</span>
+                                <div class="vocation">
+                                    <select class="select-common select3 citySelect validate[required]" name="cityNo">
+                                    </select>
+                                </div>
+                                <span>市</span>
+                                <input type="text" class="txt validate[custom[chineseAndEnglishAndNumber],maxSize[100]]" name="companyAddress"/>
+                            </li>
+                            <li style="width: 80%;">
+                                <span class="tips">负责人姓名：</span>
+                                <input type="text" class="txt  validate[custom[chineseName],maxSize[15]]" name="leaderName"/>
+                            </li>
+                            <li style="width: 80%;">
+                                <span class="tips">负责人手机号：</span>
+                                <input type="text" class="txt validate[custom[mobile]]" name="leaderMobile"/>
+                            </li>
+                            <li style="width: 80%;">
+                                <span class="tips">负责人邮箱：</span>
+                                <input type="text" class="txt validate[custom[email]]" name="leaderEmail"/>
+                            </li>
+                            <li style="width: 80%;">
+                                <span class="tips">&nbsp;</span>
+                                <input type="button" class="scbtn mlt10" value="保 存" id="saveId"/>
+                                <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);"/>
+                            </li>
+                        </ul>
+                    </form>
+                    </div>
+                </div>
+            </div>
+            </div>
+		</div>
+		<script src="/js/public/select.js"></script>
+		<footer th:replace="common/footer"></footer>
+	</div>
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+	<script th:inline="javascript">
+    	/*<![CDATA[*/
+	    	seajs.use("company/companyAdd");
+    	/*]]>*/
+    </script>
+</body>
+</html>

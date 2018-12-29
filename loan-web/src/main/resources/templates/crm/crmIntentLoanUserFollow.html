@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<link rel="stylesheet" href="/css/call-dialog.css" type="text/css"/>
+<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<script src="https://api.uccc.cc/webrtc/2.8.0/uccc_webrtc_sdk.min.js"></script>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                     	<li>客户管理</li>
+                        <li>客户信息管理</li>
+                        <th:block th:if=" 'zhipai' eq ${customerStatus} ">
+				        	<li>待分配客户</li>
+				        </th:block>	
+                        <th:block th:if=" 'zhuanyi' eq ${customerStatus} ">
+				        	<li>已分配客户</li>
+				        </th:block>	
+                        <li>回访</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+	                    <div class="itab">
+	                        <ul>
+	                            <li><a data-show="#tab1">基本信息</a></li>
+	                            <li><a data-show="#tab2">回访记录</a></li>
+	                        </ul>
+	                    </div>
+		                <div id="tab1" class="tabson">
+		                <form id="editForm">
+			                    <input type="hidden" id="customerStatus"  th:attr="value=${customerStatus}"/>
+			                    <input type="hidden" name="followTypeSed"  value="notFollow"/>
+			                    <input type="hidden" name="parentId"  th:attr="value=${crmUser.id}"/>
+			                    <div class="formtitle"><span>客户信息</span></div>
+			                    <div class="toolsli">
+			                        <ul class="nbbdgl-Ui">
+			                            <li >
+			                                <span class="tips">客户编号：</span>
+											<span  th:text="${crmUser.id}"></span>
+			                            </li>
+			                              <li >
+			                                <span class="tips">分公司：</span>
+											<span  th:text="${crmUser.createrCompanyName}"></span> <!-- 客户录入公司 -->
+			                            </li>
+			                            <li >
+			                                <span class="tips">最新跟进时间：</span>
+											<span  th:text="${crmUser.lastModifyTime}?${#dates.format(crmUser.lastModifyTime, 'yyyy-MM-dd')}"></span>
+			                            </li>
+			                            <li >
+			                                <span class="tips">客户状态：</span>
+											 <span th:if="${crmUser.businessStatus} eq 01">初步接触</span>
+											 <span th:if="${crmUser.businessStatus} eq 02">意向客户</span>
+											 <span th:if="${crmUser.businessStatus} eq 03">跟进客户</span>
+											 <span th:if="${crmUser.businessStatus} eq 04">签约客户</span>
+											 <span th:if="${crmUser.businessStatus} eq 05">放弃客户</span>
+											 <span th:if="${crmUser.businessStatus} eq 06">黑名单</span>
+											 <span th:if="${crmUser.businessStatus} eq 07">面谈客户</span>
+											 <span th:if="${crmUser.businessStatus} eq 90">已拒贷</span>
+											 <span th:if="${crmUser.businessStatus} eq 99">无效</span>
+											 <span th:if="${crmUser.businessStatus} eq 08">已报单</span>
+			                            </li>
+			                            <li >
+			                                <span class="tips">省市：</span>
+											<span th:text="${crmUser.province}"></span><span th:text="${crmUser.city}"></span>
+			                            </li>
+			                            <li >
+			                                <span class="tips">指向分公司：</span>
+											<span  th:text="${crmUser.appointCompanyName}"></span>
+			                            </li>
+			                            <li th:if="${customerStatus} eq zhuanyi">
+			                                <span class="tips">事业部：</span>
+								            <span  th:text="${crmUser.appointDeptName}"></span><!-- 客户所属部门 -->
+			                            </li>
+			                            <li th:if="${customerStatus} eq zhuanyi">
+			                                <span class="tips">组别：</span>
+											<span  th:text="${crmUser.appointGroupName}"></span>
+			                            </li>
+			                            <li th:if="${customerStatus} eq zhuanyi">
+								            <span class="tips">客户经理：</span>
+								            <span  th:text="${crmUser.appointEmpName}"></span>
+								        </li>
+			                            <li >
+			                                <span class="tips">客户姓名：</span>
+											<span  th:text="${crmUser.name}"></span>
+			                            </li>
+			                            <li >
+			                                <span class="tips">手机号：</span>
+											<span  th:text="${crmUser.mobile}"></span>
+			                            </li>
+										<li>
+								            <span class="tips">意向贷款金额：</span>
+								            <input type="text" class="txt validate[required,custom[numberTwo]]" th:value="${crmUser.loanAmount}" id="loanAmount" name="loanAmount"/>
+								       		<span>万元</span>
+								        </li>
+								        <li>
+								            <span class="tips">借款期限：</span>
+								            <input   type="text"  th:value="${crmUser.duration}" name="duration" class="txt validate[required,custom[number],max[60]]"/>
+								       	     <div class="vocation">
+								       	       <select class="select-common select1" name="durationUnit" style="width: 80px;">
+		                                            <option th:attr="selected=(${crmUser.durationUnit} eq 个月)?true:false" value="个月">个月</option>
+		                                            <option th:attr="selected=(${crmUser.durationUnit} eq 天)?true:false" value="天">天</option>
+		                                            <option th:attr="selected=(${crmUser.durationUnit} eq 年)?true:false" value="年">年</option>
+	                                           </select>
+	                                          </div>
+								        </li>
+								        <li>
+								            <span class="tips">借款利率：</span>
+								            <input  type="text" class="txt validate[required,custom[numberThreeSed]]" th:value="${crmUser.interestRate}" id="interestRate" name="interestRate"/>
+								             <span>%/</span>
+	                                        <div class="vocation">
+	                                        <select class="select-common select1" name="rateUnit" style="width: 80px;">
+	                                            <option th:attr="selected=(${crmUser.rateUnit} eq 年)?true:false" value="年">年</option>
+	                                            <option th:attr="selected=(${crmUser.rateUnit} eq 月)?true:false" value="月">月</option>
+	                                            <option th:attr="selected=(${crmUser.rateUnit} eq 天)?true:false" value="天">天</option>
+	                                            <option th:attr="selected=(${crmUser.rateUnit} eq 次)?true:false" value="次">次</option>
+	                                        </select>
+	                                    </div>
+								        </li>
+								         <li >
+			                                <span class="tips">业务类型：</span>
+											<div class="vocation">
+			                                    <select class="select-common select1 validate[required]" name="businessType">
+			                                         <option value="">请选择</option>
+													<option th:each="pro : ${productList}" th:value="${pro.product_no}" th:text="${pro.product_type}"
+	    													th:attr="selected=(${pro.product_no} eq ${crmUser.businessType})?true:false"></option>
+			                                       <!--  <option value="1" th:attr="selected=(${crmUser.businessType} eq 1)?true:false">房产抵押贷</option>
+			                                        <option value="2" th:attr="selected=(${crmUser.businessType} eq 2)?true:false">信用贷</option>
+			                                        <option value="3" th:attr="selected=(${crmUser.businessType} eq 3)?true:false">垫资</option>
+			                                        <option value="5" th:attr="selected=(${crmUser.businessType} eq 5)?true:false">解查封</option> -->
+			                                    </select>
+			                                </div>
+			                            </li>
+			                            <li>
+											<span class="tips">客户来源：</span>
+		                                    <div class="vocation">
+		                                        <select class="select-common select1" name="source">
+		                                            <option value="">请选择</option>
+		                                            <option value="01" th:attr="selected=(${crmUser.source} eq 01)?true:false">陌拜</option>
+		                                            <option value="02" th:attr="selected=(${crmUser.source} eq 02)?true:false">电销</option>
+		                                            <option value="03" th:attr="selected=(${crmUser.source} eq 03)?true:false">转介绍</option>
+		                                            <option value="04" th:attr="selected=(${crmUser.source} eq 04)?true:false">网络</option>
+		                                            <option value="05" th:attr="selected=(${crmUser.source} eq 05)?true:false">报刊</option>
+		                                            <option value="06" th:attr="selected=(${crmUser.source} eq 06)?true:false">其他</option>
+		                                            <option value="07" th:attr="selected=(${crmUser.source} eq 07)?true:false">中视天脉</option>
+		                                        </select>
+		                                    </div>
+			                            </li>
+			                        </ul>
+			                    </div>
+			                    <div class="toolsli">
+									<p class="textCt pt10">
+										<input type="button" class="scbtn mlt10" id="btn_edit_flow"  value="保 存"/>
+				                        <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);"/>
+									</p>
+								</div>
+			                </form>
+		                </div>   
+		                <div id="tab2" class="tabson">
+		                	<div class="formtitle" style="margin-bottom: 0px;"><span>回访记录</span></div>
+							<div id="histoicFlow" th:include="crm/_histoicFlow"></div>
+		                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+    <!-- 正在呼叫 -->
+    <div class="dialAlert hidden" id="trying-dialog">
+		<p class="alertTitle">正在呼叫</p>
+		<p class="callingNumber"></p>
+		<p class="waitingTime">等待接听中</p>
+		<div class="callingCon">
+			<div class="callingIcon hangup"></div>
+		</div>
+	</div>
+	<!-- 正在通话 -->
+	<div class="dialAlert hidden" id="active-dialog">
+		<p class="alertTitle">正在通话</p>
+		<p class="callingNumber"></p>
+		<p class="waitingTime">00:00:00</p>
+		<div class="callingCon">
+			<div class="callingIcon hangup"></div>
+		</div>
+	</div>
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+	<script th:inline="javascript">
+    	/*<![CDATA[*/
+    		var staffName=[[${session.currentUser.staffName}]];
+	    	var sipAccount = [[${sipAccount}?${sipAccount}:null]];
+	    	var mobile = [[${mobile}?${mobile}:null]];
+	    	var isCallMobile=cookie.get("is-call-mobile");
+	    	var sdk=null;
+	    	var currentCall=null;
+	    	var currentTime=null;
+	    	var timer=null;
+	    	if(sipAccount&&mobile&&isCallMobile=="true"){
+	    		cookie.del("is-call-mobile");
+	    		$($(".itab a").get(1)).addClass("selected");
+	    		$("#siderbar").fadeOut("fast");
+	    		sdk = new UC_SDK({socketUrl:"wss://paaswebsocket.uccc.cc:8082/webrtc_"+sipAccount.sipnumber,ringFile:"/sounds/bell_ring2.wav"});  //xxxx为10位sip号码
+	    		sdk.login(sipAccount.sipnumber,sipAccount.password,function (success) {
+				    if (success) {
+				    	currentCall = sdk.call(mobile,function (dialog) {
+				    		if('trying'==dialog.state.name){//呼叫中
+				    			$(".dialAlert").hide();
+				    			$("#trying-dialog .callingNumber").html(mobile.substring(0,3)+"****"+mobile.substring(7,11));
+				    			$("#trying-dialog").show();
+				    		}
+				    		if('active'==dialog.state.name){//已接听，通话中
+				    			currentTime=new Date();
+				    			$(".dialAlert").hide();
+				    			$("#active-dialog .callingNumber").html(mobile.substring(0,3)+"****"+mobile.substring(7,11));
+				    			$("#active-dialog .waitingTime").html("00:00:00");
+				    			$("#active-dialog").show();
+				    			showCallTime();
+				    		}
+				    		if('hangup'==dialog.state.name){//挂断
+				    			if(null!=timer){
+				    				clearInterval(timer);
+				    			}
+				    			timer=null;
+				    			$(".dialAlert").hide();
+				    			$("#siderbar").fadeIn("slow");
+				    		}
+		                });
+				    } else {
+				        alert("登录SIP账号失败");//无法登录SIP账号
+				    }
+				});
+	    	}
+	    	$(".callingCon").on("click",function(){
+	    		currentCall.hangup();
+	    		clearInterval(timer);
+	    		timer=null;
+	    		$(".dialAlert").hide();
+	    		$("#siderbar").fadeIn("slow");
+	    	});
+	    	function showCallTime(){
+	    		timer=setInterval(function(){
+	    			var time=new Date();
+	    			var num=time.getTime()-currentTime.getTime();
+	    			var H=Math.floor(num/1000/60/60)+"";
+	    			var m=Math.floor((num%(1000*60*60))/1000/60)+"";
+	    			var s=Math.floor((num%(1000*60))/1000)+"";
+	    			var tempHtml=(H.length==1?"0"+H:H)+":"+(m.length==1?"0"+m:m)+":"+(s.length==1?"0"+s:s);
+	    			$("#active-dialog .waitingTime").html(tempHtml);
+	    		},1000);
+	    	};
+    		seajs.use("crm/crmIntentLoanUser");
+    	/*]]>*/
+    </script>
+</body>
+</html>

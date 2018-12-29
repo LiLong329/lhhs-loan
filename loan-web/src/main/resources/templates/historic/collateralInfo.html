@@ -1,0 +1,152 @@
+<div class="formtitle">
+    <span>房产信息</span>
+</div>
+<div class="toolsli">
+	<th:block th:unless="${#lists.isEmpty(houseLists)}">
+		<th:block th:each="house,iter : ${houseLists}">
+			<ul class="nbbdgl-Ui clearfix">
+		        <li>
+		            <span class="tips">产权证编号：</span>
+		            <span th:text="${house.propertyNum}"></span>
+		        </li>
+		        <li>
+		            <span class="tips">产权人：</span>
+		            <span th:text="${house.propertyName}"></span>
+		        </li>
+		        <li>
+		            <span class="tips">建筑面积：</span>
+		            <span th:text="${house.buildArea}?${#numbers.formatDecimal(house.buildArea,1,2)}+'㎡'"></span>
+		        </li>
+		        <li style="width: 80%;">
+		        	<span class="tips">抵押物坐落：</span>
+		        	<span th:text="${house.houseAddress}"></span>
+		        </li>
+		        <li>
+		            <span class="tips">建成年代：</span>
+		            <span th:text="${house.builtAge}+'年'"></span>
+		        </li>
+		        <li>
+		            <span class="tips">楼盘名称：</span>
+		            <span th:text="${house.realName}"></span>
+		        </li>
+		        <li>
+		            <span class="tips">居住情况：</span>
+		            <span>
+		            	<th:block th:if="${house.liveSituation} eq 0">出租</th:block>
+		            	<th:block th:if="${house.liveSituation} eq 1">自住</th:block>
+		            	<th:block th:if="${house.liveSituation} eq 2">亲戚居住</th:block>
+		            	<th:block th:if="${house.liveSituation} eq 3">其他</th:block>
+		            </span>
+		        </li>
+		        <li>
+		            <span class="tips">查询状态：</span>
+		            <span th:text="${house.queryStatus}"></span>
+		        </li>
+		        <li>
+		            <span class="tips">评估价：</span>
+		            <span th:text="${house.valuationPrice}?${#numbers.formatDecimal(house.valuationPrice,1,2)}+'万元'"></span>
+		        </li>
+		        <li>
+		            <span class="tips">快卖价：</span>
+		            <span th:text="${house.sellingPrice}?${#numbers.formatDecimal(house.sellingPrice,1,2)}+'万元'"></span>
+		        </li>
+		        <li>
+		            <span class="tips">抵押率：</span>
+		            <span th:text="${house.mortgageRate}?${#numbers.formatDecimal(house.mortgageRate,1,2)}+'%'"></span>
+		        </li>
+		        <li>
+		            <span class="tips">有无抵押：</span>
+		            <span>
+		            	<th:block th:if="${house.isMortgage} eq 0">有抵押</th:block>
+		            	<th:block th:if="${house.isMortgage} eq 1">无抵押</th:block>
+		            </span>
+		        </li>
+		        <li>
+		            <span class="tips">剩余价值：</span>
+		            <span th:text="${house.surplusValue}+'万元'"></span>
+		        </li>
+		        <li>
+		            <span class="tips">抵押顺位：</span>
+		            <span>
+		            	<th:block th:if="${house.mortgagePosition} eq 0">一抵</th:block>
+		            	<th:block th:if="${house.mortgagePosition} eq 1">二抵</th:block>
+		            	<th:block th:if="${house.mortgagePosition} eq 2">解查封</th:block>
+		            	<th:block th:if="${house.mortgagePosition} eq 3">垫资过桥</th:block>
+		            </span>
+		        </li>
+		        <li>
+		            <span class="tips">类型：</span>
+		            <span>
+		            	<th:block th:if="${house.houseType} eq 0">住宅</th:block>
+		            	<th:block th:if="${house.houseType} eq 1">商住</th:block>
+		            	<th:block th:if="${house.houseType} eq 2">公寓</th:block>
+		            	<th:block th:if="${house.houseType} eq 3">底商</th:block>
+		            	<th:block th:if="${house.houseType} eq 4">别墅</th:block>
+		            	<th:block th:if="${house.houseType} eq 5">办公</th:block>
+		            	<th:block th:if="${house.houseType} eq 6">其他</th:block>
+		            </span>
+		        </li>
+		        <li>
+		            <span class="tips">房产第二抵押权人：</span>
+		            <span th:text="${house.secondMortgageOwner}"></span>
+		        </li>
+		    </ul>
+			<div class="lines" th:if="${not iter.last}"></div>
+		</th:block>
+	</th:block>
+</div>
+<div class="formtitle">
+    <span>车产信息</span>
+</div>
+<div class="toolsli" id="carInfos">
+	<th:block th:unless="${#lists.isEmpty(carLists)}">
+		<th:block th:each="car,iter : ${carLists}">
+		    <ul class="nbbdgl-Ui clearfix">
+		        <li>
+		            <span class="tips">车牌号：</span>
+		            <span th:text="${car.licensePlate}"></span>
+		        </li>
+		        <li>
+		            <span class="tips">品牌型号：</span>
+		            <span th:text="${car.brandModel}"></span>
+		        </li>
+		        <li>
+		            <span class="tips">车龄：</span>
+		            <span th:text="${car.carAge}+'年'"></span>
+		        </li>
+		        <li>
+		            <span class="tips">排量：</span>
+		            <span th:text="${car.displacement}+'L'"></span>
+		        </li>
+		        <li>
+		            <span class="tips">公里数：</span>
+		            <span th:text="${car.kilometers}+'km'"></span>
+		        </li>
+		        <li>
+		            <span class="tips">购车年份：</span>
+		            <span th:text="${car.purchaseYear}+'年'"></span>
+		        </li>
+		        <li>
+		            <span class="tips">颜色：</span>
+		            <span th:text="${car.colour}"></span>
+		        </li>
+		        <li>
+		            <span class="tips">机动车登记证编号：</span>
+		            <span th:text="${car.vehicleNum}"></span>
+		        </li>
+		        <li>
+		            <span class="tips">驾驶证编号：</span>
+		            <span th:text="${car.driveCardNum}"></span>
+		        </li>
+		        <li style="width:100%;">
+                    <span class="tips">备注：</span>
+                    <span style="width: 80%;"  th:text="${car.remark}"></span>
+                </li>
+		    </ul>
+			<div class="lines" th:if="${not iter.last}"></div>
+		</th:block>
+	</th:block>
+</div>
+<p class="textCt pt20">
+    <input type="button" class="scbtn2" value="返 回" onclick="javascript:history.go(-1);"/>
+</p>

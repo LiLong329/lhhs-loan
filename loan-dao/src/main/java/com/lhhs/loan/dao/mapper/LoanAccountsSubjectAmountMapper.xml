@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanAccountsSubjectAmountMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanAccountsSubjectAmount" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="subject_id" property="subjectId" jdbcType="VARCHAR" />
+    <result column="debit_amount" property="debitAmount" jdbcType="DECIMAL" />
+    <result column="credit_amount" property="creditAmount" jdbcType="DECIMAL" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="belong_date" property="belongDate" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, account_id, subject_id, debit_amount, credit_amount, amount, belong_date, status, 
+    create_user, create_time, last_user, last_modify_time, field1, field2, field3, field4, 
+    field5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_accounts_subject_amount
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_accounts_subject_amount
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanAccountsSubjectAmount" >
+    insert into loan_accounts_subject_amount (id, account_id, subject_id, 
+      debit_amount, credit_amount, amount, 
+      belong_date, status, create_user, 
+      create_time, last_user, last_modify_time, 
+      field1, field2, field3, 
+      field4, field5)
+    values (#{id,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, #{subjectId,jdbcType=VARCHAR}, 
+      #{debitAmount,jdbcType=DECIMAL}, #{creditAmount,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, 
+      #{belongDate,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastUser,jdbcType=VARCHAR}, #{lastModifyTime,jdbcType=TIMESTAMP}, 
+      #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, 
+      #{field4,jdbcType=VARCHAR}, #{field5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanAccountsSubjectAmount" >
+    insert into loan_accounts_subject_amount
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="subjectId != null" >
+        subject_id,
+      </if>
+      <if test="debitAmount != null" >
+        debit_amount,
+      </if>
+      <if test="creditAmount != null" >
+        credit_amount,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="belongDate != null" >
+        belong_date,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUser != null" >
+        last_user,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectId != null" >
+        #{subjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="debitAmount != null" >
+        #{debitAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="creditAmount != null" >
+        #{creditAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="belongDate != null" >
+        #{belongDate,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanAccountsSubjectAmount" >
+    update loan_accounts_subject_amount
+    <set >
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectId != null" >
+        subject_id = #{subjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="debitAmount != null" >
+        debit_amount = #{debitAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="creditAmount != null" >
+        credit_amount = #{creditAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="belongDate != null" >
+        belong_date = #{belongDate,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+      last_modify_time = now(3)
+    </set>
+    where id = #{id} and last_modify_time=#{lastModifyTime}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanAccountsSubjectAmount" >
+    update loan_accounts_subject_amount
+    set account_id = #{accountId,jdbcType=VARCHAR},
+      subject_id = #{subjectId,jdbcType=VARCHAR},
+      debit_amount = #{debitAmount,jdbcType=DECIMAL},
+      credit_amount = #{creditAmount,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=DECIMAL},
+      belong_date = #{belongDate,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      last_modify_time = now(3),
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where id = #{id} and last_modify_time=#{lastModifyTime}
+  </update>
+  <update id="updateAmount" parameterType="com.lhhs.loan.dao.domain.LoanAccountsSubjectAmount" >
+    update loan_accounts_subject_amount
+    set 
+      debit_amount = debit_amount+#{debitAmount},
+      credit_amount = credit_amount+#{creditAmount},
+      amount = debit_amount-credit_amount,
+      last_user = #{lastUser},
+      last_modify_time = now(3)
+    where id = #{id} and last_modify_time=#{lastModifyTime}
+  </update>
+</mapper>

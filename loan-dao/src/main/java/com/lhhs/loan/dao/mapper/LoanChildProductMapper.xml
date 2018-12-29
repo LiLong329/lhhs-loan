@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanChildProductMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanChildProduct" >
+    <id column="product_id" property="productId" jdbcType="VARCHAR" />
+    <result column="product_parent_no" property="productParentNo" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_type" property="productType" jdbcType="VARCHAR" />
+    <result column="fund_owner" property="fundOwner" jdbcType="BIGINT" />
+    <result column="min_amount" property="minAmount" jdbcType="INTEGER" />
+    <result column="max_amount" property="maxAmount" jdbcType="INTEGER" />
+    <result column="min_expires" property="minExpires" jdbcType="INTEGER" />
+    <result column="max_expires" property="maxExpires" jdbcType="INTEGER" />
+    <result column="expires_unit" property="expiresUnit" jdbcType="VARCHAR" />
+    <result column="min_rate" property="minRate" jdbcType="DECIMAL" />
+    <result column="max_rate" property="maxRate" jdbcType="DECIMAL" />
+    <result column="rate_unit" property="rateUnit" jdbcType="VARCHAR" />
+    <result column="min_rate_two" property="minRateTwo" jdbcType="DECIMAL" />
+    <result column="max_rate_two" property="maxRateTwo" jdbcType="DECIMAL" />
+    <result column="rate_unit_two" property="rateUnitTwo" jdbcType="VARCHAR" />
+    <result column="litimg_url" property="litimgUrl" jdbcType="VARCHAR" />
+    <result column="product_image" property="productImage" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="product_status" property="productStatus" jdbcType="VARCHAR" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lhhs.loan.dao.domain.LoanChildProductWithBLOBs" extends="BaseResultMap" >
+    <result column="product_advantage" property="productAdvantage" jdbcType="LONGVARCHAR" />
+    <result column="fee_description" property="feeDescription" jdbcType="LONGVARCHAR" />
+    <result column="application_conditions" property="applicationConditions" jdbcType="LONGVARCHAR" />
+    <result column="material_requested" property="materialRequested" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap type="com.lhhs.loan.dao.domain.LoanChildProductWithBLOBs" id="childProductMap" extends="ResultMapWithBLOBs">
+    <collection property="credentialList" ofType="com.lhhs.loan.dao.domain.LoanCredentials">
+	   <id column="credentials_id" property="credentialsId" jdbcType="VARCHAR" />
+       <result column="credentials_name" property="credentialsName" jdbcType="VARCHAR" />
+       <result column="credentials_type" property="credentialsType" jdbcType="VARCHAR" />
+       <result column="required" property="required" jdbcType="VARCHAR" />
+       <result column="pro_required" property="proRequired" jdbcType="VARCHAR" />
+	</collection>
+  </resultMap>
+  <select id="getCredentialsProductById" resultMap="childProductMap">
+	SELECT 
+		c.credentials_id,
+		c.credentials_name,
+		c.credentials_type,
+		c.required,
+		a.pro_required,
+		p.*
+	FROM `loan_credentials` c 
+	LEFT JOIN ( 
+			SELECT pc.pro_credentials_no,pc.pro_required from  
+			loan_product_credentials pc  
+			WHERE  pc.product_id= #{id }
+			)a ON a.pro_credentials_no=c.credentials_id
+	,loan_child_product p
+	WHERE
+		p.product_id = #{id }  AND c.status = 1
+</select> 
+  <sql id="Base_Column_List" >
+    product_id, product_parent_no, product_name, fund_owner, min_amount, max_amount, 
+    min_expires, max_expires, expires_unit, min_rate, max_rate, rate_unit, min_rate_two, 
+    max_rate_two, rate_unit_two, litimg_url, product_image, create_time, product_status
+  </sql>
+  <sql id="Blob_Column_List" >
+    product_advantage, fee_description, application_conditions, material_requested
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select *
+    from loan_child_product 
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_child_product
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanChildProductWithBLOBs" >
+    insert into loan_child_product (product_id, product_parent_no, product_name, 
+      fund_owner, min_amount, max_amount, 
+      min_expires, max_expires, expires_unit, 
+      min_rate, max_rate, rate_unit, 
+      min_rate_two, max_rate_two, rate_unit_two, 
+      litimg_url, product_image, create_time, 
+      product_status, product_advantage, fee_description, 
+      application_conditions, material_requested
+      )
+    values (#{productId,jdbcType=VARCHAR}, #{productParentNo,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, 
+      #{fundOwner,jdbcType=BIGINT}, #{minAmount,jdbcType=INTEGER}, #{maxAmount,jdbcType=INTEGER}, 
+      #{minExpires,jdbcType=INTEGER}, #{maxExpires,jdbcType=INTEGER}, #{expiresUnit,jdbcType=VARCHAR}, 
+      #{minRate,jdbcType=DECIMAL}, #{maxRate,jdbcType=DECIMAL}, #{rateUnit,jdbcType=VARCHAR}, 
+      #{minRateTwo,jdbcType=DECIMAL}, #{maxRateTwo,jdbcType=DECIMAL}, #{rateUnitTwo,jdbcType=VARCHAR}, 
+      #{litimgUrl,jdbcType=VARCHAR}, #{productImage,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{productStatus,jdbcType=VARCHAR}, #{productAdvantage,jdbcType=LONGVARCHAR}, #{feeDescription,jdbcType=LONGVARCHAR}, 
+      #{applicationConditions,jdbcType=LONGVARCHAR}, #{materialRequested,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanChildProductWithBLOBs">
+    insert into loan_child_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="productParentNo != null" >
+        product_parent_no,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="fundOwner != null" >
+        fund_owner,
+      </if>
+      <if test="minAmount != null" >
+        min_amount,
+      </if>
+      <if test="maxAmount != null" >
+        max_amount,
+      </if>
+      <if test="minExpires != null" >
+        min_expires,
+      </if>
+      <if test="maxExpires != null" >
+        max_expires,
+      </if>
+      <if test="expiresUnit != null" >
+        expires_unit,
+      </if>
+      <if test="minRate != null" >
+        min_rate,
+      </if>
+      <if test="maxRate != null" >
+        max_rate,
+      </if>
+      <if test="rateUnit != null" >
+        rate_unit,
+      </if>
+      <if test="minRateTwo != null" >
+        min_rate_two,
+      </if>
+      <if test="maxRateTwo != null" >
+        max_rate_two,
+      </if>
+      <if test="rateUnitTwo != null" >
+        rate_unit_two,
+      </if>
+      <if test="litimgUrl != null" >
+        litimg_url,
+      </if>
+      <if test="productImage != null" >
+        product_image,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="productStatus != null" >
+        product_status,
+      </if>
+      <if test="productAdvantage != null" >
+        product_advantage,
+      </if>
+      <if test="feeDescription != null" >
+        fee_description,
+      </if>
+      <if test="applicationConditions != null" >
+        application_conditions,
+      </if>
+      <if test="materialRequested != null" >
+        material_requested,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="productParentNo != null" >
+        #{productParentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="fundOwner != null" >
+        #{fundOwner,jdbcType=BIGINT},
+      </if>
+      <if test="minAmount != null" >
+        #{minAmount,jdbcType=INTEGER},
+      </if>
+      <if test="maxAmount != null" >
+        #{maxAmount,jdbcType=INTEGER},
+      </if>
+      <if test="minExpires != null" >
+        #{minExpires,jdbcType=INTEGER},
+      </if>
+      <if test="maxExpires != null" >
+        #{maxExpires,jdbcType=INTEGER},
+      </if>
+      <if test="expiresUnit != null" >
+        #{expiresUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="minRate != null" >
+        #{minRate,jdbcType=DECIMAL},
+      </if>
+      <if test="maxRate != null" >
+        #{maxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="rateUnit != null" >
+        #{rateUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="minRateTwo != null" >
+        #{minRateTwo,jdbcType=DECIMAL},
+      </if>
+      <if test="maxRateTwo != null" >
+        #{maxRateTwo,jdbcType=DECIMAL},
+      </if>
+      <if test="rateUnitTwo != null" >
+        #{rateUnitTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="litimgUrl != null" >
+        #{litimgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="productImage != null" >
+        #{productImage,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productStatus != null" >
+        #{productStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="productAdvantage != null" >
+        #{productAdvantage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="feeDescription != null" >
+        #{feeDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="applicationConditions != null" >
+        #{applicationConditions,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="materialRequested != null" >
+        #{materialRequested,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanChildProductWithBLOBs" >
+    update loan_child_product
+    <set >
+      <if test="productParentNo != null" >
+        product_parent_no = #{productParentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="fundOwner != null" >
+        fund_owner = #{fundOwner,jdbcType=BIGINT},
+      </if>
+      <if test="minAmount != null" >
+        min_amount = #{minAmount,jdbcType=INTEGER},
+      </if>
+      <if test="maxAmount != null" >
+        max_amount = #{maxAmount,jdbcType=INTEGER},
+      </if>
+      <if test="minExpires != null" >
+        min_expires = #{minExpires,jdbcType=INTEGER},
+      </if>
+      <if test="maxExpires != null" >
+        max_expires = #{maxExpires,jdbcType=INTEGER},
+      </if>
+      <if test="expiresUnit != null" >
+        expires_unit = #{expiresUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="minRate != null" >
+        min_rate = #{minRate,jdbcType=DECIMAL},
+      </if>
+      <if test="maxRate != null" >
+        max_rate = #{maxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="rateUnit != null" >
+        rate_unit = #{rateUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="minRateTwo != null" >
+        min_rate_two = #{minRateTwo,jdbcType=DECIMAL},
+      </if>
+      <if test="maxRateTwo != null" >
+        max_rate_two = #{maxRateTwo,jdbcType=DECIMAL},
+      </if>
+      <if test="rateUnitTwo != null" >
+        rate_unit_two = #{rateUnitTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="litimgUrl != null" >
+        litimg_url = #{litimgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="productImage != null" >
+        product_image = #{productImage,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productStatus != null" >
+        product_status = #{productStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="productAdvantage != null" >
+        product_advantage = #{productAdvantage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="feeDescription != null" >
+        fee_description = #{feeDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="applicationConditions != null" >
+        application_conditions = #{applicationConditions,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="materialRequested != null" >
+        material_requested = #{materialRequested,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lhhs.loan.dao.domain.LoanChildProductWithBLOBs" >
+    update loan_child_product
+    set product_parent_no = #{productParentNo,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      fund_owner = #{fundOwner,jdbcType=BIGINT},
+      min_amount = #{minAmount,jdbcType=INTEGER},
+      max_amount = #{maxAmount,jdbcType=INTEGER},
+      min_expires = #{minExpires,jdbcType=INTEGER},
+      max_expires = #{maxExpires,jdbcType=INTEGER},
+      expires_unit = #{expiresUnit,jdbcType=VARCHAR},
+      min_rate = #{minRate,jdbcType=DECIMAL},
+      max_rate = #{maxRate,jdbcType=DECIMAL},
+      rate_unit = #{rateUnit,jdbcType=VARCHAR},
+      min_rate_two = #{minRateTwo,jdbcType=DECIMAL},
+      max_rate_two = #{maxRateTwo,jdbcType=DECIMAL},
+      rate_unit_two = #{rateUnitTwo,jdbcType=VARCHAR},
+      litimg_url = #{litimgUrl,jdbcType=VARCHAR},
+      product_image = #{productImage,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      product_status = #{productStatus,jdbcType=VARCHAR},
+      product_advantage = #{productAdvantage,jdbcType=LONGVARCHAR},
+      fee_description = #{feeDescription,jdbcType=LONGVARCHAR},
+      application_conditions = #{applicationConditions,jdbcType=LONGVARCHAR},
+      material_requested = #{materialRequested,jdbcType=LONGVARCHAR}
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanChildProduct" >
+    update loan_child_product
+    set product_parent_no = #{productParentNo,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      fund_owner = #{fundOwner,jdbcType=BIGINT},
+      min_amount = #{minAmount,jdbcType=INTEGER},
+      max_amount = #{maxAmount,jdbcType=INTEGER},
+      min_expires = #{minExpires,jdbcType=INTEGER},
+      max_expires = #{maxExpires,jdbcType=INTEGER},
+      expires_unit = #{expiresUnit,jdbcType=VARCHAR},
+      min_rate = #{minRate,jdbcType=DECIMAL},
+      max_rate = #{maxRate,jdbcType=DECIMAL},
+      rate_unit = #{rateUnit,jdbcType=VARCHAR},
+      min_rate_two = #{minRateTwo,jdbcType=DECIMAL},
+      max_rate_two = #{maxRateTwo,jdbcType=DECIMAL},
+      rate_unit_two = #{rateUnitTwo,jdbcType=VARCHAR},
+      litimg_url = #{litimgUrl,jdbcType=VARCHAR},
+      product_image = #{productImage,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      product_status = #{productStatus,jdbcType=VARCHAR}
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </update>
+  <!--根据一级id查询二级产品列表  -->
+  <select id="queryProductById" parameterType="map" resultMap="BaseResultMap">
+  select lcp.*,lo.org_name
+  from loan_child_product lcp
+  left join loan_organization lo on lcp.fund_owner=lo.org_id
+  where lcp.product_parent_no=#{product_no}
+  <if test="product_name != null and product_name != ''">
+  	and lcp.product_name like CONCAT('%', #{product_name}, '%')
+  </if>	
+  order by lcp.create_time desc
+  <if test="page!= null">
+  	limit #{page.pageStartIndex},#{page.pageSize}
+  </if>	
+  </select>
+  
+  <select id="queryProductInfo" parameterType="map" resultMap="BaseResultMap">
+  select 
+    *
+  from loan_child_product
+  where product_id=#{product_id}
+  </select>
+  <!-- 根据二级产品编号查询相关资质 -->
+  <select id="queryProductCredentInfo" parameterType="String" resultMap="BaseResultMap">
+  select pro_crendentials_type,pro_required,pro_credentials_name,product_id
+  from loan_product_credentials
+  where product_id=#{product_id}
+  </select>
+  
+  <select id="queryProductInfoById" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    lcp.*
+    ,lo.org_name
+    from loan_child_product lcp
+    left join loan_organization  lo on lcp.fund_owner=lo.org_id   
+    where lcp.product_id = #{productId,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- ########################################### Li Jianjun Start ########################################### -->
+  <!--  -->
+  <select id="selectChildProductByOrgId" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	SELECT
+  		lcp.*, lpp.product_type
+  	FROM 
+  	 	loan_child_product lcp
+  	INNER JOIN
+  		loan_parent_product lpp ON lpp.product_no = lcp.product_parent_no
+  	INNER JOIN
+  		loan_product_support_areas lpsa ON lpsa.product_id = lcp.product_id
+  	WHERE lcp.product_status='1' and lpp.product_state='1'
+  		and lcp.fund_owner = #{orgId}
+  	<if test="city != null and city!=''" >
+        AND lpsa.city_name = #{city}
+    </if>
+    GROUP BY lcp.product_id
+  </select>
+  
+  <!-- ########################################### Li Jianjun End   ########################################### -->
+</mapper>

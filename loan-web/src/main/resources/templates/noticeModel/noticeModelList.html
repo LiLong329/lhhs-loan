@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<body>
+	<div class="father">
+		<header th:replace="common/top"></header>
+		<div class="common-content">
+			<div th:replace="common/left"></div>
+			<div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>系统管理</li>
+                        <li>通知信息管理</li>
+                        <li>通知模板管理</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                    	<div class="itab">
+                            <ul>
+                                <li><a href="/noticeModel/list/1" th:attr="class=(${type} eq '1'?selected:'')">业务类事件</a></li>
+                                <li><a href="/noticeModel/list/2" th:attr="class=(${type} eq '2'?selected:'')">资金类事件</a></li>
+                                
+                            </ul>
+                            <input sec:authorize="hasRole('ROLE_NOTICE_MODEL_ADD')" id="addBtn" type="button" class="scbtn1" value="新增" style="float: right;"/>
+			                
+                        </div>
+                        <div id="usual1" class="usual">
+                            <th:block th:if="${modelMap.size() gt 0}" th:each="model : ${modelMap}">
+	                            <div class="formtitle">
+		                            <span th:text="${model.key}"></span>
+	                            </div>
+	                            <table class="tablelist">
+									<thead>
+										<tr>
+											<th>通知方式</th>
+											<th>内容预览</th>
+											<th>发送对象</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<th:block th:unless="${#lists.isEmpty(model.value)}">
+											<tr th:each="modelDtail,iter: ${model.value}">
+												<td th:switch="${modelDtail.noticeType}">
+													<th:block th:case="1">短信</th:block>
+													<th:block th:case="2">邮件</th:block>
+													<th:block th:case="3">站内消息</th:block>
+												</td>
+												<td th:text="${modelDtail.content}"></td>
+												<td>
+													<th:block th:unless="${#lists.isEmpty(modelDtail.quartersNameList)}">
+				                                        <p class="line-limit-length">
+					                                        <th:block th:each="quarters : ${modelDtail.quartersNameList}">
+					                                        	<span th:text="${quarters}"></span>
+					                                        </th:block>
+				                                        </p>
+			                                        </th:block>
+												</td>
+												<th:block th:if="${iter.index eq 0}">
+													<td th:attr="rowspan=${model.value.size()}">
+														<a sec:authorize="hasRole('ROLE_NOTICE_MODEL_EDIT')" th:href="@{/noticeModel/toEdit(modelType=${modelDtail.modelType},englishName=${modelDtail.englishName},receiver=${modelDtail.receiver},name=${modelDtail.name})}" class="tablelink">编辑</a>
+													</td>
+												</th:block>
+											</tr>
+										</th:block>
+									</tbody>
+								</table>
+							</th:block>
+							
+                            <th:block th:if="${modelMap.size() eq 0}">
+	                            <div class="formtitle">
+	                            </div>
+	                            <table class="tablelist">
+									<thead>
+										<tr>
+											<th>通知方式</th>
+											<th>内容预览</th>
+											<th>发送对象</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td colspan="4" class="textCt">暂无数据</td>
+										</tr>
+									</tbody>
+								</table>
+							</th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+		<footer th:replace="common/footer"></footer>
+	</div>
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+	<script th:inline="javascript">
+    	/*<![CDATA[*/
+	    	seajs.use("noticeModel/noticeModel");
+    	/*]]>*/
+    </script>
+</body>
+</html>

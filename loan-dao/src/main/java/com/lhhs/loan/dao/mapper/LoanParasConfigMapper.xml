@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanParasConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanParasConfig" >
+    <id column="lpc_id" property="lpcId" jdbcType="VARCHAR" />
+    <result column="lpc_is_guarantee" property="lpcIsGuarantee" jdbcType="CHAR" />
+    <result column="lpc_is_advance" property="lpcIsAdvance" jdbcType="CHAR" />
+    <result column="lpc_interest_type" property="lpcInterestType" jdbcType="CHAR" />
+    <result column="lpc_interest_regular" property="lpcInterestRegular" jdbcType="TIMESTAMP" />
+    <result column="lpc_pay_type" property="lpcPayType" jdbcType="CHAR" />
+    <result column="lpc_pay_regular" property="lpcPayRegular" jdbcType="TIMESTAMP" />
+    <result column="lpc_overdue_inte_type" property="lpcOverdueInteType" jdbcType="DECIMAL" />
+    <result column="lpc_overdue_inte_type_unit" property="lpcOverdueInteTypeUnit" jdbcType="VARCHAR" />
+    <result column="lpc_debt_inte_rate" property="lpcDebtInteRate" jdbcType="DECIMAL" />
+    <result column="lpc_debt_inte_rate_unit" property="lpcDebtInteRateUnit" jdbcType="VARCHAR" />
+    <result column="lpc_repay_liqu_rate" property="lpcRepayLiquRate" jdbcType="DECIMAL" />
+    <result column="lpc_repay_liqu_rate_unit" property="lpcRepayLiquRateUnit" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="lpc_over_out_rate" property="lpcOverOutRate" jdbcType="DECIMAL" />
+    <result column="lpc_over_out_rate_unit" property="lpcOverOutRateUnit" jdbcType="VARCHAR" />
+    <result column="lpc_pay_liqu_rate" property="lpcPayLiquRate" jdbcType="DECIMAL" />
+    <result column="lpc_pay_liqu_rate_unit" property="lpcPayLiquRateUnit" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lpc_id, lpc_is_guarantee, lpc_is_advance, lpc_interest_type, lpc_interest_regular, 
+    lpc_pay_type, lpc_pay_regular, lpc_overdue_inte_type, lpc_overdue_inte_type_unit, 
+    lpc_debt_inte_rate, lpc_debt_inte_rate_unit, lpc_repay_liqu_rate, lpc_repay_liqu_rate_unit, 
+    order_no, remark, lpc_over_out_rate, lpc_over_out_rate_unit, lpc_pay_liqu_rate, lpc_pay_liqu_rate_unit
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_paras_config
+    where lpc_id = #{lpcId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_paras_config
+    where lpc_id = #{lpcId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanParasConfig" >
+    insert into loan_paras_config (lpc_id, lpc_is_guarantee, lpc_is_advance, 
+      lpc_interest_type, lpc_interest_regular, lpc_pay_type, 
+      lpc_pay_regular, lpc_overdue_inte_type, lpc_overdue_inte_type_unit, 
+      lpc_debt_inte_rate, lpc_debt_inte_rate_unit, lpc_repay_liqu_rate, 
+      lpc_repay_liqu_rate_unit, order_no, remark, 
+      lpc_over_out_rate, lpc_over_out_rate_unit, lpc_pay_liqu_rate, 
+      lpc_pay_liqu_rate_unit)
+    values (#{lpcId,jdbcType=VARCHAR}, #{lpcIsGuarantee,jdbcType=CHAR}, #{lpcIsAdvance,jdbcType=CHAR}, 
+      #{lpcInterestType,jdbcType=CHAR}, #{lpcInterestRegular,jdbcType=TIMESTAMP}, #{lpcPayType,jdbcType=CHAR}, 
+      #{lpcPayRegular,jdbcType=TIMESTAMP}, #{lpcOverdueInteType,jdbcType=DECIMAL}, #{lpcOverdueInteTypeUnit,jdbcType=VARCHAR}, 
+      #{lpcDebtInteRate,jdbcType=DECIMAL}, #{lpcDebtInteRateUnit,jdbcType=VARCHAR}, #{lpcRepayLiquRate,jdbcType=DECIMAL}, 
+      #{lpcRepayLiquRateUnit,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{lpcOverOutRate,jdbcType=DECIMAL}, #{lpcOverOutRateUnit,jdbcType=VARCHAR}, #{lpcPayLiquRate,jdbcType=DECIMAL}, 
+      #{lpcPayLiquRateUnit,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanParasConfig" >
+    insert into loan_paras_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lpcId != null" >
+        lpc_id,
+      </if>
+      <if test="lpcIsGuarantee != null" >
+        lpc_is_guarantee,
+      </if>
+      <if test="lpcIsAdvance != null" >
+        lpc_is_advance,
+      </if>
+      <if test="lpcInterestType != null" >
+        lpc_interest_type,
+      </if>
+      <if test="lpcInterestRegular != null" >
+        lpc_interest_regular,
+      </if>
+      <if test="lpcPayType != null" >
+        lpc_pay_type,
+      </if>
+      <if test="lpcPayRegular != null" >
+        lpc_pay_regular,
+      </if>
+      <if test="lpcOverdueInteType != null" >
+        lpc_overdue_inte_type,
+      </if>
+      <if test="lpcOverdueInteTypeUnit != null" >
+        lpc_overdue_inte_type_unit,
+      </if>
+      <if test="lpcDebtInteRate != null" >
+        lpc_debt_inte_rate,
+      </if>
+      <if test="lpcDebtInteRateUnit != null" >
+        lpc_debt_inte_rate_unit,
+      </if>
+      <if test="lpcRepayLiquRate != null" >
+        lpc_repay_liqu_rate,
+      </if>
+      <if test="lpcRepayLiquRateUnit != null" >
+        lpc_repay_liqu_rate_unit,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="lpcOverOutRate != null" >
+        lpc_over_out_rate,
+      </if>
+      <if test="lpcOverOutRateUnit != null" >
+        lpc_over_out_rate_unit,
+      </if>
+      <if test="lpcPayLiquRate != null" >
+        lpc_pay_liqu_rate,
+      </if>
+      <if test="lpcPayLiquRateUnit != null" >
+        lpc_pay_liqu_rate_unit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lpcId != null" >
+        #{lpcId,jdbcType=VARCHAR},
+      </if>
+      <if test="lpcIsGuarantee != null" >
+        #{lpcIsGuarantee,jdbcType=CHAR},
+      </if>
+      <if test="lpcIsAdvance != null" >
+        #{lpcIsAdvance,jdbcType=CHAR},
+      </if>
+      <if test="lpcInterestType != null" >
+        #{lpcInterestType,jdbcType=CHAR},
+      </if>
+      <if test="lpcInterestRegular != null" >
+        #{lpcInterestRegular,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lpcPayType != null" >
+        #{lpcPayType,jdbcType=CHAR},
+      </if>
+      <if test="lpcPayRegular != null" >
+        #{lpcPayRegular,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lpcOverdueInteType != null" >
+        #{lpcOverdueInteType,jdbcType=DECIMAL},
+      </if>
+      <if test="lpcOverdueInteTypeUnit != null" >
+        #{lpcOverdueInteTypeUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="lpcDebtInteRate != null" >
+        #{lpcDebtInteRate,jdbcType=DECIMAL},
+      </if>
+      <if test="lpcDebtInteRateUnit != null" >
+        #{lpcDebtInteRateUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="lpcRepayLiquRate != null" >
+        #{lpcRepayLiquRate,jdbcType=DECIMAL},
+      </if>
+      <if test="lpcRepayLiquRateUnit != null" >
+        #{lpcRepayLiquRateUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="lpcOverOutRate != null" >
+        #{lpcOverOutRate,jdbcType=DECIMAL},
+      </if>
+      <if test="lpcOverOutRateUnit != null" >
+        #{lpcOverOutRateUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="lpcPayLiquRate != null" >
+        #{lpcPayLiquRate,jdbcType=DECIMAL},
+      </if>
+      <if test="lpcPayLiquRateUnit != null" >
+        #{lpcPayLiquRateUnit,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanParasConfig" >
+    update loan_paras_config
+    <set >
+      <if test="lpcIsGuarantee != null" >
+        lpc_is_guarantee = #{lpcIsGuarantee,jdbcType=CHAR},
+      </if>
+      <if test="lpcIsAdvance != null" >
+        lpc_is_advance = #{lpcIsAdvance,jdbcType=CHAR},
+      </if>
+      <if test="lpcInterestType != null" >
+        lpc_interest_type = #{lpcInterestType,jdbcType=CHAR},
+      </if>
+      <if test="lpcInterestRegular != null" >
+        lpc_interest_regular = #{lpcInterestRegular,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lpcPayType != null" >
+        lpc_pay_type = #{lpcPayType,jdbcType=CHAR},
+      </if>
+      <if test="lpcPayRegular != null" >
+        lpc_pay_regular = #{lpcPayRegular,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lpcOverdueInteType != null" >
+        lpc_overdue_inte_type = #{lpcOverdueInteType,jdbcType=DECIMAL},
+      </if>
+      <if test="lpcOverdueInteTypeUnit != null" >
+        lpc_overdue_inte_type_unit = #{lpcOverdueInteTypeUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="lpcDebtInteRate != null" >
+        lpc_debt_inte_rate = #{lpcDebtInteRate,jdbcType=DECIMAL},
+      </if>
+      <if test="lpcDebtInteRateUnit != null" >
+        lpc_debt_inte_rate_unit = #{lpcDebtInteRateUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="lpcRepayLiquRate != null" >
+        lpc_repay_liqu_rate = #{lpcRepayLiquRate,jdbcType=DECIMAL},
+      </if>
+      <if test="lpcRepayLiquRateUnit != null" >
+        lpc_repay_liqu_rate_unit = #{lpcRepayLiquRateUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="lpcOverOutRate != null" >
+        lpc_over_out_rate = #{lpcOverOutRate,jdbcType=DECIMAL},
+      </if>
+      <if test="lpcOverOutRateUnit != null" >
+        lpc_over_out_rate_unit = #{lpcOverOutRateUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="lpcPayLiquRate != null" >
+        lpc_pay_liqu_rate = #{lpcPayLiquRate,jdbcType=DECIMAL},
+      </if>
+      <if test="lpcPayLiquRateUnit != null" >
+        lpc_pay_liqu_rate_unit = #{lpcPayLiquRateUnit,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lpc_id = #{lpcId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanParasConfig" >
+    update loan_paras_config
+    set lpc_is_guarantee = #{lpcIsGuarantee,jdbcType=CHAR},
+      lpc_is_advance = #{lpcIsAdvance,jdbcType=CHAR},
+      lpc_interest_type = #{lpcInterestType,jdbcType=CHAR},
+      lpc_interest_regular = #{lpcInterestRegular,jdbcType=TIMESTAMP},
+      lpc_pay_type = #{lpcPayType,jdbcType=CHAR},
+      lpc_pay_regular = #{lpcPayRegular,jdbcType=TIMESTAMP},
+      lpc_overdue_inte_type = #{lpcOverdueInteType,jdbcType=DECIMAL},
+      lpc_overdue_inte_type_unit = #{lpcOverdueInteTypeUnit,jdbcType=VARCHAR},
+      lpc_debt_inte_rate = #{lpcDebtInteRate,jdbcType=DECIMAL},
+      lpc_debt_inte_rate_unit = #{lpcDebtInteRateUnit,jdbcType=VARCHAR},
+      lpc_repay_liqu_rate = #{lpcRepayLiquRate,jdbcType=DECIMAL},
+      lpc_repay_liqu_rate_unit = #{lpcRepayLiquRateUnit,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      lpc_over_out_rate = #{lpcOverOutRate,jdbcType=DECIMAL},
+      lpc_over_out_rate_unit = #{lpcOverOutRateUnit,jdbcType=VARCHAR},
+      lpc_pay_liqu_rate = #{lpcPayLiquRate,jdbcType=DECIMAL},
+      lpc_pay_liqu_rate_unit = #{lpcPayLiquRateUnit,jdbcType=VARCHAR}
+    where lpc_id = #{lpcId,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 自定义方法 -->
+  <select id="selectByOrderNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_paras_config
+    where order_no = #{orderNo,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="queryList" resultType="com.lhhs.loan.dao.domain.LoanParasConfig">
+		SELECT * FROM loan_paras_config  m
+		WHERE 1 = 1 
+		<trim>
+			<if test="null != lpcId and '' != lpcId">
+				AND lpc_id = #{lpcId }
+			</if>
+			<if test="null != lpcIsGuarantee and '' != lpcIsGuarantee">
+				AND lpc_is_guarantee = #{lpcIsGuarantee }
+			</if>
+			<if test="null != lpcIsAdvance and '' != lpcIsAdvance">
+				AND lpc_is_advance = #{lpcIsAdvance }
+			</if>
+			<if test="null != lpcInterestType and '' != lpcInterestType">
+				AND lpc_interest_type = #{lpcInterestType }
+			</if>
+			<if test="null != lpcInterestRegular and '' != lpcInterestRegular">
+				AND lpc_interest_regular = #{lpcInterestRegular }
+			</if>
+			<if test="null != lpcPayType and '' != lpcPayType">
+				AND lpc_pay_type = #{lpcPayType }
+			</if>
+			<if test="null != lpcPayRegular and '' != lpcPayRegular">
+				AND lpc_pay_regular = #{lpcPayRegular }
+			</if>
+			<if test="null != lpcOverdueInteType and '' != lpcOverdueInteType">
+				AND lpc_overdue_inte_type = #{lpcOverdueInteType }
+			</if>
+			<if test="null != lpcOverdueInteTypeUnit and '' != lpcOverdueInteTypeUnit">
+				AND lpc_overdue_inte_type_unit = #{lpcOverdueInteTypeUnit }
+			</if>
+			<if test="null != lpcDebtInteRate and '' != lpcDebtInteRate">
+				AND lpc_debt_inte_rate = #{lpcDebtInteRate }
+			</if>
+			<if test="null != lpcDebtInteRateUnit and '' != lpcDebtInteRateUnit">
+				AND lpc_debt_inte_rate_unit = #{lpcDebtInteRateUnit }
+			</if>
+			<if test="null != lpcRepayLiquRate and '' != lpcRepayLiquRate">
+				AND lpc_repay_liqu_rate = #{lpcRepayLiquRate }
+			</if>
+			<if test="null != lpcRepayLiquRateUnit and '' != lpcRepayLiquRateUnit">
+				AND lpc_repay_liqu_rate_unit = #{lpcRepayLiquRateUnit }
+			</if>
+			<if test="null != orderNo and '' != orderNo">
+				AND order_no = #{orderNo }
+			</if>
+		</trim>
+		ORDER BY lpc_id desc
+	</select>
+ 	
+ 	<select id="queryCount" resultType="int">
+		SELECT * FROM loan_paras_config WHERE 
+		WHERE 1 = 1 
+		<trim>
+			<if test="null != lpcId and '' != lpcId">
+				AND lpc_id = #{lpcId }
+			</if>
+			<if test="null != lpcIsGuarantee and '' != lpcIsGuarantee">
+				AND lpc_is_guarantee = #{lpcIsGuarantee }
+			</if>
+			<if test="null != lpcIsAdvance and '' != lpcIsAdvance">
+				AND lpc_is_advance = #{lpcIsAdvance }
+			</if>
+			<if test="null != lpcInterestType and '' != lpcInterestType">
+				AND lpc_interest_type = #{lpcInterestType }
+			</if>
+			<if test="null != lpcInterestRegular and '' != lpcInterestRegular">
+				AND lpc_interest_regular = #{lpcInterestRegular }
+			</if>
+			<if test="null != lpcPayType and '' != lpcPayType">
+				AND lpc_pay_type = #{lpcPayType }
+			</if>
+			<if test="null != lpcPayRegular and '' != lpcPayRegular">
+				AND lpc_pay_regular = #{lpcPayRegular }
+			</if>
+			<if test="null != lpcOverdueInteType and '' != lpcOverdueInteType">
+				AND lpc_overdue_inte_type = #{lpcOverdueInteType }
+			</if>
+			<if test="null != lpcOverdueInteTypeUnit and '' != lpcOverdueInteTypeUnit">
+				AND lpc_overdue_inte_type_unit = #{lpcOverdueInteTypeUnit }
+			</if>
+			<if test="null != lpcDebtInteRate and '' != lpcDebtInteRate">
+				AND lpc_debt_inte_rate = #{lpcDebtInteRate }
+			</if>
+			<if test="null != lpcDebtInteRateUnit and '' != lpcDebtInteRateUnit">
+				AND lpc_debt_inte_rate_unit = #{lpcDebtInteRateUnit }
+			</if>
+			<if test="null != lpcRepayLiquRate and '' != lpcRepayLiquRate">
+				AND lpc_repay_liqu_rate = #{lpcRepayLiquRate }
+			</if>
+			<if test="null != lpcRepayLiquRateUnit and '' != lpcRepayLiquRateUnit">
+				AND lpc_repay_liqu_rate_unit = #{lpcRepayLiquRateUnit }
+			</if>
+			<if test="null != orderNo and '' != orderNo">
+				AND order_no = #{orderNo }
+			</if>
+		</trim>
+	</select>
+</mapper>

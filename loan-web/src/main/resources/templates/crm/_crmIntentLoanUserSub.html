@@ -1,0 +1,135 @@
+<table class="tablelist">
+	<thead>
+		<tr>
+			<th:block th:if="${isAssign} neq 'list' ">
+				<th ><input type="checkbox" name="getAll" id="getAll" onclick="checkAll()" /></th>
+			</th:block>
+			<th >省市</th>
+			<th>客户编号</th>
+			<th >客户姓名</th>
+			<th >手机号</th>
+			<th style="width:8%">意向贷款金额(万元)</th>
+			<th >业务类型</th>
+			<th >客户状态</th>
+			<th>客户来源</th>
+			<th>客户等级</th>
+			<th th:if="('fenpei' neq ${fpOrzy})">客户经理</th>
+			<th th:if="('fenpei' neq ${fpOrzy})">事业部</th>
+			<th th:if="('fenpei' neq ${fpOrzy})">组别</th>
+			<th >最新跟进时间</th>
+			<th>添加时间</th>
+			<th:block th:if="${isAssign} neq 'list' ">
+				<th style="width:80px">操作</th>
+			</th:block>
+		</tr>
+	</thead>
+	<tbody>
+		<th:block th:unless="${#lists.isEmpty(page.resultList)}">
+			<tr th:each="crmIntent,iterStat : ${page.resultList}">
+				<th:block th:if="${isAssign} neq 'list' ">
+					<td ><input type="checkbox" class="checkInput" th:value="${crmIntent.id}" name="checkname[]"/></td>
+				</th:block>
+				<td th:text="${crmIntent.city}"></td>
+				<td th:text="${crmIntent.id}"></td>
+				<td th:text="${crmIntent.name}"></td>
+				<td th:text="${crmIntent.mobile}"></td>
+				<td th:text="${crmIntent.loanAmount}"></td>
+				<td th:text="${crmIntent.productType}">
+					<!-- <th:block th:if="${crmIntent.businessType} eq 1">房产抵押贷</th:block>
+					<th:block th:if="${crmIntent.businessType} eq 2">信用贷</th:block>
+					<th:block th:if="${crmIntent.businessType} eq 3">车辆抵押贷</th:block>
+					<th:block th:if="${crmIntent.businessType} eq 4">垫资过桥</th:block>
+					<th:block th:if="${crmIntent.businessType} eq 5">解查封</th:block>
+					<th:block th:if="${crmIntent.businessType} eq 6">其他</th:block> -->
+				</td>
+				<td>
+					<th:block th:if="${crmIntent.businessStatus} eq 01">初步接触</th:block> 
+					<th:block th:if="${crmIntent.businessStatus} eq 02">意向客户</th:block>
+					<th:block th:if="${crmIntent.businessStatus} eq 03">跟进客户</th:block>
+					<th:block th:if="${crmIntent.businessStatus} eq 07">面谈客户</th:block> 
+					<th:block th:if="${crmIntent.businessStatus} eq 04">签约客户</th:block>
+					<th:block th:if="${crmIntent.businessStatus} eq 05">放弃客户</th:block>
+					<th:block th:if="${crmIntent.businessStatus} eq 06">黑名单</th:block>
+					<th:block th:if="${crmIntent.businessStatus} eq 08">已报单</th:block>
+					<th:block th:if="${crmIntent.businessStatus} eq 90">已拒贷</th:block>
+					<th:block th:if="${crmIntent.businessStatus} eq 99">无效</th:block>
+				</td>
+				<td>
+					<th:block th:if="${crmIntent.source} eq 01">陌拜</th:block> 
+					<th:block th:if="${crmIntent.source} eq 02">电销</th:block>
+					<th:block th:if="${crmIntent.source} eq 03">转介绍</th:block> 
+					<th:block th:if="${crmIntent.source} eq 04">网络</th:block>
+					<th:block th:if="${crmIntent.source} eq 05">报刊</th:block>
+					<th:block th:if="${crmIntent.source} eq 06">其他</th:block>
+					<th:block th:if="${crmIntent.source} eq 07">中视天脉</th:block>
+				</td>
+				<td>
+					<th:block th:if="${crmIntent.grade} eq 01">普通客户</th:block> 
+					<th:block th:if="${crmIntent.grade} eq 02">重要客户</th:block>
+					<th:block th:if="${crmIntent.grade} eq 03">重要紧急</th:block>
+				</td>
+				<td th:if="('fenpei' neq ${fpOrzy})" th:text="${crmIntent.appointEmpName}"></td>
+				<td th:if="('fenpei' neq ${fpOrzy})" th:text="${crmIntent.appointDeptName}"></td>
+				<td th:if="('fenpei' neq ${fpOrzy})" th:text="${crmIntent.appointGroupName}"></td>
+				<td th:text="${crmIntent.lastModifyTime}?${#dates.format(crmIntent.lastModifyTime,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+				<td th:text="${crmIntent.createTime}?${#dates.format(crmIntent.createTime,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+				
+				<th:block th:if="${isAssign} neq 'list' ">
+					<td>
+					<th:block th:if="${isAssign} eq 'follow'" >
+						<th:block th:if="${flag} eq 'changelist'">
+							<a sec:authorize="hasRole('ROLE_CALL_MOBILE')" 
+								th:if="${(not #lists.isEmpty(crmIntent.appointEmpName))} and (${LeEmpId} eq ${crmIntent.appointEmpId})" 
+								th:href="@{/crmIntentLoanUserRecord/intentLoanUseDetail/follow/zhuanyi(id=${crmIntent.id},isCall=yes)}"
+						  		class="tablelink call-mobile" data-use="1"></a>
+						</th:block>
+					    <a sec:authorize="hasRole('ROLE_FOLLOWINTENTLOANUSEDETAIL')" th:if="${(not #lists.isEmpty(crmIntent.appointEmpName))} and (${LeEmpId} eq ${crmIntent.appointEmpId})" th:href="@{'/crmIntentLoanUserRecord/intentLoanUseDetail/follow/zhuanyi?id='+${crmIntent.id}}"
+						class="tablelink mlt10">回访</a>
+						<a sec:authorize="hasRole('ROLE_FOLLOWDETAIL')" th:href="@{'/crmIntentLoanUserRecord/intentLoanUseDetail/detail/zhuanyi?id='+${crmIntent.id}}"
+						class="tablelink mlt10">查看</a>
+						<a sec:authorize="hasRole('ROLE_FOLLOWCJBD')" th:if="${(not #lists.isEmpty(crmIntent.appointEmpName))} and (${LeEmpId} eq ${crmIntent.appointEmpId})"
+						   th:href="@{/orderInfo/crmAddOrderInfo(id=${crmIntent.id})}" class="tablelink mlt10">创建报单</a>
+					</th:block>
+					<th:block th:if="${isAssign} eq 'assign' ">
+						<a sec:authorize="hasRole('ROLE_INTENTLOANUSEDETAIL')"  th:if="${LeEmpId} eq ${crmIntent.createrEmpId}"  th:href="@{'/crmIntentLoanUserRecord/intentLoanUseDetail/follow/zhipai?id='+${crmIntent.id}}"
+						   class="tablelink mlt10">回访</a>
+						<a sec:authorize="hasRole('ROLE_ASSIGNLISTDETAIL')" th:href="@{'/crmIntentLoanUserRecord/intentLoanUseDetail/detail/zhipai?id='+${crmIntent.id}}"
+						   class="tablelink mlt10">查看</a>
+					</th:block>
+					<th:block th:if="${isAssign} eq 'change' ">
+						<a th:href="@{'/crmIntentLoanUserRecord/intentLoanUseDetail/detail?id='+${crmIntent.id}}"
+						   class="tablelink mlt10">查看</a>
+					</th:block>	
+					</td>
+				</th:block>
+			</tr>
+		</th:block>
+		<th:block th:if="${#lists.isEmpty(page.resultList)}">
+			<tr>
+				<td colspan="14" class="textCt">暂无数据</td>
+			</tr>
+		</th:block>
+	</tbody>
+</table>
+<th:block th:unless="${#lists.isEmpty(page.resultList)}">
+	<div class="pagin">
+		<div class="message">
+			<th:block th:if="${isAssign} eq 'list' ">
+				<input  sec:authorize="hasRole('ROLE_INTENTLOANUSEREXPORT')" type="button" value="导出" class="scbtn1" style="width: 65px;" id="export"/>
+			</th:block>
+			&nbsp;&nbsp;&nbsp;共 <i class="blue" th:text="${page.totalCount}"></i> 条记录，当前显示第 <i
+				class="blue" th:text="${page.pageIndex}"></i> 页
+		</div>
+		<ul class="paginList">
+			<li class="paginItem" th:if="${page.pageIndex} gt 1"><a
+				th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a></li>
+			<li class="paginItem"
+				th:each="x:${#numbers.sequence(page.startNum, page.endNum)}"
+				th:classappend="(${page.pageIndex} eq ${x})?'current'"><a
+				th:attr="data-pagenum=${x}" th:text="${x}"></a></li>
+			<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+				<a th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+			</li>
+		</ul>
+	</div>
+</th:block>

@@ -1,0 +1,832 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanAccountsTransMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanAccountsTrans" >
+    <id column="trans_id" property="transId" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="account_name" property="accountName" jdbcType="VARCHAR" />
+    <result column="opponent_account_id" property="opponentAccountId" jdbcType="VARCHAR" />
+    <result column="opponent_account_name" property="opponentAccountName" jdbcType="VARCHAR" />
+    <result column="subject_id" property="subjectId" jdbcType="VARCHAR" />
+    <result column="subject_name" property="subjectName" jdbcType="VARCHAR" />
+    <result column="trans_main_id" property="transMainId" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="debit_amount" property="debitAmount" jdbcType="DECIMAL" />
+    <result column="credit_amount" property="creditAmount" jdbcType="DECIMAL" />
+    <result column="direction" property="direction" jdbcType="VARCHAR" />
+    <result column="trans_time" property="transTime" jdbcType="TIMESTAMP" />
+    <result column="trans_remark" property="transRemark" jdbcType="VARCHAR" />
+    <result column="trans_year" property="transYear" jdbcType="VARCHAR" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="trans_certificate_id" property="transCertificateId" jdbcType="VARCHAR" />
+    <result column="owner_id" property="ownerId" jdbcType="VARCHAR" />
+    <result column="owner_name" property="ownerName" jdbcType="VARCHAR" />
+    <result column="business_id" property="businessId" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="trans_type" property="transType" jdbcType="VARCHAR" />
+    <result column="trans_name" property="transName" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="amount_total" property="amountTotal" jdbcType="DECIMAL" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+    <result column="business_type" property="businessType" jdbcType="VARCHAR" />
+    <result column="old_trans_id" property="oldTransId" jdbcType="VARCHAR" />
+    <result column="write_off_flag" property="writeOffFlag" jdbcType="VARCHAR" />
+    <result column="provience_no" property="provienceNo" jdbcType="VARCHAR" />
+    <result column="provience_name" property="provienceName" jdbcType="VARCHAR" />
+    <result column="city_no" property="cityNo" jdbcType="VARCHAR" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    trans_id, account_id, account_name, opponent_account_id, opponent_account_name, subject_id, 
+    subject_name, trans_main_id, amount, debit_amount, credit_amount, direction, trans_time, 
+    trans_remark, trans_year, currency, trans_certificate_id, owner_id, owner_name, business_id, 
+    order_no, trans_type, trans_name, company_id, union_id, amount_total, balance, business_type, 
+    old_trans_id, write_off_flag, provience_no, provience_name, city_no, city_name, status, 
+    create_user, create_time, last_user, last_modify_time, field1, field2, field3, field4, 
+    field5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_accounts_trans
+    where trans_id = #{transId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_accounts_trans
+    where trans_id = #{transId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanAccountsTrans" >
+    insert into loan_accounts_trans (trans_id, account_id, account_name, 
+      opponent_account_id, opponent_account_name, 
+      subject_id, subject_name, trans_main_id, 
+      amount, debit_amount, credit_amount, 
+      direction, trans_time, trans_remark, 
+      trans_year, currency, trans_certificate_id, 
+      owner_id, owner_name, business_id, 
+      order_no, trans_type, trans_name, 
+      company_id, union_id, amount_total, 
+      balance, business_type, old_trans_id, 
+      write_off_flag, provience_no, provience_name, 
+      city_no, city_name, status, 
+      create_user, create_time, last_user, 
+      last_modify_time, field1, field2, 
+      field3, field4, field5
+      )
+    values (#{transId,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, #{accountName,jdbcType=VARCHAR}, 
+      #{opponentAccountId,jdbcType=VARCHAR}, #{opponentAccountName,jdbcType=VARCHAR}, 
+      #{subjectId,jdbcType=VARCHAR}, #{subjectName,jdbcType=VARCHAR}, #{transMainId,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=DECIMAL}, #{debitAmount,jdbcType=DECIMAL}, #{creditAmount,jdbcType=DECIMAL}, 
+      #{direction,jdbcType=VARCHAR}, #{transTime,jdbcType=TIMESTAMP}, #{transRemark,jdbcType=VARCHAR}, 
+      #{transYear,jdbcType=VARCHAR}, #{currency,jdbcType=VARCHAR}, #{transCertificateId,jdbcType=VARCHAR}, 
+      #{ownerId,jdbcType=VARCHAR}, #{ownerName,jdbcType=VARCHAR}, #{businessId,jdbcType=VARCHAR}, 
+      #{orderNo,jdbcType=VARCHAR}, #{transType,jdbcType=VARCHAR}, #{transName,jdbcType=VARCHAR}, 
+      #{companyId,jdbcType=VARCHAR}, #{unionId,jdbcType=VARCHAR}, #{amountTotal,jdbcType=DECIMAL}, 
+      #{balance,jdbcType=DECIMAL}, #{businessType,jdbcType=VARCHAR}, #{oldTransId,jdbcType=VARCHAR}, 
+      #{writeOffFlag,jdbcType=VARCHAR}, #{provienceNo,jdbcType=VARCHAR}, #{provienceName,jdbcType=VARCHAR}, 
+      #{cityNo,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastUser,jdbcType=VARCHAR}, 
+      #{lastModifyTime,jdbcType=TIMESTAMP}, #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, 
+      #{field3,jdbcType=VARCHAR}, #{field4,jdbcType=VARCHAR}, #{field5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanAccountsTrans" >
+    insert into loan_accounts_trans
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="transId != null" >
+        trans_id,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="accountName != null" >
+        account_name,
+      </if>
+      <if test="opponentAccountId != null" >
+        opponent_account_id,
+      </if>
+      <if test="opponentAccountName != null" >
+        opponent_account_name,
+      </if>
+      <if test="subjectId != null" >
+        subject_id,
+      </if>
+      <if test="subjectName != null" >
+        subject_name,
+      </if>
+      <if test="transMainId != null" >
+        trans_main_id,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="debitAmount != null" >
+        debit_amount,
+      </if>
+      <if test="creditAmount != null" >
+        credit_amount,
+      </if>
+      <if test="direction != null" >
+        direction,
+      </if>
+      <if test="transTime != null" >
+        trans_time,
+      </if>
+      <if test="transRemark != null" >
+        trans_remark,
+      </if>
+      <if test="transYear != null" >
+        trans_year,
+      </if>
+      <if test="currency != null" >
+        currency,
+      </if>
+      <if test="transCertificateId != null" >
+        trans_certificate_id,
+      </if>
+      <if test="ownerId != null" >
+        owner_id,
+      </if>
+      <if test="ownerName != null" >
+        owner_name,
+      </if>
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="transType != null" >
+        trans_type,
+      </if>
+      <if test="transName != null" >
+        trans_name,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+      <if test="amountTotal != null" >
+        amount_total,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="businessType != null" >
+        business_type,
+      </if>
+      <if test="oldTransId != null" >
+        old_trans_id,
+      </if>
+      <if test="writeOffFlag != null" >
+        write_off_flag,
+      </if>
+      <if test="provienceNo != null" >
+        provience_no,
+      </if>
+      <if test="provienceName != null" >
+        provience_name,
+      </if>
+      <if test="cityNo != null" >
+        city_no,
+      </if>
+      <if test="cityName != null" >
+        city_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUser != null" >
+        last_user,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="transId != null" >
+        #{transId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null" >
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="opponentAccountId != null" >
+        #{opponentAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="opponentAccountName != null" >
+        #{opponentAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectId != null" >
+        #{subjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectName != null" >
+        #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="transMainId != null" >
+        #{transMainId,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="debitAmount != null" >
+        #{debitAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="creditAmount != null" >
+        #{creditAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="direction != null" >
+        #{direction,jdbcType=VARCHAR},
+      </if>
+      <if test="transTime != null" >
+        #{transTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transRemark != null" >
+        #{transRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="transYear != null" >
+        #{transYear,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="transCertificateId != null" >
+        #{transCertificateId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerId != null" >
+        #{ownerId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerName != null" >
+        #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="transType != null" >
+        #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="transName != null" >
+        #{transName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="amountTotal != null" >
+        #{amountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="businessType != null" >
+        #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="oldTransId != null" >
+        #{oldTransId,jdbcType=VARCHAR},
+      </if>
+      <if test="writeOffFlag != null" >
+        #{writeOffFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="provienceNo != null" >
+        #{provienceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provienceName != null" >
+        #{provienceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanAccountsTrans" >
+    update loan_accounts_trans
+    <set >
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null" >
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="opponentAccountId != null" >
+        opponent_account_id = #{opponentAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="opponentAccountName != null" >
+        opponent_account_name = #{opponentAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectId != null" >
+        subject_id = #{subjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectName != null" >
+        subject_name = #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="transMainId != null" >
+        trans_main_id = #{transMainId,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="debitAmount != null" >
+        debit_amount = #{debitAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="creditAmount != null" >
+        credit_amount = #{creditAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="direction != null" >
+        direction = #{direction,jdbcType=VARCHAR},
+      </if>
+      <if test="transTime != null" >
+        trans_time = #{transTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transRemark != null" >
+        trans_remark = #{transRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="transYear != null" >
+        trans_year = #{transYear,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="transCertificateId != null" >
+        trans_certificate_id = #{transCertificateId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerId != null" >
+        owner_id = #{ownerId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerName != null" >
+        owner_name = #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null" >
+        business_id = #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="transType != null" >
+        trans_type = #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="transName != null" >
+        trans_name = #{transName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="amountTotal != null" >
+        amount_total = #{amountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="businessType != null" >
+        business_type = #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="oldTransId != null" >
+        old_trans_id = #{oldTransId,jdbcType=VARCHAR},
+      </if>
+      <if test="writeOffFlag != null" >
+        write_off_flag = #{writeOffFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="provienceNo != null" >
+        provience_no = #{provienceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provienceName != null" >
+        provience_name = #{provienceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        city_no = #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where trans_id = #{transId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanAccountsTrans" >
+    update loan_accounts_trans
+    set account_id = #{accountId,jdbcType=VARCHAR},
+      account_name = #{accountName,jdbcType=VARCHAR},
+      opponent_account_id = #{opponentAccountId,jdbcType=VARCHAR},
+      opponent_account_name = #{opponentAccountName,jdbcType=VARCHAR},
+      subject_id = #{subjectId,jdbcType=VARCHAR},
+      subject_name = #{subjectName,jdbcType=VARCHAR},
+      trans_main_id = #{transMainId,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      debit_amount = #{debitAmount,jdbcType=DECIMAL},
+      credit_amount = #{creditAmount,jdbcType=DECIMAL},
+      direction = #{direction,jdbcType=VARCHAR},
+      trans_time = #{transTime,jdbcType=TIMESTAMP},
+      trans_remark = #{transRemark,jdbcType=VARCHAR},
+      trans_year = #{transYear,jdbcType=VARCHAR},
+      currency = #{currency,jdbcType=VARCHAR},
+      trans_certificate_id = #{transCertificateId,jdbcType=VARCHAR},
+      owner_id = #{ownerId,jdbcType=VARCHAR},
+      owner_name = #{ownerName,jdbcType=VARCHAR},
+      business_id = #{businessId,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      trans_type = #{transType,jdbcType=VARCHAR},
+      trans_name = #{transName,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      amount_total = #{amountTotal,jdbcType=DECIMAL},
+      balance = #{balance,jdbcType=DECIMAL},
+      business_type = #{businessType,jdbcType=VARCHAR},
+      old_trans_id = #{oldTransId,jdbcType=VARCHAR},
+      write_off_flag = #{writeOffFlag,jdbcType=VARCHAR},
+      provience_no = #{provienceNo,jdbcType=VARCHAR},
+      provience_name = #{provienceName,jdbcType=VARCHAR},
+      city_no = #{cityNo,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where trans_id = #{transId,jdbcType=VARCHAR}
+  </update>
+  <sql id="Base_Column_List_Unit" >
+    lat.*,lai.mobile,lai.account_type
+  </sql>
+  <!-- 自定义方法实现 -->
+	<sql id="Where_Common">
+  		<if test="authgroupList != null">
+		 	and 
+		         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+			         (1=1
+			             <if test="item.orgId != null and item.orgId != ''">
+						  		and lat.company_id =  #{item.orgId}
+						 </if>
+						 <if test="item.dataOwner != null and item.dataOwner != ''">
+						  		and lat.create_user =  #{item.dataOwner}
+						 </if>
+					  )
+		          </foreach>
+		</if>
+	</sql>
+	<sql id="Where_Common2">
+  		<if test="authgroupList != null">
+		 	and 
+		         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+			         (1=1
+			             <if test="item.orgId != null and item.orgId != ''">
+						  		and lai.company_id =  #{item.orgId}
+						 </if>
+						 <if test="item.dataOwner != null and item.dataOwner != ''">
+						  		and lai.create_user =  #{item.dataOwner}
+						 </if>
+					  )
+		          </foreach>
+		</if>
+	</sql>
+  <sql id="Where_Clause" >
+    <where>
+    	lat.account_id=lai.account_id
+    <if test="transId != null and transId !=''" >
+        and lat.trans_id = #{transId}
+      </if>
+       <if test="accountType != null and accountType !=''" >
+        and lai.account_type = #{accountType}
+      </if>
+      <if test="accountId != null and accountId !=''" >
+        and lat.account_id = #{accountId}
+      </if>
+
+      <if test="unionId != null and unionId !=''" >
+        and lai.union_id = #{unionId}
+      </if>
+ 		<include refid="Where_Common2" />
+	  <if test="'Y'.toString()!=transTypeFlag" >
+	        <![CDATA[   
+			AND lat.trans_type <> '1011'
+			AND lat.trans_type <> '1012'
+	  		]]>
+      </if>
+	
+      <if test="accountName != null and accountName !=''" >
+        and lat.account_name = #{accountName,jdbcType=VARCHAR}
+      </if>
+      <if test="opponentAccountId != null and opponentAccountId !=''" >
+        and lat.opponent_account_id = #{opponentAccountId,jdbcType=VARCHAR}
+      </if>
+      <if test="opponentAccountName != null and opponentAccountName !=''" >
+        and lat.opponent_account_name like concat('%',#{opponentAccountName},'%')
+      </if>
+      <if test="subjectId != null and subjectId !=''" >
+        and lat.subject_id = #{subjectId,jdbcType=VARCHAR}
+      </if>
+	<if test="subjectName!=null and subjectName!=''">
+		 and lat.subject_name like concat(concat('%',#{subjectName}),'%')
+	</if>
+      <if test="transMainId != null and transMainId !=''" >
+        and lat.trans_main_id = #{transMainId,jdbcType=VARCHAR}
+      </if>
+
+      <if test="direction != null and direction !=''" >
+        and lat.direction = #{direction,jdbcType=VARCHAR}
+      </if>
+      <if test="transTime != null" >
+        and  lat.trans_time = #{transTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="transYear != null and transYear !=''" >
+        and lat.trans_year = #{transYear,jdbcType=VARCHAR}
+      </if>
+
+      <if test="ownerId != null and ownerId !=''" >
+        and lat.owner_id = #{ownerId,jdbcType=VARCHAR}
+      </if>
+      <if test="ownerName != null and ownerName !=''" >
+        and  lat.owner_name = #{ownerName,jdbcType=VARCHAR}
+      </if>
+      <if test="businessId != null and businessId !=''" >
+        and  lat.business_id = #{businessId,jdbcType=VARCHAR}
+      </if>
+      <if test="orderNo != null and orderNo !=''" >
+        and lat.order_no = #{orderNo,jdbcType=VARCHAR}
+      </if>
+      <if test="transType != null and transType !=''" >
+        and lat.trans_type = #{transType,jdbcType=VARCHAR}
+      </if>
+      <if test="businessType != null and businessType !=''" >
+        and  lat.business_type = #{businessType,jdbcType=VARCHAR}
+      </if>
+      <if test="oldTransId != null and oldTransId !=''" >
+        and lat.old_trans_id = #{oldTransId,jdbcType=VARCHAR}
+      </if>
+      <if test="writeOffFlag != null and writeOffFlag !=''" >
+        and lat.write_off_flag = #{writeOffFlag,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null and status !=''" >
+        and  lat.status = #{status}
+      </if>
+      <if test="mobile!=null and mobile!=''">
+		 AND lai.mobile = #{mobile}
+	  </if>
+	  <if test="listSubjectId != null"> 
+         and lat.subject_id in
+         <foreach item="item" index="index" collection="listSubjectId" open="(" separator="," close=")">
+             #{item}
+          </foreach>
+       </if>
+
+        <if test="subjectIds != null and subjectIds!=''"> 
+         and lat.subject_id in (${subjectIds})
+       </if>
+		<if test="beginTime != null and '' != beginTime">
+	  		<![CDATA[   
+	  			AND DATE_FORMAT(lat.trans_time, '%Y-%m-%d %H:%i:%S') >= #{beginTime}   
+	  		]]>
+	  	</if>
+	  	<if test="endTime != null and '' != endTime">
+	  		<![CDATA[   
+	  			AND DATE_FORMAT(lat.trans_time, '%Y-%m-%d %H:%i:%S') <= #{endTime}      
+	  		]]>
+	  	</if>
+    </where>
+  </sql>
+  <select id="queryList" resultType="com.lhhs.loan.dao.domain.LoanAccountsTrans" parameterType="com.lhhs.loan.dao.domain.LoanAccountsTrans" >
+    select
+    <include refid="Base_Column_List_Unit" />
+    from loan_accounts_trans lat ,loan_account_info lai
+    <include refid="Where_Clause" />
+    order by lat.create_time desc,lat.trans_id desc
+    <if test="page!=null and page.pageStartIndex != null and page.pageSize != null">
+    	Limit #{page.pageStartIndex},#{page.pageSize}
+    </if>
+  </select>
+   <select id="queryCount" resultType="int" parameterType="com.lhhs.loan.dao.domain.LoanAccountsTrans" >
+    select  count(lat.trans_id)   from loan_accounts_trans lat ,loan_account_info lai
+    <include refid="Where_Clause" />
+  </select>
+  <select id="querySumAmount" resultType="com.lhhs.loan.dao.domain.LoanAccountsTrans" parameterType="com.lhhs.loan.dao.domain.LoanAccountsTrans" >
+    select sum(lat.debit_amount) debit_amount, sum(lat.credit_amount) credit_amount  from loan_accounts_trans lat ,loan_account_info lai
+    <include refid="Where_Clause" />
+  </select>
+
+  <!-- 机构资金交易记录列表查询 -->
+  <select id="queryOrganizationTransList" parameterType="com.lhhs.loan.dao.domain.vo.LoanAccountsTransVo" resultType="com.lhhs.loan.dao.domain.vo.LoanAccountsTransVo">
+  	SELECT lat.trans_id,lai.owner_name,lat.debit_amount,lat.order_no,lat.credit_amount,lat.amount_total,lat.balance,lat.amount,lat.subject_name,lat.trans_time,lat.trans_remark
+	FROM loan_accounts_trans lat,loan_account_info lai,loan_organization lo
+	WHERE lat.account_id=lai.account_id AND lai.account_type='30' AND lat.trans_type!='1011' AND lat.trans_type!='1012'
+		AND lai.owner_id=lo.customer_id AND lo.is_company='N'
+  	<if test="unionId!=null and unionId!=''" >
+    	AND lat.union_id=#{unionId}
+    </if>
+    <include refid="Where_Common" />
+	
+  	<if test="transId!=null and transId!=''" >
+    	AND lat.trans_id=#{transId}
+    </if>
+	<if test="ownerName!=null and ownerName!=''" >
+    	AND lai.owner_name=#{ownerName}
+    </if>
+    <if test="direction!=null and direction!=''">
+		 AND lat.direction = #{direction}
+	</if>
+	<if test="subjectId!=null and subjectId!=''">
+		 AND lat.subject_id = #{subjectId}
+	</if>
+	<if test="subjectName!=null and subjectName!=''">
+		 and lat.subject_name like concat(concat('%',#{subjectName}),'%')
+	</if>
+    <if test="beginTime != null and '' != beginTime">
+  		<![CDATA[   
+  			AND DATE_FORMAT(lat.trans_time, '%Y-%m-%d %H:%i:%S') >= #{beginTime}   
+  		]]>
+  	</if>
+  	<if test="endTime != null and '' != endTime">
+  		<![CDATA[   
+  			AND DATE_FORMAT(lat.trans_time, '%Y-%m-%d %H:%i:%S') <= #{endTime}      
+  		]]>
+  	</if>
+  	order by lat.create_time desc,lat.trans_id desc
+    <if test="page != null">
+  		LIMIT #{page.pageStartIndex},#{page.pageSize}
+  	</if>
+  </select>
+  <!-- 机构资金交易记录总数 -->
+  <select id="queryOrganizationTransCount" parameterType="com.lhhs.loan.dao.domain.vo.LoanAccountsTransVo" resultType="int">
+  	SELECT count(1)
+	FROM loan_accounts_trans lat,loan_account_info lai,loan_organization lo
+	WHERE lat.account_id=lai.account_id AND lai.account_type='30' AND lat.trans_type!='1011' AND lat.trans_type!='1012'
+  		AND lai.owner_id=lo.customer_id AND lo.is_company='N'
+  	<if test="unionId!=null and unionId!=''" >
+    	AND lat.union_id=#{unionId}
+    </if>
+    <include refid="Where_Common" />
+	
+  	<if test="transId!=null and transId!=''" >
+    	AND lat.trans_id=#{transId}
+    </if>
+	<if test="ownerName!=null and ownerName!=''" >
+    	AND lai.owner_name=#{ownerName}
+    </if>
+    <if test="direction!=null and direction!=''">
+		 AND lat.direction = #{direction}
+	</if>
+	<if test="subjectId!=null and subjectId!=''">
+		 AND lat.subject_id = #{subjectId}
+	</if>
+	<if test="subjectName!=null and subjectName!=''">
+		and lat.subject_name like concat(concat('%',#{subjectName}),'%')
+	</if>
+    <if test="beginTime != null and '' != beginTime">
+  		<![CDATA[   
+  			AND DATE_FORMAT(lat.trans_time, '%Y-%m-%d %H:%i:%S') >= #{beginTime}   
+  		]]>
+  	</if>
+  	<if test="endTime != null and '' != endTime">
+  		<![CDATA[   
+  			AND DATE_FORMAT(lat.trans_time, '%Y-%m-%d %H:%i:%S') <= #{endTime}      
+  		]]>
+  	</if>
+  </select>
+  <!-- 机构资金交易总额统计 -->
+  <select id="queryOrganizationTransTotalAmount" parameterType="com.lhhs.loan.dao.domain.vo.LoanAccountsTransVo" resultType="map">
+  	SELECT SUM(lat.debit_amount) debitAmountTotal, SUM(lat.credit_amount) creditAmountTotal
+	FROM loan_accounts_trans lat,loan_account_info lai,loan_organization lo
+	WHERE lat.account_id=lai.account_id AND lai.account_type='30' AND lat.trans_type!='1011' AND lat.trans_type!='1012'
+  		AND lai.owner_id=lo.customer_id AND lo.is_company='N'
+  	<if test="unionId!=null and unionId!=''" >
+    	AND lat.union_id=#{unionId}
+    </if>
+	<include refid="Where_Common" />
+  	<if test="transId!=null and transId!=''" >
+    	AND lat.trans_id=#{transId}
+    </if>
+  	<if test="orgCategories!=null" >
+    	AND lo.org_categories=#{orgCategories}
+    </if>
+	<if test="ownerName!=null and ownerName!=''" >
+    	AND lai.owner_name=#{ownerName}
+    </if>
+    <if test="direction!=null and direction!=''">
+		 AND lat.direction = #{direction}
+	</if>
+	<if test="subjectId!=null and subjectId!=''">
+		 AND lat.subject_id = #{subjectId}
+	</if>
+	<if test="subjectName!=null and subjectName!=''">
+		and lat.subject_name like concat(concat('%',#{subjectName}),'%')
+	</if>
+    <if test="beginTime != null and '' != beginTime">
+  		<![CDATA[   
+  			AND DATE_FORMAT(lat.trans_time, '%Y-%m-%d %H:%i:%S') >= #{beginTime}   
+  		]]>
+  	</if>
+  	<if test="endTime != null and '' != endTime">
+  		<![CDATA[   
+  			AND DATE_FORMAT(lat.trans_time, '%Y-%m-%d %H:%i:%S') <= #{endTime}      
+  		]]>
+  	</if>
+  </select>
+  
+</mapper>

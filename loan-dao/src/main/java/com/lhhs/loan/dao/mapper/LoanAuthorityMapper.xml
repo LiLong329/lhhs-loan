@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanAuthorityMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanAuthority" >
+    <id column="la_authority_id" property="laAuthorityId" jdbcType="INTEGER" />
+    <result column="la_name" property="laName" jdbcType="VARCHAR" />
+    <result column="la_url" property="laUrl" jdbcType="VARCHAR" />
+    <result column="la_authority" property="laAuthority" jdbcType="VARCHAR" />
+    <result column="la_layer" property="laLayer" jdbcType="VARCHAR" />
+    <result column="la_father_node" property="laFatherNode" jdbcType="INTEGER" />
+    <result column="la_type" property="laType" jdbcType="VARCHAR" />
+    <result column="dataFlag" property="dataFlag" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    la_authority_id, la_name, la_url, la_authority, la_layer, la_father_node, la_type,dataFlag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_authority
+    where la_authority_id = #{laAuthorityId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from loan_authority
+    where la_authority_id = #{laAuthorityId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanAuthority" >
+    insert into loan_authority (la_authority_id, la_name, la_url, 
+      la_authority, la_layer, la_father_node, 
+      la_type,dataFlag)
+    values (#{laAuthorityId,jdbcType=INTEGER}, #{laName,jdbcType=VARCHAR}, #{laUrl,jdbcType=VARCHAR}, 
+      #{laAuthority,jdbcType=VARCHAR}, #{laLayer,jdbcType=VARCHAR}, #{laFatherNode,jdbcType=INTEGER}, 
+      #{laType,jdbcType=VARCHAR},#{dataFlag,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanAuthority" >
+    insert into loan_authority
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="laAuthorityId != null" >
+        la_authority_id,
+      </if>
+      <if test="laName != null" >
+        la_name,
+      </if>
+      <if test="laUrl != null" >
+        la_url,
+      </if>
+      <if test="laAuthority != null" >
+        la_authority,
+      </if>
+      <if test="laLayer != null" >
+        la_layer,
+      </if>
+      <if test="laFatherNode != null" >
+        la_father_node,
+      </if>
+      <if test="laType != null" >
+        la_type,
+      </if>
+      <if test="laType != null" >
+        dataFlag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="laAuthorityId != null" >
+        #{laAuthorityId,jdbcType=INTEGER},
+      </if>
+      <if test="laName != null" >
+        #{laName,jdbcType=VARCHAR},
+      </if>
+      <if test="laUrl != null" >
+        #{laUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="laAuthority != null" >
+        #{laAuthority,jdbcType=VARCHAR},
+      </if>
+      <if test="laLayer != null" >
+        #{laLayer,jdbcType=VARCHAR},
+      </if>
+      <if test="laFatherNode != null" >
+        #{laFatherNode,jdbcType=INTEGER},
+      </if>
+      <if test="laType != null" >
+        #{laType,jdbcType=VARCHAR},
+      </if>
+      <if test="dataFlag != null" >
+        #{dataFlag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanAuthority" >
+    update loan_authority
+    <set >
+      <if test="laName != null" >
+        la_name = #{laName,jdbcType=VARCHAR},
+      </if>
+      <if test="laUrl != null" >
+        la_url = #{laUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="laAuthority != null" >
+        la_authority = #{laAuthority,jdbcType=VARCHAR},
+      </if>
+      <if test="laLayer != null" >
+        la_layer = #{laLayer,jdbcType=VARCHAR},
+      </if>
+      <if test="laFatherNode != null" >
+        la_father_node = #{laFatherNode,jdbcType=INTEGER},
+      </if>
+      <if test="laType != null" >
+        la_type = #{laType,jdbcType=VARCHAR},
+      </if>
+      <if test="dataFlag != null" >
+        dataFlag = #{dataFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where la_authority_id = #{laAuthorityId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanAuthority" >
+    update loan_authority
+    set la_name = #{laName,jdbcType=VARCHAR},
+      la_url = #{laUrl,jdbcType=VARCHAR},
+      la_authority = #{laAuthority,jdbcType=VARCHAR},
+      la_layer = #{laLayer,jdbcType=VARCHAR},
+      la_father_node = #{laFatherNode,jdbcType=INTEGER},
+      la_type = #{laType,jdbcType=VARCHAR},dataFlag = #{dataFlag,jdbcType=VARCHAR}
+    where la_authority_id = #{laAuthorityId,jdbcType=INTEGER}
+  </update>
+  
+  
+  <!-- 通过角色ID查询不同系统的菜单及功能 -->
+  <select id="getAuthoritys" resultMap="BaseResultMap" >
+    select distinct la.la_authority_id,la.la_name,la.la_url,la.la_authority,la.la_layer,la.la_father_node,la.la_type
+    from loan_role_authority lra left join loan_authority la on lra.lra_authority_Id = la.la_authority_id
+    where 1=1
+    <if test="type != 0">
+    and la.la_type = #{type,jdbcType=VARCHAR}
+    </if>
+    <if test="roleId != 0">
+    and lra.lra_role_id = #{roleId,jdbcType=INTEGER}
+    </if>
+     order by la.la_layer
+  </select>
+  
+  <!--   通过用户id查询不同系统的菜单及功能 -->
+  <select id="findAuthListByEmpId" resultMap="BaseResultMap"  parameterType="map">
+  	select distinct auth.la_authority_id,auth.la_name,auth.la_url,auth.la_authority,auth.la_layer,auth.la_father_node,auth.la_type,auth.dataFlag
+  	from loan_emp_role empRo  
+  	join loan_role role on empRo.ler_role_id = role.lr_role_id 
+  	join loan_role_authority roAu on role.lr_role_id = roAu.lra_role_id 
+  	join loan_authority auth on auth.la_authority_id = roAu.lra_authority_Id                              
+  	where empRo.ler_emp_id = #{empId,jdbcType=INTEGER}
+  	<if test="type != 0">
+       and auth.la_type = #{type,jdbcType=VARCHAR}
+    </if>
+    order by la_layer
+  </select>
+  
+   <select id="getAuthList" resultMap="BaseResultMap" >
+  	select  <include refid="Base_Column_List" /> from loan_authority  order by la_layer
+  </select>
+  
+  <select id="getMenuAuthList" resultMap="BaseResultMap" >
+  	select  <include refid="Base_Column_List" /> from loan_authority where  la_type="1"  order by la_layer
+  </select>
+</mapper>

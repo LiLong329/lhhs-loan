@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<body>
+	<div class="father">
+		<header th:replace="common/top"></header>
+		<div class="common-content">
+			<div th:replace="common/left"></div>
+			<div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>财务管理</li>
+                        <li>还款管理</li>
+                        <th:block th:if="${type} == '90'">
+		             	 	<li><a href="/payPlan/loanPayFinishedList/90">已还清记录</a></li>
+		                </th:block>
+		                <th:block th:if="${type} == '88'">
+		             	  	<li><a href="/payPlan/loanPayFinishedList/88">提前还款记录</a></li>
+		                </th:block>
+                        <li>查看详情</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div class="formtitle"><span>还款详情列表</span></div>
+                        <table class="tablelist">
+                            <thead>
+                                <tr>
+                                    <th>当期/总期数</th>
+                                    <th>还款总金额</th>
+                                    <th>还款本金</th>
+                                    <th>还本时间</th>
+                                    <th>还款利息（元）</th>
+                                    <th>还息时间</th>
+                                    <th>还款逾期罚息</th>
+                                    <th>还款违约赔偿金（元）</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                             	<th:block th:unless="${#lists.isEmpty(list)}">
+                                <tr th:each="pay : ${list}">
+                                    <td th:text="${pay.period}+'/'+${periodTotal}"></td>
+                                    <td th:text="${pay.paidTotal}?${#numbers.formatDecimal(pay.paidTotal,1,2)}"></td>
+					                <td th:text="${pay.paidCapital}?${#numbers.formatDecimal(pay.paidCapital,1,2)}"></td>
+					                <td th:text="${pay.capitalTime}?${#dates.format(pay.capitalTime,'yyyy/MM/dd HH:mm:ss')}"></td>
+					                <td th:text="${pay.paidInterest}?${#numbers.formatDecimal(pay.paidInterest,1,2)}"></td>
+					                <td th:text="${pay.interestTime}?${#dates.format(pay.interestTime,'yyyy/MM/dd HH:mm:ss')}"></td>
+					                <td th:text="${pay.paidOverdue}?${#numbers.formatDecimal(pay.paidOverdue,1,2)}"></td>
+					                <td th:text="${pay.paidCompensate}?${#numbers.formatDecimal(pay.paidCompensate,1,2)}"></td>
+                                </tr>
+                                </th:block>
+                                
+                                <th:block th:if="${#lists.isEmpty(list)}">
+                                	<tr><td colspan="8" align="center">暂无数据 </td></tr>
+                                </th:block>
+                                
+                            </tbody>
+                        </table>
+                        <p class="textCt pb20 pt20">
+                            <input type="button" class="scbtn2" value="返  回" onclick="javascript:history.go(-1);"/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+		</div>
+		
+		<footer th:replace="common/footer"></footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<body>
+    <div class="father">
+    	<header th:replace="common/top"></header>
+        <div class="common-content">
+        <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>客户管理</li>
+                        <li><a href="/customerManager/borrowerInfoList">借款人信息（个人）</a></li>
+                        <li>查看详情</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div class="itab">
+                            <ul>
+                                <li><a data-show="#tab1">基本信息</a></li>
+                                <li><a data-show="#tab2">抵押物信息</a></li>
+                            </ul>
+                        </div>
+                        <div id="tab1" class="tabson">
+                            <div class="formtitle"><span>基本信息</span></div>
+                            <div class="toolsli">
+                                <ul class="nbbdgl-Ui">
+	                                    <li>
+	                                        <span class="tips">客户编号：</span>
+	                                        <span th:text="${borrowerInfo.customerId}"></span>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">客户性质：</span>
+	                                        <span th:text="${borrowerInfo.customerNature}"></span>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">客户姓名：</span>
+	                                        <span th:text="${borrowerInfo.bname}"></span>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">性别：</span>
+	                                        <th:block th:if="${borrowerInfo.sex} eq 0"><span>女</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.sex} eq 1"><span>男</span></th:block>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">手机号码：</span>
+	                                        <span th:text="${borrowerInfo.mobile}"></span>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">身份证号：</span>
+	                                        <span th:text="${borrowerInfo.idNum}"></span>
+	                                    </li>
+		                                <th:block th:unless="${#lists.isEmpty(bankCarkList)}">
+	                                       <tr th:each="bankCark : ${bankCarkList}">
+			                                    <li>
+			                                        <span class="tips">银行卡号：</span>
+			                                        <span th:text="${bankCark.bankCardNo}"></span>
+			                                        <span class="tips">开户行：</span>
+			                                        <span th:text="${bankCark.bankName}"></span>
+			                                    </li>
+			                                    <li>
+			                                        <span class="tips">开户支行：</span>
+			                                        <span th:text="${bankCark.branchName}"></span>
+			                                    </li>
+		                                    </tr>
+		                                  </th:block>
+	                                    <li>
+	                                        <span class="tips">征信情况：</span>
+                                        	<span th:text="${borrowerInfo.creditStatus}"></span>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">户口性质：</span>
+	                                        <th:block th:if="${borrowerInfo.accountNature} eq 0"><span>城镇</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.accountNature} eq 1"><span>农村</span></th:block>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">健康状况：</span>
+	                                        <th:block th:if="${borrowerInfo.health} eq 0"><span>良好</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.health} eq 1"><span>一般</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.health} eq 2"><span>差</span></th:block>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">涉诉情况：</span>
+	                                        <span th:text="${borrowerInfo.litigaStatus}"></span>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">添加时间：</span>
+	                                        <span th:text="${borrowerInfo.createTime}?${#dates.format(borrowerInfo.createTime,'yyyy-MM-dd')}:''"></span>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">驾龄(年)：</span>
+	                                        <span>
+	                                        <th:block th:if="${borrowerInfo.driving} eq 0">一年以下</th:block>
+	                                        <th:block th:if="${borrowerInfo.driving} eq 1">1-3年</th:block>
+	                                        <th:block th:if="${borrowerInfo.driving} eq 2">3-5年</th:block>
+	                                        <th:block th:if="${borrowerInfo.driving} eq 3">5年以上</th:block>
+	                                        </span>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">教育程度：</span>
+	                                        <th:block th:if="${borrowerInfo.education} eq 0"><span>小学</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.education} eq 1"><span>中学</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.education} eq 2"><span>高中</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.education} eq 3"><span>中专</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.education} eq 4"><span>大专</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.education} eq 5"><span>本科</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.education} eq 6"><span>研究生</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.education} eq 7"><span>博士</span></th:block>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">客户经理：</span>
+	                                        <span th:text="${borrowerInfo.leStaffName}"></span>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">邮箱：</span>
+	                                        <span th:text="${borrowerInfo.mailbox}"></span>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">现居住地址：</span>
+	                                        <span th:text="${borrowerInfo.liveAddress}"></span>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">公司名称：</span>
+	                                        <span th:text="${borrowerInfo.corName}"></span>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">单位性质：</span>
+	                                        <th:block th:if="${borrowerInfo.unitProperty} eq 0"><span>国企</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.unitProperty} eq 1"><span>三资企业</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.unitProperty} eq 2"><span>股份制企业</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.unitProperty} eq 3"><span>民营企业</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.unitProperty} eq 4"><span>个体工商户</span></th:block>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">工作年限：</span>
+	                                        <th:block th:if="${borrowerInfo.workYears} eq 0"><span>一年以内</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.workYears} eq 1"><span>1-3年</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.workYears} eq 2"><span>3-5年</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.workYears} eq 3"><span>5年以上</span></th:block>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">技术职称：</span>
+	                                        <th:block th:if="${borrowerInfo.technicalTitle} eq 0"><span>高级</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.technicalTitle} eq 1"><span>中级</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.technicalTitle} eq 2"><span>初级</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.technicalTitle} eq 3"><span>无</span></th:block>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">公司地址：</span>
+	                                        <span th:text="${borrowerInfo.corAddress}"></span>
+	                                    </li>
+	                                    <li style="width: 80%;">
+	                                        <span class="tips">月收入(元)：</span>
+	                                        <span th:text="${borrowerInfo.monthlyIncome}"></span>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">婚姻状况：</span>
+	                                        <th:block th:if="${borrowerInfo.marStatus} eq 0"><span>已婚</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.marStatus} eq 1"><span>未婚</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.marStatus} eq 2"><span>离异</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.marStatus} eq 3"><span>丧偶</span></th:block>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">配偶姓名：</span>
+	                                        <span th:text="${borrowerInfo.spouseName}"></span>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">配偶联系方式：</span>
+	                                        <span th:text="${borrowerInfo.spouseContact}"></span>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">配偶征信状况：</span>
+	                                        <span th:text="${borrowerInfo.spouseCredit}"></span>
+	                                    </li>
+	                                    <li style="width: 80%;">
+	                                        <span class="tips">配偶地址：</span>
+	                                        <span th:text="${borrowerInfo.spouseAddress}"></span>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">家庭人均月收入(元)：</span>
+	                                        <span th:text="${borrowerInfo.averageIncome}"></span>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">家庭人均月固定支出(元)：</span>
+	                                        <span th:text="${borrowerInfo.averagePay}"></span>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">债务收入比(%)：</span>
+	                                        <span th:text="${borrowerInfo.debtIncomeRatio}"></span>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">供养人数(人)：</span>
+	                                        <span th:text="${borrowerInfo.supportPersonNo}"></span>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">住房情况：</span>
+	                                        <th:block th:if="${borrowerInfo.housingSituation} eq 0"><span>完全产权房</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.housingSituation} eq 1"><span>按揭购房</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.housingSituation} eq 2"><span>经济适用房</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.housingSituation} eq 3"><span>租房</span></th:block>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">存款及投资：</span>
+	                                        <th:block th:if="${borrowerInfo.depositsInvestments} eq 0"><span>无</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.depositsInvestments} eq 1"><span>10万以下</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.depositsInvestments} eq 2"><span>10万-30万</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.depositsInvestments} eq 3"><span>30万以上</span></th:block>
+	                                    </li>
+	                                    <li>
+	                                        <span class="tips">车辆情况：</span>
+	                                        <th:block th:if="${borrowerInfo.vehicleCondition} eq 0"><span>无</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.vehicleCondition} eq 1"><span>按揭轿车</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.vehicleCondition} eq 2"><span>完全产权轿车</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.vehicleCondition} eq 3"><span>按揭营运车</span></th:block>
+	                                        <th:block th:if="${borrowerInfo.vehicleCondition} eq 4"><span>完全产权营运车</span></th:block>
+	                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="tab2" class="tabson">
+                            <div class="formtitle">
+                                <span>房产信息</span>
+                            </div>
+                            <div class="toolsli">
+	                            <th:block th:unless="${#lists.isEmpty(houseInfoList)}">
+									<th:block th:each="house,iter : ${houseInfoList}">
+										<div class="lines" th:if="${iter.index} gt 0"></div>
+										<ul class="nbbdgl-Ui clearfix">
+		                                    <li>
+		                                        <span class="tips">房产证编号：</span>
+		                                        <span th:text="${house.propertyNum}"></span>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">抵押物坐落：</span>
+		                                        <span th:text="${house.houseAddress}"></span>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">产权人：</span>
+		                                        <span th:text="${house.propertyName}"></span>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">建筑面积(㎡)：</span>
+		                                        <span th:text="${house.buildArea}"></span>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">建成年代(年)：</span>
+		                                        <span th:text="${house.builtAge}"></span>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">楼盘名称：</span>
+		                                        <span th:text="${house.realName}"></span>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">居住情况：</span>
+		                                        <th:block th:if="${house.liveSituation} eq 0"><span>出租</span></th:block>
+		                                        <th:block th:if="${house.liveSituation} eq 1"><span>自主</span></th:block>
+		                                        <th:block th:if="${house.liveSituation} eq 2"><span>亲戚居住</span></th:block>
+		                                        <th:block th:if="${house.liveSituation} eq 3"><span>其他</span></th:block>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">查询状态：</span>
+		                                        <span th:text="${house.queryStatus}"></span>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">评估价(元)：</span>
+		                                        <span th:text="${house.valuationPrice}"></span>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">快卖价(元)：</span>
+		                                        <span th:text="${house.sellingPrice}"></span>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">抵押率(%)：</span>
+		                                        <span th:text="${house.mortgageRate}"></span>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">有无抵押：</span>
+		                                        <th:block th:if="${house.isMortgage} eq 0"><span>有抵押</span></th:block>
+		                                        <th:block th:if="${house.isMortgage} eq 1"><span>无抵押</span></th:block>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">抵押顺位：</span>
+		                                        <th:block th:if="${house.mortgagePosition} eq 0"><span>一抵</span></th:block>
+		                                        <th:block th:if="${house.mortgagePosition} eq 1"><span>二抵</span></th:block>
+		                                        <th:block th:if="${house.mortgagePosition} eq 2"><span>解查封</span></th:block>
+		                                        <th:block th:if="${house.mortgagePosition} eq 3"><span>垫资过桥</span></th:block>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">剩余价值(元)：</span>
+		                                        <span th:text="${house.surplusValue}"></span>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">类型：</span>
+		                                        <th:block th:if="${house.houseType} eq 0"><span>住宅</span></th:block>
+		                                        <th:block th:if="${house.houseType} eq 1"><span>商住</span></th:block>
+		                                        <th:block th:if="${house.houseType} eq 2"><span>公寓</span></th:block>
+		                                        <th:block th:if="${house.houseType} eq 3"><span>底商</span></th:block>
+		                                        <th:block th:if="${house.houseType} eq 4"><span>别墅</span></th:block>
+		                                        <th:block th:if="${house.houseType} eq 5"><span>办公</span></th:block>
+		                                        <th:block th:if="${house.houseType} eq 6"><span>其他</span></th:block>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">房产第二抵押权人：</span>
+		                                        <span th:text="${house.secondMortgageOwner}"></span>
+		                                    </li>
+		                                </ul>
+									</th:block>
+								  </th:block>
+                            </div>
+                            
+                            <div class="formtitle">
+                                <span>车产信息</span>
+                            </div>
+                            <div class="toolsli">
+                            	<th:block th:unless="${#lists.isEmpty(carInfoList)}">
+									<th:block th:each="car,iter : ${carInfoList}">
+		                                <ul class="nbbdgl-Ui clearfix">
+		                                    <li>
+		                                        <span class="tips">车牌号：</span>
+		                                        <span th:text="${car.licensePlate}"></span>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">品牌型号：</span>
+		                                        <span th:text="${car.brandModel}"></span>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">机动车登记证编号：</span>
+		                                        <span th:text="${car.vehicleNum}"></span>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">驾驶证编号：</span>
+		                                        <span th:text="${car.driveCardNum}"></span>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">车龄(年)：</span>
+		                                        <span th:text="${car.carAge}"></span>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">排量(L)：</span>
+		                                        <span th:text="${car.displacement}"></span>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">公里数(Km)：</span>
+		                                        <span th:text="${car.kilometers}"></span>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">购车年份(年)：</span>
+		                                        <span th:text="${car.purchaseYear}"></span>
+		                                    </li>
+		                                    <li>
+		                                        <span class="tips">颜色：</span>
+		                                        <span th:text="${car.colour}"></span>
+		                                    </li>
+		                                    <li  style="width:100%;">
+		                                        <span class="tips">备注：</span>
+		                                        <span style="width: 80%;" th:text="${car.remark}"></span>
+		                                    </li>
+		                                </ul>
+		                           </th:block>
+		                        </th:block>
+                            </div>
+                        </div>
+                        <p class="textCt">
+                            <input type="button" class="scbtn2" value="返  回" onclick="javascript:history.go(-1);"/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+       <footer th:replace="common/footer"></footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,921 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanAccountInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanAccountInfo" >
+    <id column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="use_type" property="useType" jdbcType="VARCHAR" />
+    <result column="owner_id" property="ownerId" jdbcType="VARCHAR" />
+    <result column="owner_name" property="ownerName" jdbcType="VARCHAR" />
+    <result column="certificate_no" property="certificateNo" jdbcType="VARCHAR" />
+    <result column="account_id_parent" property="accountIdParent" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="account_holder" property="accountHolder" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="account_type" property="accountType" jdbcType="VARCHAR" />
+    <result column="provience_no" property="provienceNo" jdbcType="VARCHAR" />
+    <result column="provience_name" property="provienceName" jdbcType="VARCHAR" />
+    <result column="city_no" property="cityNo" jdbcType="VARCHAR" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    account_id, currency, use_type, owner_id, owner_name, certificate_no, account_id_parent, 
+    level, account_holder, mobile, account_type, provience_no, provience_name, city_no, 
+    city_name, company_id, union_id, status, create_user, create_time, last_user, last_modify_time, 
+    field1, field2, field3, field4, field5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_account_info
+    where account_id = #{accountId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="get" resultType="com.lhhs.loan.dao.domain.LoanAccountInfo" parameterType="com.lhhs.loan.dao.domain.LoanAccountInfo" >
+    select a.account_id,a.owner_name  from loan_account_info a 
+    <include refid="Where_Clause_Org" />
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_account_info
+    where account_id = #{accountId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanAccountInfo" >
+    insert into loan_account_info (account_id, currency, use_type, 
+      owner_id, owner_name, certificate_no, 
+      account_id_parent, level, account_holder, 
+      mobile, account_type, provience_no, 
+      provience_name, city_no, city_name, 
+      company_id, union_id, status, 
+      create_user, create_time, last_user, 
+      last_modify_time, field1, field2, 
+      field3, field4, field5
+      )
+    values (#{accountId,jdbcType=VARCHAR}, #{currency,jdbcType=VARCHAR}, #{useType,jdbcType=VARCHAR}, 
+      #{ownerId,jdbcType=VARCHAR}, #{ownerName,jdbcType=VARCHAR}, #{certificateNo,jdbcType=VARCHAR}, 
+      #{accountIdParent,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, #{accountHolder,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{accountType,jdbcType=VARCHAR}, #{provienceNo,jdbcType=VARCHAR}, 
+      #{provienceName,jdbcType=VARCHAR}, #{cityNo,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, 
+      #{companyId,jdbcType=VARCHAR}, #{unionId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastUser,jdbcType=VARCHAR}, 
+      #{lastModifyTime,jdbcType=TIMESTAMP}, #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, 
+      #{field3,jdbcType=VARCHAR}, #{field4,jdbcType=VARCHAR}, #{field5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanAccountInfo" >
+    insert into loan_account_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="currency != null" >
+        currency,
+      </if>
+      <if test="useType != null" >
+        use_type,
+      </if>
+      <if test="ownerId != null" >
+        owner_id,
+      </if>
+      <if test="ownerName != null" >
+        owner_name,
+      </if>
+      <if test="certificateNo != null" >
+        certificate_no,
+      </if>
+      <if test="accountIdParent != null" >
+        account_id_parent,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="accountHolder != null" >
+        account_holder,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="accountType != null" >
+        account_type,
+      </if>
+      <if test="provienceNo != null" >
+        provience_no,
+      </if>
+      <if test="provienceName != null" >
+        provience_name,
+      </if>
+      <if test="cityNo != null" >
+        city_no,
+      </if>
+      <if test="cityName != null" >
+        city_name,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUser != null" >
+        last_user,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="useType != null" >
+        #{useType,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerId != null" >
+        #{ownerId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerName != null" >
+        #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateNo != null" >
+        #{certificateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountIdParent != null" >
+        #{accountIdParent,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="accountHolder != null" >
+        #{accountHolder,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="accountType != null" >
+        #{accountType,jdbcType=VARCHAR},
+      </if>
+      <if test="provienceNo != null" >
+        #{provienceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provienceName != null" >
+        #{provienceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanAccountInfo" >
+    update loan_account_info
+    <set >
+      <if test="currency != null" >
+        currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="useType != null" >
+        use_type = #{useType,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerId != null" >
+        owner_id = #{ownerId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerName != null" >
+        owner_name = #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateNo != null" >
+        certificate_no = #{certificateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountIdParent != null" >
+        account_id_parent = #{accountIdParent,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="accountHolder != null" >
+        account_holder = #{accountHolder,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="accountType != null" >
+        account_type = #{accountType,jdbcType=VARCHAR},
+      </if>
+      <if test="provienceNo != null" >
+        provience_no = #{provienceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provienceName != null" >
+        provience_name = #{provienceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        city_no = #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where account_id = #{accountId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanAccountInfo" >
+    update loan_account_info
+    set currency = #{currency,jdbcType=VARCHAR},
+      use_type = #{useType,jdbcType=VARCHAR},
+      owner_id = #{ownerId,jdbcType=VARCHAR},
+      owner_name = #{ownerName,jdbcType=VARCHAR},
+      certificate_no = #{certificateNo,jdbcType=VARCHAR},
+      account_id_parent = #{accountIdParent,jdbcType=VARCHAR},
+      level = #{level,jdbcType=VARCHAR},
+      account_holder = #{accountHolder,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      account_type = #{accountType,jdbcType=VARCHAR},
+      provience_no = #{provienceNo,jdbcType=VARCHAR},
+      provience_name = #{provienceName,jdbcType=VARCHAR},
+      city_no = #{cityNo,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where account_id = #{accountId,jdbcType=VARCHAR}
+  </update>
+  
+  <sql id="Where_Clause" >
+    <where>
+      
+      <if test="accountId != null and accountId !=''" >
+        and account_id=#{accountId}
+      </if>
+      <if test="useType != null and useType !=''" >
+        and use_type=#{useType}
+      </if>
+      <if test="ownerId != null and ownerId !=''" >
+        and owner_id=#{ownerId}
+      </if>
+      <if test="ownerName != null and ownerName !=''" >
+        and owner_name like concat('%',#{ownerName},'%')
+      </if>
+      <if test="certificateNo != null and certificateNo !=''" >
+        and certificate_no=#{certificateNo}
+      </if>
+      <if test="companyId != null and companyId !=''" >
+        and company_id = #{companyId}
+      </if>
+      <if test="unionId != null and unionId !=''" >
+        and union_id=#{unionId}
+      </if>
+      <if test="accountIdParent != null and accountIdParent !=''" >
+        and account_id_parent=#{accountIdParent}
+      </if>
+      <if test="level != null and level !=''" >
+      	and level=#{level}
+      </if>
+      <if test="accountHolder != null and accountHolder !=''" >
+        and account_holder=#{accountHolder}
+      </if>
+      <if test="mobile != null and mobile !=''" >
+        and mobile=#{mobile}
+      </if>
+      <if test="accountType != null and accountType !=''" >
+        and account_type=#{accountType}
+      </if>
+      <if test="provienceNo != null and provienceNo !=''" >
+        and provience_no=#{provienceNo}
+      </if>
+      <if test="cityNo != null and cityNo !=''" >
+        and city_no=#{accountType}
+      </if>
+      <if test="status != null and status !=''" >
+        and status=#{status}
+      </if>
+ 	 <include refid="Where_Common" />
+
+    </where>
+  </sql>
+  	<!-- 自定义方法区 -->
+	<sql id="Where_Common">
+  		<if test="authgroupList != null">
+		 	and 
+		         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+			         (1=1
+			             <if test="item.orgId != null and item.orgId != ''">
+						  		and a.company_id =  #{item.orgId}
+						 </if>
+						 <if test="item.dataOwner != null and item.dataOwner != ''">
+						  		and a.owner_id =  #{item.dataOwner}
+						 </if>
+					  )
+		          </foreach>
+		</if>
+	 </sql>
+	 <sql id="Where_Common2">
+  		<if test="authgroupList != null">
+		 	and 
+		         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+			         (1=1
+			             <if test="item.orgId != null and item.orgId != ''">
+						  		and a.company_id =  #{item.orgId}
+						 </if>
+						 <if test="item.dataOwner != null and item.dataOwner != ''">
+						  		and a.create_user =  #{item.dataOwner}
+						 </if>
+					  )
+		          </foreach>
+		</if>
+	 </sql>
+	 
+    <sql id="Where_Clause_Org" >
+    <where>
+      <if test="accountId != null and accountId !=''" >
+        and a.account_id=#{accountId}
+      </if>
+      <if test="useType != null and useType !=''" >
+        and a.use_type=#{useType}
+      </if>
+      <if test="ownerId != null and ownerId !=''" >
+        and a.owner_id=#{ownerId}
+      </if>
+      <if test="ownerName != null and ownerName !=''" >
+        and a.owner_name like concat('%',#{ownerName},'%')
+      </if>
+      <if test="certificateNo != null and certificateNo !=''" >
+        and a.certificate_no=#{certificateNo}
+      </if>
+      <if test="companyId != null and companyId !=''" >
+        and a.company_id = #{companyId}
+      </if>
+      <if test="unionId != null and unionId !=''" >
+        and a.union_id=#{unionId}
+      </if>
+      <if test="accountIdParent != null and accountIdParent !=''" >
+        and a.account_id_parent=#{accountIdParent}
+      </if>
+      <if test="level != null and level !=''" >
+      	and a.level=#{level}
+      </if>
+      <if test="accountHolder != null and accountHolder !=''" >
+        and a.account_holder=#{accountHolder}
+      </if>
+      <if test="mobile != null and mobile !=''" >
+        and a.mobile=#{mobile}
+      </if>
+      <if test="accountType != null and accountType !=''" >
+        and a.account_type=#{accountType}
+      </if>
+      <if test="provienceNo != null and provienceNo !=''" >
+        and a.provience_no=#{provienceNo}
+      </if>
+      <if test="cityNo != null and cityNo !=''" >
+        and a.city_no=#{accountType}
+      </if>
+      <if test="status != null and status !=''" >
+        and a.status=#{status}
+      </if>
+      <if test="unionId!=null and unionId!=''" >
+    	and a.union_id=#{unionId}
+    </if>
+	<if test="accountType != null and accountType !='30'" >
+       <include refid="Where_Common" />
+	</if>
+    </where>
+  </sql>
+  <select id="queryList" resultMap="BaseResultMap" parameterType="com.lhhs.loan.dao.domain.LoanAccountInfo" >
+    
+    select
+    <include refid="Base_Column_List" />
+    from loan_account_info a
+    <include refid="Where_Clause" />
+    order by create_time desc
+    <if test="page!=null and page.pageStartIndex != null and page.pageSize != null">
+    	Limit #{page.pageStartIndex},#{page.pageSize}
+    </if>
+  </select>
+   <select id="queryCount" resultType="int" parameterType="com.lhhs.loan.dao.domain.LoanAccountInfo" >
+    select  count(*)   from loan_account_info
+    <include refid="Where_Clause" />
+  </select>
+  <!-- 自定义方法实现 -->
+  <!-- 分页查询用户负债信息 -->
+  <select id="getAssetsLiabilitiesInfos" parameterType="java.util.Map" resultType="com.lhhs.loan.dao.domain.LoanAccountInfo">
+	SELECT
+		a.city_name,
+		a.mobile,
+		a.owner_name,
+		a.owner_id,
+		a.account_id,
+		(
+			SELECT
+				(
+					IFNULL(c.amount,0) - (
+						SELECT
+							IFNULL(SUM(amount), 0)
+						FROM
+							loan_accounts_subject_amount
+						WHERE
+							subject_id = '2110001'
+						AND account_id = a.account_id
+					) - (
+						SELECT
+							IFNULL(SUM(amount), 0)
+						FROM
+							loan_accounts_subject_amount
+						WHERE
+							subject_id = '2104001'
+						AND account_id = a.account_id
+					) - (
+						SELECT
+							IFNULL(SUM(amount), 0)
+						FROM
+							loan_accounts_subject_amount
+						WHERE
+							subject_id = '1104001'
+						AND account_id = a.account_id
+					) - (
+						SELECT
+							IFNULL(SUM(amount), 0)
+						FROM
+							loan_accounts_subject_amount
+						WHERE
+							subject_id = '1110002'
+						AND account_id = a.account_id
+				   )
+				)
+		) AS asset_total,
+		(
+			SELECT
+				(
+					(
+						SELECT
+							IFNULL(SUM(amount), 0)
+						FROM
+							loan_accounts_subject_amount
+						WHERE
+							subject_id = '1102001'
+						AND account_id = a.account_id
+					) + (
+						SELECT
+							IFNULL(SUM(amount), 0)
+						FROM
+							loan_accounts_subject_amount
+						WHERE
+							subject_id = '2204001'
+						AND account_id = a.account_id
+					)+ (
+						SELECT
+							IFNULL(SUM(amount), 0)
+						FROM
+							loan_accounts_subject_amount
+						WHERE
+							subject_id = '1201001'
+						AND account_id = a.account_id
+					)+ (
+						SELECT
+							IFNULL(SUM(amount), 0)
+						FROM
+							loan_accounts_subject_amount
+						WHERE
+							subject_id = '1201002'
+						AND account_id = a.account_id
+					)+ (
+						SELECT
+							IFNULL(SUM(amount), 0)
+						FROM
+							loan_accounts_subject_amount
+						WHERE
+							subject_id = '2201001'
+						AND account_id = a.account_id
+					)
+				)
+		) AS liabilities_total,
+		a.create_time,
+		a.certificate_no
+	FROM
+		loan_account_info a
+	LEFT JOIN loan_accounts_total c ON a.account_id = c.account_id
+	WHERE
+		a.account_type = '10'
+	<if test="mobile!=null and ''!=mobile">
+		 and a.mobile = #{mobile}
+	</if>
+	<if test="startDate!=null and ''!=startDate">
+		 and a.create_time &gt;= #{startDate}
+	</if>
+	<if test="endDate!=null and ''!=endDate">
+		 and a.create_time &lt;= #{endDate}
+	</if>
+	<if test="authgroupList != null">
+	 	and 
+	         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+		         (1=1
+		             <if test="item.orgId != null and item.orgId != ''">
+					  		and a.company_id =  #{item.orgId}
+					 </if>
+					 <if test="item.dataOwner != null and item.dataOwner != ''">
+					  		and a.create_user =  #{item.dataOwner}
+					 </if>
+				  )
+	          </foreach>
+	</if>
+	
+		ORDER BY a.create_time DESC
+	<if test="page!= null">
+			limit #{page.pageStartIndex},#{page.pageSize}
+	</if>
+  </select>
+  
+  <!-- 查询用户负债信息总数-->
+  <select id="getAssetsLiabilitiesInfoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	SELECT count(1)
+	FROM
+		loan_account_info a
+	LEFT JOIN loan_accounts_total c ON a.account_id = c.account_id
+	WHERE
+		a.account_type = '10'
+	<if test="mobile!=null and ''!=mobile">
+		 and a.mobile = #{mobile}
+	</if>
+	<if test="startDate!=null and ''!=startDate">
+		 and a.create_time &gt;= #{startDate}
+	</if>
+	<if test="endDate!=null and ''!=endDate">
+		 and a.create_time &lt;= #{endDate}
+	</if>
+	<include refid="Where_Common2" />
+  </select>
+  <!-- 分页查询用户账户总览信息 -->
+  <select id="getAccountOverviewInfos" parameterType="java.util.Map" resultType="com.lhhs.loan.dao.domain.LoanAccountInfo">
+	SELECT
+		a.city_name,
+		a.mobile,
+		a.owner_id,
+		a.owner_name,
+		IFNULL(b.amount,0) AS amount,
+		a.account_id,
+		(
+			SELECT
+				IFNULL(SUM(amount), 0)
+			FROM
+				loan_accounts_subject_amount
+			WHERE
+				account_id = a.account_id
+			AND subject_id = '1100001'
+		) AS recharge,
+		(
+			SELECT
+				(
+					(
+						SELECT
+							IFNULL(SUM(amount), 0)
+						FROM
+							loan_accounts_subject_amount
+						WHERE
+							account_id = a.account_id
+						AND subject_id = '1104001'
+					) + (
+						SELECT
+							IFNULL(SUM(amount), 0)
+						FROM
+							loan_accounts_subject_amount
+						WHERE
+							account_id = a.account_id
+						AND subject_id = '1110002'
+					)
+				)
+		) AS repayment_capital,
+		(
+			SELECT
+				(
+					(
+						SELECT
+							IFNULL(SUM(amount), 0)
+						FROM
+							loan_accounts_subject_amount
+						WHERE
+							account_id = a.account_id
+						AND subject_id = '1104002'
+					) + (
+						SELECT
+							IFNULL(SUM(amount), 0)
+						FROM
+							loan_accounts_subject_amount
+						WHERE
+							account_id = a.account_id
+						AND subject_id = '1110003'
+					)
+				)
+		) AS repayment_interest,
+		IFNULL(b.freeze_financing,0) AS freeze_financing,
+		IFNULL(b.freeze_invest,0) AS freeze_invest,
+		IFNULL(b.freeze_withdrawals,0) AS freeze_withdrawals,
+		IFNULL(b.transit_total,0) AS transit_total,
+		a.create_time
+	FROM
+		loan_account_info a
+	LEFT JOIN loan_accounts_total b ON a.account_id = b.account_id
+	WHERE
+		a.account_type = '10'
+	<if test="mobile!=null and ''!=mobile">
+		 and a.mobile = #{mobile}
+	</if>
+	<if test="startDate!=null and ''!=startDate">
+		 and a.create_time &gt;= #{startDate}
+	</if>
+	<if test="endDate!=null and ''!=endDate">
+		 and a.create_time &lt;= #{endDate}
+	</if>
+	<include refid="Where_Common2" />
+		ORDER BY b.create_time DESC
+	<if test="page!= null">
+			limit #{page.pageStartIndex},#{page.pageSize}
+	</if>
+  </select>
+  
+  <!-- 查询用户账户总览信息总数-->
+  <select id="getAccountOverviewInfoCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	SELECT count(1)
+	FROM
+		loan_account_info a
+	LEFT JOIN loan_accounts_total b ON a.account_id = b.account_id
+	where a.account_type = '10'
+	<if test="mobile!=null and ''!=mobile">
+		 and a.mobile = #{mobile}
+	</if>
+	<if test="startDate!=null and ''!=startDate">
+		 and a.create_time &gt;= #{startDate}
+	</if>
+	<if test="endDate!=null and ''!=endDate">
+		 and a.create_time &lt;= #{endDate}
+	</if>
+	<include refid="Where_Common2" />
+  </select>
+  
+   <!-- 公司账户查询 -->
+   <select id="queryCompanyAccount" parameterType="map" resultType="com.lhhs.loan.dao.domain.LoanAccountCard">
+        select distinct(lac.account_holder),a.account_id,a.city_name,
+       a.owner_name,a.owner_id,a.company_id,lac.mobile,a.create_time
+       from loan_account_card lac
+       left join loan_account_info a  on lac.account_id = a.account_id
+       where a.account_type='40'
+      <if test="cityName!=null and ''!=cityName">
+		 and a.city_name = #{cityName}
+	  </if>
+	 <if test="companyname!=null and ''!=companyname">
+		 and a.owner_name like concat(concat('%',#{companyname}),'%')
+	 </if>
+
+	 <if test="accountHolder!=null and ''!=accountHolder">
+		 and lac.account_holder like concat(concat('%',#{accountHolder}),'%')
+	 </if>
+	 <include refid="Where_Common" />
+	    order by a.create_time desc
+		limit #{page.pageStartIndex},#{page.pageSize}
+   </select>
+  
+  <select id="queryCompanyAccountCount" parameterType="map" resultType="int">
+      select count(distinct(lac.account_holder))
+      from loan_account_card lac
+      left join loan_account_info a on lac.account_id = a.account_id
+       where  a.account_type='40'
+      <if test="cityName!=null and ''!=cityName">
+		 and a.city_name = #{cityName}
+	  </if>
+	 <if test="companyname!=null and ''!=companyname">
+		 and a.owner_name like concat(concat('%',#{companyname}),'%')
+	 </if>
+	 <include refid="Where_Common" />
+	 
+	 <if test="accountHolder!=null and ''!=accountHolder">
+		 and lac.account_holder like concat(concat('%',#{accountHolder}),'%')
+	 </if>
+	 <if test="kind!=null and ''!=kind">
+		 and lac.kind = #{kind}
+	 </if>
+   </select>
+  
+  <select id="queryCompanyAccountDetail" parameterType="String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from loan_account_info
+    where account_id=#{accountId} 
+	<!-- <if test="customerType!=null and customerType!=''" >
+    	and account_type=#{customerType}
+    </if> -->
+  </select>
+  
+   <!-- 根据手机号或机构ID查询账户信息 -->
+  <select id="getAccountsByMobileOrOwnerId"  resultType="map" parameterType="map">
+	select lai.account_id,lai.owner_id,lai.owner_name,lai.certificate_no,lac.bank_name,lac.bank_card_no,lac.account_holder  from loan_account_info lai left join  loan_account_card lac on lai.account_id=lac.account_id where 1=1  
+	<if test="ownerId!=null and ownerId!=''" >
+    	and lai.owner_id=#{ownerId}
+    </if>
+	<if test="mobile!=null and mobile!=''" >
+    	and lai.mobile=#{mobile}
+    </if>
+	<if test="customerType!=null and customerType!=''" >
+    	and lai.account_type=#{customerType}
+    </if>
+	<if test="kind!=null and kind!=''" >
+    	and lac.kind=#{kind}
+    </if>
+      limit 1
+  </select>
+  
+  <select id="selectByOwnerId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_account_info
+    where owner_id = #{ownerId} limit 1 
+  </select>
+ <sql id="Base_Column_List_All" >
+    a.account_id,a.use_type, a.owner_id, a.owner_name, a.certificate_no, a.union_id, a.account_id_parent, 
+    a.level,  a.account_type, a.provience_no, a.provience_name, a.city_no, a.city_name,a.status,
+    b.asset_total, b.liabilities_total, b.debit_amount, b.credit_amount, b.amount, 
+    b.balance, b.freeze_total, b.freeze_financing, b.freeze_invest, b.freeze_withdrawals, b.transit_total, 
+    b.payable_total, b.receivable_total, b.belong_date,b.create_user,b.create_time,b.last_user,b.last_modify_time
+  </sql>
+
+  <!-- 公司资金账户总览 -->
+  <select id="queryCompanyAccountList" parameterType="map" resultType="com.lhhs.loan.dao.domain.LoanAccountsTotal">
+	SELECT 
+ <include refid="Base_Column_List_All" />
+	FROM loan_account_info a LEFT JOIN loan_accounts_total b ON a.account_id=b.account_id
+	<include refid="Where_Clause_Org" />
+    <if test="page != null">
+  		LIMIT #{page.pageStartIndex},#{page.pageSize}
+  	</if>
+  </select>
+  <!-- 公司资金账户总条数 -->
+  <select id="queryCompanyAccountListCount" parameterType="map" resultType="int">
+	SELECT count(1)
+	FROM loan_account_info a
+	<include refid="Where_Clause_Org" />
+  </select>
+  
+  <!-- 机构资金账户总览列表 -->
+  <select id="queryOrganizationAccountList" parameterType="com.lhhs.loan.dao.domain.LoanAccountsTotal" resultType="com.lhhs.loan.dao.domain.LoanAccountsTotal">
+	SELECT 
+ <include refid="Base_Column_List_All" />
+	FROM loan_account_info a LEFT JOIN loan_accounts_total b ON a.account_id=b.account_id
+		LEFT JOIN loan_organization lo ON a.owner_id=lo.customer_id
+	<include refid="Where_Clause_Org" />
+	AND lo.is_company='N'
+    <if test="page != null">
+  		LIMIT #{page.pageStartIndex},#{page.pageSize}
+  	</if>
+  </select>
+  <!-- 机构资金账户总条数 -->
+  <select id="queryOrganizationAccountCount" parameterType="com.lhhs.loan.dao.domain.LoanAccountsTotal" resultType="int">
+	SELECT count(1)
+	FROM loan_account_info a LEFT JOIN loan_accounts_total b ON a.account_id=b.account_id
+		LEFT JOIN loan_organization lo ON a.owner_id=lo.customer_id
+	<include refid="Where_Clause_Org" />
+	AND lo.is_company='N'
+  </select>
+  <!-- 机构资金账户总余额 -->
+  <select id="queryOrganizationAccountTotalAmount" parameterType="com.lhhs.loan.dao.domain.LoanAccountsTotal" resultType="Map">
+	SELECT SUM(b.amount) amount
+	FROM loan_account_info a LEFT JOIN loan_accounts_total b ON a.account_id=b.account_id
+		LEFT JOIN loan_organization lo ON a.owner_id=lo.customer_id
+	<include refid="Where_Clause_Org" />
+	AND lo.is_company='N'
+  </select>
+  
+
+   <select id="queryCompanyInfo" parameterType="String" resultMap="BaseResultMap">
+       select lai.account_id,lai.city_name,lai.owner_name,lai.account_holder,
+       lai.mobile,lai.create_time
+       from loan_account_info lai
+       where lai.use_type='00' and account_type='40' and company_id = #{companyId}
+   </select>
+  <select id="selectByOwnerIdAndAccountType" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_account_info
+    where owner_id = #{ownerId} and account_type=#{accountType}
+  </select>
+  
+  <select id="selectByBankCardNo" resultMap="BaseResultMap" parameterType="String" >
+    select lai.*,lac.account_holder field1
+    from loan_account_info lai,loan_account_card lac
+    where lac.account_id=lai.account_id and lac.bank_card_no=#{bankCardNo}
+  </select>
+  
+</mapper>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanRoleAuthorityMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanRoleAuthority" >
+    <id column="lra_ra_id" property="lraRaId" jdbcType="INTEGER" />
+    <result column="lra_role_id" property="lraRoleId" jdbcType="INTEGER" />
+    <result column="lra_authority_Id" property="lraAuthorityId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lra_ra_id, lra_role_id, lra_authority_Id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_role_authority
+    where lra_ra_id = #{lraRaId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from loan_role_authority
+    where lra_ra_id = #{lraRaId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanRoleAuthority" >
+    insert into loan_role_authority (lra_ra_id, lra_role_id, lra_authority_Id
+      )
+    values (#{lraRaId,jdbcType=INTEGER}, #{lraRoleId,jdbcType=INTEGER}, #{lraAuthorityId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanRoleAuthority" >
+    insert into loan_role_authority
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lraRaId != null" >
+        lra_ra_id,
+      </if>
+      <if test="lraRoleId != null" >
+        lra_role_id,
+      </if>
+      <if test="lraAuthorityId != null" >
+        lra_authority_Id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lraRaId != null" >
+        #{lraRaId,jdbcType=INTEGER},
+      </if>
+      <if test="lraRoleId != null" >
+        #{lraRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="lraAuthorityId != null" >
+        #{lraAuthorityId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanRoleAuthority" >
+    update loan_role_authority
+    <set >
+      <if test="lraRoleId != null" >
+        lra_role_id = #{lraRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="lraAuthorityId != null" >
+        lra_authority_Id = #{lraAuthorityId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where lra_ra_id = #{lraRaId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanRoleAuthority" >
+    update loan_role_authority
+    set lra_role_id = #{lraRoleId,jdbcType=INTEGER},
+      lra_authority_Id = #{lraAuthorityId,jdbcType=INTEGER}
+    where lra_ra_id = #{lraRaId,jdbcType=INTEGER}
+  </update>
+  
+  
+   <delete id="delByRoleId" parameterType="java.lang.Integer">
+   	delete from loan_role_authority
+    where lra_role_id = #{lraRoleId,jdbcType=INTEGER}
+  </delete>
+  
+  <select id="selectAuthListByRoleId" parameterType="int" resultMap="BaseResultMap">
+  	select  <include refid="Base_Column_List" />  from loan_role_authority
+  	where lra_role_id = #{lraRoleId,jdbcType=INTEGER}
+  </select>
+</mapper>

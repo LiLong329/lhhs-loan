@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanFundTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanFundTask" >
+    <id column="lft_fundid" property="lftFundid" jdbcType="BIGINT" />
+    <result column="lft_node" property="lftNode" jdbcType="INTEGER" />
+    <result column="lft_node_status" property="lftNodeStatus" jdbcType="INTEGER" />
+    <result column="lft_employeename" property="lftEmployeename" jdbcType="VARCHAR" />
+    <result column="lft_time" property="lftTime" jdbcType="TIMESTAMP" />
+    <result column="lft_result" property="lftResult" jdbcType="INTEGER" />
+    <result column="lft_employeeno" property="lftEmployeeno" jdbcType="INTEGER" />
+    <result column="lft_declarationformid" property="lftDeclarationformid" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lhhs.loan.dao.domain.LoanFundTaskWithBLOBs" extends="BaseResultMap" >
+    <result column="lft_suggestion" property="lftSuggestion" jdbcType="LONGVARCHAR" />
+    <result column="lft_remark" property="lftRemark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lft_fundid, lft_node, lft_node_status, lft_employeename, lft_time, lft_result, lft_employeeno, 
+    lft_declarationformid
+  </sql>
+  <sql id="Blob_Column_List" >
+    lft_suggestion, lft_remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from loan_fund_task
+    where lft_fundid = #{lftFundid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from loan_fund_task
+    where lft_fundid = #{lftFundid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanFundTaskWithBLOBs" >
+    insert into loan_fund_task (lft_fundid, lft_node, lft_node_status, 
+      lft_employeename, lft_time, lft_result, 
+      lft_employeeno, lft_declarationformid, lft_suggestion, 
+      lft_remark)
+    values (#{lftFundid,jdbcType=BIGINT}, #{lftNode,jdbcType=INTEGER}, #{lftNodeStatus,jdbcType=INTEGER}, 
+      #{lftEmployeename,jdbcType=VARCHAR}, #{lftTime,jdbcType=TIMESTAMP}, #{lftResult,jdbcType=INTEGER}, 
+      #{lftEmployeeno,jdbcType=INTEGER}, #{lftDeclarationformid,jdbcType=VARCHAR}, #{lftSuggestion,jdbcType=LONGVARCHAR}, 
+      #{lftRemark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanFundTaskWithBLOBs" >
+    insert into loan_fund_task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lftFundid != null" >
+        lft_fundid,
+      </if>
+      <if test="lftNode != null" >
+        lft_node,
+      </if>
+      <if test="lftNodeStatus != null" >
+        lft_node_status,
+      </if>
+      <if test="lftEmployeename != null" >
+        lft_employeename,
+      </if>
+      <if test="lftTime != null" >
+        lft_time,
+      </if>
+      <if test="lftResult != null" >
+        lft_result,
+      </if>
+      <if test="lftEmployeeno != null" >
+        lft_employeeno,
+      </if>
+      <if test="lftDeclarationformid != null" >
+        lft_declarationformid,
+      </if>
+      <if test="lftSuggestion != null" >
+        lft_suggestion,
+      </if>
+      <if test="lftRemark != null" >
+        lft_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lftFundid != null" >
+        #{lftFundid,jdbcType=BIGINT},
+      </if>
+      <if test="lftNode != null" >
+        #{lftNode,jdbcType=INTEGER},
+      </if>
+      <if test="lftNodeStatus != null" >
+        #{lftNodeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lftEmployeename != null" >
+        #{lftEmployeename,jdbcType=VARCHAR},
+      </if>
+      <if test="lftTime != null" >
+        #{lftTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lftResult != null" >
+        #{lftResult,jdbcType=INTEGER},
+      </if>
+      <if test="lftEmployeeno != null" >
+        #{lftEmployeeno,jdbcType=INTEGER},
+      </if>
+      <if test="lftDeclarationformid != null" >
+        #{lftDeclarationformid,jdbcType=VARCHAR},
+      </if>
+      <if test="lftSuggestion != null" >
+        #{lftSuggestion,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="lftRemark != null" >
+        #{lftRemark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanFundTaskWithBLOBs" >
+    update loan_fund_task
+    <set >
+      <if test="lftNode != null" >
+        lft_node = #{lftNode,jdbcType=INTEGER},
+      </if>
+      <if test="lftNodeStatus != null" >
+        lft_node_status = #{lftNodeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lftEmployeename != null" >
+        lft_employeename = #{lftEmployeename,jdbcType=VARCHAR},
+      </if>
+      <if test="lftTime != null" >
+        lft_time = #{lftTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lftResult != null" >
+        lft_result = #{lftResult,jdbcType=INTEGER},
+      </if>
+      <if test="lftEmployeeno != null" >
+        lft_employeeno = #{lftEmployeeno,jdbcType=INTEGER},
+      </if>
+      <if test="lftDeclarationformid != null" >
+        lft_declarationformid = #{lftDeclarationformid,jdbcType=VARCHAR},
+      </if>
+      <if test="lftSuggestion != null" >
+        lft_suggestion = #{lftSuggestion,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="lftRemark != null" >
+        lft_remark = #{lftRemark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where lft_fundid = #{lftFundid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lhhs.loan.dao.domain.LoanFundTaskWithBLOBs" >
+    update loan_fund_task
+    set lft_node = #{lftNode,jdbcType=INTEGER},
+      lft_node_status = #{lftNodeStatus,jdbcType=INTEGER},
+      lft_employeename = #{lftEmployeename,jdbcType=VARCHAR},
+      lft_time = #{lftTime,jdbcType=TIMESTAMP},
+      lft_result = #{lftResult,jdbcType=INTEGER},
+      lft_employeeno = #{lftEmployeeno,jdbcType=INTEGER},
+      lft_declarationformid = #{lftDeclarationformid,jdbcType=VARCHAR},
+      lft_suggestion = #{lftSuggestion,jdbcType=LONGVARCHAR},
+      lft_remark = #{lftRemark,jdbcType=LONGVARCHAR}
+    where lft_fundid = #{lftFundid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanFundTask" >
+    update loan_fund_task
+    set lft_node = #{lftNode,jdbcType=INTEGER},
+      lft_node_status = #{lftNodeStatus,jdbcType=INTEGER},
+      lft_employeename = #{lftEmployeename,jdbcType=VARCHAR},
+      lft_time = #{lftTime,jdbcType=TIMESTAMP},
+      lft_result = #{lftResult,jdbcType=INTEGER},
+      lft_employeeno = #{lftEmployeeno,jdbcType=INTEGER},
+      lft_declarationformid = #{lftDeclarationformid,jdbcType=VARCHAR}
+    where lft_fundid = #{lftFundid,jdbcType=BIGINT}
+  </update>
+  
+  <select id="queryList" resultType="com.lhhs.loan.dao.domain.LoanFundTask">
+		SELECT * FROM loan_fund_task  m
+		WHERE 1 = 1 
+		<trim>
+			<if test="null != lftFundid and '' != lftFundid">
+				AND lft_fundid = #{lftFundid }
+			</if>
+			<if test="null != lftNode and '' != lftNode">
+				AND lft_node = #{lftNode }
+			</if>
+			<if test="null != lftNodeStatus and '' != lftNodeStatus">
+				AND lft_node_status = #{lftNodeStatus }
+			</if>
+			<if test="null != lftEmployeename and '' != lftEmployeename">
+				AND lft_employeename = #{lftEmployeename }
+			</if>
+			<if test="null != lftTime and '' != lftTime">
+				AND lft_time = #{lftTime }
+			</if>
+			<if test="null != lftResult and '' != lftResult">
+				AND lft_result = #{lftResult }
+			</if>
+			<if test="null != lftSuggestion and '' != lftSuggestion">
+				AND lft_suggestion = #{lftSuggestion }
+			</if>
+			<if test="null != lftRemark and '' != lftRemark">
+				AND lft_remark = #{lftRemark }
+			</if>
+			<if test="null != lftEmployeeno and '' != lftEmployeeno">
+				AND lft_employeeno = #{lftEmployeeno }
+			</if>
+			<if test="null != lftDeclarationformid and '' != lftDeclarationformid">
+				AND lft_declarationformid = #{lftDeclarationformid }
+			</if>
+		</trim>
+		ORDER BY lft_fundid desc
+	</select>
+ 	
+ 	<select id="queryCount" resultType="int">
+		SELECT * FROM loan_fund_task WHERE 
+		WHERE 1 = 1 
+		<trim>
+			<if test="null != lftFundid and '' != lftFundid">
+				AND lft_fundid = #{lftFundid }
+			</if>
+			<if test="null != lftNode and '' != lftNode">
+				AND lft_node = #{lftNode }
+			</if>
+			<if test="null != lftNodeStatus and '' != lftNodeStatus">
+				AND lft_node_status = #{lftNodeStatus }
+			</if>
+			<if test="null != lftEmployeename and '' != lftEmployeename">
+				AND lft_employeename = #{lftEmployeename }
+			</if>
+			<if test="null != lftTime and '' != lftTime">
+				AND lft_time = #{lftTime }
+			</if>
+			<if test="null != lftResult and '' != lftResult">
+				AND lft_result = #{lftResult }
+			</if>
+			<if test="null != lftSuggestion and '' != lftSuggestion">
+				AND lft_suggestion = #{lftSuggestion }
+			</if>
+			<if test="null != lftRemark and '' != lftRemark">
+				AND lft_remark = #{lftRemark }
+			</if>
+			<if test="null != lftEmployeeno and '' != lftEmployeeno">
+				AND lft_employeeno = #{lftEmployeeno }
+			</if>
+			<if test="null != lftDeclarationformid and '' != lftDeclarationformid">
+				AND lft_declarationformid = #{lftDeclarationformid }
+			</if>
+		</trim>
+	</select>
+	<!-- *************** 小贷 II 期 LiJian jun Start ******************* -->
+	<!-- 查询项目审核记录表(审批流程节点) -->
+	<select id="selectFundHandledRecord" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+		SELECT
+		    <include refid="Base_Column_List" />,
+		    <include refid="Blob_Column_List" />
+    	FROM 
+    		loan_fund_task
+    	WHERE
+  			lft_declarationformid = #{orderNo, jdbcType=VARCHAR}
+	</select>
+	<!-- 进行资金审批时将会签记录保存于会签记录表 -->
+	<insert id="insertFundTaskWithEntity" parameterType="com.lhhs.loan.dao.domain.LoanFundTaskWithBLOBs" >
+	    insert into loan_fund_task (lft_fundid, lft_node, lft_node_status, 
+	      lft_employeename, lft_time, lft_result, 
+	      lft_employeeno, lft_declarationformid, lft_suggestion, 
+	      lft_remark)
+	    values (#{lftFundid,jdbcType=BIGINT}, #{lftNode,jdbcType=INTEGER}, #{lftNodeStatus,jdbcType=INTEGER}, 
+	      #{lftEmployeename,jdbcType=VARCHAR}, #{lftTime,jdbcType=TIMESTAMP}, #{lftResult,jdbcType=INTEGER}, 
+	      #{lftEmployeeno,jdbcType=INTEGER}, #{lftDeclarationformid,jdbcType=VARCHAR}, #{lftSuggestion,jdbcType=LONGVARCHAR}, 
+	      #{lftRemark,jdbcType=LONGVARCHAR})
+  </insert>
+	<!-- **************** 小贷 II 期 LiJian jun End ******************** -->
+</mapper>

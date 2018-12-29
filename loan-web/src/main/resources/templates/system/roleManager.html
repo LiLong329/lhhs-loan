@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>系统管理</li>
+                        <li>权限设置</li>
+                        <li>角色管理</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual">
+                        
+                           <form action="/systemManager/getRoles" id="myForm">
+                          <input  name="pageNumber" type="hidden" value="" id="currentPageNo"/>
+                            <ul class="seachform1">
+                                <li>
+                                    <label>角色名称：</label>
+                                    <div class="vocation">
+                                        <select class="select-common select3" name="roleName" >
+                                            <option value=''>请选择</option>
+                                            <option th:each="role : ${roleNameList}" th:text="${role.name}" th:attr="selected=(${role.name} eq ${rname})?true:false"></option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label>状态：</label>
+                                    <div class="vocation">
+                                        <select class="select-common select3" name="status">
+                                            <option value=''>请选择</option>
+                                            <option th:attr="selected=(${status} eq 03)?true:false" value="03">正常</option>
+                                            <option th:attr="selected=(${status} eq 99)?true:false" value="99">禁用</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <input id="searcher" type="button" class="scbtn" value="查询"/>
+                                </li>
+                                <li class="sarchbtn" style="float: right;">
+                                    <input sec:authorize="hasRole('ROLE_ROLEADD')" type="button" class="scbtn1" value="新增" onclick="window.location.href='/systemManager/toRolesInsert'"/>
+                                </li>
+                            </ul>
+                             </form>
+                            <div class="table-title">
+                                <p class="tab-font">角色管理</p>
+                            </div>
+                            <table class="tablelist">
+                                <thead>
+                                    <tr>
+                                        <th>角色名称</th>
+                                        <th>创建时间</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                               
+                             <tbody>
+			                     <tr th:each="role : ${page.resultList}">
+					                 <td  th:text="${role.name}"></td>
+					                 <td th:text="${role.createTime}?${#dates.format(role.createTime, 'yyyy-MM-dd HH:mm:ss')}:''" ></td>
+                                     <td>
+                                     	<th:block th:if="${role.status} eq 03">正常</th:block>
+                                     	<th:block th:if="${role.status} eq 99">禁用</th:block>
+                                     </td>
+							         <td>
+		                             	<a sec:authorize="hasRole('ROLE_ROLEEDIT')" th:href="@{/systemManager/toRoleUpdate(roleId=${role.roleId})}" class="tablelink">修改</a>
+		                              	<th:block th:if="${role.status} eq 03">
+		                             		<a sec:authorize="hasRole('ROLE_ROLEIFENABLE')" href="javascript:void(0);" class="tablelink mlt10" data-enable="99" th:attr="data-numb=${role.roleId}">禁用</a>
+		                             	</th:block>
+		                              	<th:block th:if="${role.status} eq 99">
+		                             		<a sec:authorize="hasRole('ROLE_ROLEIFENABLE')" href="javascript:void(0);" class="tablelink mlt10" data-enable="03" th:attr="data-numb=${role.roleId}">启用</a>
+		                             	</th:block>
+		                             </td>
+							    </tr>
+                            </tbody>
+                            </table>
+                            
+                   				<div class="pagin" th:unless="${#lists.isEmpty(page.resultList)}">
+								<div class="message">
+									共 <i class="blue" th:text="${page.totalCount}"></i> 条记录，当前显示第 <i
+										class="blue" th:text="${page.pageIndex}"></i> 页
+								</div>
+								<ul class="paginList">
+									<li class="paginItem" th:if="${page.pageIndex} gt 1"><a
+										th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+									</li>
+									<li class="paginItem"
+										th:each="x:${#numbers.sequence(page.startNum, page.endNum)}"
+										th:classappend="(${page.pageIndex} eq ${x})?'current'"><a
+										th:attr="data-pagenum=${x}" th:text="${x}"></a></li>
+									<li class="paginItem"
+										th:if="${page.pageIndex} lt ${page.pageCount}"><a
+										th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+									</li>
+								</ul>
+							</div>
+                       
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+      <script> seajs.use("system/roleManager");</script>
+</body>
+</html>

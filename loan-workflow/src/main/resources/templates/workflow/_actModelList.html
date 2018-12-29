@@ -1,0 +1,62 @@
+<table class="tablelist">
+    <thead>
+        <tr>
+				
+				<th>模型ID</th>
+				<th>模型标识</th>
+				<th>模型名称</th>
+				<th>版本号</th>
+				<th>创建时间</th>
+				<th>最后更新时间</th>
+				<th>操作</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        <th:block th:unless="${#lists.isEmpty(page.resultList)}">
+			<tr th:each="model : ${page.resultList}">
+
+			
+
+				<td th:text="${model.id}"></td>
+				<td th:text="${model.key}"></td>
+				<td th:text="${model.name}"></td>
+				<td th:text="${model.version}"></td>
+				<td th:text="${model.createTime}?${#dates.format(model.createTime,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+				<td th:text="${model.lastUpdateTime}?${#dates.format(model.lastUpdateTime,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+				<td>
+				
+				<a th:href="@{/act/process-editor/modeler.html(modelId=${model.id})}" target="_blank">编辑</a>
+						<a th:href="@{/workflow/url/actmodel/deploy(id=${model.id})}" onclick="return confirmx('确认要部署该模型吗？', this.href)">部署</a>
+						<a th:href="@{/workflow/url/actmodel/export(id=${model.id})}" target="_blank">导出</a>
+	                    <a th:href="@{/workflow/url/actmodel/delete(id=${model.id})}" onclick="return confirmx('确认要删除该模型吗？', this.href)">删除</a>
+				</td>
+			</tr>
+		</th:block>
+		<th:block th:if="${#lists.isEmpty(page.resultList)}">
+			<tr>
+				<td colspan="9" class="textCt">暂无数据</td>
+			</tr>
+		</th:block>
+    </tbody>
+</table>
+<th:block th:unless="${#lists.isEmpty(page.resultList)}">
+    
+    <div class="pagin" style="margin-top: 0px;">
+    	<div class="message">
+    		共 <i class="blue" th:text="${page.totalCount}"></i> 
+			条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+		</div>
+		<ul class="paginList">
+			<li class="paginItem" th:if="${page.pageIndex} gt 1">
+				<a th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+			</li>
+			<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" th:classappend="(${page.pageIndex} eq ${x})?'current'">
+				<a th:attr="data-pagenum=${x}" th:text="${x}"></a>
+			</li>
+			<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+				<a th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+			</li> 
+		</ul>
+    </div>
+</th:block>

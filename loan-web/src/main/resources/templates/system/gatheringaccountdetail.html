@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script src="/js/public/area.js"></script>
+<link rel="stylesheet"
+	href="/js/public/jqueryValidation/css/validationEngine.jquery.css"
+	type="text/css" />
+<body>
+	<div class="father">
+		<header th:replace="common/top"></header>
+		<div class="common-content">
+			<div th:replace="common/left"></div>
+			<div class="common-right">
+				<div class="place" id="place">
+					<span>位置：</span>
+					<ul class="placeul">
+						<li><a href="/index/index">首页</a></li>
+						<li>系统管理</li>
+						<li>公司账户管理</li>
+						<li><a th:href="@{/systemManager/companyAccount?type=01}">公司收款账户设置</a></li>
+						<li>查看</li>
+					</ul>
+				</div>
+				<div class="right-content">
+					<div class="formbody">
+						<div class="formtitle">
+							<span>查看</span>
+						</div>
+						<div class="toolsli">
+							<ul class="nbbdgl-Ui">
+								<li style="width: 80%;"><span class="tips">地区：</span> <span
+									th:text="${account.cityName}"></span></li>
+								<li style="width: 80%;"><span class="tips">所属公司：</span> <span
+									th:text="${account.ownerName}"></span></li>
+								<li style="width: 80%;"><span class="tips">持卡人：</span> <span
+									th:text="${account.accountHolder}"></span></li>
+								<li style="width: 80%;"><span class="tips">手机号：</span> <span
+									th:text="${account.mobile}"></span></li>
+							</ul>
+						</div>
+						<div class="formtitle">
+							<span>银行账户</span>
+						</div>
+						<div class="table-title">
+							<p class="tab-font">账户信息</p>
+						</div>
+						<table class="tablelist">
+							<thead>
+								<tr>
+									<th>开户银行</th>
+									<th>开户支行</th>
+									<th>银行卡号</th>
+									<th>添加时间</th>
+								</tr>
+							</thead>
+							<tbody th:unless="${#lists.isEmpty(accountcard)}">
+								<tr th:each="card : ${accountcard}" class="radiobox" th:attr="data-value=${card.id}">
+									<td th:text="${card.bankName}"></td>
+									<td th:text="${card.branchName}"></td>
+									<td th:text="${card.bankCardNo}"></td>
+									<td
+										th:text="${card.createTime}?${#dates.format(card.createTime, 'yyyy-MM-dd HH:mm:ss')}:''"></td>
+								</tr>
+							</tbody>
+						</table>
+                        <div id="cardRevise"></div>
+						<p class="textCt pt20 pb20">
+							<input type="button" class="scbtn2" value="返 回"
+								onclick="javascript:history.go(-1);" />
+						</p>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="/js/public/select.js"></script>
+		<footer th:replace="common/footer"></footer>
+		<script
+			src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js"
+			type="text/javascript" charset="utf-8"></script>
+		<script
+			src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js"
+			type="text/javascript" charset="utf-8"></script>
+		 <script>seajs.use("custManagment/companyaccount");</script>
+	</div>
+</body>
+</html>

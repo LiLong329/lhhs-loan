@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanOperateRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanOperateRecord" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="client_ip" property="clientIp" jdbcType="VARCHAR" />
+    <result column="uri" property="uri" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="method" property="method" jdbcType="VARCHAR" />
+    <result column="class_method" property="classMethod" jdbcType="VARCHAR" />
+    <result column="session_id" property="sessionId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="request_time" property="requestTime" jdbcType="TIMESTAMP" />
+    <result column="return_time" property="returnTime" jdbcType="TIMESTAMP" />
+    <result column="http_status_code" property="httpStatusCode" jdbcType="VARCHAR" />
+    <result column="time_consuming" property="timeConsuming" jdbcType="REAL" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="dept_id" property="deptId" jdbcType="VARCHAR" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lhhs.loan.dao.domain.LoanOperateRecordWithBLOBs" extends="BaseResultMap" >
+    <result column="param_data" property="paramData" jdbcType="LONGVARCHAR" />
+    <result column="exception_message" property="exceptionMessage" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, client_ip, uri, title, type, method, class_method, session_id, user_id, username, 
+    request_time, return_time, http_status_code, time_consuming, union_id, company_id, 
+    dept_id, field1, field2, field3, field4, field5
+  </sql>
+  <sql id="Blob_Column_List" >
+    param_data, exception_message
+  </sql>
+  <sql id="Where_Common">
+  	<if test="authgroupList != null">
+	 	and 
+         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+	         (1=1
+	             <if test="null!=item.orgId and ''!=item.orgId">
+				  		and company_id =  #{item.orgId}
+				 </if>
+				 <if test="null!=item.deptId and ''!=item.deptId">
+				  		and dept_id = #{item.deptId}
+				 </if>
+				 <if test="null!=item.dataOwner and ''!=item.dataOwner">
+				  		and user_id =  #{item.dataOwner}
+				 </if>
+			  )
+          </foreach>
+	</if>
+	<if test="null!=unionId and ''!=unionId">
+   	   	and union_id = #{unionId}
+    </if>
+	<if test="null!=beginTime and ''!=beginTime">
+   	   	and DATE_FORMAT(request_time,'%Y-%m-%d') &gt;= DATE_FORMAT(#{beginTime},'%Y-%m-%d')
+    </if>
+	<if test="null!=endTime and ''!=endTime">
+   	   	and DATE_FORMAT(request_time,'%Y-%m-%d') &lt;= DATE_FORMAT(#{endTime},'%Y-%m-%d')
+    </if>
+	<if test="null!=username and ''!=username">
+   	   	and username like CONCAT('%',#{username},'%')
+    </if>
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from loan_operate_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="queryList" resultMap="ResultMapWithBLOBs" parameterType="com.lhhs.loan.dao.domain.LoanOperateRecordWithBLOBs" >
+    select <include refid="Base_Column_List" />,<include refid="Blob_Column_List" />
+    from loan_operate_record
+    where 1=1
+    <include refid="Where_Common"/>
+    order by request_time desc
+    <if test="page != null">
+   	   	limit #{page.pageStartIndex},#{page.pageSize}
+    </if> 
+  </select>
+  <select id="queryCount" resultType="java.lang.Integer" parameterType="com.lhhs.loan.dao.domain.LoanOperateRecordWithBLOBs" >
+    select count(1)
+    from loan_operate_record
+    where 1=1
+    <include refid="Where_Common"/>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from loan_operate_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanOperateRecordWithBLOBs" >
+    insert into loan_operate_record (id, client_ip, uri, 
+      title, type, method, 
+      class_method, session_id, user_id, 
+      username, request_time, return_time, 
+      http_status_code, time_consuming, union_id, 
+      company_id, dept_id, field1, 
+      field2, field3, field4, 
+      field5, param_data, return_data, 
+      exception_message)
+    values (#{id,jdbcType=BIGINT}, #{clientIp,jdbcType=VARCHAR}, #{uri,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, 
+      #{classMethod,jdbcType=VARCHAR}, #{sessionId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{requestTime,jdbcType=TIMESTAMP}, #{returnTime,jdbcType=TIMESTAMP}, 
+      #{httpStatusCode,jdbcType=VARCHAR}, #{timeConsuming,jdbcType=REAL}, #{unionId,jdbcType=VARCHAR}, 
+      #{companyId,jdbcType=VARCHAR}, #{deptId,jdbcType=VARCHAR}, #{field1,jdbcType=VARCHAR}, 
+      #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, #{field4,jdbcType=VARCHAR}, 
+      #{field5,jdbcType=VARCHAR}, #{paramData,jdbcType=LONGVARCHAR}, #{returnData,jdbcType=LONGVARCHAR}, 
+      #{exceptionMessage,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanOperateRecordWithBLOBs" >
+    insert into loan_operate_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="clientIp != null" >
+        client_ip,
+      </if>
+      <if test="uri != null" >
+        uri,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="method != null" >
+        method,
+      </if>
+      <if test="classMethod != null" >
+        class_method,
+      </if>
+      <if test="sessionId != null" >
+        session_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="requestTime != null" >
+        request_time,
+      </if>
+      <if test="returnTime != null" >
+        return_time,
+      </if>
+      <if test="httpStatusCode != null" >
+        http_status_code,
+      </if>
+      <if test="timeConsuming != null" >
+        time_consuming,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="deptId != null" >
+        dept_id,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+      <if test="paramData != null" >
+        param_data,
+      </if>
+      <if test="returnData != null" >
+        return_data,
+      </if>
+      <if test="exceptionMessage != null" >
+        exception_message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="clientIp != null" >
+        #{clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="uri != null" >
+        #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null" >
+        #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="classMethod != null" >
+        #{classMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="requestTime != null" >
+        #{requestTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnTime != null" >
+        #{returnTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="httpStatusCode != null" >
+        #{httpStatusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="timeConsuming != null" >
+        #{timeConsuming,jdbcType=REAL},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+      <if test="paramData != null" >
+        #{paramData,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="returnData != null" >
+        #{returnData,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="exceptionMessage != null" >
+        #{exceptionMessage,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanOperateRecordWithBLOBs" >
+    update loan_operate_record
+    <set >
+      <if test="clientIp != null" >
+        client_ip = #{clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="uri != null" >
+        uri = #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null" >
+        method = #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="classMethod != null" >
+        class_method = #{classMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        session_id = #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="requestTime != null" >
+        request_time = #{requestTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnTime != null" >
+        return_time = #{returnTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="httpStatusCode != null" >
+        http_status_code = #{httpStatusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="timeConsuming != null" >
+        time_consuming = #{timeConsuming,jdbcType=REAL},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        dept_id = #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+      <if test="paramData != null" >
+        param_data = #{paramData,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="returnData != null" >
+        return_data = #{returnData,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="exceptionMessage != null" >
+        exception_message = #{exceptionMessage,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lhhs.loan.dao.domain.LoanOperateRecordWithBLOBs" >
+    update loan_operate_record
+    set client_ip = #{clientIp,jdbcType=VARCHAR},
+      uri = #{uri,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      method = #{method,jdbcType=VARCHAR},
+      class_method = #{classMethod,jdbcType=VARCHAR},
+      session_id = #{sessionId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      request_time = #{requestTime,jdbcType=TIMESTAMP},
+      return_time = #{returnTime,jdbcType=TIMESTAMP},
+      http_status_code = #{httpStatusCode,jdbcType=VARCHAR},
+      time_consuming = #{timeConsuming,jdbcType=REAL},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=VARCHAR},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR},
+      param_data = #{paramData,jdbcType=LONGVARCHAR},
+      return_data = #{returnData,jdbcType=LONGVARCHAR},
+      exception_message = #{exceptionMessage,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanOperateRecord" >
+    update loan_operate_record
+    set client_ip = #{clientIp,jdbcType=VARCHAR},
+      uri = #{uri,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      method = #{method,jdbcType=VARCHAR},
+      class_method = #{classMethod,jdbcType=VARCHAR},
+      session_id = #{sessionId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      request_time = #{requestTime,jdbcType=TIMESTAMP},
+      return_time = #{returnTime,jdbcType=TIMESTAMP},
+      http_status_code = #{httpStatusCode,jdbcType=VARCHAR},
+      time_consuming = #{timeConsuming,jdbcType=REAL},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=VARCHAR},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

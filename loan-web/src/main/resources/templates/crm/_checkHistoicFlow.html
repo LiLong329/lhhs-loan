@@ -1,0 +1,30 @@
+<div class="clearfix"  th:each="emp : ${followRecord}" >
+	<div class="HFitem">
+		<p class="time" th:text="${emp.createTime}?${#dates.format(emp.createTime, 'yyyy-MM-dd HH:mm:ss')}"></p>
+		<div class="HFitem-con">
+			<!-- <em class="HFicon">客户经理</em> -->
+			<p class="name clearfix">
+			    <span th:text="${emp.appointEmpName}?${emp.lastUser}:''">
+			    </span><span th:if="${not #lists.isEmpty(emp.followType)}">></span>
+			    <span th:if="${emp.followType} eq 1">电话</span>
+			    <span th:if="${emp.followType} eq 2">QQ</span>
+			    <span th:if="${emp.followType} eq 3">微信</span>
+			    <span th:if="${emp.followType} eq 4">当面拜访</span>
+			    <span th:if="${emp.followType} eq 5">其他</span>
+			</p>
+			<p class="desc">跟进状态：<span th:if="${emp.businessStatus} eq 01">初步接触</span>
+								 <span th:if="${emp.businessStatus} eq 02">意向客户</span>
+								 <span th:if="${emp.businessStatus} eq 03">跟进客户</span>
+								 <span th:if="${emp.businessStatus} eq 04">签约客户</span>
+								 <span th:if="${emp.businessStatus} eq 05">放弃客户</span>
+								 <span th:if="${emp.businessStatus} eq 06">黑名单</span>
+								 <span th:if="${emp.businessStatus} eq 07">面谈客户</span>
+								 <span th:if="${emp.businessStatus} eq 08">已报单</span>
+								 <span th:if="${emp.businessStatus} eq 90">已拒贷</span>
+								 <span th:if="${emp.businessStatus} eq 99">无效</span>
+			</p>
+			<p class="desc">跟进回访内容：<span th:text="${emp.remark}"></span></p>
+			<p class="desc">实际跟进时间：<span th:text="${emp.visitTime}?${#dates.format(emp.visitTime, 'yyyy-MM-dd')}"></span></p>
+		</div>
+	</div>
+</div>

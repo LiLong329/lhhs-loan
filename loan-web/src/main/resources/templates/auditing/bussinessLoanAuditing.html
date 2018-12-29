@@ -1,0 +1,558 @@
+<div class="formtitle"><span>处理记录</span></div>
+<div id="histoicFlow"></div>
+<input type="hidden" th:value="${basicInfo.approval_node}" id="approvalNode"/>
+<input type="hidden" th:value="${basicInfo.order_no}" id="orderNo"/>
+<input type="hidden" th:value="${actVo.taskId}" id="taskId"/>
+<input type="hidden" th:value="${actVo.taskDefKey}" id="processNodeNo"/>
+<input type="hidden" th:value="${basicInfo.is_loan_add}" id="isLoanAdd"/>
+<!-- 初评 -->
+<div class="clearfix" style="margin-top:30px;" th:if="${basicInfo.approval_node} eq 0">
+    <div class="formtitle"><span>初 评</span></div>
+    <div class="toolsli">
+        <ul class="nbbdgl-Ui">
+	    	<form id="shForm">
+	    		<input id="managerAccount" th:value="${managerAccount}" type="hidden"/>
+	            <li class="treatmentResult">
+	                <span class="tips">处理结果：</span>
+	                <div class="vocation">
+	                    <select class="select-common select1" name="letResult">
+	                        <option value="1">同意</option>
+	                        <option value="92">拒贷</option>
+	                        <option value="91">撤单</option>
+	                    </select>
+	                </div>
+	            </li>
+	            <li>
+	                <span class="tips">操作员：</span>
+	                <span th:text="${loanEmp.leStaffName}"></span>
+	            </li>
+	            <li>
+	                <span class="tips">资金方：</span>
+	                <div class="vocation">
+	                    <select class="select-common select1 fundSide" id="fundSide">
+	                        <option value="">请选择</option>
+	                        <th:block th:unless="${#lists.isEmpty(loanOrgSupportAreas)}">
+                        		<option th:each="loanOrganization:${loanOrgSupportAreas}" 
+                        		th:value="${loanOrganization.orgId}" 
+                        		th:text="${loanOrganization.orgName}" 
+                        		th:attr="selected=(${loanOrganization.orgId} eq ${basicInfo.fund_owner}?true:false)"></option>
+	                        </th:block>
+	                    </select>
+	                </div>
+	            </li>
+	            <li>
+	                <span class="tips">产品名称：</span>
+	                <div class="vocation">
+	                    <select class="select-common select1" id="productName">
+	                        <option value="">请选择</option>
+	                        <th:block th:unless="${#lists.isEmpty(childProductList)}">
+	                        	<th:block th:if="${#maps.containsKey(basicInfo,'product_id')}">
+		                        	<option th:each="childProduct:${childProductList}" 
+			                        	th:value="${childProduct.productId}" 
+			                        	th:text="${childProduct.productName}" 
+			                        	th:attr="selected=(${childProduct.productId} eq ${basicInfo.product_id}?true:false),
+			                        		data-producttypeno=${childProduct.productParentNo},
+			                        		data-producttype=${childProduct.productType}">
+	                        		</option>
+	                        	</th:block>
+	                        	<th:block th:unless="${#maps.containsKey(basicInfo,'product_id')}">
+		                        	<option th:each="childProduct:${childProductList}" 
+			                        	th:value="${childProduct.productId}" 
+			                        	th:text="${childProduct.productName}" 
+			                        	th:attr="data-producttypeno=${childProduct.productParentNo},
+			                        		data-producttype=${childProduct.productType}">
+	                        		</option>
+	                        	</th:block>
+	                    	</th:block>
+	                    </select>
+	                </div>
+	            </li>
+	          <!--   <li style="width:80%;" th:if="${actVo.taskDefKey} eq 'mianshen'">
+                    <span class="tips">是否跳过下户处理：</span>
+                    <input type="radio" class="cboItems" value="1" name="type" checked="checked"/>
+				    <span>否</span>
+				    <input type="radio" class="cboItems" value="0" name="type"/>
+				    <span>是</span>
+                </li> -->
+                 <li  th:if="${basicInfo.customer_source} eq '0'">
+	                <span class="tips">指派面审审核岗位：</span>
+						<div class="vocation">
+							<select class="select-common select1  validate[required]" id="signer">
+								<option value="BusinessUnitGM">事业部总经理</option>
+								<option value="DirectorResponsible">风控负责人</option>
+							</select>
+								<span style="color:red">备注：电销人员报单请选择资金部总监</span>
+						</div>
+	            </li>
+	            <li style="width: 80%;">
+	                <span  class="tips">备注：</span>
+	                <textarea class="area" name="letRemark" maxLength="200" placeholder="最多输入200个字符"></textarea>
+	            </li>
+	        </form>
+        </ul>
+    </div>
+</div>
+<!-- 面 审 -->
+<div class="clearfix" style="margin-top:30px;" th:if="${basicInfo.approval_node} eq 2">
+    <div class="formtitle"><span>面 审</span></div>
+    <div class="toolsli">
+        <ul class="nbbdgl-Ui">
+        	<form id="shForm">
+        	    <input type="hidden" name="taskDefKeySed" th:value="${actVo.taskDefKey}"/>
+        	    <input type="hidden" name="orderStatuSed" th:value="${basicInfo.order_status}"/>
+        	    <input type="hidden" name="field3" th:if="${basicInfo.field3}" th:value="${basicInfo.field3}"/>
+	            <li class="treatmentResult">
+	                <span class="tips">处理结果：</span>
+	                <div class="vocation">
+	                    <select class="select-common select1" name="letResult">
+	                        <option value="1">同意</option>
+	                        <option value="92">拒贷</option>
+	                        <option value="91">撤单</option>
+	                        <option value="5">会签</option>
+	                    </select>
+	                </div>
+	            </li>
+	            <li>
+	                <span class="tips">操作员：</span>
+	                <span th:text="${loanEmp.leStaffName}"></span>
+	            </li>
+	            <li class="jointlySign">
+	                <span class="tips">会签：</span>
+	                <td>
+						<div class="vocation">
+							<select class="select-common select1" id="signer">
+								<option value="">请选择</option>
+								<option value="DirectorResponsible">风控负责人</option>
+								<option value="FundDepartmentDirector">资金部总监</option>
+							</select>
+						</div>
+					</td>
+	            </li>
+	              <li style="width:80%;" th:if="${actVo.taskDefKey} eq 'mianshen'">
+                    <span class="tips">是否跳过下户处理：</span>
+                    <input type="radio" class="cboItems"  value="1" name="type" checked="checked"/>
+				    <span>否</span>
+				    <input type="radio" class="cboItems"  value="0" name="type"/>
+				    <span>是</span>
+                </li>
+                 <li  th:if="${basicInfo.business_type} eq '0' and ${actVo.taskDefKey} eq 'mianshen'">
+                    <span class="tips">是否为居间非居间：</span>
+				    <input type="radio" class="cboItems" value="0" name="businessType" checked="checked"/>
+				    <span>非居间</span>
+                    <input type="radio" class="cboItems" value="1" name="businessType" />
+				    <span>居间</span>
+	            </li>
+	            <li style="width: 80%;">
+	                <span  class="tips">备注：</span>
+	                <textarea class="area" name="letRemark" maxLength="200" placeholder="最多输入200个字符"></textarea>
+	            </li>
+            </form>
+        </ul>
+    </div>
+</div>
+<!-- 补件 -->
+<div class="clearfix" style="margin-top:30px;" th:if="(${basicInfo.approval_node} eq 80) or (${basicInfo.approval_node} eq 81) or (${basicInfo.approval_node} eq 82)">
+    <div class="formtitle"><span>补 件</span></div>
+    <div class="toolsli">
+        <ul class="nbbdgl-Ui">
+        	<form id="shForm">
+	            <li style="width: 80%;">
+	                <span class="tips">操作员：</span>
+	                <span th:text="${loanEmp.leStaffName}"></span>
+	            </li>
+	            <li style="width: 80%;">
+	                <span  class="tips">备注：</span>
+	                <textarea class="area" name="letRemark" maxLength="200" placeholder="最多输入200个字符"></textarea>
+	            </li>
+            </form>
+        </ul>
+    </div>
+</div>
+<!-- 下户指派 -->
+<div class="clearfix" style="margin-top:30px;" th:if="${basicInfo.approval_node} eq 20">
+    <div class="formtitle"><span>下户指派</span></div>
+    <div class="toolsli">
+        <ul class="nbbdgl-Ui">
+        	<form id="shForm">
+	            <li class="treatmentResult">
+	                <span class="tips">处理结果：</span>
+	                <div class="vocation">
+	                    <select class="select-common select1" name="letResult">
+	                        <option value="1">同意</option>
+	                        <option value="92">拒贷</option>
+	                       <!--  <option value="4">补件</option> -->
+	                        <option value="91">撤单</option>
+	                    </select>
+	                </div>
+	            </li>
+	            <li>
+	            	 <span class="tips">指派：</span>
+	                <td>
+						<div class="vocation">
+							<select class="select-common select1 validate[required]" id="signer">  <!-- RiskManager -->
+								 <option value=''>请选择</option>
+                                 <option th:each="emp : ${userQuartersList}" th:text="${emp.staffName}" th:attr="value=${emp.userId}"></option>
+							</select>
+						</div>
+					</td>
+	            </li>
+	            <li>
+	                <span class="tips">操作员：</span>
+	                <span th:text="${loanEmp.leStaffName}"></span>
+	            </li>
+	            <li style="width: 80%;">
+	                <span  class="tips">备注：</span>
+	                <textarea class="area" name="letRemark" maxLength="200" placeholder="最多输入200个字符"></textarea>
+	            </li>
+            </form>
+        </ul>
+    </div>
+</div>
+<!-- 下户 -->
+<div class="clearfix" style="margin-top:30px;" th:if="${basicInfo.approval_node} eq 1">
+    <div class="formtitle"><span>下 户</span></div>
+    <div class="toolsli">
+        <ul class="nbbdgl-Ui">
+        	<form id="shForm">
+	            <li class="treatmentResult">
+	                <span class="tips">处理结果：</span>
+	                <div class="vocation">
+	                    <select class="select-common select1" name="letResult">
+	                        <option value="1">同意</option>
+	                        <option value="92">拒贷</option>
+	                        <option value="4">补件</option>
+	                        <option value="91">撤单</option>
+	                    </select>
+	                </div>
+	            </li>
+	            <li>
+	                <span class="tips">操作员：</span>
+	                <span th:text="${loanEmp.leStaffName}"></span>
+	            </li>
+	            <li class="patchDirection">
+	                <span class="tips">流转方向：</span>
+	                <div class="vocation">
+	                    <select class="select-common select1" id="flowLetNode">
+	                        <option value="chuping">初评</option>
+	                    </select>
+	                </div>
+	            </li>
+	            <li style="width: 80%;">
+	                <span  class="tips">备注：</span>
+	                <textarea class="area" name="letRemark" maxLength="200" placeholder="最多输入200个字符"></textarea>
+	            </li>
+            </form>
+        </ul>
+    </div>
+</div>
+<!-- 下户审核 -->
+<div class="clearfix" style="margin-top:30px;" th:if="${basicInfo.approval_node} eq 21">
+    <div class="formtitle"><span>下户审核</span></div>
+    <div class="toolsli">
+        <ul class="nbbdgl-Ui">
+        	<form id="shForm">
+	            <li class="treatmentResult">
+	                <span class="tips">处理结果：</span>
+	                <div class="vocation">
+	                    <select class="select-common select1" name="letResult">
+	                        <option value="1">同意</option>
+	                        <option value="92">拒贷</option>
+	                        <option value="4">补件</option>
+	                        <option value="91">撤单</option>
+	                        <option value="5">会签</option>
+	                    </select>
+	                </div>
+	            </li>
+	              <li class="jointlySign">
+	                <span class="tips">会签：</span>
+	                <td>
+						<div class="vocation">
+							<select class="select-common select1" id="signer">
+								<option value="">请选择</option>
+								<!-- <option value="DirectorResponsible">风控负责人</option> -->
+								<option value="WarrantResponsible">权证负责人</option>
+							</select>
+						</div>
+					</td>
+	            </li>
+	            <li>
+	                <span class="tips">操作员：</span>
+	                <span th:text="${loanEmp.leStaffName}"></span>
+	            </li>
+	            <li style="width: 80%;">
+	                <span  class="tips">备注：</span>
+	                <textarea class="area" name="letRemark" maxLength="200" placeholder="最多输入200个字符"></textarea>
+	            </li>
+            </form>
+        </ul>
+    </div>
+</div>
+<!-- 下户审核会签 -->
+<div class="clearfix" style="margin-top:30px;" th:if="${basicInfo.approval_node} eq 22">
+    <div class="formtitle"><span>下户审核会签</span></div>
+    <div class="toolsli">
+        <ul class="nbbdgl-Ui">
+        	<form id="shForm">
+	            <li class="treatmentResult">
+	                <span class="tips">处理结果：</span>
+	                <div class="vocation">
+	                    <select class="select-common select1" name="letResult">
+	                        <option value="1">同意</option>
+	                        <option value="5">会签</option>
+	                    </select>
+	                </div>
+	            </li>
+	              <li class="jointlySign">
+	                <span class="tips">会签：</span>
+	                <td>
+						<div class="vocation">
+							<select class="select-common select1" id="signer">
+								<option value="">请选择</option>
+								<option value="DirectorResponsible">风控负责人</option>
+								<option value="WarrantResponsible">权证负责人</option>
+							</select>
+						</div>
+					</td>
+	            </li>
+	            <li>
+	                <span class="tips">操作员：</span>
+	                <span th:text="${loanEmp.leStaffName}"></span>
+	            </li>
+	            <li style="width: 80%;">
+	                <span  class="tips">备注：</span>
+	                <textarea class="area" name="letRemark" maxLength="200" placeholder="最多输入200个字符"></textarea>
+	            </li>
+            </form>
+        </ul>
+    </div>
+</div>
+<!-- 终审 -->
+<div class="clearfix" style="margin-top:30px;" th:if="${basicInfo.approval_node} eq 3">
+    <div class="formtitle"><span>终 审</span></div>
+    <div class="toolsli">
+        <ul class="nbbdgl-Ui">
+        	<form id="shForm">
+	            <li class="treatmentResult">
+	                <span class="tips">处理结果：</span>
+	                <div class="vocation">
+	                    <select class="select-common select1" name="letResult">
+	                        <option value="1">同意</option>
+	                        <option value="92">拒贷</option>
+	                        <option value="91">撤单</option>
+	                        <option value="5">会签</option>
+	                    </select>
+	                </div>
+	            </li>
+	            <li>
+	                <span class="tips">操作员：</span>
+	                <span th:text="${loanEmp.leStaffName}"></span>
+	            </li>
+	            <li class="jointlySign">
+	                <span class="tips">会签：</span>
+	                <td>
+						<div class="vocation">
+							<select class="select-common select1" id="signer">
+								 <option value=''>请选择</option>
+                                 <option th:each="emp : ${userQuartersList}" th:text="${emp.name}" th:attr="value=${emp.englishName}"></option>
+							</select>
+						</div>
+					</td>
+	            </li>
+	            
+	              <li class="jointfkSign" th:if="${basicInfo.business_type} eq '1'">
+	                <span class="tips">指派放款申请操作人：</span>
+	                <td>
+						<div class="vocation">
+							<select class="select-common select1 validate[required]" id="signerAccount">
+								 <option value=''>请选择</option>
+                                 <option th:each="emp : ${deptEmpList}" th:text="${emp.staffName}" th:attr="value=${emp.username}"></option>
+							</select>
+						</div>
+					</td>
+	            </li>
+	                 <li class="jointfkSign" th:if="${basicInfo.business_type} eq '1'">
+                    <span class="tips">是否跳过签约公证、权证抵押、风控复核：</span>
+                    <input type="radio" class="cboItems"  value="1" name="type" checked="checked"/>
+				    <span>否</span>
+				    <input type="radio" class="cboItems"  value="0" name="type"/>
+				    <span>是</span>
+	            </li>
+	            
+	            <li style="width: 80%;">
+	                <span  class="tips">备注：</span>
+	                <textarea class="area" name="letRemark" maxLength="200" placeholder="最多输入200个字符"></textarea>
+	            </li>
+            </form>
+        </ul>
+    </div>
+</div>
+<!-- 签约公证 -->
+<div class="clearfix" style="margin-top:30px;" th:if="${basicInfo.approval_node} eq 6">
+    <div class="formtitle"><span>签约公证</span></div>
+    <div class="toolsli">
+        <ul class="nbbdgl-Ui">
+        	<form id="shForm">
+	            <li class="treatmentResult">
+	                <span class="tips">处理结果：</span>
+	                <div class="vocation">
+	                    <select class="select-common select1" name="letResult">
+	                        <option value="1">同意</option>
+	                        <option value="92">拒贷</option>
+	                        <option value="4">补件</option>
+	                        <option value="91">撤单</option>
+	                    </select>
+	                </div>
+	            </li>
+	            <li>
+	                <span class="tips">操作员：</span>
+	                <span th:text="${loanEmp.leStaffName}"></span>
+	            </li>
+	            <li class="patchDirection">
+	                <span class="tips">流转方向：</span>
+	                <div class="vocation">
+	                    <select class="select-common select1" id="flowLetNode">
+	                        <option value="xiahu">下户</option>
+	                    </select>
+	                </div>
+	            </li>
+	            <li style="width: 80%;">
+	                <span  class="tips">备注：</span>
+	                <textarea class="area" name="letRemark" maxLength="200" placeholder="最多输入200个字符"></textarea>
+	            </li>
+            </form>
+        </ul>
+    </div>
+</div>
+<!-- 权证抵押 -->
+<div class="clearfix" style="margin-top:30px;" th:if="${basicInfo.approval_node} eq 7">
+    <div class="formtitle"><span>权证抵押</span></div>
+    <div class="toolsli">
+        <ul class="nbbdgl-Ui">
+        	<form id="shForm">
+	            <li class="treatmentResult">
+	                <span class="tips">处理结果：</span>
+	                <div class="vocation">
+	                    <select class="select-common select1" name="letResult">
+	                        <option value="1">同意</option>
+	                        <option value="92">拒贷</option>
+	                        <option value="4">补件</option>
+	                        <option value="91">撤单</option>
+	                    </select>
+	                </div>
+	            </li>
+	            <li>
+	                <span class="tips">操作员：</span>
+	                <span th:text="${loanEmp.leStaffName}"></span>
+	            </li>
+	            <li class="patchDirection">
+	                <span class="tips">流转方向：</span>
+	                <div class="vocation">
+	                    <select class="select-common select1" id="flowLetNode">
+	                       <option value="xiahu">下户</option>
+	                    </select>
+	                </div>
+	            </li>
+	            <li style="width: 80%;">
+	                <span  class="tips">备注：</span>
+	                <textarea class="area" name="letRemark" maxLength="200" placeholder="最多输入200个字符"></textarea>
+	            </li>
+            </form>
+        </ul>
+    </div>
+</div>
+<!-- 风控复核 -->
+<div class="clearfix" style="margin-top:30px;" th:if="${basicInfo.approval_node} eq 23">
+    <div class="formtitle"><span>风控复核</span></div>
+    <div class="toolsli">
+        <ul class="nbbdgl-Ui">
+        	<form id="shForm">
+	            <li class="treatmentResult">
+	                <span class="tips">处理结果：</span>
+	                <div class="vocation">
+	                    <select class="select-common select1" name="letResult">
+	                        <option value="1">同意</option>
+	                        <option value="92">拒贷</option>
+	                        <option value="91">撤单</option>
+	                    </select>
+	                </div>
+	            </li>
+	            <li>
+	                <span class="tips">操作员：</span>
+	                <span th:text="${loanEmp.leStaffName}"></span>
+	            </li>
+	            <li style="width: 80%;">
+	                <span  class="tips">备注：</span>
+	                <textarea class="area" name="letRemark" maxLength="200" placeholder="最多输入200个字符"></textarea>
+	            </li>
+            </form>
+        </ul>
+    </div>
+</div>
+<!-- 财务放款 -->
+<div class="clearfix" style="margin-top:30px;" th:if="${basicInfo.approval_node} eq 9">
+    <div class="formtitle"><span>财务放款</span></div>
+    <div class="toolsli">
+        <ul class="nbbdgl-Ui">
+        	<form id="shForm">
+				<input id="productId" th:value="${#maps.containsKey(basicInfo,'product_id')}?${basicInfo.product_id}:''" type="hidden"/>
+	            <input id="historyLoanMethod" th:value="${basicInfo.loan_method}" type="hidden"/>
+	            <li class="treatmentResult">
+	                <span class="tips">处理结果：</span>
+	                <div class="vocation">
+	                    <select class="select-common select1" name="letResult">
+	                    	<th:block th:unless="${basicInfo.loan_method} eq 1">
+		                    	<option value="1">同意</option>
+		                        <option value="92">拒贷</option>
+		                        <option value="-2">驳回修改</option>
+	                    	</th:block>
+	                    	<th:block th:if="${basicInfo.loan_method} eq 1">
+		                    	<option value="1">同意</option>
+		                        <option value="90">放款终止</option>
+	                    	</th:block>
+	                    </select>
+	                </div>
+	            </li>
+	            <li>
+	                <span class="tips">操作员：</span>
+	                <span th:text="${loanEmp.leStaffName}"></span>
+	            </li>
+	            <li>
+	                <span class="tips">放款方式：</span>
+                    <input type="radio" class="cboItems" value="2" name="loanMethod" checked="checked"/>
+                    <span>全部放款</span>
+                    <input type="radio" class="cboItems" value="1" name="loanMethod"/>
+                    <span>部分放款</span>
+	            </li>
+	            <li>
+	                <span class="tips">实际放款时间：</span>
+	                <input type="text" class="txt validate[required]" id="actualLoanDate" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss',onpicked:function(){checkTime()}})" readonly="readonly"/>
+	            </li>
+	            <li style="width:80%;">
+                    <span class="tips">&nbsp;</span>
+                    <input type="checkbox" class="cboItems" value="Y" id="isPayPlanTemp"/>
+                    <span>还款计划表</span>
+                    <input type="checkbox" class="cboItems" value="Y" id="isLoanRecordTemp" checked="checked" disabled="disabled"/>
+                    <span>放款记录表</span>
+                    <input type="checkbox" class="cboItems" value="Y" id="isPayPlanCompanyTemp"/>
+                    <span>付款计划表</span>
+                </li>
+	            <li style="width: 80%;">
+	                <span  class="tips">备注：</span>
+	                <textarea class="area" name="letRemark" maxLength="200" placeholder="最多输入200个字符"></textarea>
+	            </li>
+            </form>
+        </ul>
+    </div>
+</div>
+<p class="textCt">
+	<th:block th:if="${basicInfo.approval_node} eq 9">
+		<input type="button" id="auditingSubmit" class="scbtn auditingSubmit" value="确 定"/>
+	</th:block>
+	<th:block th:unless="${basicInfo.approval_node} eq 9">
+		<input type="button" id="auditingSubmit" class="scbtn auditingSubmit" value="提 交"/>
+	</th:block>
+    <input type="button" class="scbtn2 mlt10" value="取 消" onclick="javascript:history.go(-1);"/>
+</p>
+<script type="text/javascript">
+  	seajs.use("auditing/projectAuditing");
+</script>

@@ -1,0 +1,63 @@
+<table class="tablelist">
+     <thead>
+         <tr>
+             <th>公司编号</th>
+             <th>公司名称</th>
+             <th>公司简称</th>
+             <th>负责人</th>
+             <th>地址</th>
+             <th>添加时间</th>
+             <th>集团/分公司</th>
+             <th>操作</th>
+         </tr>
+     </thead>
+   <tbody>
+		<th:block th:if="${page} and ${not #lists.isEmpty(page.resultList)}">
+			<tr th:each="com,iter : ${page.resultList}">
+				<td th:text="${com.companyId}"></td>
+				<td th:text="${com.companyName}"></td>
+				<td th:text="${com.englishName}"></td>
+				<td th:text="${com.leaderName}"></td>
+				<td th:if="${com.cityName}==null and ${com.companyAddress}==null"></td>
+				<td th:if="${com.cityName}==null and ${com.companyAddress}!=null" th:text="${com.companyAddress}"></td>
+				<td th:if="${com.cityName}!=null and ${com.companyAddress}!=null" th:text="${com.cityName+com.companyAddress}"></td>
+				<td th:if="${com.cityName}!=null and ${com.companyAddress}==null" th:text="${com.cityName}"></td>
+				<td th:text="${com.createTime}?${#dates.format(com.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+				<td th:switch="${com.level}">
+				<th:block th:case="1">集团</th:block>
+				<th:block th:case="*">分公司</th:block>
+				</td>
+                <td>
+                <a th:href="@{/unionCompany/unionCompanyDetails(companyId=${com.companyId})}" class="tablelink mlt10">查看</a>
+                <a th:href="@{/unionCompany/updatePage(companyId=${com.companyId})}" class="tablelink mlt10">修改</a>
+                </td>
+			</tr>
+		</th:block>
+
+		<th:block th:unless="${page} and ${not #lists.isEmpty(page.resultList)}">
+			<tr>
+				 <td colspan="7" class="textCt">暂无数据</td>
+			</tr>
+		</th:block>
+	</tbody>
+</table>
+
+
+<div class="pagin" th:if="${page} and ${not #lists.isEmpty(page.resultList)}">
+	<div class="message">
+		共 <i class="blue" th:text="${page.totalCount}"></i> 
+		条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+	</div>
+	<ul class="paginList">
+		<li class="paginItem" th:if="${page.pageIndex} gt 1">
+			<a th:attr="data-pagenum=(${page.pageIndex}-1),data-pagesize=${page.pageSize}" class="pagepre"></a>
+		</li>
+		<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" 
+		th:classappend="(${page.pageIndex} eq ${x})?'current'">
+			<a th:attr="data-pagenum=${x},data-pagesize=(${page.pageSize})" th:text="${x}"></a>
+		</li>
+		<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+			<a th:attr="data-pagenum=(${page.pageIndex}+1),data-pagesize=(${page.pageSize})" class="pagenxt"></a>
+		</li> 
+	</ul>
+</div>

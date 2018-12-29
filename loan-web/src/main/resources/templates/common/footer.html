@@ -1,0 +1,30 @@
+<footer class="common-footer">
+	<b>Version</b> 2.1.0 &nbsp;
+  	<strong>Copyright &copy; 2017-2018 联合汇商信息技术有限公司  </strong>
+  	All rights reserved  京ICP备16059364号-2&nbsp;&nbsp;&nbsp;&nbsp;
+</footer>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	    $(".select-common").uedSelect();
+		if($(".tablelist").length>0){
+	        $(".tablelist").each(function(){
+	            $(this).find("tbody tr:odd").addClass("odd");
+	        });
+	    }
+	/*]]>*/
+</script>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	    document.onkeydown=function(e){
+			var ev = e || window.event;//获取event对象 
+			var keyNum = ev.keyCode || ev.which;//键盘按下键值
+			if(keyNum==8){
+				var obj = ev.target || ev.srcElement;//获取事件源
+				var name=obj.nodeName;
+				if(name!="INPUT"&&name!="TEXTAREA"){
+					return false;
+				}
+			}
+		};
+	/*]]>*/
+</script>

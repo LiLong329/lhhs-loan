@@ -1,0 +1,174 @@
+<div class="formtitle"><span>资金方基本信息</span></div>
+<table class="tablelist">
+    <thead>
+	    <tr>
+	        <th>客户性质</th>
+	        <th>手机号/机构ID/公司ID</th>
+	        <th>账户名</th>
+	        <th>银行卡号</th>
+	        <th>开户银行</th>
+	        <th>开户行</th>
+	        <th>放款金额（元）</th>
+	        <th th:if="${basicInfo.approval_node} eq 9">已放款金额（元）</th>
+	        <th>放款利率</th>
+	        <th th:if="${basicInfo.approval_node} lt 9">可用余额（元）</th>
+	        <th>所属资金方</th>
+	    </tr>
+    </thead>
+    <tbody>
+	    <th:block th:unless="${#lists.isEmpty(loanCapitalInfoList)}">
+			<tr th:each="capitalInfo,iterStat:${loanCapitalInfoList}">
+				<td th:text="${capitalInfo.typeName}"></td>
+				<td th:text="${capitalInfo.mobile}"></td>
+				<td th:text="${capitalInfo.accountName}"></td>
+	            <td th:text="${capitalInfo.bankcardId}"></td>
+	            <td th:text="${capitalInfo.bankName}"></td>
+	            <td th:text="${capitalInfo.branchBank}"></td>
+	            <td th:text="${capitalInfo.amountPaid}?${#numbers.formatDecimal(capitalInfo.amountPaid,1,2)}"></td>
+	            <td th:if="${basicInfo.approval_node} eq 9" th:text="${#numbers.formatDecimal(capitalInfo.amountPaidAlready,1,2)}"></td>
+	            <td th:text="${capitalInfo.amountRate}?${#numbers.formatDecimal(capitalInfo.amountRate,1,3)}+'%/'+${capitalInfo.amountRateUnit}"></td>
+				<td th:if="${basicInfo.approval_node} lt 9" th:text="${capitalInfo.balance}?${#numbers.formatDecimal(capitalInfo.balance,1,2)}:0.00"></td>
+				<td th:text="${capitalInfo.orgName}"></td>
+			</tr>
+		</th:block>
+		<th:block th:if="${#lists.isEmpty(loanCapitalInfoList)}">
+			<tr>
+				<td colspan="10" align="center">暂无数据 </td>
+			</tr>
+		</th:block>
+	</tbody>
+</table>
+<div class="formtitle pt20"><span>收入列表</span></div>
+<table class="tablelist">
+    <thead>
+	    <tr>
+	        <th>收入类型</th>
+	        <th>金额（元）</th>
+	        <th>收入方式</th>
+	        <th>备注</th>
+	    </tr>
+    </thead>
+    <tbody>
+        <th:block th:unless="${#lists.isEmpty(loanCapitalEarningList)}">
+	        <tr th:each="capitalEarning,iterStat:${loanCapitalEarningList}">
+	            <td>
+                    <th:block th:unless="${#lists.isEmpty(inSubjectList)}" th:each="cust,iter : ${inSubjectList}">
+						<th:block th:if="${capitalEarning.earningVariety} eq ${cust.subjectId}"  th:text="${cust.subjectName}"></th:block>
+					</th:block>
+	            </td>
+	            <td th:text="${capitalEarning.earningAmount}?${#numbers.formatDecimal(capitalEarning.earningAmount,1,2)}:0.00"></td>
+	            <td>
+                	<th:block th:if="${capitalEarning.earningApproach} eq 0">一次性收入</th:block>
+                	<th:block th:if="${capitalEarning.earningApproach} eq 1">按月收入</th:block>
+                	<th:block th:if="${capitalEarning.earningApproach} eq ''">无</th:block>
+	            </td>
+	            <td th:text="${capitalEarning.remark}"></td>
+	        </tr>
+		</th:block>
+		<th:block th:if="${#lists.isEmpty(loanCapitalEarningList)}">
+			<tr>
+				<td colspan="4" align="center">暂无数据 </td>
+			</tr>
+		</th:block>
+    </tbody>
+</table>
+<div class="formtitle pt20"><span>支出列表</span></div>
+<table class="tablelist">
+    <thead>
+	    <tr>
+	        <th>支出类型</th>
+	        <th>金额（元）</th>
+	        <th>发放方式</th>
+	        <th>返费账户</th>
+	        <th>银行卡号</th>
+	        <th>开户银行</th>
+	        <th>开户行</th>
+	        <th>备注</th>
+	    </tr>
+    </thead>
+    <tbody>
+    	<th:block th:unless="${#lists.isEmpty(loanCapitalExpenditureList)}">
+		    <tr th:each="capitalExpenditure,iterStat:${loanCapitalExpenditureList}">
+		        <td>
+	                <th:block th:unless="${#lists.isEmpty(outSubjectList)}" th:each="cust,iter : ${outSubjectList}">
+						<th:block th:if="${capitalExpenditure.expenditureVariety} eq ${cust.subjectId}" th:text="${cust.subjectName}"></th:block>
+					</th:block>
+		        </td>
+		        <td th:text="${capitalExpenditure.amount}?${#numbers.formatDecimal(capitalExpenditure.amount,1,2)}:0.00"></td>
+		        <td>
+	            	<th:block th:if="${capitalExpenditure.disbursement} eq 0">一次性发放</th:block>
+	            	<th:block th:if="${capitalExpenditure.disbursement} eq 1">按月发放</th:block>
+	            	<th:block th:if="${capitalExpenditure.disbursement} eq ''">无</th:block>
+		        </td>
+		        <td th:text="${capitalExpenditure.accountName}"></td>
+		        <td th:text="${capitalExpenditure.bankcardId}"></td>
+		        <td th:text="${capitalExpenditure.bankName}"></td>
+		        <td th:text="${capitalExpenditure.branchBank}"></td>
+		        <td th:text="${capitalExpenditure.remark}"></td>
+		    </tr>
+		</th:block>
+		<th:block th:if="${#lists.isEmpty(loanCapitalExpenditureList)}">
+			<tr>
+				<td colspan="8" align="center">暂无数据 </td>
+			</tr>
+		</th:block>
+	</tbody>
+</table>
+<div class="formtitle pt20"><span>参数设置</span></div>
+<table class="tablelist">
+    <thead>
+	    <tr>
+	    	<th>是否担保</th>
+			<th>是否垫还</th>
+			<th>结息方式</th>
+			<th>结息固定日</th>
+			<th>付息方式</th>
+			<th>付息固定日</th>
+			<th>逾期贷款利率(%/天)</th>
+			<th>债务利率(%/天)</th>
+			<th>还款违约金率(%/天)</th>
+			<th>逾期付款利率(%/天)</th>
+			<th>付款违约金率(%/天)</th>
+			<th>备注</th>
+	    </tr>
+    </thead>
+    <tbody>
+    	<tr th:if="${loanParasConfig}">
+	        <td>
+	        	<th:block th:if="${loanParasConfig.lpcIsGuarantee} eq 0">不支持</th:block>
+	        	<th:block th:if="${loanParasConfig.lpcIsGuarantee} eq 1">支持</th:block>
+	        </td>
+	        <td>
+	        	<th:block th:if="${loanParasConfig.lpcIsAdvance} eq 0">不支持</th:block>
+	        	<th:block th:if="${loanParasConfig.lpcIsAdvance} eq 1">支持</th:block>
+	        </td>
+	        <td>
+	        	<th:block th:if="${loanParasConfig.lpcInterestType} eq 0">放款日结息</th:block>
+	        	<th:block th:if="${loanParasConfig.lpcInterestType} eq 1">到期日结息</th:block>
+	        	<th:block th:if="${loanParasConfig.lpcInterestType} eq 2">固定日结息</th:block>
+	        </td>
+	        <td>
+	        	<th:block th:if="${loanParasConfig.lpcInterestType} eq 2" 
+	        		th:text="${loanParasConfig.lpcInterestRegular}?${#dates.format(loanParasConfig.lpcInterestRegular,'yyyy-MM-dd HH:mm:ss')}:''"></th:block>
+	        </td>
+	        <td>
+	        	<th:block th:if="${loanParasConfig.lpcPayType} eq 0">放款日付息</th:block>
+	        	<th:block th:if="${loanParasConfig.lpcPayType} eq 1">到期日付息</th:block>
+	        	<th:block th:if="${loanParasConfig.lpcPayType} eq 2">固定日付息</th:block>
+	        </td>
+	        <td>
+	        	<th:block th:if="${loanParasConfig.lpcPayType} eq 2" 
+	        		th:text="${loanParasConfig.lpcPayRegular}?${#dates.format(loanParasConfig.lpcPayRegular,'yyyy-MM-dd HH:mm:ss')}:''"></th:block>
+	        </td>
+	        <td th:text="${loanParasConfig.lpcOverdueInteType}?${#numbers.formatDecimal(loanParasConfig.lpcOverdueInteType,1,3)}:0.000"></td>
+	        <td th:text="${loanParasConfig.lpcDebtInteRate}?${#numbers.formatDecimal(loanParasConfig.lpcDebtInteRate,1,3)}:0.000"></td>
+	        <td th:text="${loanParasConfig.lpcRepayLiquRate}?${#numbers.formatDecimal(loanParasConfig.lpcRepayLiquRate,1,3)}:0.000"></td>
+	        <td th:text="${loanParasConfig.lpcOverOutRate}?${#numbers.formatDecimal(loanParasConfig.lpcOverOutRate,1,3)}:0.000"></td>
+	        <td th:text="${loanParasConfig.lpcPayLiquRate}?${#numbers.formatDecimal(loanParasConfig.lpcPayLiquRate,1,3)}:0.000"></td>
+	        <td th:text="${loanParasConfig.remark}"></td>
+    	</tr>
+    </tbody>
+</table>
+<p class="textCt pt20">
+    <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.go(-1);"/>
+</p>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<body>
+	<div class="father">
+		<header th:replace="common/top"></header>
+		<div class="common-content">
+			<div th:replace="common/left"></div>
+			<div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>机构管理</li>
+                        <li><a href="/org/list">机构信息管理</a></li>
+                        <li><a>查看</a></li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div class="formtitle"><span>机构基本信息</span></div>
+                        <th:block th:if="${org}?true:false">
+	                        <div class="toolsli">
+	                            <ul class="nbbdgl-Ui">
+	                                <li>
+	                                    <span class="tips">机构用户名：</span>
+	                                    <span th:text="${org.orgUsername}"></span>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">机构登录密码：</span>
+	                                    <span th:text="${org.orgPassword}"></span>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">机构代码：</span>
+	                                    <span th:text="${org.orgCode}"></span>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">机构名称：</span>
+	                                    <span th:text="${org.orgName}"></span>
+	                                </li>
+	                                <li style="width:80%;">
+	                                    <span class="tips">机构全称：</span>
+	                                    <span th:text="${org.orgWholeName}"></span>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">机构类别：</span>
+	                                    <span th:switch="${org.orgCategories}">
+	                                    	<th:block th:case="1">资金方</th:block>
+											<th:block th:case="2">借款方</th:block>
+											<th:block th:case="3">借款方&amp;资金方</th:block>
+	                                    </span>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">机构类型：</span>
+	                                    <span th:switch="${org.orgType}">
+	                                    	<th:block th:case="1">银行</th:block>
+											<th:block th:case="2">典当行</th:block>
+											<th:block th:case="3">小贷公司</th:block>
+											<th:block th:case="4">催收机构</th:block>
+											<th:block th:case="5">律所</th:block>
+											<th:block th:case="6">其他</th:block>
+	                                    </span>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">机构来源：</span>
+	                                    <span th:switch="${org.orgOutfitFrom}">
+											<th:block th:case="1">晋商睦家</th:block>
+											<th:block th:case="2">联合汇商</th:block>
+										</span>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">业务类型：</span>
+	                                    <span th:switch="${org.orgBusinessType}">
+											<th:block th:case="1">资金批发</th:block>
+											<th:block th:case="2">非资金批发</th:block>
+										</span>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">晋商分公司：</span>
+	                                    <span th:switch="${org.isCompany}">
+											<th:block th:case="N">否</th:block>
+											<th:block th:case="Y">是</th:block>
+										</span>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">营业执照编号：</span>
+	                                    <span th:text="${org.orgBusinessLicenseNo}"></span>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">法人代表：</span>
+	                                    <span th:text="${org.orgLegalRepresentative}"></span>
+	                                </li>
+	                                <li style="width:80%;">
+	                                    <span class="tips">机构网站：</span>
+	                                    <span th:text="${org.orgWebsite}"></span>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">负责人姓名：</span>
+	                                    <span th:text="${org.orgLeaderName}"></span>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">负责人手机号：</span>
+	                                    <span th:text="${org.orgLeaderMobile}"></span>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">负责人邮箱：</span>
+	                                    <span th:text="${org.orgLeaderEmail}"></span>
+	                                </li>
+	                                <li style="width:80%;">
+	                                    <span class="tips">地址：</span>
+	                                    <span th:text="${org.orgAddress}"></span>
+	                                </li>
+	                                <li style="width:80%;">
+	                                    <span class="tips">机构logo：</span>
+	                                    <img th:src="@{${org.orgLogo}}" class="imgs"/>
+	                                </li>
+	                                <li style="width:80%;">
+	                                    <span class="tips">支持的城市：</span>
+	                                    <span th:unless="${#lists.isEmpty(org.supportCityList)}">
+	                                    	<th:block th:each="city,iter : ${org.supportCityList}">
+	                                    		<th:block th:if="${iter.index} > 0"><br/></th:block>
+	                                    		<th:block th:text="${city.areaName}"/>
+	                                    	</th:block>
+	                                    </span>
+	                                </li>
+	                            </ul>
+	                        </div>
+	                        <div class="formtitle"><span>账户信息</span></div>
+	                        <div class="toolsli">
+                            <ul class="nbbdgl-Ui">
+                                <li style="width:80%;">
+                                    <span class="tips">机构对公账户名称：</span>
+                                    <span th:text="${org.orgAccountName}"></span>
+                                </li>
+                                <li style="width:80%;">
+                                    <span class="tips">开户银行：</span>
+                                    <span th:text="${org.orgAccountBank}"></span>
+                                </li>
+                                <li style="width:80%;">
+                                    <span class="tips">开户银行支行：</span>
+                                    <span th:text="${org.orgAccountBanchBank}"></span>
+                                </li>
+                                <li style="width:80%;">
+                                    <span class="tips">银行账号：</span>
+                                    <span th:text="${org.orgAccountNo}"></span>
+                                </li>
+                            </ul>
+                        </div>
+                        </th:block>
+                        <p class="textCt pb20">
+                            <input type="button" class="scbtn2" value="返 回" onclick="javascript:history.go(-1);"/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+		</div>
+		
+		<footer th:replace="common/footer"></footer>
+	</div>
+</body>
+</html>

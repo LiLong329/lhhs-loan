@@ -1,0 +1,98 @@
+<table class="tablelist">
+     <thead>
+         <tr>
+             <th>报单编号</th>
+             <th>省市</th>
+             <th>产品类型</th>
+             <th>产品名称</th>
+             <th>借款人姓名</th>
+             <th>借款金额</th>
+             <th>借款利率</th>
+             <th>还款方式</th>
+             <th>付息方式</th>
+             <th>已还/总期数</th>
+             <th>还款总额</th>
+             <th>还款本金</th>
+             <th>还款利息</th>
+             <th:block th:if="${type} == '90'">
+             	<th>实际还清时间</th>
+             </th:block>
+             <th:block th:if="${type} == '88'">
+             	<th>提前还清时间</th>
+             </th:block>
+             <th>操作</th>
+         </tr>
+     </thead>
+   <tbody>
+		<th:block th:if="${page} and ${not #lists.isEmpty(page.resultList)}">
+			<tr th:each="pay : ${page.resultList}">
+				<td>
+					<a th:href="@{/orderInfo/get(orderNo=${pay.businessId})}" class="tablelink" th:text="${pay.businessId}"></a>
+				</td>
+				<td th:text="${pay.cityName}"></td>
+				<td th:text="${pay.productType}"></td>
+				<td th:text="${pay.productName}"></td>
+				<td th:text="${pay.borrower}"></td>
+				<td th:text="${pay.amount}?${#numbers.formatDecimal(pay.amount,1,2)}"></td>
+				<td th:text="${pay.rate}?${#numbers.formatDecimal(pay.rate,1,3)}+'%/'+${pay.rateUnit}"></td>
+				<td>
+					<th:block th:if="${pay.repaymentMethod} eq 0">每月还息,到期还本</th:block>
+                   	<th:block th:if="${pay.repaymentMethod} eq 1">等额本息</th:block>
+                   	<th:block th:if="${pay.repaymentMethod} eq 2">一次性还款</th:block>
+				</td>
+				<td>
+					<th:block th:if="${pay.interestWay} eq 0">放款日付息</th:block>
+                   	<th:block th:if="${pay.interestWay} eq 1">到期日付息</th:block>
+                   	<th:block th:if="${pay.interestWay} eq 2">固定日付息</th:block>
+				</td>
+				<td th:text="${pay.paidPeriod}+'/'+${pay.periodTotal}"></td>
+				<td th:text="${pay.totalAmount}?${#numbers.formatDecimal(pay.totalAmount,1,2)}"></td>
+				<td th:text="${pay.paidCapitalAmount}?${#numbers.formatDecimal(pay.paidCapitalAmount,1,2)}"></td>
+                <td th:text="${pay.paidInterestAmount}?${#numbers.formatDecimal(pay.paidInterestAmount,1,2)}"></td>
+                <td th:text="${pay.cleanUpTime}?${#dates.format(pay.cleanUpTime,'yyyy/MM/dd HH:mm:ss')}"></td>
+                <td>
+                <a th:href="@{/payPlan/payFinishedDetails/{type}(transMainId=${pay.transMainId},periodTotal=${pay.periodTotal},type=${type})}" class="tablelink">查看</a>
+                </td>
+			</tr>
+		</th:block>
+
+		<th:block th:unless="${page} and ${not #lists.isEmpty(page.resultList)}">
+			<tr>
+				 <td colspan="15" class="textCt">暂无数据</td>
+			</tr>
+		</th:block>
+	</tbody>
+</table>
+
+<div class="pagin" style="margin-top: 0px;" th:if="${page} and ${not #lists.isEmpty(page.resultList)}">
+	<div class="message">
+		统计数据(<b th:text="${page.totalCount}"></b>条);&nbsp;&nbsp;&nbsp;
+		还款总额：<b th:text="${#maps.isEmpty(map)}?0.00:(${#maps.containsKey(map, 'totalAmount')}?${#numbers.formatDecimal(map.totalAmount,1,2)}:0.00)"></b>元
+	</div>
+</div>
+
+<div class="pagin" style="margin-top: 0px;" th:if="${page} and ${not #lists.isEmpty(page.resultList)}">
+	<div class="message">
+		<th:block th:if="${type} == '90'">
+        	<input sec:authorize="hasRole('ROLE_PAYFINISHED_90_EXPORT')" type="button" value="导出" class="scbtn1" style="width: 65px;" id="export"/>
+        </th:block>
+		<th:block th:if="${type} == '88'">
+        	<input sec:authorize="hasRole('ROLE_PAYFINISHED_88_EXPORT')" type="button" value="导出" class="scbtn1" style="width: 65px;" id="export"/>
+        </th:block>
+		&nbsp;&nbsp;&nbsp;
+		共 <i class="blue" th:text="${page.totalCount}"></i> 
+		条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+	</div>
+	<ul class="paginList">
+		<li class="paginItem" th:if="${page.pageIndex} gt 1">
+			<a th:attr="data-pagenum=(${page.pageIndex}-1),data-pagesize=${page.pageSize}" class="pagepre"></a>
+		</li>
+		<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" 
+		th:classappend="(${page.pageIndex} eq ${x})?'current'">
+			<a th:attr="data-pagenum=${x},data-pagesize=(${page.pageSize})" th:text="${x}"></a>
+		</li>
+		<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+			<a th:attr="data-pagenum=(${page.pageIndex}+1),data-pagesize=(${page.pageSize})" class="pagenxt"></a>
+		</li> 
+	</ul>
+</div>

@@ -1,0 +1,65 @@
+<div class="previewBack"></div>
+<div class="preview">
+	<div class="formbody">
+			<div class="table-title">
+			<th:block th:if="${transMain} and ${pay}">
+				<p class="tab-font" th:text="${'执行垫付('+pay.period+'/'+transMain.periodTotal+')'}"></p>
+			</th:block>
+			</div>
+		<th:block th:if="${transMain} and ${pay}">
+			<div class="toolsli pt10">
+			<form id="payForm">
+				<input type="hidden" name="planId" th:value="${pay.id}"/>
+				<input type="hidden" name="transMainId" th:value="${pay.transMainId}"/>
+				<ul class="nbbdgl-Ui">
+				    <li style="width: 80%;">
+						<span class="tips">垫付类型：</span> 
+						<cite>
+						    <th:block th:if="${pay.repaymentInterest}">
+							<input type="checkbox" id="mode0" name="isInterest" value="Y" th:attr="data-interest=${pay.repaymentInterest}" th:checked="${pay.repaymentInterest}?true:false"/> 
+							<label for="mode0">执行垫息</label>
+							</th:block>
+							<th:block  th:if="${pay.repaymentCapital}">
+							<input type="checkbox" id="mode1" name="isCapita" value="Y" th:attr="data-capital=${pay.repaymentCapital}" th:checked="${pay.repaymentCapital}?true:false" /> 
+							<label for="mode1">执行垫本</label>
+							</th:block>
+						</cite>
+					</li>
+					<li style="width: 80%;">
+						<span class="tips">垫付本金：</span> 
+						<input type="text" class="txt" name="advanceCapital" th:value="${#numbers.formatDecimal(pay.repaymentCapital,1,4)}" readonly="readonly"/>
+					</li>
+					<li style="width: 80%;">
+						<span class="tips">垫付利息：</span> 
+						<input type="text" class="txt" name="advanceInterest" th:value="${#numbers.formatDecimal(pay.repaymentInterest,1,4)}" readonly="readonly"/>
+					</li>
+					<li style="width: 80%;">
+						<span class="tips">垫付总额：</span> 
+						<input type="text" class="txt" name="advanceTotal" th:value="${#numbers.formatDecimal(pay.repaymentTotal,1,4)}" readonly="readonly"/>
+					</li>
+					<li style="width: 80%;">
+						<span class="tips">垫付时间：</span> 
+						<input type="text" class="txt" name="advanceTime" placeholder="请输入时间" th:value="${newDate}?${#dates.format(newDate,'yyyy-MM-dd HH:mm:ss')}" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+					</li>
+					<th:block  th:if="${pay.repaymentCapitalTime}">
+					<li style="width: 80%;">
+						<span class="tips">应还本时间：</span> 
+						<span th:text="${pay.repaymentCapitalTime}?${#dates.format(pay.repaymentCapitalTime,'yyyy-MM-dd HH:mm:ss')}"></span>
+						</li>
+					</th:block>
+					<th:block  th:if="${pay.repaymentInterestTime}">
+					<li style="width: 80%;">
+						<span class="tips">应还息时间：</span> 
+						<span th:text="${pay.repaymentInterestTime}?${#dates.format(pay.repaymentInterestTime,'yyyy-MM-dd HH:mm:ss')}"></span>
+						</li>
+					</th:block>
+				</ul>
+				</form>
+			</div>
+			</th:block>
+			<p class="textCt">
+			    <input type="button" class="scbtn" id="paySubmit" value="确定垫付" style="width: 70px;" />
+				<input type="button" class="scbtn2 mlt10" value="取 消" id="goBackId"/>
+			</p>
+	</div>
+</div>

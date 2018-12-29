@@ -1,0 +1,79 @@
+<table class="tablelist">
+	<thead>
+		<tr>
+			<th>报单编号</th>
+			<th>省市</th>
+			<th>产品类型</th>
+			<th>产品名称</th>
+			<th>借款人姓名</th>
+			<th>还款方式</th>
+			<th>期数/总期数</th>
+			<th>应还金额</th>
+			<th>应还本金时间</th>
+			<th>应还利息时间</th>
+			<th>垫付金额</th>
+			<th>垫付时间</th>
+			<th>垫付人</th>
+			<th>垫付备注</th>
+		</tr>
+	</thead>
+	<tbody>
+		<th:block th:unless="${#lists.isEmpty(page.resultList)}">
+			    <tr th:each="payPlan : ${page.resultList}">
+				<td>
+				<a th:href="@{/orderInfo/get(orderNo=${payPlan.orderNo})}" class="tablelink" th:text="${payPlan.orderNo}"></a>
+				</td>
+				<td th:text="${payPlan.cityName}"></td>
+				<td th:text="${payPlan.productType}"></td>
+				<td th:text="${payPlan.productName}"></td>
+				<td th:text="${payPlan.borrower}"></td>
+				<td>
+                     <th:block th:if="${payPlan.repaymentMethod} eq 0">每月还息,到期还本</th:block>
+		             <th:block th:if="${payPlan.repaymentMethod} eq 1">等额本息</th:block>
+		             <th:block th:if="${payPlan.repaymentMethod} eq 2">一次性还款</th:block>
+                </td>
+				<td th:text="${payPlan.period}+'/'+${payPlan.periodTotal}"></td>
+				<td th:text="${payPlan.repaymentTotal}?${#numbers.formatDecimal(payPlan.repaymentTotal,1,2)}"></td>
+				<td th:text="${payPlan.repaymentCapitalTime}?${#dates.format(payPlan.repaymentCapitalTime, 'yyyy-MM-dd HH:mm:ss')}:''"></td>
+				<td th:text="${payPlan.repaymentInterestTime}?${#dates.format(payPlan.repaymentInterestTime, 'yyyy-MM-dd HH:mm:ss')}:''"></td>
+				<td th:text="${payPlan.advanceTotal}?${#numbers.formatDecimal(payPlan.advanceTotal,1,2)}"></td>
+				<td th:text="${payPlan.advanceTime}?${#dates.format(payPlan.advanceTime,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+				<td th:text="${payPlan.advanceCustomerName}"></td>
+				<td th:text="${payPlan.field1}"></td>
+			</tr>
+		</th:block>
+
+		<th:block th:if="${#lists.isEmpty(page.resultList)}">
+			<tr>
+				<td colspan="13" class="textCt">暂无数据</td>
+			</tr>
+		</th:block>
+	</tbody>
+</table>
+
+<div class="pagin" style="margin-top: 0px;" th:unless="${#lists.isEmpty(page.resultList)}">
+	<div class="message">
+		统计数据(<b th:text="${page.totalCount}"></b>条);&nbsp;&nbsp;&nbsp;
+		垫付总额：<b th:text="${#maps.isEmpty(map)}?0.00:(${#maps.containsKey(map, 'advanceTotal')}?${#numbers.formatDecimal(map.advanceTotal,1,2)}:0.00)"></b>元&nbsp;&nbsp;&nbsp;
+    </div>	
+</div>
+
+<div class="pagin" style="margin-top: 0px;" th:unless="${#lists.isEmpty(page.resultList)}">
+	<div class="message">
+		<!-- <input type="button" value="导出" class="scbtn1" style="width: 65px;" id="export"/>&nbsp;&nbsp;&nbsp; -->
+		共 <i class="blue" th:text="${page.totalCount}"></i> 
+		条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+	</div>
+	<ul class="paginList">
+		<li class="paginItem" th:if="${page.pageIndex} gt 1">
+			<a th:attr="data-pagenum=(${page.pageIndex}-1),data-pagesize=${page.pageSize}" class="pagepre"></a>
+		</li>
+		<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" 
+		th:classappend="(${page.pageIndex} eq ${x})?'current'">
+			<a th:attr="data-pagenum=${x},data-pagesize=(${page.pageSize})" th:text="${x}"></a>
+		</li>
+		<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+			<a th:attr="data-pagenum=(${page.pageIndex}+1),data-pagesize=(${page.pageSize})" class="pagenxt"></a>
+		</li> 
+	</ul>
+</div>

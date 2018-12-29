@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.workflow.dao.ActServiceMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.workflow.dao.domain.ActServiceVO" >
+    <id column="OID" property="oid" jdbcType="DECIMAL" />
+    <result column="PROC_INS_ID" property="procInsId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_DPT" property="productDpt" jdbcType="VARCHAR" />
+    <result column="PRODUCT_LINE" property="productLine" jdbcType="VARCHAR" />
+    <result column="BRANCH_COM" property="branchCom" jdbcType="VARCHAR" />
+    <result column="PARTNER" property="partner" jdbcType="VARCHAR" />
+    <result column="ACT_NAME" property="actName" jdbcType="VARCHAR" />
+    <result column="BRANCH_OFFIC" property="branchOffic" jdbcType="VARCHAR" />
+    <result column="ORGANISER_NAME" property="organiserName" jdbcType="VARCHAR" />
+    <result column="OPERATOR_NAME" property="operatorName" jdbcType="VARCHAR" />
+    <result column="ORGANISER" property="organiser" jdbcType="VARCHAR" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="PROCDEFKEY" property="procdefkey" jdbcType="VARCHAR" />
+    <result column="ACT_DESC" property="actDesc" jdbcType="VARCHAR" />
+    <result column="PRODUCT_DPT_ID" property="productDptId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_LINE_ID" property="productLineId" jdbcType="VARCHAR" />
+    <result column="BRANCH_COM_ID" property="branchComId" jdbcType="VARCHAR" />
+    <result column="SYS_TYPE" property="sysType" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="ACT_STATUS" property="actStatus" jdbcType="VARCHAR" />
+    <result column="BUSINESSID" property="businessid" jdbcType="VARCHAR" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="BRANCH_OFFIC_ID" property="branchOfficId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    OID, PROC_INS_ID, PRODUCT_DPT, PRODUCT_LINE, BRANCH_COM, PARTNER, ACT_NAME, BRANCH_OFFIC, 
+    ORGANISER_NAME, OPERATOR_NAME, ORGANISER, OPERATOR, PROCDEFKEY, ACT_DESC, PRODUCT_DPT_ID, 
+    PRODUCT_LINE_ID, BRANCH_COM_ID, SYS_TYPE, CREATE_DATE, ACT_STATUS,BUSINESSID,END_DATE,BRANCH_OFFIC_ID
+  </sql>
+  <select id="get" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from ACT_SERVICE
+    where OID = #{oid,jdbcType=DECIMAL}
+  </select>
+  <select id="selectByActID" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ACT_SERVICE
+    where PROC_INS_ID = #{procInsIds,jdbcType=VARCHAR}
+  </select>
+  <select id="findPage" resultMap="BaseResultMap" parameterType="com.lhhs.workflow.dao.domain.VActHaddoVO" >
+    <if test="pageVo != null" >
+      	 ${pageVo.sqlPageStart}
+    </if>
+    select 
+    <include refid="Base_Column_List" />
+    from ACT_SERVICE
+    <where>
+		1=1
+      <if test="procName != null and procName !=''" >
+        AND PROC_NAME = #{procName}
+      </if>
+	</where>
+    <if test="pageVo != null" >
+	   	${pageVo.sqlPageEnd}
+     </if>
+  </select>
+    <select id="count" parameterType="com.lhhs.workflow.dao.domain.VActHaddoVO" resultType="int">
+		SELECT COUNT(*) FROM ACT_SERVICE
+		<where>
+			1=1
+	      <if test="procName != null and procName !=''" >
+	        AND PROC_NAME = #{procName}
+	      </if>
+		</where>
+	</select>
+   <insert id="insert" parameterType="com.lhhs.workflow.dao.domain.ActServiceVO" >
+    insert into ACT_SERVICE (OID, PROC_INS_ID, PRODUCT_DPT, 
+      PRODUCT_LINE, BRANCH_COM, PARTNER, 
+      ACT_NAME, BRANCH_OFFIC, ORGANISER_NAME, 
+      OPERATOR_NAME, ORGANISER, OPERATOR, 
+      PROCDEFKEY, ACT_DESC, PRODUCT_DPT_ID, 
+      PRODUCT_LINE_ID, BRANCH_COM_ID, SYS_TYPE, 
+      CREATE_DATE, ACT_STATUS,BUSINESSID,END_DATE,BRANCH_OFFIC_ID)
+    values (ACT_SERVICE_SEQ.nextval, #{procInsId,jdbcType=VARCHAR}, #{productDpt,jdbcType=VARCHAR}, 
+      #{productLine,jdbcType=VARCHAR}, #{branchCom,jdbcType=VARCHAR}, #{partner,jdbcType=VARCHAR}, 
+      #{actName,jdbcType=VARCHAR}, #{branchOffic,jdbcType=VARCHAR}, #{organiserName,jdbcType=VARCHAR}, 
+      #{operatorName,jdbcType=VARCHAR}, #{organiser,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, 
+      #{procdefkey,jdbcType=VARCHAR}, #{actDesc,jdbcType=VARCHAR}, #{productDptId,jdbcType=VARCHAR}, 
+      #{productLineId,jdbcType=VARCHAR}, #{branchComId,jdbcType=VARCHAR}, #{sysType,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{actStatus,jdbcType=VARCHAR}, #{businessid,jdbcType=VARCHAR}
+      , #{endDate,jdbcType=TIMESTAMP}
+      , #{branchOfficId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="save" parameterType="com.lhhs.workflow.dao.domain.ActServiceVO" >
+    insert into ACT_SERVICE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        OID,
+      <if test="procInsId != null" >
+        PROC_INS_ID,
+      </if>
+      <if test="productDpt != null" >
+        PRODUCT_DPT,
+      </if>
+      <if test="productLine != null" >
+        PRODUCT_LINE,
+      </if>
+      <if test="branchCom != null" >
+        BRANCH_COM,
+      </if>
+      <if test="partner != null" >
+        PARTNER,
+      </if>
+      <if test="actName != null" >
+        ACT_NAME,
+      </if>
+      <if test="branchOffic != null" >
+        BRANCH_OFFIC,
+      </if>
+      <if test="organiserName != null" >
+        ORGANISER_NAME,
+      </if>
+      <if test="operatorName != null" >
+        OPERATOR_NAME,
+      </if>
+      <if test="organiser != null" >
+        ORGANISER,
+      </if>
+      <if test="operator != null" >
+        OPERATOR,
+      </if>
+      <if test="procdefkey != null" >
+        PROCDEFKEY,
+      </if>
+      <if test="actDesc != null" >
+        ACT_DESC,
+      </if>
+      <if test="productDptId != null" >
+        PRODUCT_DPT_ID,
+      </if>
+      <if test="productLineId != null" >
+        PRODUCT_LINE_ID,
+      </if>
+      <if test="branchComId != null" >
+        BRANCH_COM_ID,
+      </if>
+      <if test="sysType != null" >
+        SYS_TYPE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="actStatus != null" >
+        ACT_STATUS,
+      </if>
+      
+      <if test="businessid != null" >
+        BUSINESSID,
+      </if>
+      <if test="endDate != null" >
+        END_DATE,
+      </if>
+      <if test="branchOfficId != null" >
+        BRANCH_OFFIC_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+     ACT_SERVICE_SEQ.nextval,
+      <if test="procInsId != null" >
+        #{procInsId,jdbcType=VARCHAR},
+      </if>
+      <if test="productDpt != null" >
+        #{productDpt,jdbcType=VARCHAR},
+      </if>
+      <if test="productLine != null" >
+        #{productLine,jdbcType=VARCHAR},
+      </if>
+      <if test="branchCom != null" >
+        #{branchCom,jdbcType=VARCHAR},
+      </if>
+      <if test="partner != null" >
+        #{partner,jdbcType=VARCHAR},
+      </if>
+      <if test="actName != null" >
+        #{actName,jdbcType=VARCHAR},
+      </if>
+      <if test="branchOffic != null" >
+        #{branchOffic,jdbcType=VARCHAR},
+      </if>
+      <if test="organiserName != null" >
+        #{organiserName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorName != null" >
+        #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="organiser != null" >
+        #{organiser,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="procdefkey != null" >
+        #{procdefkey,jdbcType=VARCHAR},
+      </if>
+      <if test="actDesc != null" >
+        #{actDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="productDptId != null" >
+        #{productDptId,jdbcType=VARCHAR},
+      </if>
+      <if test="productLineId != null" >
+        #{productLineId,jdbcType=VARCHAR},
+      </if>
+      <if test="branchComId != null" >
+        #{branchComId,jdbcType=VARCHAR},
+      </if>
+      <if test="sysType != null" >
+        #{sysType,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actStatus != null" >
+        #{actStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="businessid != null" >
+        #{businessid,jdbcType=VARCHAR},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="branchOfficId != null" >
+        #{branchOfficId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.lhhs.workflow.dao.domain.ActServiceVO" >
+    update ACT_SERVICE
+    <set >
+      <if test="procInsId != null" >
+        PROC_INS_ID = #{procInsId,jdbcType=VARCHAR},
+      </if>
+      <if test="productDpt != null" >
+        PRODUCT_DPT = #{productDpt,jdbcType=VARCHAR},
+      </if>
+      <if test="productLine != null" >
+        PRODUCT_LINE = #{productLine,jdbcType=VARCHAR},
+      </if>
+      <if test="branchCom != null" >
+        BRANCH_COM = #{branchCom,jdbcType=VARCHAR},
+      </if>
+      <if test="partner != null" >
+        PARTNER = #{partner,jdbcType=VARCHAR},
+      </if>
+      <if test="actName != null" >
+        ACT_NAME = #{actName,jdbcType=VARCHAR},
+      </if>
+      <if test="branchOffic != null" >
+        BRANCH_OFFIC = #{branchOffic,jdbcType=VARCHAR},
+      </if>
+      <if test="organiserName != null" >
+        ORGANISER_NAME = #{organiserName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorName != null" >
+        OPERATOR_NAME = #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="organiser != null" >
+        ORGANISER = #{organiser,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="procdefkey != null" >
+        PROCDEFKEY = #{procdefkey,jdbcType=VARCHAR},
+      </if>
+      <if test="actDesc != null" >
+        ACT_DESC = #{actDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="productDptId != null" >
+        PRODUCT_DPT_ID = #{productDptId,jdbcType=VARCHAR},
+      </if>
+      <if test="productLineId != null" >
+        PRODUCT_LINE_ID = #{productLineId,jdbcType=VARCHAR},
+      </if>
+      <if test="branchComId != null" >
+        BRANCH_COM_ID = #{branchComId,jdbcType=VARCHAR},
+      </if>
+      <if test="sysType != null" >
+        SYS_TYPE = #{sysType,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actStatus != null" >
+        ACT_STATUS = #{actStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="businessid != null" >
+        BUSINESSID = #{businessid,jdbcType=VARCHAR},
+      </if>
+      <if test="endDate != null" >
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where  PROC_INS_ID = #{procInsId,jdbcType=VARCHAR}
+  </update>
+</mapper>

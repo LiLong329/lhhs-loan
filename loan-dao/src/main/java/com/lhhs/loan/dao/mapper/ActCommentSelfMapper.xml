@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.ActCommentSelfMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.ActComment" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="task_id" property="taskId" jdbcType="VARCHAR" />
+    <result column="task_name" property="taskName" jdbcType="VARCHAR" />
+    <result column="task_def_key" property="taskDefKey" jdbcType="VARCHAR" />
+    <result column="pass" property="pass" jdbcType="VARCHAR" />
+    <result column="pass_name" property="passName" jdbcType="VARCHAR" />
+    <result column="task_create_date" property="taskCreateDate" jdbcType="TIMESTAMP" />
+    <result column="task_end_date" property="taskEndDate" jdbcType="TIMESTAMP" />
+    <result column="proc_ins_id" property="procInsId" jdbcType="VARCHAR" />
+    <result column="assignee" property="assignee" jdbcType="VARCHAR" />
+    <result column="assignee_name" property="assigneeName" jdbcType="VARCHAR" />
+    <result column="next_assignee" property="nextAssignee" jdbcType="VARCHAR" />
+    <result column="next_assignee_name" property="nextAssigneeName" jdbcType="VARCHAR" />
+    <result column="msg" property="msg" jdbcType="VARCHAR" />
+    <result column="proc_def_key" property="procDefKey" jdbcType="VARCHAR" />
+    <result column="proc_name" property="procName" jdbcType="VARCHAR" />
+    <result column="organiser" property="organiser" jdbcType="VARCHAR" />
+    <result column="organiser_name" property="organiserName" jdbcType="VARCHAR" />
+    <result column="business_id" property="businessId" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="channel" property="channel" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, task_id, task_name, task_def_key, pass, pass_name, task_create_date, task_end_date, 
+    proc_ins_id, assignee, assignee_name, next_assignee, next_assignee_name, msg, proc_def_key, 
+    proc_name, organiser, organiser_name, business_id, ip, channel, status, field1, field2, 
+    field3, field4, field5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from act_comment
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from act_comment
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.ActComment" >
+    insert into act_comment (id, task_id, task_name, 
+      task_def_key, pass, pass_name, 
+      task_create_date, task_end_date, proc_ins_id, 
+      assignee, assignee_name, next_assignee, 
+      next_assignee_name, msg, proc_def_key, 
+      proc_name, organiser, organiser_name, 
+      business_id, ip, channel, 
+      status, field1, field2, 
+      field3, field4, field5
+      )
+    values (#{id,jdbcType=BIGINT}, #{taskId,jdbcType=VARCHAR}, #{taskName,jdbcType=VARCHAR}, 
+      #{taskDefKey,jdbcType=VARCHAR}, #{pass,jdbcType=VARCHAR}, #{passName,jdbcType=VARCHAR}, 
+      #{taskCreateDate,jdbcType=TIMESTAMP}, #{taskEndDate,jdbcType=TIMESTAMP}, #{procInsId,jdbcType=VARCHAR}, 
+      #{assignee,jdbcType=VARCHAR}, #{assigneeName,jdbcType=VARCHAR}, #{nextAssignee,jdbcType=VARCHAR}, 
+      #{nextAssigneeName,jdbcType=VARCHAR}, #{msg,jdbcType=VARCHAR}, #{procDefKey,jdbcType=VARCHAR}, 
+      #{procName,jdbcType=VARCHAR}, #{organiser,jdbcType=VARCHAR}, #{organiserName,jdbcType=VARCHAR}, 
+      #{businessId,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{channel,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, 
+      #{field3,jdbcType=VARCHAR}, #{field4,jdbcType=VARCHAR}, #{field5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.ActComment" >
+    insert into act_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="taskId != null" >
+        task_id,
+      </if>
+      <if test="taskName != null" >
+        task_name,
+      </if>
+      <if test="taskDefKey != null" >
+        task_def_key,
+      </if>
+      <if test="pass != null" >
+        pass,
+      </if>
+      <if test="passName != null" >
+        pass_name,
+      </if>
+      <if test="taskCreateDate != null" >
+        task_create_date,
+      </if>
+      <if test="taskEndDate != null" >
+        task_end_date,
+      </if>
+      <if test="procInsId != null" >
+        proc_ins_id,
+      </if>
+      <if test="assignee != null" >
+        assignee,
+      </if>
+      <if test="assigneeName != null" >
+        assignee_name,
+      </if>
+      <if test="nextAssignee != null" >
+        next_assignee,
+      </if>
+      <if test="nextAssigneeName != null" >
+        next_assignee_name,
+      </if>
+      <if test="msg != null" >
+        msg,
+      </if>
+      <if test="procDefKey != null" >
+        proc_def_key,
+      </if>
+      <if test="procName != null" >
+        proc_name,
+      </if>
+      <if test="organiser != null" >
+        organiser,
+      </if>
+      <if test="organiserName != null" >
+        organiser_name,
+      </if>
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="channel != null" >
+        channel,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="taskId != null" >
+        #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null" >
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskDefKey != null" >
+        #{taskDefKey,jdbcType=VARCHAR},
+      </if>
+      <if test="pass != null" >
+        #{pass,jdbcType=VARCHAR},
+      </if>
+      <if test="passName != null" >
+        #{passName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskCreateDate != null" >
+        #{taskCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskEndDate != null" >
+        #{taskEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="procInsId != null" >
+        #{procInsId,jdbcType=VARCHAR},
+      </if>
+      <if test="assignee != null" >
+        #{assignee,jdbcType=VARCHAR},
+      </if>
+      <if test="assigneeName != null" >
+        #{assigneeName,jdbcType=VARCHAR},
+      </if>
+      <if test="nextAssignee != null" >
+        #{nextAssignee,jdbcType=VARCHAR},
+      </if>
+      <if test="nextAssigneeName != null" >
+        #{nextAssigneeName,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null" >
+        #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="procDefKey != null" >
+        #{procDefKey,jdbcType=VARCHAR},
+      </if>
+      <if test="procName != null" >
+        #{procName,jdbcType=VARCHAR},
+      </if>
+      <if test="organiser != null" >
+        #{organiser,jdbcType=VARCHAR},
+      </if>
+      <if test="organiserName != null" >
+        #{organiserName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null" >
+        #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.ActComment" >
+    update act_comment
+    <set >
+      <if test="taskId != null" >
+        task_id = #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null" >
+        task_name = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskDefKey != null" >
+        task_def_key = #{taskDefKey,jdbcType=VARCHAR},
+      </if>
+      <if test="pass != null" >
+        pass = #{pass,jdbcType=VARCHAR},
+      </if>
+      <if test="passName != null" >
+        pass_name = #{passName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskCreateDate != null" >
+        task_create_date = #{taskCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskEndDate != null" >
+        task_end_date = #{taskEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="procInsId != null" >
+        proc_ins_id = #{procInsId,jdbcType=VARCHAR},
+      </if>
+      <if test="assignee != null" >
+        assignee = #{assignee,jdbcType=VARCHAR},
+      </if>
+      <if test="assigneeName != null" >
+        assignee_name = #{assigneeName,jdbcType=VARCHAR},
+      </if>
+      <if test="nextAssignee != null" >
+        next_assignee = #{nextAssignee,jdbcType=VARCHAR},
+      </if>
+      <if test="nextAssigneeName != null" >
+        next_assignee_name = #{nextAssigneeName,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null" >
+        msg = #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="procDefKey != null" >
+        proc_def_key = #{procDefKey,jdbcType=VARCHAR},
+      </if>
+      <if test="procName != null" >
+        proc_name = #{procName,jdbcType=VARCHAR},
+      </if>
+      <if test="organiser != null" >
+        organiser = #{organiser,jdbcType=VARCHAR},
+      </if>
+      <if test="organiserName != null" >
+        organiser_name = #{organiserName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null" >
+        business_id = #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null" >
+        channel = #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.ActComment" >
+    update act_comment
+    set task_id = #{taskId,jdbcType=VARCHAR},
+      task_name = #{taskName,jdbcType=VARCHAR},
+      task_def_key = #{taskDefKey,jdbcType=VARCHAR},
+      pass = #{pass,jdbcType=VARCHAR},
+      pass_name = #{passName,jdbcType=VARCHAR},
+      task_create_date = #{taskCreateDate,jdbcType=TIMESTAMP},
+      task_end_date = #{taskEndDate,jdbcType=TIMESTAMP},
+      proc_ins_id = #{procInsId,jdbcType=VARCHAR},
+      assignee = #{assignee,jdbcType=VARCHAR},
+      assignee_name = #{assigneeName,jdbcType=VARCHAR},
+      next_assignee = #{nextAssignee,jdbcType=VARCHAR},
+      next_assignee_name = #{nextAssigneeName,jdbcType=VARCHAR},
+      msg = #{msg,jdbcType=VARCHAR},
+      proc_def_key = #{procDefKey,jdbcType=VARCHAR},
+      proc_name = #{procName,jdbcType=VARCHAR},
+      organiser = #{organiser,jdbcType=VARCHAR},
+      organiser_name = #{organiserName,jdbcType=VARCHAR},
+      business_id = #{businessId,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      channel = #{channel,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>

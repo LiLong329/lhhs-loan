@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>系统管理</li>
+                        <li>权限设置</li>
+                        <li>岗位管理</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual">
+                            <form action="/systemManager/getQuarters" id="myForm">
+                            <input  name="pageIndex" type="hidden" value="" id="currentPageNo"/>
+                            <ul class="seachform1">
+                                <li>
+                                    <label>岗位名称：</label>
+                                    <div class="vocation">
+                                        <select class="select-common select3" name="name">
+                                          <option value=''>请选择</option>
+                                            <option th:each="quarters : ${allList}" th:text="${quarters.name}" th:attr="selected=(${quarters.name} eq ${params.name})?true:false"></option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label>状态：</label>
+                                    <div class="vocation">
+                                        <select class="select-common select3" name="status">
+                                           <option value=''>请选择</option>
+                                            <option th:attr="selected=(${params.status} eq 1)?true:false" th:value="1">正常</option>
+                                            <option th:attr="selected=(${params.status} eq 0)?true:false" th:value="0">禁用</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <input id="searcher" type="button" class="scbtn" value="查询"/>
+                                </li>
+                                <li class="sarchbtn" style="float: right;">
+                                    <input sec:authorize="hasRole('ROLE_QUARTERADD')" type="button" class="scbtn1" value="新增" onclick="javascrtpt:window.location.href='/systemManager/toQuartersAdd'"/>
+                                </li>
+                            </ul>
+                            </form>
+                            <div class="table-title">
+                                <p class="tab-font">岗位管理</p>
+                            </div>
+                            <table class="tablelist">
+                                <thead>
+                                    <tr>
+                                        <th>岗位编号</th>
+                                        <th>岗位名称</th>
+                                        <th>岗位英文名称</th>
+                                        <th>创建时间</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                             <tr th:each="quarters : ${page.resultList}">
+			                 <td  th:text="${quarters.quartersId}"></td>
+			                 <td  th:text="${quarters.name}"></td>
+			                 <td  th:text="${quarters.englishName}"></td>
+			                 <td th:text="${quarters.createTime}?${#dates.format(quarters.createTime, 'yyyy-MM-dd HH:mm:ss')}:''" ></td>
+                                        <td>
+                                        <th:block th:if="${quarters.status} eq 1">正常</th:block>
+                                        <th:block th:if="${quarters.status} eq 0">禁用</th:block>
+                                        </td>
+					         <td>
+                             <a sec:authorize="hasRole('ROLE_QUARTERSUPDATE')" th:href="@{/systemManager/toQuarterUpdate(quartersId=${quarters.quartersId})}" class="tablelink">修改</a>
+                             
+                             <th:block th:if="${quarters.status} eq 0">
+                             	<a sec:authorize="hasRole('ROLE_QUARTERSEAABLE')" href="javascript:void(0);" class="tablelink mlt10" data-enable="0" th:attr="data-numb=${quarters.quartersId}">启用</a>
+                             </th:block>
+                             <th:block th:if="${quarters.status} eq 1">
+                             	<a sec:authorize="hasRole('ROLE_QUARTERSEAABLE')" href="javascript:void(0);" class="tablelink mlt10" data-enable="1" th:attr="data-numb=${quarters.quartersId}">禁用</a>
+                             </th:block>
+                             
+                             </td>
+						    </tr>
+                                </tbody>
+                            </table>
+                 
+                 			<div class="pagin" th:unless="${#lists.isEmpty(page.resultList)}">
+								<div class="message">
+									共 <i class="blue" th:text="${page.totalCount}"></i> 条记录，当前显示第 <i
+										class="blue" th:text="${page.pageIndex}"></i> 页
+								</div>
+								<ul class="paginList">
+									<li class="paginItem" th:if="${page.pageIndex} gt 1"><a
+										th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+									</li>
+									<li class="paginItem"
+										th:each="x:${#numbers.sequence(page.startNum, page.endNum)}"
+										th:classappend="(${page.pageIndex} eq ${x})?'current'"><a
+										th:attr="data-pagenum=${x}" th:text="${x}"></a></li>
+									<li class="paginItem"
+										th:if="${page.pageIndex} lt ${page.pageCount}"><a
+										th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+									</li>
+								</ul>
+							</div>
+                 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+     <script> seajs.use("system/quartersManager");</script>
+</body>
+</html>

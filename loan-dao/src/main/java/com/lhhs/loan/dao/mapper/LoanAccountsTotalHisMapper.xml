@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanAccountsTotalHisMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanAccountsTotalHis" >
+    <id column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="asset_total" property="assetTotal" jdbcType="DECIMAL" />
+    <result column="liabilities_total" property="liabilitiesTotal" jdbcType="DECIMAL" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+    <result column="freeze_total" property="freezeTotal" jdbcType="DECIMAL" />
+    <result column="transit_total" property="transitTotal" jdbcType="DECIMAL" />
+    <result column="payable_total" property="payableTotal" jdbcType="DECIMAL" />
+    <result column="receivable_total" property="receivableTotal" jdbcType="DECIMAL" />
+    <result column="belong_date" property="belongDate" jdbcType="DATE" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    account_id, asset_total, liabilities_total, balance, freeze_total, transit_total, 
+    payable_total, receivable_total, belong_date, status, create_user, create_time, last_user, 
+    last_modify_time, field1, field2, field3, field4, field5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_accounts_total_his
+    where account_id = #{accountId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_accounts_total_his
+    where account_id = #{accountId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanAccountsTotalHis" >
+    insert into loan_accounts_total_his (account_id, asset_total, liabilities_total, 
+      balance, freeze_total, transit_total, 
+      payable_total, receivable_total, belong_date, 
+      status, create_user, create_time, 
+      last_user, last_modify_time, field1, 
+      field2, field3, field4, 
+      field5)
+    values (#{accountId,jdbcType=VARCHAR}, #{assetTotal,jdbcType=DECIMAL}, #{liabilitiesTotal,jdbcType=DECIMAL}, 
+      #{balance,jdbcType=DECIMAL}, #{freezeTotal,jdbcType=DECIMAL}, #{transitTotal,jdbcType=DECIMAL}, 
+      #{payableTotal,jdbcType=DECIMAL}, #{receivableTotal,jdbcType=DECIMAL}, #{belongDate,jdbcType=DATE}, 
+      #{status,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastUser,jdbcType=VARCHAR}, #{lastModifyTime,jdbcType=TIMESTAMP}, #{field1,jdbcType=VARCHAR}, 
+      #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, #{field4,jdbcType=VARCHAR}, 
+      #{field5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanAccountsTotalHis" >
+    insert into loan_accounts_total_his
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="assetTotal != null" >
+        asset_total,
+      </if>
+      <if test="liabilitiesTotal != null" >
+        liabilities_total,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="freezeTotal != null" >
+        freeze_total,
+      </if>
+      <if test="transitTotal != null" >
+        transit_total,
+      </if>
+      <if test="payableTotal != null" >
+        payable_total,
+      </if>
+      <if test="receivableTotal != null" >
+        receivable_total,
+      </if>
+      <if test="belongDate != null" >
+        belong_date,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUser != null" >
+        last_user,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="assetTotal != null" >
+        #{assetTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="liabilitiesTotal != null" >
+        #{liabilitiesTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeTotal != null" >
+        #{freezeTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="transitTotal != null" >
+        #{transitTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="payableTotal != null" >
+        #{payableTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="receivableTotal != null" >
+        #{receivableTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="belongDate != null" >
+        #{belongDate,jdbcType=DATE},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanAccountsTotalHis" >
+    update loan_accounts_total_his
+    <set >
+      <if test="assetTotal != null" >
+        asset_total = #{assetTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="liabilitiesTotal != null" >
+        liabilities_total = #{liabilitiesTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeTotal != null" >
+        freeze_total = #{freezeTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="transitTotal != null" >
+        transit_total = #{transitTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="payableTotal != null" >
+        payable_total = #{payableTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="receivableTotal != null" >
+        receivable_total = #{receivableTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="belongDate != null" >
+        belong_date = #{belongDate,jdbcType=DATE},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where account_id = #{accountId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanAccountsTotalHis" >
+    update loan_accounts_total_his
+    set asset_total = #{assetTotal,jdbcType=DECIMAL},
+      liabilities_total = #{liabilitiesTotal,jdbcType=DECIMAL},
+      balance = #{balance,jdbcType=DECIMAL},
+      freeze_total = #{freezeTotal,jdbcType=DECIMAL},
+      transit_total = #{transitTotal,jdbcType=DECIMAL},
+      payable_total = #{payableTotal,jdbcType=DECIMAL},
+      receivable_total = #{receivableTotal,jdbcType=DECIMAL},
+      belong_date = #{belongDate,jdbcType=DATE},
+      status = #{status,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where account_id = #{accountId,jdbcType=VARCHAR}
+  </update>
+</mapper>

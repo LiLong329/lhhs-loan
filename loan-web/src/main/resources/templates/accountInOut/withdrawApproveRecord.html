@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="common/src"></head>
+<body>
+    <div class="father">
+      <header th:replace="common/top"></header>
+        <div class="common-content">
+           <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>资金管理</li>
+                        <li>审核管理</li>
+                        <li>提现记账审核</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual">
+                         <form id="myForm" action="/accountInOut/withdrawApproveRecord">
+                            <ul class="seachform1">
+                                <li>
+                                    <label>订单号：</label>
+                                   <input type="text" class="scinput1" name="transNo" th:value="${transNo}"/>
+                                </li>
+                                <li>
+                                    <label>申请时间：</label>
+                                    <input type="text" class="scinput1" name="startTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})" th:value="${startTime}?${#dates.format(startTime, 'yyyy-MM-dd HH:mm:ss')}:''"/>
+                                    <span> 至 </span>
+                                    <input type="text" class="scinput1" name="endTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})" th:value="${endTime}?${#dates.format(endTime, 'yyyy-MM-dd HH:mm:ss')}:''"/>
+                                </li>
+                                <li>
+                                    <label>客户性质：</label>
+                                    <div class="vocation">
+                                        <select class="select-common select3" name="customerNature">
+                                           <option value=''>请选择</option>
+                                             <option th:each="nature : ${natureList}" th:text="${nature.typeName}" th:attr="value=${nature.typeId},selected=(${customerNature} eq ${nature.typeId})?true:false"></option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label>手机号：</label>
+                                  <input type="text" class="scinput1" name="mobile" th:value="${mobile}"/>
+                                </li>
+                                    <li>
+                                    <label>客户/机构ID：</label>
+                                    <input type="text" class="scinput1" name="customerId" th:value="${customerId}"/>
+                                  </li>
+                                 <li>
+                                    <label style="width:95px;">姓名/开户名称：</label>
+                                    <input type="text" class="scinput1" name="customerName" th:value="${customerName}"/>
+                                 </li>
+                                <li>
+                                    <input id="searcher" type="button" class="scbtn" value="查询"/>
+                                </li>
+                            </ul>
+                            <div class="table-title">
+                                <p class="tab-font">提现记账审核</p>
+                            </div>
+                            <table class="tablelist">
+                                <thead>
+                                <tr>
+                                    <th>订单号</th>
+                                    <th>手机号</th>
+                                    <th>客户类型</th>
+                                    <th>客户性质</th>
+                                    <th>姓名</th>
+                                    <th>提现金额（元）</th>
+                                    <th>提现银行</th>
+                                    <th>提现至银行卡号</th>
+                                    <th>申请时间</th>
+                                    <th>申请人</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                        <th:block th:unless="${#lists.isEmpty(page.resultList)}">
+		                                    <tr th:each="obj,iterStat:${page.resultList}">
+		                                        <td><a th:href="@{/accountInOut/queryWithdrawDetail(transNo=${obj.trans_no})}"  class="tablelink viewDetail" th:attr="data-orderno=${obj.trans_no}" th:text="${obj.trans_no}"></a></td>
+		                                        <td th:text="${#maps.containsKey(obj, 'mobile')}?${obj.mobile}"></td>
+		                                        <td th:text="${#maps.containsKey(obj, 'type_name')}?${obj.type_name}"></td>
+		                                        <td th:text="${#maps.containsKey(obj, 'nature_name')}?${obj.nature_name}"></td>
+		                                        <td th:text="${#maps.containsKey(obj, 'account_holder')}?${obj.account_holder}"></td>
+		                                        <td th:text="${#maps.containsKey(obj, 'amount')}?${#numbers.formatDecimal(obj.amount,1,2)}"></td>
+		                                        <td th:text="${#maps.containsKey(obj, 'bank_name')}?${obj.bank_name}"></td>
+		                                        <td th:text="${#maps.containsKey(obj, 'bank_card_no')}?${obj.bank_card_no}"></td>
+		                                        <td th:text="${#maps.containsKey(obj, 'create_time')}?${#dates.format(obj.create_time,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+		                                        <td th:text="${#maps.containsKey(obj, 'create_user')}?${obj.create_user}"></td>
+		                                        <td><a th:href="@{/accountInOut/toWithdrawApprove(transNo=${obj.trans_no})}"  class="tablelink viewDetail" th:attr="data-orderno=${obj.trans_no}" >审核</a></td>
+		                                    </tr>
+	                                     </th:block>
+                                </tbody>
+                            </table>
+                            <div class="pagin" style="margin-top: 0px;">
+                                <div class="message">
+                                                                     统计数据：<th:block th:text="${#maps.containsKey(total, 'totalCount')}?${total.totalCount}:0"></th:block>条&nbsp;&nbsp;&nbsp;线下提现待审核总额：<th:block th:if="${total.totalAmount}"><th:block th:text="${#numbers.formatDecimal(total.totalAmount,1,2)}"></th:block></th:block><th:block th:unless="${total.totalAmount}">0</th:block>元
+                                </div>
+                            </div>
+                   <div class="pagin" th:unless="${#lists.isEmpty(page.resultList)}">
+								<div class="message">
+									共 <i class="blue" th:text="${page.totalCount}"></i> 条记录，当前显示第 <i
+										class="blue" th:text="${page.pageIndex}"></i> 页
+								</div>
+								<ul class="paginList">
+									<li class="paginItem" th:if="${page.pageIndex} gt 1"><a
+										th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+									</li>
+									<li class="paginItem"
+										th:each="x:${#numbers.sequence(page.startNum, page.endNum)}"
+										th:classappend="(${page.pageIndex} eq ${x})?'current'"><a
+										th:attr="data-pagenum=${x}" th:text="${x}"></a></li>
+									<li class="paginItem"
+										th:if="${page.pageIndex} lt ${page.pageCount}"><a
+										th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+									</li>
+								</ul>
+							</div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+    <script type="text/javascript" charset="utf-8" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript">seajs.use("accountInOut/transRecord.js");</script>
+</body>
+</html>

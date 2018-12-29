@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script src="/js/public/decode.js"></script>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>系统管理</li>
+                        <li>权限设置</li>
+                        <li>后台账号管理</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual">
+                            <ul class="seachform1">
+                             <form id="myForm" method="post" >
+                             <input  name="pageNumber" type="hidden" value="" id="currentPageNo"/>
+                                <li>
+                                    <th:block th:if="${isAdmin} eq 'admin'">
+                                    <label>城市：</label>
+                                    <div class="vocation">
+                                        <select class="select-common select3" name="leCity">
+                                            <option value="">请选择</option>
+                                            <option th:each="city : ${allCity}" th:value="${city.city_name}" th:text="${city.city_name}"
+                                              th:attr="selected=(${city.city_name} eq ${leCity})?true:false"></option>
+                                        </select>
+                                    </div>
+                                    </th:block>
+                                </li>
+								<li>
+									<th:block th:if="${isAdmin} eq 'admin'">
+										<label>分公司：</label>
+										<div class="vocation">
+									       <select class="select-common select3 common-company" name="companyId"  id="companyFen" >
+												<option value="">请选择</option>
+												<option th:each="company : ${companys}" th:value="${company.companyId}" th:text="${company.companyName}"
+												 th:attr="selected=(${companyId} eq ${company.companyId})?true:false"></option>
+											</select>
+										</div>
+									 </th:block>
+								</li>
+								<li>
+									 <th:block th:if="${isAdmin} eq 'admin'">
+										<label>事业部：</label>
+										 <div class="vocation">
+										    <select class="select-common select3 " name="leDeptId" id="depId">
+									              <option value="" >请选择</option>
+									              <option th:each="search : ${searchList}" th:value="${search.deptId}" th:text="${search.name}"
+	                                              th:attr="selected=(${leDeptId} eq ${search.deptId})?true:false"></option>
+										     </select>
+										</div> 
+									 </th:block>
+								</li>
+                                <li>
+                                    <label>姓名：</label>
+                                    <input name="leStaffName" type="text" class="scinput1" th:value="${leStaffName}"/>
+                                </li>
+                                <li>
+                                     <th:block th:if="${isAdmin} neq 'admin'">
+	                                    <label>部门：</label>
+	                                    <div class="vocation">
+	                                     <!--  <select class="select-common select3 " name="leDeptId" id="depId"> -->
+	                                        <select class="select-common select3" id="deptQuartersLink" name="leDeptId">
+	                                            <option value="">请选择</option>
+	                                             <option th:each="search : ${searchList}" th:value="${search.deptId}" th:text="${search.name}"
+	                                              th:attr="selected=
+	                                              (${leDeptId} eq ${search.deptId})?true:false"></option>
+	                                        </select>
+	                                           <!--  <option th:each="dept : ${allDept}" th:value="${dept.deptId}" th:utext="${dept.name}"
+	                                              th:attr="selected=(${dept.deptId} eq ${leDeptId})?true:false"></option>
+	                                        </select> -->
+	                                    </div>
+                                     </th:block>
+                                </li>
+                                </form>
+                                <li>
+                                    <input type="button" class="scbtn searcher" id="query" value="查询"/>
+                                </li>
+                                <li class="sarchbtn" style="float: right;">
+                                    <input sec:authorize="hasRole('ROLE_ EMP ADDORUPDATE')"  type="button" class="scbtn1" value="新增" onclick="javascrtpt:window.location.href='/systemManager/toEmployeeAdd'"/>
+                                </li>
+                            </ul>
+                            <div class="table-title">
+                                <p class="tab-font">后台账号管理</p>
+                            </div>
+                            <table class="tablelist">
+                                <thead>
+                                    <tr>
+                                        <th>城市</th>
+                                        <th>ID</th>
+                                        <th>账号</th>
+                                        <th>姓名</th>
+                                        <th>性别</th>
+                                        <th>手机号</th>
+                                        <th>部门</th>
+                                        <th>岗位</th>
+                                        <th>注册时间</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr:block th:unless="${#lists.isEmpty(page.resultList)}" >
+                                    <tr th:each="emp : ${page.resultList}">
+                                        <input type="hidden" th:value="${emp.status}" class="leStatus"/> 
+                                        <input type="hidden" th:value="${emp.userId}" class="leEmpId"/> 
+                                        <td th:text="${emp.cityName}"></td>
+                                        <td th:text="${emp.userId}"></td>
+                                        <td th:text="${emp.username}"></td>
+                                        <td th:text="${emp.staffName}"></td>
+                                        <td>
+                                        <th:block th:if="${emp.sex} eq 1">男</th:block>
+                                        <th:block th:if="${emp.sex} eq 0">女</th:block>
+                                        </td>
+                                        <td th:text="${emp.mobile}"></td>
+                                        <td th:text="${emp.ldName}"></td>
+                                        <td>
+                                        <th:block th:unless="${#lists.isEmpty(emp.quartersNames)}">
+                                         <p class="line-limit-length">
+                                         <th:block th:each="quarters : ${emp.quartersNames}">
+                                         <span th:text="${quarters}"></span>
+                                         </th:block>
+                                         </p>
+                                        </th:block>
+                                        </td>
+                                        <td th:text="${emp.createTime}?${#dates.format(emp.createTime, 'yyyy-MM-dd HH:mm:ss')}:''"></td>
+                                        <td>
+                                        <th:block th:if="${emp.status} eq 03">正常</th:block>
+                                        <th:block th:if="${emp.status} eq 91">禁用</th:block>
+                                        </td>
+                                        <td>
+                                            <a sec:authorize="hasRole('ROLE_ RESETEMPPASS')" href="javascript:void(0);" class="tablelink resetpassword">重置密码</a>
+                                            <a sec:authorize="hasRole('ROLE_ EMP ADDORUPDATE')" th:href="@{/systemManager/toEmpUpdate(leEmpId=${emp.userId})}" class="tablelink mlt10">修改</a>
+                                            <th:block th:if="${emp.status} eq 03">
+                                            <a sec:authorize="hasRole('ROLE_ EMPENABLEDISABLE')" href="javascript:void(0);" class="tablelink mlt10 buttonclick"  >
+                                                                                                                             禁用
+                                            </a>                                                                                 
+                                            </th:block>
+                                            <th:block th:if="${emp.status} eq 91">
+                                            <a sec:authorize="hasRole('ROLE_ EMPENABLEDISABLE')" href="javascript:void(0);" class="tablelink mlt10 buttonclick" >
+                                                                                                                             启用
+                                            </a>                                                                                
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    </tr:block>
+                                </tbody>
+                            </table>                           
+                           	<div class="pagin" th:unless="${#lists.isEmpty(page.resultList)}">
+								<div class="message">
+									<input sec:authorize="hasRole('ROLE_ EMPLOYEEEXPORT')"  type="button" value="导出" class="scbtn1" style="width: 65px;" id="export"/>
+									&nbsp;&nbsp;&nbsp;共 <i class="blue" th:text="${page.totalCount}"></i> 条记录，当前显示第 <i
+										class="blue" th:text="${page.pageIndex}"></i> 页
+								</div>
+								<ul class="paginList">
+									<li class="paginItem" th:if="${page.pageIndex} gt 1"><a
+										th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+									</li>
+									<li class="paginItem"
+										th:each="x:${#numbers.sequence(page.startNum, page.endNum)}"
+										th:classappend="(${page.pageIndex} eq ${x})?'current'"><a
+										th:attr="data-pagenum=${x}" th:text="${x}"></a></li>
+									<li class="paginItem"
+										th:if="${page.pageIndex} lt ${page.pageCount}"><a
+										th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+									</li>
+								</ul>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="/js/public/area.js"></script>
+        <script src="/js/public/select.js"></script>
+        <footer th:replace="common/footer"></footer>
+        <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	    <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+        <script>seajs.use("login/employee");</script>
+    </div>
+</body>
+</html>

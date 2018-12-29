@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanQuartersMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanQuarters" >
+    <id column="lq_quarters_id" property="lqQuartersId" jdbcType="INTEGER" />
+    <result column="lq_name" property="lqName" jdbcType="VARCHAR" />
+    <result column="lq_english_name" property="lqEnglishName" jdbcType="VARCHAR" />
+    <result column="lq_union_id" property="lqUnionId" jdbcType="VARCHAR" />
+    <result column="lq_depict" property="lqDepict" jdbcType="VARCHAR" />
+    <result column="lq_parent_id" property="lqParentId" jdbcType="INTEGER" />
+    <result column="lq_dept_id" property="lqDeptId" jdbcType="INTEGER" />
+    <result column="lq_grade" property="lqGrade" jdbcType="INTEGER" />
+    <result column="lq_time" property="lqTime" jdbcType="TIMESTAMP" />
+    <result column="lq_status" property="lqStatus" jdbcType="VARCHAR" />
+    <result column="lq_remark" property="lqRemark" jdbcType="VARCHAR" />
+    <result column="lq_parent_name" property="lqParentName" jdbcType="VARCHAR" />
+    <result column="lq_dept_name" property="lqDeptName" jdbcType="VARCHAR" />
+    <result column="lq_limit" property="lqLimit" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lq_quarters_id, lq_name, lq_english_name,lq_union_id,lq_depict, lq_parent_id, lq_dept_id,lq_grade, lq_time, lq_status, 
+    lq_remark,lq_limit
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_quarters
+    where lq_quarters_id = #{lqQuartersId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from loan_quarters
+    where lq_quarters_id = #{lqQuartersId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanQuarters" >
+    insert into loan_quarters (lq_quarters_id, lq_name, lq_english_name,lq_union_id,lq_depict, 
+      lq_parent_id, lq_dept_id, lq_time, lq_grade,
+      lq_status, lq_remark,lq_limit)
+    values (#{lqQuartersId,jdbcType=INTEGER}, #{lqName,jdbcType=VARCHAR}, #{lqEnglishName,jdbcType=VARCHAR}, #{lqUnionId,jdbcType=VARCHAR},#{lqDepict,jdbcType=VARCHAR}, 
+      #{lqParentId,jdbcType=INTEGER}, #{lqDeptId,jdbcType=INTEGER},#{lqGrade,jdbcType=INTEGER}, #{lqTime,jdbcType=TIMESTAMP}, 
+      #{lqStatus,jdbcType=VARCHAR}, #{lqRemark,jdbcType=VARCHAR}, #{lqLimit,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanQuarters" >
+    insert into loan_quarters
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lqQuartersId != null" >
+        lq_quarters_id,
+      </if>
+      <if test="lqName != null" >
+        lq_name,
+      </if>
+      <if test="lqEnglishName != null" >
+        lq_english_name,
+      </if>
+      <if test="lqUnionId != null" >
+        lq_union_id,
+      </if>
+      <if test="lqDepict != null" >
+        lq_depict,
+      </if>
+      <if test="lqParentId != null" >
+        lq_parent_id,
+      </if>
+      <if test="lqDeptId != null" >
+        lq_dept_id,
+      </if>
+      <if test="lqGrade != null" >
+        lq_grade,
+      </if>
+      <if test="lqTime != null" >
+        lq_time,
+      </if>
+      <if test="lqStatus != null" >
+        lq_status,
+      </if>
+      <if test="lqRemark != null" >
+        lq_remark,
+      </if>
+      <if test="lqLimit != null" >
+        lq_limit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lqQuartersId != null" >
+        #{lqQuartersId,jdbcType=INTEGER},
+      </if>
+      <if test="lqName != null" >
+        #{lqName,jdbcType=VARCHAR},
+      </if>
+      <if test="lqEnglishName != null" >
+        #{lqEnglishName,jdbcType=VARCHAR},
+      </if>
+      <if test="lqUnionId != null" >
+        #{lqUnionId,jdbcType=VARCHAR},
+      </if>
+      <if test="lqDepict != null" >
+        #{lqDepict,jdbcType=VARCHAR},
+      </if>
+      <if test="lqParentId != null" >
+        #{lqParentId,jdbcType=INTEGER},
+      </if>
+      <if test="lqDeptId != null" >
+        #{lqDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="lqGrade != null" >
+        #{lqGrade,jdbcType=INTEGER},
+      </if>
+      <if test="lqTime != null" >
+        #{lqTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lqStatus != null" >
+        #{lqStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="lqRemark != null" >
+        #{lqRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="lqLimit != null" >
+        #{lqLimit,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanQuarters" >
+    update loan_quarters
+    <set >
+      <if test="lqName != null" >
+        lq_name = #{lqName,jdbcType=VARCHAR},
+      </if>
+      <if test="lqEnglishName != null" >
+        lq_english_name = #{lqName,jdbcType=VARCHAR},
+      </if>
+      <if test="lqUnionId != null" >
+        lq_union_id = #{lqUnionId,jdbcType=VARCHAR},
+      </if>
+      <if test="lqDepict != null" >
+        lq_depict = #{lqDepict,jdbcType=VARCHAR},
+      </if>
+      <if test="lqParentId != null" >
+        lq_parent_id = #{lqParentId,jdbcType=INTEGER},
+      </if>
+      <if test="lqDeptId != null" >
+        lq_dept_id = #{lqDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="lqGrade != null" >
+        lq_grade = #{lqGrade,jdbcType=INTEGER},
+      </if>
+      <if test="lqTime != null" >
+        lq_time = #{lqTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lqStatus != null" >
+        lq_status = #{lqStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="lqRemark != null" >
+        lq_remark = #{lqRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="lqLimit != null" >
+        lq_limit = #{lqLimit,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lq_quarters_id = #{lqQuartersId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanQuarters" >
+    update loan_quarters
+    set lq_name = #{lqName,jdbcType=VARCHAR},
+      lq_english_name = #{lqEnglishName,jdbcType=VARCHAR},
+      lq_union_id = #{lqUnionId,jdbcType=VARCHAR},
+      lq_depict = #{lqDepict,jdbcType=VARCHAR},
+      lq_parent_id = #{lqParentId,jdbcType=INTEGER},
+      lq_dept_id = #{lqDeptId,jdbcType=INTEGER},
+      lq_grade = #{lqGrade,jdbcType=INTEGER},
+      lq_time = #{lqTime,jdbcType=TIMESTAMP},
+      lq_status = #{lqStatus,jdbcType=VARCHAR},
+      lq_remark = #{lqRemark,jdbcType=VARCHAR},
+      lq_limit = #{lqLimit,jdbcType=VARCHAR}
+    where lq_quarters_id = #{lqQuartersId,jdbcType=INTEGER}
+  </update>
+  
+   <!-- 分页查询所有岗位 -->
+	<select id="getQuarters" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		SELECT lq.lq_quarters_id,  lq.lq_name, lq.lq_english_name, lq.lq_depict,  lq.lq_parent_id,  lq.lq_dept_id,  lq.lq_time,  lq.lq_status,  lq.lq_remark,lq.lq_limit		
+		from loan_quarters  lq 
+		WHERE 1=1 
+		<if test="lqName != null and lqName != ''">
+			AND lq.lq_name = #{lqName}
+		</if>
+		<if test="lqStatus != null and lqStatus != ''">
+			AND lq.lq_status = #{lqStatus}
+		</if>
+		ORDER BY lq.lq_quarters_id desc ,lq.lq_time DESC
+		<if test="page!= null">
+			limit #{page.pageStartIndex},#{page.pageSize}
+		</if>
+		
+	</select>
+	
+	<!-- 查询岗位数目 -->
+	<select id="getQuartersCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select
+		count(1)
+		from loan_quarters
+		where 1=1 
+		<if test="lqName != null and lqName != ''">
+			AND lq_name = #{lqName}
+		</if>
+		<if test="lqStatus != null and lqStatus != ''">
+			AND lq_status = #{lqStatus}
+		</if>
+	</select>
+	
+	<!-- 根据条件查询岗位 -->
+	<select id="getQuartersByParams" parameterType="java.util.Map"  resultMap="BaseResultMap" >
+		select <include refid="Base_Column_List" /> from loan_quarters where 1=1 
+		<if test="lqName != null and lqName != ''">
+			AND lq_name = #{lqName}
+		</if>
+		<if test="lqEnglishName != null and lqEnglishName != ''">
+			AND lq_english_name = #{lqEnglishName}
+		</if>
+		<if test="lqStatus != null and lqStatus != ''">
+			AND lq_status = #{lqStatus}
+		</if>
+	</select>
+	<!--根据岗位id查询岗位详情 -->
+	<select id="selectByQuartersId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select lq.lq_quarters_id,  lq.lq_name,lq.lq_english_name, lq.lq_union_id, lq.lq_depict,  lq.lq_parent_id,  lq.lq_dept_id, lq.lq_grade, lq.lq_time,  lq.lq_status,  lq.lq_remark,lq.lq_limit
+    from loan_quarters lq  where lq.lq_quarters_id = #{lqQuartersId,jdbcType=INTEGER}
+  </select>
+  <!--修改岗位（排除上级岗位非空验证） -->
+  <update id="updateByQuartersId" parameterType="com.lhhs.loan.dao.domain.LoanQuarters" >
+    update loan_quarters
+    <set >
+      <if test="lqName != null" >
+        lq_name = #{lqName,jdbcType=VARCHAR},
+      </if>
+      <if test="lqEnglishName != null" >
+        lq_english_name = #{lqEnglishName,jdbcType=VARCHAR},
+      </if>
+      <if test="lqUnionId != null" >
+        lq_union_id = #{lqUnionId,jdbcType=VARCHAR},
+      </if>
+      <if test="lqDepict != null" >
+        lq_depict = #{lqDepict,jdbcType=VARCHAR},
+      </if>
+        lq_parent_id = #{lqParentId,jdbcType=INTEGER},
+      <if test="lqDeptId != null" >
+        lq_dept_id = #{lqDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="lqGrade != null" >
+        lq_grade = #{lqGrade,jdbcType=INTEGER},
+      </if>
+      <if test="lqTime != null" >
+        lq_time = #{lqTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lqStatus != null" >
+        lq_status = #{lqStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="lqRemark != null" >
+        lq_remark = #{lqRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="lqLimit != null" >
+        lq_limit = #{lqLimit,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lq_quarters_id = #{lqQuartersId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- ******************** 小贷 II LiJian jun Start ***************************** -->
+  <!-- 根据QuartersId查询对象 -->
+   <select id="selectLoanQuartersByQuartersId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT 
+    	<include refid="Base_Column_List" />
+    FROM 
+    	loan_quarters
+    WHERE
+    	lq_quarters_id = #{lqQuartersId,jdbcType=INTEGER}
+  </select>
+  <select id="selectParentIdByIdDept" resultType="java.lang.Integer" >
+    SELECT  lq_parent_id  FROM  	loan_quarters
+    WHERE  	lq_quarters_id = #{lqQuartersId,jdbcType=INTEGER} and lq_dept_id = #{lqDeptId,jdbcType=INTEGER }
+  </select>
+  <!-- ******************** 小贷 II LiJian jun End ***************************** -->
+</mapper>

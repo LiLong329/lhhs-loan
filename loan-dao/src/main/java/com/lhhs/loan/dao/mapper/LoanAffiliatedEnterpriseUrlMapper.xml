@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanAffiliatedEnterpriseUrlMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanAffiliatedEnterpriseUrl" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="affiliated_enterprise_id" property="affiliatedEnterpriseId" jdbcType="VARCHAR" />
+    <result column="path_url" property="pathUrl" jdbcType="VARCHAR" />
+    <result column="file_extension" property="fileExtension" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, affiliated_enterprise_id, path_url, file_extension, create_time
+  </sql>
+  <sql id="Where_Common">
+  	<if test="id != null" >
+    	and id=#{id}
+    </if>
+    <if test="null!=affiliatedEnterpriseId and ''!=affiliatedEnterpriseId" >
+        and affiliated_enterprise_id=#{affiliatedEnterpriseId}
+    </if>
+    <if test="null!=pathUrl and ''!=pathUrl" >
+        and path_url=#{pathUrl}
+    </if>
+    <if test="null!=fileExtension and ''!=fileExtension" >
+        and file_extension=#{fileExtension}
+    </if>
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_affiliated_enterprise_url
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="queryList" resultMap="BaseResultMap" parameterType="com.lhhs.loan.dao.domain.LoanAffiliatedEnterpriseUrl" >
+    select <include refid="Base_Column_List" />
+    from loan_affiliated_enterprise_url
+    where 1=1
+    <include refid="Where_Common"/>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from loan_affiliated_enterprise_url
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanAffiliatedEnterpriseUrl" >
+    insert into loan_affiliated_enterprise_url (id, affiliated_enterprise_id, path_url, 
+      file_extension, create_time)
+    values (#{id,jdbcType=BIGINT}, #{affiliatedEnterpriseId,jdbcType=VARCHAR}, #{pathUrl,jdbcType=VARCHAR}, 
+      #{fileExtension,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanAffiliatedEnterpriseUrl" useGeneratedKeys="true" keyProperty="id" >
+    insert into loan_affiliated_enterprise_url
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="affiliatedEnterpriseId != null" >
+        affiliated_enterprise_id,
+      </if>
+      <if test="pathUrl != null" >
+        path_url,
+      </if>
+      <if test="fileExtension != null" >
+        file_extension,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="affiliatedEnterpriseId != null" >
+        #{affiliatedEnterpriseId,jdbcType=VARCHAR},
+      </if>
+      <if test="pathUrl != null" >
+        #{pathUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="fileExtension != null" >
+        #{fileExtension,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanAffiliatedEnterpriseUrl" >
+    update loan_affiliated_enterprise_url
+    <set >
+      <if test="affiliatedEnterpriseId != null" >
+        affiliated_enterprise_id = #{affiliatedEnterpriseId,jdbcType=VARCHAR},
+      </if>
+      <if test="pathUrl != null" >
+        path_url = #{pathUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="fileExtension != null" >
+        file_extension = #{fileExtension,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanAffiliatedEnterpriseUrl" >
+    update loan_affiliated_enterprise_url
+    set affiliated_enterprise_id = #{affiliatedEnterpriseId,jdbcType=VARCHAR},
+      path_url = #{pathUrl,jdbcType=VARCHAR},
+      file_extension = #{fileExtension,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

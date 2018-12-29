@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanOrderHouseExtendMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanOrderHouseExtend" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="cust_id" property="custId" jdbcType="VARCHAR" />
+    <result column="property_num" property="propertyNum" jdbcType="VARCHAR" />
+    <result column="property_name" property="propertyName" jdbcType="VARCHAR" />
+    <result column="build_area" property="buildArea" jdbcType="DECIMAL" />
+    <result column="house_address" property="houseAddress" jdbcType="VARCHAR" />
+    <result column="built_age" property="builtAge" jdbcType="VARCHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="live_situation" property="liveSituation" jdbcType="VARCHAR" />
+    <result column="query_status" property="queryStatus" jdbcType="VARCHAR" />
+    <result column="valuation_price" property="valuationPrice" jdbcType="DECIMAL" />
+    <result column="selling_price" property="sellingPrice" jdbcType="DECIMAL" />
+    <result column="mortgage_rate" property="mortgageRate" jdbcType="DECIMAL" />
+    <result column="is_mortgage" property="isMortgage" jdbcType="VARCHAR" />
+    <result column="surplus_value" property="surplusValue" jdbcType="VARCHAR" />
+    <result column="mortgage_position" property="mortgagePosition" jdbcType="VARCHAR" />
+    <result column="house_type" property="houseType" jdbcType="VARCHAR" />
+    <result column="second_mortgage_owner" property="secondMortgageOwner" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="house_facing" property="houseFacing" jdbcType="VARCHAR" />
+    <result column="house_layout" property="houseLayout" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, order_no, cust_id, property_num, property_name, build_area, house_address, built_age, 
+    real_name, live_situation, query_status, valuation_price, selling_price, mortgage_rate, 
+    is_mortgage, surplus_value, mortgage_position, house_type, second_mortgage_owner, 
+    update_time, customer_id, house_facing, house_layout
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_order_house_extend
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByOrderNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_order_house_extend
+    where order_no = #{orderNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from loan_order_house_extend
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanOrderHouseExtend" >
+    insert into loan_order_house_extend (ID, order_no, cust_id, 
+      property_num, property_name, build_area, 
+      house_address, built_age, real_name, 
+      live_situation, query_status, valuation_price, 
+      selling_price, mortgage_rate, is_mortgage, 
+      surplus_value, mortgage_position, house_type, 
+      second_mortgage_owner, update_time, customer_id, house_facing, house_layout)
+    values (#{id,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, #{custId,jdbcType=VARCHAR}, 
+      #{propertyNum,jdbcType=VARCHAR}, #{propertyName,jdbcType=VARCHAR}, #{buildArea,jdbcType=DECIMAL}, 
+      #{houseAddress,jdbcType=VARCHAR}, #{builtAge,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, 
+      #{liveSituation,jdbcType=VARCHAR}, #{queryStatus,jdbcType=VARCHAR}, #{valuationPrice,jdbcType=DECIMAL}, 
+      #{sellingPrice,jdbcType=DECIMAL}, #{mortgageRate,jdbcType=DECIMAL}, #{isMortgage,jdbcType=VARCHAR}, 
+      #{surplusValue,jdbcType=VARCHAR}, #{mortgagePosition,jdbcType=VARCHAR}, #{houseType,jdbcType=VARCHAR}, 
+      #{secondMortgageOwner,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{customerId,jdbcType=VARCHAR}, 
+      #{houseFacing,jdbcType=VARCHAR}, #{houseLayout,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanOrderHouseExtend" >
+    insert into loan_order_house_extend
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="custId != null" >
+        cust_id,
+      </if>
+      <if test="propertyNum != null" >
+        property_num,
+      </if>
+      <if test="propertyName != null" >
+        property_name,
+      </if>
+      <if test="buildArea != null" >
+        build_area,
+      </if>
+      <if test="houseAddress != null" >
+        house_address,
+      </if>
+      <if test="builtAge != null" >
+        built_age,
+      </if>
+      <if test="realName != null" >
+        real_name,
+      </if>
+      <if test="liveSituation != null" >
+        live_situation,
+      </if>
+      <if test="queryStatus != null" >
+        query_status,
+      </if>
+      <if test="valuationPrice != null" >
+        valuation_price,
+      </if>
+      <if test="sellingPrice != null" >
+        selling_price,
+      </if>
+      <if test="mortgageRate != null" >
+        mortgage_rate,
+      </if>
+      <if test="isMortgage != null" >
+        is_mortgage,
+      </if>
+      <if test="surplusValue != null" >
+        surplus_value,
+      </if>
+      <if test="mortgagePosition != null" >
+        mortgage_position,
+      </if>
+      <if test="houseType != null" >
+        house_type,
+      </if>
+      <if test="secondMortgageOwner != null" >
+        second_mortgage_owner,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="houseFacing != null" >
+        house_facing,
+      </if>
+      <if test="houseLayout != null" >
+        house_layout,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyNum != null" >
+        #{propertyNum,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyName != null" >
+        #{propertyName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildArea != null" >
+        #{buildArea,jdbcType=DECIMAL},
+      </if>
+      <if test="houseAddress != null" >
+        #{houseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="builtAge != null" >
+        #{builtAge,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="liveSituation != null" >
+        #{liveSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="queryStatus != null" >
+        #{queryStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="valuationPrice != null" >
+        #{valuationPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="sellingPrice != null" >
+        #{sellingPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="mortgageRate != null" >
+        #{mortgageRate,jdbcType=DECIMAL},
+      </if>
+      <if test="isMortgage != null" >
+        #{isMortgage,jdbcType=VARCHAR},
+      </if>
+      <if test="surplusValue != null" >
+        #{surplusValue,jdbcType=VARCHAR},
+      </if>
+      <if test="mortgagePosition != null" >
+        #{mortgagePosition,jdbcType=VARCHAR},
+      </if>
+      <if test="houseType != null" >
+        #{houseType,jdbcType=VARCHAR},
+      </if>
+      <if test="secondMortgageOwner != null" >
+        #{secondMortgageOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+       <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseFacing != null" >
+        #{houseFacing,jdbcType=VARCHAR},
+      </if>
+      <if test="houseLayout != null" >
+        #{houseLayout,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanOrderHouseExtend" >
+    update loan_order_house_extend
+    <set >
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null" >
+        cust_id = #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyNum != null" >
+        property_num = #{propertyNum,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyName != null" >
+        property_name = #{propertyName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildArea != null" >
+        build_area = #{buildArea,jdbcType=DECIMAL},
+      </if>
+      <if test="houseAddress != null" >
+        house_address = #{houseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="builtAge != null" >
+        built_age = #{builtAge,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="liveSituation != null" >
+        live_situation = #{liveSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="queryStatus != null" >
+        query_status = #{queryStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="valuationPrice != null" >
+        valuation_price = #{valuationPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="sellingPrice != null" >
+        selling_price = #{sellingPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="mortgageRate != null" >
+        mortgage_rate = #{mortgageRate,jdbcType=DECIMAL},
+      </if>
+      <if test="isMortgage != null" >
+        is_mortgage = #{isMortgage,jdbcType=VARCHAR},
+      </if>
+      <if test="surplusValue != null" >
+        surplus_value = #{surplusValue,jdbcType=VARCHAR},
+      </if>
+      <if test="mortgagePosition != null" >
+        mortgage_position = #{mortgagePosition,jdbcType=VARCHAR},
+      </if>
+      <if test="houseType != null" >
+        house_type = #{houseType,jdbcType=VARCHAR},
+      </if>
+      <if test="secondMortgageOwner != null" >
+        second_mortgage_owner = #{secondMortgageOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseFacing != null" >
+        house_facing = #{houseFacing,jdbcType=VARCHAR},
+      </if>
+      <if test="houseLayout != null" >
+        house_layout = #{houseLayout,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanOrderHouseExtend" >
+    update loan_order_house_extend
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      cust_id = #{custId,jdbcType=VARCHAR},
+      property_num = #{propertyNum,jdbcType=VARCHAR},
+      property_name = #{propertyName,jdbcType=VARCHAR},
+      build_area = #{buildArea,jdbcType=DECIMAL},
+      house_address = #{houseAddress,jdbcType=VARCHAR},
+      built_age = #{builtAge,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      live_situation = #{liveSituation,jdbcType=VARCHAR},
+      query_status = #{queryStatus,jdbcType=VARCHAR},
+      valuation_price = #{valuationPrice,jdbcType=DECIMAL},
+      selling_price = #{sellingPrice,jdbcType=DECIMAL},
+      mortgage_rate = #{mortgageRate,jdbcType=DECIMAL},
+      is_mortgage = #{isMortgage,jdbcType=VARCHAR},
+      surplus_value = #{surplusValue,jdbcType=VARCHAR},
+      mortgage_position = #{mortgagePosition,jdbcType=VARCHAR},
+      house_type = #{houseType,jdbcType=VARCHAR},
+      second_mortgage_owner = #{secondMortgageOwner,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      customer_id = #{customerId,jdbcType=VARCHAR},
+      house_facing = #{houseFacing,jdbcType=VARCHAR},
+      house_layout = #{houseLayout,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+    
+  <!-- 自定义的方法区 -->
+  <!-- 查询房产扩展信息根据订单号 -->
+  <select id="findHouseExtendListByOrderNo" resultMap="BaseResultMap">
+  	select 
+    	<include refid="Base_Column_List" />
+    from loan_order_house_extend where 1=1 
+  	<if test="orderNo != null and '' != orderNo">
+  		 AND order_no = #{orderNo}
+  	</if>
+  </select>
+  
+   <!-- 根据参数查询单条房产信息 -->
+  <select id="findOneHouseExtendByParam" resultMap="BaseResultMap">
+  	select 
+    	<include refid="Base_Column_List" />
+    from loan_order_house_extend where 1=1 
+  	<if test="orderNo != null and '' != orderNo">
+  		 AND order_no = #{orderNo}
+  	</if>
+  	<if test="propertyNum != null and '' != propertyNum">
+  		 AND property_num = #{propertyNum}
+  	</if>
+  	LIMIT 1
+  </select>
+  
+  <delete id="deleteHouseExtendByOrderNo">
+  	delete from loan_order_house_extend where order_no = #{orderNo}
+  </delete>
+  
+  <!-- 该方法只用于查询订单中借款人房抵押信息同步到碰碰旺系统 -->
+  <select id="findHouseExtendListMapByOrderNo" resultType="map">
+  select
+  	cust_id custId,property_num propertyNum, property_name propertyName, build_area buildArea, house_address houseAddress, built_age builtAge, 
+    real_name realName, live_situation liveSituation, query_status queryStatus, valuation_price valuation, selling_price sellingPrice, mortgage_rate mortgRate, 
+    is_mortgage isMortgage, surplus_value surplusValue, mortgage_position mortgagePosition, house_type houseType, second_mortgage_owner secondMortgageOwner
+  from loan_order_house_extend where order_no = #{orderNo}
+  </select>
+  
+  <!-- **************************** 小贷系统II期 LiJian jun START  ******************************************** -->
+  <!-- 查询放款申请中的房产扩展信息 -->
+  <select id="selectLoanOrderHouseExtend" parameterType="com.lhhs.loan.dao.domain.LoanOrderHouseExtend" resultType="com.lhhs.loan.dao.domain.LoanOrderHouseExtend">
+  	SELECT 
+    	<include refid="Base_Column_List" />
+    FROM 
+    	loan_order_house_extend
+    WHERE 
+    	order_no = #{orderNo,jdbcType=BIGINT}
+  </select>
+  <!-- **************************** 小贷系统II期 LiJian jun END  ******************************************** -->
+  
+  <select id="selectOrderHouseExtendToMap" resultType="map">
+  	SELECT 
+    	<include refid="Base_Column_List" />
+    FROM 
+    	loan_order_house_extend
+    WHERE 
+    	order_no = #{orderNo}
+  </select>
+  
+   <!-- 房产信息重复验证suncj -->
+  <select id="queryOrderHouseExtend"  resultType="int" parameterType="com.lhhs.loan.dao.domain.LoanOrderHouseExtend">
+  	select  count(1)
+    from loan_order_house_extend where 1=1 
+  	<if test="propertyName != null and '' != propertyName">
+  		 AND property_name = #{propertyName}
+  	</if>
+  	<if test="propertyNum != null and '' != propertyNum">
+  		 AND property_num = #{propertyNum}
+  	</if>
+  	<if test="orderNo != null and '' != orderNo">
+  		 AND order_no &lt;&gt; #{orderNo}
+  	</if>
+  </select>
+  
+</mapper>

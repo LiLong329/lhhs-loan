@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="common/src"></head>
+<style>
+	.itab{border-left:none; background: #f8f9f9;}
+	.itab ul li{background:#f0f5f7;}
+	.itab ul li a{padding-left:15px; padding-right:15px; display: block;}
+	.itab ul li a.selected{background:#fff;}
+	.scinput1{width:70px; height:26px; line-height:26px; margin-top:4.25px;}
+	.scinput1.first{margin-left:40px;}
+	.connect-tip{float:left; line-height:35px; margin:0 10px;}
+	.scbtn{margin-left:20px; height:29px; line-height:30px;}
+</style>
+<body>
+    <div class="father">
+    	<header th:replace="common/top"></header>
+        <div class="common-content">
+           	<div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                    </ul>
+                </div>
+                <div class="right-content">
+					<div class="previewCon" style="width:100%;">
+                        <div class="previewLeft" style="width: 350px;">
+                            <div class="formbody">
+                                <div class="table-title">
+                                    <p class="tab-font">操作流程</p>
+                                </div>
+                                <div style="border: 1px solid #ccc; border-top:none; height:300px;">
+                                    <img src="/img/flow.jpg" style="width:90%; margin:3% 5%;"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="previewRight">
+							<div class="formbody" style="padding-left:0px;">
+                                <div style="border: 1px solid #ccc; height:334px;">
+                                	<div class="itab">
+			                            <ul>
+			                                <li class="fastBtn" th:attr="data-type='month',data-time=${today}?${#dates.format(today, 'yyyy-MM')}:''"><a>当月</a></li>
+			                                <li class="fastBtn" th:attr="data-type='month',data-time=${lastMonth}?${#dates.format(lastMonth, 'yyyy-MM')}:''"><a>上一月</a></li>
+			                                <li class="fastBtn" th:attr="data-type='year',data-time=${today}?${#dates.format(today, 'yyyy')}:''"><a>今年</a></li>
+				                            <li style="border-right:none; background:none;">
+	                                   	   		<input type="text" id="beginTime" readOnly='true' class="scinput1 first" 
+	                                   	   			onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM'})"/>
+												<span class="connect-tip">-</span>
+		                                    	<input type="text" id="endTime" readOnly='true' class="scinput1" 
+		                                    		onClick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM'})"/>
+	                                		</li>
+	                                		<li style="border-right:none; background:none;">
+	                                    		<input type="button" id="search_btn" class="scbtn" value="确 定"/>
+	                                		</li>
+                                		</ul>
+			                        </div>
+			                        <div style="text-align:right; padding-right:30px; line-height:24px; margin-top:10px;">
+		                        		今日报单量：<th:block th:text="${#maps.containsKey(obj, 'totalCount')}?${obj.totalCount}:0"></th:block>笔
+		                        		&nbsp;&nbsp;&nbsp;&nbsp;
+		                        		平台总放款量：<th:block th:text="${#maps.containsKey(obj, 'sumAmountPaid')}?${#numbers.formatDecimal(obj.sumAmountPaid,1,2)}:0"></th:block>万元
+			                        </div>
+			                        <!-- 数据图表 -->
+                                    <div id="myDataChart" style="height: 260px;"></div>
+                                </div>
+                            </div>      
+                        </div>
+                    </div>
+					<div class="formbody">
+						<div class="table-title">
+                       		<p class="tab-font">我的待办</p>
+                       	</div>
+                        <form id="myForm">
+      						<input  name="pageNumber" type="hidden" value="" id="currentPageNo"/>
+   							<input type="hidden" id="type" value="1"/>
+   						</form>
+                        <div id="workflowList" th:include="workflow/_actTaskTodoListTop"></div>
+					</div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+    <script src="/js/public/echarts/echarts.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript">
+	  	seajs.use("index");
+	  	seajs.use("workflow/actTaskTodoList");
+	</script>
+</body>
+</html>

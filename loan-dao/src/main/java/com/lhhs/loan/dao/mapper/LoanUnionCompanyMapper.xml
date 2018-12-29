@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanUnionCompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanUnionCompany" >
+    <id column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="legal_representative" property="legalRepresentative" jdbcType="VARCHAR" />
+    <result column="province_no" property="provinceNo" jdbcType="VARCHAR" />
+    <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+    <result column="city_no" property="cityNo" jdbcType="VARCHAR" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="company_address" property="companyAddress" jdbcType="VARCHAR" />
+    <result column="leader_name" property="leaderName" jdbcType="VARCHAR" />
+    <result column="leader_mobile" property="leaderMobile" jdbcType="VARCHAR" />
+    <result column="leader_email" property="leaderEmail" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="parent_company_id" property="parentCompanyId" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    company_id, company_name, legal_representative, province_no, province_name, city_no, 
+    city_name, company_address, leader_name, leader_mobile, leader_email, union_id, parent_company_id, 
+    level, status, create_user, create_time, last_user, last_modify_time, field1, field2, 
+    field3, field4, field5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_union_company
+    where company_id = #{companyId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_union_company
+    where company_id = #{companyId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanUnionCompany" >
+    insert into loan_union_company (company_id, company_name, legal_representative, 
+      province_no, province_name, city_no, 
+      city_name, company_address, leader_name, 
+      leader_mobile, leader_email, union_id, 
+      parent_company_id, level, status, 
+      create_user, create_time, last_user, 
+      last_modify_time, field1, field2, 
+      field3, field4, field5
+      )
+    values (#{companyId,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{legalRepresentative,jdbcType=VARCHAR}, 
+      #{provinceNo,jdbcType=VARCHAR}, #{provinceName,jdbcType=VARCHAR}, #{cityNo,jdbcType=VARCHAR}, 
+      #{cityName,jdbcType=VARCHAR}, #{companyAddress,jdbcType=VARCHAR}, #{leaderName,jdbcType=VARCHAR}, 
+      #{leaderMobile,jdbcType=VARCHAR}, #{leaderEmail,jdbcType=VARCHAR}, #{unionId,jdbcType=VARCHAR}, 
+      #{parentCompanyId,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastUser,jdbcType=VARCHAR}, 
+      #{lastModifyTime,jdbcType=TIMESTAMP}, #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, 
+      #{field3,jdbcType=VARCHAR}, #{field4,jdbcType=VARCHAR}, #{field5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanUnionCompany" >
+    insert into loan_union_company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="legalRepresentative != null" >
+        legal_representative,
+      </if>
+      <if test="provinceNo != null" >
+        province_no,
+      </if>
+      <if test="provinceName != null" >
+        province_name,
+      </if>
+      <if test="cityNo != null" >
+        city_no,
+      </if>
+      <if test="cityName != null" >
+        city_name,
+      </if>
+      <if test="companyAddress != null" >
+        company_address,
+      </if>
+      <if test="leaderName != null" >
+        leader_name,
+      </if>
+      <if test="leaderMobile != null" >
+        leader_mobile,
+      </if>
+      <if test="leaderEmail != null" >
+        leader_email,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+      <if test="parentCompanyId != null" >
+        parent_company_id,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUser != null" >
+        last_user,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalRepresentative != null" >
+        #{legalRepresentative,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceNo != null" >
+        #{provinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null" >
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null" >
+        #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderName != null" >
+        #{leaderName,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderMobile != null" >
+        #{leaderMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderEmail != null" >
+        #{leaderEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCompanyId != null" >
+        #{parentCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanUnionCompany" >
+    update loan_union_company
+    <set >
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalRepresentative != null" >
+        legal_representative = #{legalRepresentative,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceNo != null" >
+        province_no = #{provinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null" >
+        province_name = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        city_no = #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null" >
+        company_address = #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderName != null" >
+        leader_name = #{leaderName,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderMobile != null" >
+        leader_mobile = #{leaderMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderEmail != null" >
+        leader_email = #{leaderEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCompanyId != null" >
+        parent_company_id = #{parentCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where company_id = #{companyId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanUnionCompany" >
+    update loan_union_company
+    set company_name = #{companyName,jdbcType=VARCHAR},
+      legal_representative = #{legalRepresentative,jdbcType=VARCHAR},
+      province_no = #{provinceNo,jdbcType=VARCHAR},
+      province_name = #{provinceName,jdbcType=VARCHAR},
+      city_no = #{cityNo,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      company_address = #{companyAddress,jdbcType=VARCHAR},
+      leader_name = #{leaderName,jdbcType=VARCHAR},
+      leader_mobile = #{leaderMobile,jdbcType=VARCHAR},
+      leader_email = #{leaderEmail,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      parent_company_id = #{parentCompanyId,jdbcType=VARCHAR},
+      level = #{level,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where company_id = #{companyId,jdbcType=VARCHAR}
+  </update>
+  
+   <!-- 自定义方法区 -->
+  <sql id="Where_Common">
+  <if test="authgroupList != null">
+		 	and 
+	         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+		         (1=1
+		             <if test="item.orgId != null and item.orgId != ''">
+					  		and company_id =  #{item.orgId}
+					 </if>
+				  )
+	          </foreach>
+		</if>
+  	
+	<if test="unionId != null and unionId != ''">
+  		and union_id = #{unionId}
+  	</if>
+  </sql>
+  
+  <!-- 查询公司列表 -->
+  <select id="queryListPage" parameterType="com.lhhs.loan.dao.domain.LoanUnionCompany" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"/>
+  	from loan_union_company
+  	where 1 = 1
+  	<if test="companyId != null and '' != companyId">
+  		and company_id = #{companyId}
+  	</if>
+  	<if test="companyName != null and '' != companyName">
+  		and company_name = #{companyName}
+  	</if>
+  	<if test="level != null and '' != level">
+  		and level = #{level}
+  	</if>
+  	<if test="status != null and '' != status">
+  		and status = #{status}
+  	</if>
+  	<if test="parentCompanyId != null and '' != parentCompanyId">
+  		and parent_company_id = #{parentCompanyId}
+  	</if>
+  	<if test="unionId != null and '' != unionId">
+  		and union_id = #{unionId}
+  	</if>
+  	<include refid="Where_Common"/>
+  	order by create_time desc
+  	<if test="page != null">
+  		limit #{page.pageStartIndex},#{page.pageSize}
+  	</if>
+  </select>
+  
+  <!-- 查询总条数 -->
+  <select id="queryCount" parameterType="com.lhhs.loan.dao.domain.LoanUnionCompany" resultType="int">
+  	select count(1)
+  	from loan_union_company
+  	where 1 = 1
+  	<if test="companyId != null and '' != companyId">
+  		and company_id = #{companyId}
+  	</if>
+  	<if test="companyName != null and '' != companyName">
+  		and company_name = #{companyName}
+  	</if>
+  	<if test="level != null and '' != level">
+  		and level = #{level}
+  	</if>
+  	<if test="status != null and '' != status">
+  		and status = #{status}
+  	</if>
+  	<if test="parentCompanyId != null and '' != parentCompanyId">
+  		and parent_company_id = #{parentCompanyId}
+  	</if>
+  	<if test="unionId != null and '' != unionId">
+  		and union_id = #{unionId}
+  	</if>
+  	<include refid="Where_Common"/>
+  </select>
+  
+  <!-- 根据查询条件查询列表 -->
+  <select id="queryList"  parameterType="com.lhhs.loan.dao.domain.LoanUnionCompany" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"/>
+  	from loan_union_company
+  	where 1 = 1
+  	<if test="companyName != null and '' != companyName">
+  		and company_name = #{companyName}
+  	</if>
+  	<if test="companyId != null and '' != companyId">
+  		and company_id = #{companyId}
+  	</if>
+  	<if test="level != null and '' != level">
+  		and level = #{level}
+  	</if>
+  	<if test="status != null and '' != status">
+  		and status = #{status}
+  	</if>
+  	<if test="parentCompanyId != null and '' != parentCompanyId">
+  		and parent_company_id = #{parentCompanyId}
+  	</if>
+  	<if test="unionId != null and '' != unionId">
+  		and union_id = #{unionId}
+  	</if>
+ 	<if test="cityName != null and cityName!='' " >
+     	and city_name = #{cityName,jdbcType=VARCHAR}
+    </if>
+  	order by create_time desc
+  </select>
+  
+  <select id="queryAllCompany"  resultMap="BaseResultMap">
+     select company_id,company_name,union_id from loan_union_company
+  </select>
+  <select id="queryAllUnion"  resultMap="BaseResultMap">
+     select company_id,company_name,union_id from loan_union_company where parent_company_id='0'
+  </select>
+  
+  <select id="queryGroupCompany"  resultMap="BaseResultMap">
+     select company_id,company_name,union_id from loan_union_company where level='1' and status='03'
+  </select>
+   <select id="queryCompany" parameterType="String" resultMap="BaseResultMap">
+     select company_id,company_name,union_id from loan_union_company where union_id=#{companyId} and status='03'
+  </select>
+  
+   <select id="queryCompanySelective" parameterType="map" resultMap="BaseResultMap">
+      select company_id,company_name,union_id from loan_union_company 
+      where  status='03'
+      <include refid="Where_Common"/>
+      order by union_id desc
+  </select>
+   <select id="selectProvinceByCompanyList" parameterType="map" resultMap="BaseResultMap">
+      select distinct province_no,province_name from loan_union_company 
+      where  status='03' 
+      <include refid="Where_Common"/>
+  </select>
+   <select id="selectCompanyByProvinceCity" parameterType="map" resultMap="BaseResultMap">
+      select company_id,company_name, union_id,province_no,province_name from loan_union_company 
+      where  status='03' 
+      <if test="provinceNo != null and '' != provinceNo">
+  		and province_no = #{provinceNo}
+  	  </if>
+      <if test="cityNo != null and '' != cityNo">
+  		and city_no = #{cityNo}
+  	  </if>
+      <include refid="Where_Common"/>
+  </select>
+   <select id="queryCompanyByCity" parameterType="String" resultMap="BaseResultMap">
+      select company_id,company_name, union_id,province_no,province_name from loan_union_company 
+      where  status='03' and city_no like  CONCAT('%',#{city}, '%') and company_id not in(10001,10003,10004,10016)
+  </select>
+  
+ <!--  根据集团id查找所有的子公司 -->
+  <select id="getAllCompanyByUnionId" parameterType="map" resultMap="BaseResultMap">
+  	select  c.* from  loan_union_company c
+  	<where>
+  		<if test="ldUnion!= null and ldUnion!='' ">
+  			and c.union_id = #{ldUnion}
+  		</if>
+  		<if test="companyId!= null and companyId!='' ">
+  			and c.company_id = #{companyId}
+  		</if>
+  	</where>
+	 order by company_id
+  </select>
+  
+  
+  
+  
+</mapper>

@@ -1,0 +1,59 @@
+<table class="tablelist">
+    <thead>
+        <tr>
+			
+				<th>业务编号</th>
+				<th>流程实例ID</th>
+				<th>流程标识</th>
+				<th>流程名称</th>
+				<th>流程版本</th>
+				<th>当前环节</th>
+				<th>当前任务编号</th>
+				<th>是否挂起</th>
+				<th>操作</th>
+				
+        </tr>
+    </thead>
+    <tbody>
+        <th:block th:unless="${#lists.isEmpty(page.resultList)}">
+			<tr th:each="model : ${page.resultList}">
+				<td th:text="${model.businessKey}"></td>
+				<td th:text="${model.procInsId}"></td>
+				<td th:text="${model.procDefKey}"></td>
+				<td th:text="${model.procName}"></td>
+				<td th:text="${model.procDefKey}"></td>
+				<td th:text="${model.activityId}"></td>
+				<td th:text="${model.taskIdList}"></td>
+				<td th:text="${model.statusName}"></td>
+				<td>
+				<a th:unless="${model.suspended}" th:href="@{/workflow/url/actprocess/deleteProcIns(procInsId=${model.procInsId},reason=)}">删除流程</a>
+				</td>
+			</tr>
+		</th:block>
+		<th:block th:if="${#lists.isEmpty(page.resultList)}">
+			<tr>
+				<td colspan="9" class="textCt">暂无数据</td>
+			</tr>
+		</th:block>
+    </tbody>
+</table>
+<th:block th:unless="${#lists.isEmpty(page.resultList)}">
+    
+    <div class="pagin" style="margin-top: 0px;">
+    	<div class="message">
+    		共 <i class="blue" th:text="${page.totalCount}"></i> 
+			条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+		</div>
+		<ul class="paginList">
+			<li class="paginItem" th:if="${page.pageIndex} gt 1">
+				<a th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+			</li>
+			<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" th:classappend="(${page.pageIndex} eq ${x})?'current'">
+				<a th:attr="data-pagenum=${x}" th:text="${x}"></a>
+			</li>
+			<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+				<a th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+			</li> 
+		</ul>
+    </div>
+</th:block>

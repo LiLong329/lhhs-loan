@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>业务管理</li>
+                        <li>我的任务</li>
+                        <li><a href="/workflow/acttask/historicList">已办任务</a></li>
+                        <li>订单详情</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                	<div style="position: relative;">
+	                    <div class="formbody">
+	                    	<input type="hidden" th:value="${basicInfo.proc_ins_id}" id="procInsId"/>
+	                        <div class="itab">
+	                            <ul>
+	                                <li><a data-show="#tab2">基本信息</a></li>
+	                                <li><a data-show="#tab3">抵押物信息</a></li>
+	                                <li><a data-show="#tab4" id="orderCredentials">资质信息</a></li>
+	                               <li th:if="(${basicInfo.approval_node} gt 4) and (${basicInfo.approval_node} lt 80)
+	                                    and (${basicInfo.approval_node} ne 20) and (${basicInfo.approval_node} ne 21) 
+	                                    and (${basicInfo.approval_node} ne 22) and (${basicInfo.approval_node} ne 23)
+	                                    and (${basicInfo.approval_node} ne 6) and (${basicInfo.approval_node} ne 7) ">
+	                                	<a data-show="#tab5">放款审批表</a>
+                                	</li>
+                                	<li><a data-show="#tab6">关联企业信息</a></li>
+	                            </ul>
+	                        </div>
+	                        <div id="tab2" class="tabson" th:include="historic/loanBasicInfo"></div>
+	                        <div id="tab3" class="tabson" th:include="historic/collateralInfo"></div>
+	                        <div id="tab4" class="tabson"></div>
+	                        <div th:if="(${basicInfo.approval_node} ge 4) and (${basicInfo.approval_node} lt 80)" id="tab5" class="tabson" 
+	                        	th:include="historic/loanApplication"></div>
+                        	<div id="tab6" class="tabson" th:include="historic/affiliatedEnterprise"></div>
+	                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+	<script src="/js/jsxd/workflow/actTaskHistoricFlow.js" type="text/javascript" charset="utf-8"></script>
+    <script th:inline="javascript">
+    	/*<![CDATA[*/
+	    	var productId = [[${#maps.containsKey(basicInfo,'product_id')}?${basicInfo.product_id}:'']];
+    		var orderNo = [[${basicInfo.order_no}]];
+    		var custId = [[${loanOrderBorrowerExtendBLOBsList[0].custId}]];
+    		$("#orderCredentials").on("click",function(){
+				$.post("/orderInfo/toOrderCredentials",{
+					"orderNo":orderNo,
+					"productId":productId
+				},function(data){
+					$("#tab4").html(data);
+				});
+			});
+			// 分页查询
+			$("#tab4").on("click", ".pagin ul li a", function() {
+				if (!$(this).parent("li").hasClass("current")) {
+					var currentPageNo = $(this).data("pagenum");
+					var pageSize = $(this).data("pagesize");
+					$.post("/mortgageInfo/toOrderCredentials", {
+						"currentPageNo" : currentPageNo,
+						"pageSize" : pageSize,
+						"orderNo" : orderNo,
+						"productId" : productId
+					}, function(data) {
+						$("#tab4").html(data);
+					});
+				};
+			});
+			//打包下载
+			$("#tab4").on("click","#downloadFile",function(){
+				var $checkbox = $("#tab4").find("input:checkbox:checked");
+				var CredentialsNoList = new Array();
+				if($checkbox.length > 0){
+					$checkbox.each(function(i,n){
+						CredentialsNoList.push($(n).data("ordercredentialsno"));
+					});
+					$.post("/mortgageInfo/createFilesZip",{
+						"CredentialsNos":JSON.stringify(CredentialsNoList),
+						"bname":$("#tab2").find(":input[name='bname']").val()
+					},function(data){
+						if(data.retCode == "00"){
+							window.location.href="/mortgageInfo/downloadZip?fileName="+data.fileName;
+						}else{
+							alert("文件打包失败");
+						}
+					});
+				}else{
+					alert("请勾选需要打包的资质清单");
+				}
+			});
+    	/*]]>*/
+    </script>
+</body>
+</html>

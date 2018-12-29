@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head th:replace="common/src"></head>
+
+	<body>
+		<div class="father">
+			<header th:replace="common/top"></header>
+			<div class="common-content">
+				<div th:replace="common/left"></div>
+				<div class="common-right">
+					<div class="place" id="place">
+						<span>位置：</span>
+						<ul class="placeul">
+							<li>
+								<a href="/index/index">首页</a>
+							</li>
+							<li>合同管理</li>
+							<li>
+								<a href="/agreement/list/1">所有合同</a>
+							</li>
+							<li>
+								<a>查看</a>
+							</li>
+						</ul>
+					</div>
+					<div class="right-content">
+						<div class="formbody">
+							<div class="formtitle"><span>合同审核记录详情</span></div>
+							<div class="toolsli">
+								<ul class="nbbdgl-Ui">
+									<li>
+										<span class="tips">合同编号：</span>
+										<span th:text="${agreement.agreementNo}"></span>
+									</li>
+									<li>
+										<span class="tips">报单编号：</span>
+										<span th:text="${agreement.orderNo}"></span>
+									</li>
+									<li>
+										<span class="tips">借款人：</span>
+										<span th:text="${agreement.borrowerName}"></span>
+									</li>
+									<li>
+										<span class="tips">借款人身份证：</span>
+										<span th:text="${agreement.borrowerIdNum}"></span>
+									</li>
+									<th:block th:if="${#lists.isEmpty(agreement.totalLoanList)}">
+										<li>
+											<span class="tips">共同借款人：</span>
+											<span></span>
+										</li>
+										<li>
+											<span class="tips">共同借款人身份证：</span>
+											<span></span>
+										</li>
+									</th:block>
+									<th:block th:unless="${#lists.isEmpty(agreement.totalLoanList)}" th:each="totalLoan,iter : ${agreement.totalLoanList}">
+										<li>
+											<span class="tips" th:text="${iter.index eq 0}?'共同借款人：':'&nbsp;' "></span>
+											<span th:text="${totalLoan.name}"></span>
+										</li>
+										<li>
+											<span class="tips" th:text="${iter.index eq 0}?'共同借款人身份证：':'&nbsp;' "></span>
+											<span th:text="${totalLoan.idNum}"></span>
+										</li>
+									</th:block>
+									<th:block th:if="${#lists.isEmpty(agreement.guaranteeList)}">
+										<li>
+											<span class="tips">担保人：</span>
+											<span></span>
+										</li>
+										<li>
+											<span class="tips">担保人身份证：</span>
+											<span></span>
+										</li>
+									</th:block>
+									<th:block th:unless="${#lists.isEmpty(agreement.guaranteeList)}" th:each="guarantee,iter : ${agreement.guaranteeList}">
+										<li>
+											<span class="tips" th:text="${iter.index eq 0}?'担保人：':'&nbsp;' "></span>
+											<span th:text="${guarantee.name}"/>
+										</li>
+										<li>
+											<span class="tips" th:text="${iter.index eq 0}?'担保人身份证：':'&nbsp;' "></span>
+											<span th:text="${guarantee.idNum}"/>
+										</li>
+									</th:block>
+									<th:block th:if="${#lists.isEmpty(investorNameList)}">
+										<li>
+											<span class="tips">出借人：</span>
+											<span></span>
+										</li>
+										<li>
+											<span class="tips">所属资方：</span>
+											<span th:text="${agreement.capitalName}"></span>
+										</li>
+									</th:block>
+									<th:block th:unless="${#lists.isEmpty(investorNameList)}" th:each="investorName,iter : ${investorNameList}">
+										<li>
+											<span class="tips" th:text="${iter.index eq 0}?'出借人：':'&nbsp;' "></span>
+											<span th:text="${investorName}"/>
+										</li>
+										<li>
+											<th:block th:if="${iter.index eq 0}">
+												<span class="tips">所属资方：</span>
+												<span th:text="${agreement.capitalName}"></span>
+											</th:block>
+											<th:block th:if="${iter.index gt 0}">
+												<span class="tips">&nbsp;</span>
+												<span></span>
+											</th:block>
+										</li>
+									</th:block>
+									<li>
+										<span class="tips">借款金额：</span>
+										<span th:text="${agreement.loanAmount}?${#numbers.formatDecimal(agreement.loanAmount,1,2)}:''"></span><span>万元</span>
+									</li>
+									<li>
+										<span class="tips">合同金额：</span>
+										<span th:text="${agreement.amount}?${#numbers.formatDecimal(agreement.amount,1,2)}:''"></span><span>元</span>
+									</li>
+									<li>
+										<span class="tips">借款期限：</span>
+										<span th:text="${agreement.loanTerm}+${agreement.loanTermUnit}"></span>
+									</li>
+									<li>
+										<span class="tips">合同起止时间：</span>
+										<span th:text="${agreement.startDate}?${#dates.format(agreement.startDate,'yyyy-MM-dd HH:mm:ss')}">
+	                                    </span><span>至</span>
+										<span th:text="${agreement.endDate}?${#dates.format(agreement.endDate,'yyyy-MM-dd HH:mm:ss')}"></span>
+									</li>
+									<li style="width: 80%;">
+										<span class="tips">合同审核结果：</span>
+										<div style="float:left;">
+											<span th:switch="${agreement.auditingStatus}" style="width:80%;">
+											<th:block th:case="1">审核通过</th:block>
+											<th:block th:case="2">审核失败</th:block>
+										</span>
+											<textarea class="area" disabled="disabled" th:text="${agreement.remark}" style="padding: 0px 10px;text-indent: 0px;"></textarea>
+										</div>
+									</li>
+								</ul>
+							</div>
+							<p class="textCt pb20">
+								<input type="button" class="scbtn2" value="返 回" onclick="javascript:history.go(-1);" />
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<footer th:replace="common/footer"></footer>
+		</div>
+	</body>
+
+</html>

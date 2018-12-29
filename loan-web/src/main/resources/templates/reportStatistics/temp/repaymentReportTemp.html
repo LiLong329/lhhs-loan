@@ -1,0 +1,55 @@
+<table class="tablelist">
+         <thead>
+             <tr>
+                  <th>省市</th>
+                  <th>分公司</th>
+                  <th>部门</th>
+                 <!--  <th>组别</th> -->
+                  <th>客户经理</th>
+                  <th>待还款金额(元)</th>
+                 <!--  <th>应还款时间</th> -->
+             </tr>
+         </thead>
+         <tbody>
+             <tr:block th:unless="${#lists.isEmpty(page.resultList)}" >
+             <tr th:each="emp : ${page.resultList}">
+                 <td th:text="${emp.provienceName}+'-'+${emp.cityName}"></td>
+                 <td th:text="${emp.companyName}"></td>
+                 <td th:text="${emp.department}"></td>
+                <!--  <td th:text="${emp.department}"></td> -->
+                 <td th:text="${emp.accountManager}"></td>
+                 <td th:text="${#numbers.formatDecimal(emp.repaymentTotal,1,2)}"></td>
+                <!--  <td th:text="${emp.repaymentCapitalTime}?${#dates.format(emp.repaymentCapitalTime, 'yyyy-MM-dd HH:mm:ss')}"></td> -->
+             </tr>
+             </tr:block>
+        <th:block th:if="${#lists.isEmpty(page.resultList)}">
+	    	<tr>
+			  <td colspan="5" class="textCt">暂无数据</td>
+		     </tr>
+	    </th:block>
+    </tbody>
+</table>  
+<div class="pagin" style="margin-top: 0px;" th:unless="${#lists.isEmpty(page.resultList)}">
+	<div class="message">
+ 		待还款总额：<b th:text="${total}?${#numbers.formatDecimal(total/10000,1,'COMMA',2,'POINT')}:0"></b>万元&nbsp;&nbsp;&nbsp;
+	 </div>
+</div>
+
+<div class="pagin" style="margin-top: 0px;" th:unless="${#lists.isEmpty(page.resultList)}">
+	<div class="message">
+		共 <i class="blue" th:text="${page.totalCount}"></i> 
+		条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+	</div>
+	<ul class="paginList">
+		<li class="paginItem" th:if="${page.pageIndex} gt 1">
+			<a th:attr="data-pagenum=(${page.pageIndex}-1),data-pagesize=${page.pageSize}" class="pagepre"></a>
+		</li>
+		<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" 
+		th:classappend="(${page.pageIndex} eq ${x})?'current'">
+			<a th:attr="data-pagenum=${x},data-pagesize=(${page.pageSize})" th:text="${x}"></a>
+		</li>
+		<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+			<a th:attr="data-pagenum=(${page.pageIndex}+1),data-pagesize=(${page.pageSize})" class="pagenxt"></a>
+		</li> 
+	</ul>
+</div>

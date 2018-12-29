@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script src="/js/public/area.js"></script>
+<script src="/js/public/decode.js"></script>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<body>
+<div class="father">
+    <header th:replace="common/top"></header>
+    <div class="common-content">
+        <div th:replace="common/left"></div>
+        <div class="common-right">
+            <div class="place" id="place">
+                <span>位置：</span>
+                <ul class="placeul">
+                    <li><a href="/index/index">首页</a></li>
+                    <li>系统管理</li>
+                    <li>权限设置</li>
+                    <li><a th:href="@{/systemManager/employeeList}">后台账号管理</a></li>
+                    <li>修改</li>
+                </ul>
+            </div>
+            <div class="right-content">
+                <div class="formbody">
+                    <div class="formtitle"><span>修改账号</span></div>
+                    <div class="toolsli">
+                        <ul class="nbbdgl-Ui">
+                        	<form id="myForm">
+	                            <input type="hidden" name="userId" th:value="${emp.userId}"/>
+	                            <input type="hidden" name="leStatus" th:value="${emp.status}" />
+	                            <li style="width: 80%;">
+	                                <th:block th:if="${isAdmin} eq 'admin'">
+	                                <span class="tips">城市：</span>
+	                                <div class="vocation">
+	                                    <select class="select-common select1 leCity" name="cityName">
+	                                        <option value="">请选择</option>
+	                                        <option  th:each="allCity : ${allCity}" th:value="${allCity.city_name}" th:text="${allCity.city_name}"
+	                                              th:attr="selected=(${allCity.city_name} eq ${emp.cityName})?true:false"></option>
+	                                    </select>
+	                                </div>
+	                                </th:block>
+	                            </li>
+	                            <li style="width: 80%;">
+	                                <span class="tips">账号：</span>
+	                                <input type="hidden" name="username" th:value="${emp.username}" />
+	                                <span th:utext="${emp.username}"></span>
+	                            </li>
+	                            <li style="width: 80%;">
+	                                <span class="tips">密码：</span>
+	                            <!--     <input type="hidden" name="password" th:value="${emp.password}" /> -->
+	                                <span>******</span>
+	                            </li>
+	                            <li style="width: 80%;">
+	                                <span class="tips">姓名：</span>
+	                                <input type="text" class="txt validate[required]" name="staffName" th:value="${emp.staffName}" maxlength="15"/>
+	                            </li>
+	                            <li style="width: 80%;">
+	                                <span class="tips">姓别：</span>
+	                                <cite>
+	                                    <input type="radio" id="sex0" value="1" name="sex" th:attr="checked=(${emp.sex} eq '1'?true:false)" />
+	                                    <label for="sex0">男</label>
+	                                    <input type="radio" id="sex1" value="0" name="sex" th:attr="checked=(${emp.sex} eq '0'?true:false)"/>
+	                                    <label for="sex1">女</label>
+	                                </cite>
+	                            </li>
+	                            <li style="width: 80%;">
+	                                <span class="tips">手机号：</span>
+	                                <input type="text" class="txt validate[required,custom[mobile]]" name="mobile" th:value="${emp.mobile}" />
+	                            </li>
+	                          
+	                            
+	                             <!--  <th:block th:if="${isAdmin} eq 'admin'">-->
+                                 <li style="width: 80%;">
+                                    <span class="tips">集团：</span>
+                                    <div class="vocation">
+                                    <select class="select-common select1 validate[required]" name="unionId" id="companyId">
+                                         <option value="">请选择</option>
+                                         <option th:each="g : ${clique}" th:value="${g.companyId}" 
+                                         th:text="${g.companyName}" th:attr="selected=(${g.companyId} eq ${emp.unionId})?true:false"></option>
+                                    </select>
+                                </div>
+                                </li>
+                               
+                                <li style="width: 80%;">
+                                    <span class="tips">集团分公司：</span>
+                                    <div class="vocation">
+                                    <select class="select-common select1 company validate[required]" name="companyId" id="company">
+                                     <option value="">请选择</option>
+                                     <option th:each="c : ${company}" th:value="${c.companyId}" 
+                                       th:text="${c.companyName}" th:attr="selected=(${c.companyId} eq ${emp.companyId})?true:false"></option>
+                                    </select>
+                                </div>
+                                </li>
+                                 <!--</th:block>-->
+	                            
+	                            <li style="width: 90%;">
+	                                <span class="tips">部门：</span>
+	                                <input name="deptId" type="hidden" id="leDeptId" th:value="${emp.deptId}"/>
+	                                <cite class="clearfix"  style="padding-left:140px;">
+	                                	<span id="treeCheckTip" style="margin-top:6px; display:none;">请先选择集团和分公司</span>
+	                                	<ul class="treeCheck" data-singe="true" style="margin-left: 15px;"></ul>
+	                                </cite>
+	                            </li>
+	                              <li style="width: 90%;">
+	                                <span class="tips">角色：</span>
+	                                <cite  class="clearfix" style="padding-left:140px;">
+	                            		<input name="roles" type="hidden" id="lrRoleIdList"/>
+	                                    <th:block th:if="${not #lists.isEmpty(allRole)} ">
+		                                    <th:block th:each="role, iterStat : ${allRole}">
+		                                    	<span style="line-height:18px; margin:0;">
+				                                    <input type="checkbox" th:attr="id=('role'+${iterStat.index}),checked=(${role.isSelect} eq '1')?true:false" th:value="${role.roleId}" class="lrRoleId"/>
+				                                    <label th:attr="for=('role'+${iterStat.index})" th:text="${role.name}"></label>
+		                                    	</span>
+		                                    </th:block> 
+	                                    </th:block>         
+	                                </cite>
+	                            </li>
+                                
+                                 <li style="width: 90%;">
+                                    <span class="tips">岗位：</span>
+                                    <cite class="clearfix"  style="padding-left:140px;">
+                                    <input name="quartersNames" type="hidden" id="lqQuartersIdList" />
+                                    <th:block th:if="${not #lists.isEmpty(allQuart)} ">
+	                                    <th:block th:each="quart,iterStat : ${allQuart}">
+		                                    <span style="line-height:18px; margin:0;">
+			                                    <input type="checkbox" th:value="${quart.quarters_id}"  th:attr="id=('quart'+${iterStat.index}),checked=(${quart.isQuarter} eq '1')?true:false"  class="lqQuartersId"/>
+			                                    <label th:text="${quart.NAME}"></label>
+	                                    	</span>
+	                                    </th:block> 
+                                    </th:block>         
+                                    </cite>
+                                </li>
+                                <li style="width: 90%;" th:unless="${#lists.isEmpty(authgroupList)}">
+                                    <span class="tips">数据权限 ：</span>
+                                    <input name="authgroupIds" type="hidden" id="authgroupIds"/>
+                                    <cite class="clearfix"  style="padding-left:140px;">
+	                                    <span th:each="authgroup,iterStat : ${authgroupList}" style="line-height:18px; margin:0;">
+		                                   	<th:block th:if="${isAdmin} neq 'admin'  and   ('1' neq  ${authgroup.dataZone})">
+			                                    <input type="checkbox" th:attr="id='authgroup_'+${iterStat.index},checked=((${authgroup.isSelect}) and (${authgroup.isSelect} eq '1'))?true:false" 
+			                                    	class="authgroup" th:value="${authgroup.groupId}"/>
+			                                    <label th:attr="for='authgroup_'+${iterStat.index}" th:text="${authgroup.groupName}"></label>
+		                                    </th:block>
+		                                    <th:block th:if="${isAdmin} eq 'admin' ">
+			                                    <input type="checkbox" th:attr="id='authgroup_'+${iterStat.index},checked=((${authgroup.isSelect}) and (${authgroup.isSelect} eq '1'))?true:false" 
+			                                    	class="authgroup" th:value="${authgroup.groupId}"/>
+			                                    <label th:attr="for='authgroup_'+${iterStat.index}" th:text="${authgroup.groupName}"></label>
+		                                    </th:block>
+                                    	</span>
+                                    </cite>
+                                </li>
+                               <!--  <li style="width: 90%;">
+	                           		<span class="tips">员工级别：</span>
+	                            	<cite>
+                               			<input type="radio"  id="AuditPass1" value="1" name="grade" th:attr="checked=(${emp.grade} eq '1'?true:false)"/>
+                                		<label for="AuditPass1">部门领导</label>
+                               			<input type="radio" id="AuditPass2" value="2" name="grade" th:attr="checked=(${emp.grade} eq '2'?true:false)"/>
+                               			<label for="AuditPass2">小组领导</label>
+                               			<input type="radio" id="AuditPass3" value="3" name="grade" th:attr="checked=(${emp.grade} eq '3'?true:false)"/>
+                               			<label for="AuditPass3">普通员工</label>
+	                           		</cite>
+	                           	</li> -->
+	                            <li style="width: 80%;">
+	                                <span class="tips">备注：</span>
+	                                <textarea class="area" name="remark" th:text="${emp.remark}" maxlength="100"></textarea>
+	                            </li>
+	                            <li style="width: 80%;">
+	                                <span class="tips">&nbsp;</span>
+	                                <input type="button" class="scbtn mlt10 empUpdate" value="保 存"/>
+	                                <input type="button" class="scbtn2 mlt10" value="返 回" />
+	                            </li>
+                            </form>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/public/select.js"></script>
+    <footer th:replace="common/footer"></footer>
+    <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/public/jquery.checktree.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+    	seajs.use("login/employee");
+    </script>
+</div>
+</body>
+
+</html>

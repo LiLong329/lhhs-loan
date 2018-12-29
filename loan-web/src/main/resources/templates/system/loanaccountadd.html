@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script src="/js/public/area.js"></script>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>系统管理</li>
+                        <li>公司账户管理</li>
+                        <li><a th:href="@{/systemManager/companyAccount}">公司账户设置</a></li>
+                        <li>新增</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div class="formtitle"><span>新增</span></div>
+                        <div class="toolsli">
+                            <ul class="nbbdgl-Ui">
+                                 <form id="myForm">
+                                 <li style="width: 80%;">
+	                                    <span class="tips">省市：</span>
+				                        <div class="vocation">
+								          	<select class="select-common select3 provinceSelect validate[required]" id="provienceName" name="provienceName" th:attr="data-val=${provinceName},data-useselect=true">
+								          		<option value="">请选择</option>
+								          	</select>
+							            </div>
+							            <span>省</span>
+				                        <div class="vocation">
+								         <select class="select-common select3 citySelect  validate[required]" id="cityName" name="cityName" th:attr="data-val=${cityName}"></select>
+							            </div>
+				                        <span>市</span>
+	                                </li>
+                               
+                               <li style="width: 80%;">
+                                    <span class="tips">所属公司：</span>
+                                    <div class="vocation">
+	                                    <select class="select-common select1 validate[required]" id="company" name="ownerId" >
+	                                        <option value="">请选择</option>
+	                                         <option th:each="companys : ${companys}" th:value="${companys.companyId}" th:text="${companys.companyName}"
+	                                         th:attr="selected=(${companys.companyId} eq ${companyid})?true:false"></option>
+	                                    </select>
+                                    </div>
+                                </li>
+                                <li style="width: 80%;">
+                                    <span class="tips">持卡人：</span>
+                                    <input type="text" class="txt validate[required]" name="accountHolder"/>
+                                </li>
+                                <li style="width: 80%;">
+                                    <span class="tips">手机号：</span>
+                                    <input type="text" class="txt validate[required,custom[mobile]]" name="mobile"/>
+                                </li>
+                                </form>
+                            </ul>
+                        </div>
+                        <div class="formtitle"><span>银行账户</span><img src="/img/add_red.png" class="add-zz" id="addCardInfo"/></div>
+                        <form id="cardForm">
+                        <table class="tablelist" id="cardInfo">
+                            <thead>
+                                <tr>
+                                    <th>开户银行</th>
+                                    <th>开户支行</th>
+                                    <th>银行卡号</th>
+                                    <th>收款/付款</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select class="select-common select1 validate[required]" name="bankId" >
+                                           <option value="">请选择</option>
+                                           <option th:each="bank : ${banks}" th:value="${bank.bankId}" th:text="${bank.bankName}"></option>
+                                        </select>
+                                    </td>
+                                     <td>
+                                        <input type="text" class="table-txt validate[required]" name="branchName"/>
+                                     </td>
+                                     <td>
+                                        <input type="text" class="table-txt validate[required,custom[number],maxSize[19],minSize[16]]" name="bankCardNo"/>
+                                     </td>
+                                      <td>
+                                        <select class="select-common select1 validate[required]" name="kind" >
+                                           <option value="">请选择</option>
+                                           <option value="01">收款</option>
+                                           <option value="02">付款</option>
+                                           <option value="00">综合</option>
+                                        </select>
+                                    </td>
+                                     <td>
+                                        <span></span>
+                                     </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </form>
+                        <p class="textCt pt15 pb20">
+                            <input type="button" class="scbtn mlt10 accountSubmit" value="保 存"/>
+                            <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);"/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <script src="/js/public/select.js"></script>
+         <footer th:replace="common/footer"></footer>
+         <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	     <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+         <script>seajs.use("custManagment/companyaccount");</script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds">
+	<!-- 控制台输出 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>%n%d{yyyy-MM-dd HH:mm:ss.SSS} %X{ip} %X{userName}  [%thread]  [%logger{50}] %n%-5level: %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- 按照每天生成日志文件 -->
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!--日志文件输出的文件名 -->
+			<FileNamePattern>${user.home}/logs/loan-%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+			<maxFileSize>50MB</maxFileSize>     <!--日志文件最大 --> 
+		    <maxHistory>30</maxHistory>  <!--日志文件保留天数 -->
+		    <totalSizeCap>20GB</totalSizeCap>   <!--日志文件最大 -->
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%n%d{yyyy-MM-dd HH:mm:ss.SSS} %X{ip} %X{userName} [%thread]  [%logger{50}] %n%-5level: %msg%n</pattern>
+		</encoder>
+		<!--日志文件最大的大小 使用触发器后只有达到触发条件后才会生成新文件，改为每天自动生成一个文件 -->
+		<!-- <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>50MB</MaxFileSize>
+		</triggeringPolicy> -->
+	</appender>
+	
+	<!-- 按照日志大小生成日志文件 -->
+	<appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 日志文件输出的文件名 -->
+		<File>${user.home}/logs/loan-error.log</File>
+		
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<!--日志文件输出的文件名 -->
+			<FileNamePattern>${user.home}/logs/loan-error.%i.log</FileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>10</maxIndex>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%n%d{yyyy-MM-dd HH:mm:ss.SSS} %X{ip} %X{userName} [%thread]  [%logger{50}] %n%-5level: %msg%n</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter"> 
+            <level>ERROR</level>  
+            <onMatch>ACCEPT</onMatch>  
+            <onMismatch>DENY</onMismatch>  
+        </filter>   
+		<!--日志文件最大的大小 -->
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>20MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+	
+	<!-- 日志输出级别 -->
+	<root level="DEBUG">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+		<appender-ref ref="ERROR_FILE" />
+	</root>
+
+	<logger name="net.sf.ehcache" level="DEBUG"/>
+	<logger name="druid.sql" level="DEBUG"/>
+	<logger name="com.lhhs" level="DEBUG"/>
+
+</configuration>

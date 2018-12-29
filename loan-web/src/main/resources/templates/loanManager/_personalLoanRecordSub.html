@@ -1,0 +1,79 @@
+<table class="tablelist">
+    <thead>
+        <tr>
+            <th style="width:26px;">序号</th>
+            <th>省市</th>
+            <th>出借人姓名</th>
+            <th>客户性质</th>
+            <th>放款金额（元）</th>
+            <th>放款利率</th>
+            <th>放款时间</th>
+            <th>报单编号</th>
+            <th>产品类型</th>
+            <th>产品名称</th>
+            <th>借款期限</th>
+            <th>借款利率</th>
+            <th>借款人姓名</th>
+            <th>预期利息（元）</th>
+            <th>息差（元）</th>
+            <th>申请时间</th>
+            <th>状态</th>
+        </tr>
+    </thead>
+    <tbody>
+    	<th:block th:unless="${#lists.isEmpty(page.resultList)}">
+			<tr th:each="singe,iterStat : ${page.resultList}">
+				<td th:text="${iterStat.count}"></td>
+                <td th:text="${singe.cityName}"></td>
+                <td th:text="${singe.lenderName}"></td>
+                <td th:text="${singe.typeName}"></td>
+                <td th:text="${singe.loanAmount}?${#numbers.formatDecimal(singe.loanAmount,1,2)}:0.00"></td>
+                <td th:text="${singe.loanRate}?${#numbers.formatDecimal(singe.loanRate,1,3)}+'%/'+${singe.loanRateUnit}:0.000+'%/'+${singe.loanRateUnit}"></td>
+                <td th:text="${singe.loanTime}?${#dates.format(singe.loanTime,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+                <td><a th:href="@{/orderInfo/get(orderNo=${singe.orderNo})}" class="tablelink" th:text="${singe.orderNo}"></a></td>
+                <td th:text="${singe.productType}"></td>
+                <td th:text="${singe.productName}"></td>
+                <td th:text="${singe.term+''+singe.termUnit}"></td>
+                <td th:text="${singe.rate}?${#numbers.formatDecimal(singe.rate,1,3)}+'%/'+${singe.rateUnit}:0.000+'%/'+${singe.rateUnit}"></td>
+                <td th:text="${singe.borrower}"></td>
+                <td th:text="${singe.anticipatedInterest}?${#numbers.formatDecimal(singe.anticipatedInterest,1,2)}:0.00"></td>
+                <td th:text="${singe.interestMargin}?${#numbers.formatDecimal(singe.interestMargin,1,2)}:0.00"></td>
+                <td th:text="${singe.applyTime}?${#dates.format(singe.applyTime,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+                <td>
+                	<th:block th:if="${singe.status} eq '03'">放款成功</th:block>
+                </td>
+			</tr>
+		</th:block>
+		<th:block th:if="${#lists.isEmpty(page.resultList)}">
+			<tr>
+				<td colspan="17" class="textCt">暂无数据</td>
+			</tr>
+		</th:block>
+    </tbody>
+</table>
+<th:block th:unless="${#lists.isEmpty(page.resultList)}">
+    <div class="pagin" style="margin-top: 0px;">
+        <div class="message">
+	    	统计数据（<i class="blue" th:text="${page.totalCount}"></i> 条 );&nbsp;&nbsp;&nbsp;
+	    	放款总金额：<i class="blue" th:text="${#maps.isEmpty(map)}?0.00:(${#maps.containsKey(map, 'loanAmountTotal')}?${#numbers.formatDecimal(map.loanAmountTotal,1,2)}:0.00)"></i> 元
+	   	</div>
+    </div>
+    <div class="pagin" style="margin-top: 0px;">
+    	<div class="message">
+    		<input sec:authorize="hasRole('ROLE_LOANRECORD_1_EXPORT')" type="button" value="导出" class="scbtn1" style="width: 65px;" id="export"/>&nbsp;&nbsp;&nbsp;
+			共 <i class="blue" th:text="${page.totalCount}"></i> 
+			条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+		</div>
+		<ul class="paginList">
+			<li class="paginItem" th:if="${page.pageIndex} gt 1">
+				<a th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+			</li>
+			<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" th:classappend="(${page.pageIndex} eq ${x})?'current'">
+				<a th:attr="data-pagenum=${x}" th:text="${x}"></a>
+			</li>
+			<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+				<a th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+			</li> 
+		</ul>
+    </div>
+</th:block>

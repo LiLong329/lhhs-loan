@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script src="/js/public/area.js"></script>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>客户管理</li>
+                        <li><a th:href="@{/customerManager/providerCompany}">经纪人信息（企业）</a></li>
+                        <li>查看详情</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div class="formtitle"><span>基本信息</span></div>
+                        <div class="toolsli">
+                            <ul class="nbbdgl-Ui">
+                                <li>
+                                    <span class="tips">省市：</span>
+                                    <span th:text="${providerInfo.cityName}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">客户编号：</span>
+                                    <span th:text="${providerInfo.providerNo}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">经纪人姓名：</span>
+                                    <span th:text="${providerInfo.providerName}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">联系方式：</span>
+                                    <th:block th:unless="${providerInfo.mobileNo} eq ${loanEmp.leMobile}">
+                                    	<span th:text="${providerInfo.mobileNo}==null?'':${providerInfo.mobileNo.substring(0,3)+'****'+providerInfo.mobileNo.substring(7,11)}"></span>
+                                	</th:block>
+                                    <th:block th:if="${providerInfo.mobileNo} eq ${loanEmp.leMobile}">
+                                    	<span th:text="${providerInfo.mobileNo}"></span>
+                                	</th:block>
+                                </li>
+                                <li>
+                                    <span class="tips">身份证号：</span>
+                                    <th:block th:unless="${providerInfo.mobileNo} eq ${loanEmp.leMobile}">
+                                    	<span th:text="${providerInfo.idNo}==null?'':${providerInfo.idNo.substring(0,6)+'********'+providerInfo.idNo.substring(providerInfo.idNo.length()-4,providerInfo.idNo.length())}"></span>
+                                	</th:block>
+                                    <th:block th:if="${providerInfo.mobileNo} eq ${loanEmp.leMobile}">
+                                    	<span th:text="${providerInfo.idNo}"></span>
+                                	</th:block>
+                                </li>
+                                <li>
+                                    <span class="tips">注册时间：</span>
+                                    <span th:text="${providerInfo.registerTime}?${#dates.format(providerInfo.registerTime, 'yyyy-MM-dd HH:mm:ss')}:''"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">公司名称：</span>
+                                    <span th:text="${providerInfo.companyName}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">机构代码：</span>
+                                    <span th:text="${providerInfo.organizationNo}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">邮箱：</span>
+                                    <span th:text="${providerInfo.email}"></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <p class="textCt">
+                            <input type="button" class="scbtn2" value="返  回" onclick="javascript:history.go(-1);"/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/js/public/select.js"></script>
+        <footer th:replace="common/footer"></footer>
+         <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	    <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+        <script>seajs.use("custManagment/providerCompany");</script>
+    </div>
+
+</body>
+</html>

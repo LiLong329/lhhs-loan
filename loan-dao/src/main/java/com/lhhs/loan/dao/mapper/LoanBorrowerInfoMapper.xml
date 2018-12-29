@@ -1,0 +1,1245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanBorrowerInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanBorrowerInfo" >
+    <id column="cust_id" property="custId" jdbcType="VARCHAR" />
+    <result column="bname" property="bname" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="CHAR" />
+    <result column="mobile" property="mobile" jdbcType="CHAR" />
+    <result column="id_num" property="idNum" jdbcType="CHAR" />
+    <result column="education" property="education" jdbcType="VARCHAR" />
+    <result column="cor_name" property="corName" jdbcType="VARCHAR" />
+    <result column="mar_status" property="marStatus" jdbcType="VARCHAR" />
+    <result column="relation_one" property="relationOne" jdbcType="VARCHAR" />
+    <result column="relation_name_one" property="relationNameOne" jdbcType="VARCHAR" />
+    <result column="relation_mode_one" property="relationModeOne" jdbcType="VARCHAR" />
+    <result column="relation_two" property="relationTwo" jdbcType="VARCHAR" />
+    <result column="relation_name_two" property="relationNameTwo" jdbcType="VARCHAR" />
+    <result column="relation_mode_two" property="relationModeTwo" jdbcType="VARCHAR" />
+    <result column="account_nature" property="accountNature" jdbcType="VARCHAR" />
+    <result column="health" property="health" jdbcType="VARCHAR" />
+    <result column="driving" property="driving" jdbcType="VARCHAR" />
+    <result column="unit_property" property="unitProperty" jdbcType="VARCHAR" />
+    <result column="work_years" property="workYears" jdbcType="VARCHAR" />
+    <result column="technical_title" property="technicalTitle" jdbcType="VARCHAR" />
+    <result column="monthly_income" property="monthlyIncome" jdbcType="VARCHAR" />
+    <result column="mailbox" property="mailbox" jdbcType="VARCHAR" />
+    <result column="spouse_name" property="spouseName" jdbcType="VARCHAR" />
+    <result column="spouse_contact" property="spouseContact" jdbcType="VARCHAR" />
+    <result column="average_income" property="averageIncome" jdbcType="VARCHAR" />
+    <result column="average_pay" property="averagePay" jdbcType="VARCHAR" />
+    <result column="debt_income_ratio" property="debtIncomeRatio" jdbcType="VARCHAR" />
+    <result column="support_person_no" property="supportPersonNo" jdbcType="VARCHAR" />
+    <result column="housing_situation" property="housingSituation" jdbcType="VARCHAR" />
+    <result column="deposits_investments" property="depositsInvestments" jdbcType="VARCHAR" />
+    <result column="vehicle_condition" property="vehicleCondition" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="live_address" property="liveAddress" jdbcType="VARCHAR" />
+    <result column="add_province_no" property="addProvinceNo" jdbcType="VARCHAR" />
+    <result column="add_city_no" property="addCityNo" jdbcType="VARCHAR" />
+    <result column="cor_address" property="corAddress" jdbcType="VARCHAR" />
+    <result column="cor_province_no" property="corProvinceNo" jdbcType="VARCHAR" />
+    <result column="cor_city_no" property="corCityNo" jdbcType="VARCHAR" />
+    <result column="spouse_address" property="spouseAddress" jdbcType="VARCHAR" />
+    <result column="province_no" property="provinceNo" jdbcType="VARCHAR" />
+    <result column="city_no" property="cityNo" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="DATE" />
+    <result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="DATE" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+    <result column="cust_type" property="custType" jdbcType="INTEGER" />
+    <result column="cust_nature" property="custNature" jdbcType="INTEGER" />
+    <result column="le_staff_name" property="leStaffName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lhhs.loan.dao.domain.LoanBorrowerInfoWithBLOBs" extends="BaseResultMap" >
+    <result column="spouse_credit" property="spouseCredit" jdbcType="LONGVARCHAR" />
+    <result column="litiga_status" property="litigaStatus" jdbcType="LONGVARCHAR" />
+    <result column="load_purpose" property="loadPurpose" jdbcType="LONGVARCHAR" />
+    <result column="payment" property="payment" jdbcType="LONGVARCHAR" />
+    <result column="spouse_litiga" property="spouseLitiga" jdbcType="LONGVARCHAR" />
+     <result column="credit_status" property="creditStatus" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cust_id, bname, sex, mobile, id_num, education, cor_name, credit_status, mar_status, 
+    relation_one, relation_name_one, relation_mode_one, relation_two, relation_name_two, 
+    relation_mode_two, account_nature, health, driving, unit_property, work_years, technical_title, 
+    monthly_income, mailbox, spouse_name, spouse_contact, average_income, average_pay, 
+    debt_income_ratio, support_person_no, housing_situation, deposits_investments, vehicle_condition, 
+    customer_id, live_address, add_province_no, add_city_no, cor_address, cor_province_no, 
+    cor_city_no, spouse_address, province_no, city_no, union_id, company_id, status, 
+    create_user, create_time, last_user, last_modify_time, field1, field2, field3, field4, 
+    field5, cust_type, cust_nature
+  </sql>
+  <sql id="Blob_Column_List" >
+    spouse_credit, litiga_status, load_purpose, payment, spouse_litiga
+  </sql>
+  
+   <sql id="Where_Common">
+   <if test="authgroupList != null">
+	 	and 
+	         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+		         (1=1
+		             <if test="item.orgId != null and item.orgId != ''">
+					  		and lci.company_id =  #{item.orgId}
+					 </if>
+					 <if test="item.deptId != null and item.deptId != ''">
+					  		and lci.dept_id =  #{item.deptId}
+					 </if>
+					 <if test="item.dataOwner != null and item.dataOwner != ''">
+					  		and lci.manager_id =  #{item.dataOwner}
+					 </if>
+				  )
+	          </foreach>
+		</if>
+
+	<if test="unionId != null and unionId != ''">
+  		and lci.union_id = #{unionId}
+  	</if>
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from loan_borrower_info
+    where cust_id = #{custId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_borrower_info
+    where cust_id = #{custId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanBorrowerInfoWithBLOBs" >
+    insert into loan_borrower_info (cust_id, bname, sex, 
+      mobile, id_num, education, 
+      cor_name, credit_status, mar_status, 
+      relation_one, relation_name_one, relation_mode_one, 
+      relation_two, relation_name_two, relation_mode_two, 
+      account_nature, health, driving, 
+      unit_property, work_years, technical_title, 
+      monthly_income, mailbox, spouse_name, 
+      spouse_contact, average_income, average_pay, 
+      debt_income_ratio, support_person_no, housing_situation, 
+      deposits_investments, vehicle_condition, 
+      customer_id, live_address, add_province_no, 
+      add_city_no, cor_address, cor_province_no, 
+      cor_city_no, spouse_address, province_no, 
+      city_no, union_id, company_id, 
+      status, create_user, create_time, 
+      last_user, last_modify_time, field1, 
+      field2, field3, field4, 
+      field5, cust_type, cust_nature, 
+      spouse_credit, litiga_status, load_purpose, 
+      payment, spouse_litiga)
+    values (#{custId,jdbcType=VARCHAR}, #{bname,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, 
+      #{mobile,jdbcType=CHAR}, #{idNum,jdbcType=CHAR}, #{education,jdbcType=VARCHAR}, 
+      #{corName,jdbcType=VARCHAR}, #{marStatus,jdbcType=VARCHAR}, 
+      #{relationOne,jdbcType=VARCHAR}, #{relationNameOne,jdbcType=VARCHAR}, #{relationModeOne,jdbcType=VARCHAR}, 
+      #{relationTwo,jdbcType=VARCHAR}, #{relationNameTwo,jdbcType=VARCHAR}, #{relationModeTwo,jdbcType=VARCHAR}, 
+      #{accountNature,jdbcType=VARCHAR}, #{health,jdbcType=VARCHAR}, #{driving,jdbcType=VARCHAR}, 
+      #{unitProperty,jdbcType=VARCHAR}, #{workYears,jdbcType=VARCHAR}, #{technicalTitle,jdbcType=VARCHAR}, 
+      #{monthlyIncome,jdbcType=VARCHAR}, #{mailbox,jdbcType=VARCHAR}, #{spouseName,jdbcType=VARCHAR}, 
+      #{spouseContact,jdbcType=VARCHAR}, #{averageIncome,jdbcType=VARCHAR}, #{averagePay,jdbcType=VARCHAR}, 
+      #{debtIncomeRatio,jdbcType=VARCHAR}, #{supportPersonNo,jdbcType=VARCHAR}, #{housingSituation,jdbcType=VARCHAR}, 
+      #{depositsInvestments,jdbcType=VARCHAR}, #{vehicleCondition,jdbcType=VARCHAR}, 
+      #{customerId,jdbcType=VARCHAR}, #{liveAddress,jdbcType=VARCHAR}, #{addProvinceNo,jdbcType=VARCHAR}, 
+      #{addCityNo,jdbcType=VARCHAR}, #{corAddress,jdbcType=VARCHAR}, #{corProvinceNo,jdbcType=VARCHAR}, 
+      #{corCityNo,jdbcType=VARCHAR}, #{spouseAddress,jdbcType=VARCHAR}, #{provinceNo,jdbcType=VARCHAR}, 
+      #{cityNo,jdbcType=VARCHAR}, #{unionId,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, 
+      #{lastUser,jdbcType=VARCHAR}, #{lastModifyTime,jdbcType=DATE}, #{field1,jdbcType=VARCHAR}, 
+      #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, #{field4,jdbcType=VARCHAR}, 
+      #{field5,jdbcType=VARCHAR}, #{custType,jdbcType=INTEGER}, #{custNature,jdbcType=INTEGER}, 
+      #{spouseCredit,jdbcType=LONGVARCHAR}, #{litigaStatus,jdbcType=LONGVARCHAR}, #{loadPurpose,jdbcType=LONGVARCHAR}, 
+      #{payment,jdbcType=LONGVARCHAR}, #{spouseLitiga,jdbcType=LONGVARCHAR}, #{creditStatus,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanBorrowerInfoWithBLOBs" >
+    insert into loan_borrower_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="custId != null" >
+        cust_id,
+      </if>
+      <if test="bname != null" >
+        bname,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="idNum != null" >
+        id_num,
+      </if>
+      <if test="education != null" >
+        education,
+      </if>
+      <if test="corName != null" >
+        cor_name,
+      </if>
+      <if test="creditStatus != null" >
+        credit_status,
+      </if>
+      <if test="marStatus != null" >
+        mar_status,
+      </if>
+      <if test="relationOne != null" >
+        relation_one,
+      </if>
+      <if test="relationNameOne != null" >
+        relation_name_one,
+      </if>
+      <if test="relationModeOne != null" >
+        relation_mode_one,
+      </if>
+      <if test="relationTwo != null" >
+        relation_two,
+      </if>
+      <if test="relationNameTwo != null" >
+        relation_name_two,
+      </if>
+      <if test="relationModeTwo != null" >
+        relation_mode_two,
+      </if>
+      <if test="accountNature != null" >
+        account_nature,
+      </if>
+      <if test="health != null" >
+        health,
+      </if>
+      <if test="driving != null" >
+        driving,
+      </if>
+      <if test="unitProperty != null" >
+        unit_property,
+      </if>
+      <if test="workYears != null" >
+        work_years,
+      </if>
+      <if test="technicalTitle != null" >
+        technical_title,
+      </if>
+      <if test="monthlyIncome != null" >
+        monthly_income,
+      </if>
+      <if test="mailbox != null" >
+        mailbox,
+      </if>
+      <if test="spouseName != null" >
+        spouse_name,
+      </if>
+      <if test="spouseContact != null" >
+        spouse_contact,
+      </if>
+      <if test="averageIncome != null" >
+        average_income,
+      </if>
+      <if test="averagePay != null" >
+        average_pay,
+      </if>
+      <if test="debtIncomeRatio != null" >
+        debt_income_ratio,
+      </if>
+      <if test="supportPersonNo != null" >
+        support_person_no,
+      </if>
+      <if test="housingSituation != null" >
+        housing_situation,
+      </if>
+      <if test="depositsInvestments != null" >
+        deposits_investments,
+      </if>
+      <if test="vehicleCondition != null" >
+        vehicle_condition,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="liveAddress != null" >
+        live_address,
+      </if>
+      <if test="addProvinceNo != null" >
+        add_province_no,
+      </if>
+      <if test="addCityNo != null" >
+        add_city_no,
+      </if>
+      <if test="corAddress != null" >
+        cor_address,
+      </if>
+      <if test="corProvinceNo != null" >
+        cor_province_no,
+      </if>
+      <if test="corCityNo != null" >
+        cor_city_no,
+      </if>
+      <if test="spouseAddress != null" >
+        spouse_address,
+      </if>
+      <if test="provinceNo != null" >
+        province_no,
+      </if>
+      <if test="cityNo != null" >
+        city_no,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUser != null" >
+        last_user,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+      <if test="custType != null" >
+        cust_type,
+      </if>
+      <if test="custNature != null" >
+        cust_nature,
+      </if>
+      <if test="spouseCredit != null" >
+        spouse_credit,
+      </if>
+      <if test="litigaStatus != null" >
+        litiga_status,
+      </if>
+      <if test="loadPurpose != null" >
+        load_purpose,
+      </if>
+      <if test="payment != null" >
+        payment,
+      </if>
+      <if test="spouseLitiga != null" >
+        spouse_litiga,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="bname != null" >
+        #{bname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="idNum != null" >
+        #{idNum,jdbcType=CHAR},
+      </if>
+      <if test="education != null" >
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="corName != null" >
+        #{corName,jdbcType=VARCHAR},
+      </if>
+      <if test="creditStatus != null" >
+        #{creditStatus,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="marStatus != null" >
+        #{marStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="relationOne != null" >
+        #{relationOne,jdbcType=VARCHAR},
+      </if>
+      <if test="relationNameOne != null" >
+        #{relationNameOne,jdbcType=VARCHAR},
+      </if>
+      <if test="relationModeOne != null" >
+        #{relationModeOne,jdbcType=VARCHAR},
+      </if>
+      <if test="relationTwo != null" >
+        #{relationTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="relationNameTwo != null" >
+        #{relationNameTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="relationModeTwo != null" >
+        #{relationModeTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNature != null" >
+        #{accountNature,jdbcType=VARCHAR},
+      </if>
+      <if test="health != null" >
+        #{health,jdbcType=VARCHAR},
+      </if>
+      <if test="driving != null" >
+        #{driving,jdbcType=VARCHAR},
+      </if>
+      <if test="unitProperty != null" >
+        #{unitProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="workYears != null" >
+        #{workYears,jdbcType=VARCHAR},
+      </if>
+      <if test="technicalTitle != null" >
+        #{technicalTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="monthlyIncome != null" >
+        #{monthlyIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="mailbox != null" >
+        #{mailbox,jdbcType=VARCHAR},
+      </if>
+      <if test="spouseName != null" >
+        #{spouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="spouseContact != null" >
+        #{spouseContact,jdbcType=VARCHAR},
+      </if>
+      <if test="averageIncome != null" >
+        #{averageIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="averagePay != null" >
+        #{averagePay,jdbcType=VARCHAR},
+      </if>
+      <if test="debtIncomeRatio != null" >
+        #{debtIncomeRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="supportPersonNo != null" >
+        #{supportPersonNo,jdbcType=VARCHAR},
+      </if>
+      <if test="housingSituation != null" >
+        #{housingSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="depositsInvestments != null" >
+        #{depositsInvestments,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleCondition != null" >
+        #{vehicleCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="liveAddress != null" >
+        #{liveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="addProvinceNo != null" >
+        #{addProvinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="addCityNo != null" >
+        #{addCityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="corAddress != null" >
+        #{corAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="corProvinceNo != null" >
+        #{corProvinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="corCityNo != null" >
+        #{corCityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="spouseAddress != null" >
+        #{spouseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceNo != null" >
+        #{provinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=DATE},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+      <if test="custType != null" >
+        #{custType,jdbcType=INTEGER},
+      </if>
+      <if test="custNature != null" >
+        #{custNature,jdbcType=INTEGER},
+      </if>
+      <if test="spouseCredit != null" >
+        #{spouseCredit,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="litigaStatus != null" >
+        #{litigaStatus,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="loadPurpose != null" >
+        #{loadPurpose,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="payment != null" >
+        #{payment,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="spouseLitiga != null" >
+        #{spouseLitiga,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanBorrowerInfoWithBLOBs" >
+    update loan_borrower_info
+    <set >
+      <if test="bname != null" >
+        bname = #{bname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="idNum != null" >
+        id_num = #{idNum,jdbcType=CHAR},
+      </if>
+      <if test="education != null" >
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="corName != null" >
+        cor_name = #{corName,jdbcType=VARCHAR},
+      </if>
+      <if test="creditStatus != null" >
+        credit_status = #{creditStatus,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="marStatus != null" >
+        mar_status = #{marStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="relationOne != null" >
+        relation_one = #{relationOne,jdbcType=VARCHAR},
+      </if>
+      <if test="relationNameOne != null" >
+        relation_name_one = #{relationNameOne,jdbcType=VARCHAR},
+      </if>
+      <if test="relationModeOne != null" >
+        relation_mode_one = #{relationModeOne,jdbcType=VARCHAR},
+      </if>
+      <if test="relationTwo != null" >
+        relation_two = #{relationTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="relationNameTwo != null" >
+        relation_name_two = #{relationNameTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="relationModeTwo != null" >
+        relation_mode_two = #{relationModeTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNature != null" >
+        account_nature = #{accountNature,jdbcType=VARCHAR},
+      </if>
+      <if test="health != null" >
+        health = #{health,jdbcType=VARCHAR},
+      </if>
+      <if test="driving != null" >
+        driving = #{driving,jdbcType=VARCHAR},
+      </if>
+      <if test="unitProperty != null" >
+        unit_property = #{unitProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="workYears != null" >
+        work_years = #{workYears,jdbcType=VARCHAR},
+      </if>
+      <if test="technicalTitle != null" >
+        technical_title = #{technicalTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="monthlyIncome != null" >
+        monthly_income = #{monthlyIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="mailbox != null" >
+        mailbox = #{mailbox,jdbcType=VARCHAR},
+      </if>
+      <if test="spouseName != null" >
+        spouse_name = #{spouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="spouseContact != null" >
+        spouse_contact = #{spouseContact,jdbcType=VARCHAR},
+      </if>
+      <if test="averageIncome != null" >
+        average_income = #{averageIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="averagePay != null" >
+        average_pay = #{averagePay,jdbcType=VARCHAR},
+      </if>
+      <if test="debtIncomeRatio != null" >
+        debt_income_ratio = #{debtIncomeRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="supportPersonNo != null" >
+        support_person_no = #{supportPersonNo,jdbcType=VARCHAR},
+      </if>
+      <if test="housingSituation != null" >
+        housing_situation = #{housingSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="depositsInvestments != null" >
+        deposits_investments = #{depositsInvestments,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleCondition != null" >
+        vehicle_condition = #{vehicleCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="liveAddress != null" >
+        live_address = #{liveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="addProvinceNo != null" >
+        add_province_no = #{addProvinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="addCityNo != null" >
+        add_city_no = #{addCityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="corAddress != null" >
+        cor_address = #{corAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="corProvinceNo != null" >
+        cor_province_no = #{corProvinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="corCityNo != null" >
+        cor_city_no = #{corCityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="spouseAddress != null" >
+        spouse_address = #{spouseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceNo != null" >
+        province_no = #{provinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        city_no = #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=DATE},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+      <if test="custType != null" >
+        cust_type = #{custType,jdbcType=INTEGER},
+      </if>
+      <if test="custNature != null" >
+        cust_nature = #{custNature,jdbcType=INTEGER},
+      </if>
+      <if test="spouseCredit != null" >
+        spouse_credit = #{spouseCredit,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="litigaStatus != null" >
+        litiga_status = #{litigaStatus,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="loadPurpose != null" >
+        load_purpose = #{loadPurpose,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="payment != null" >
+        payment = #{payment,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="spouseLitiga != null" >
+        spouse_litiga = #{spouseLitiga,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where    customer_id = #{customerId,jdbcType=VARCHAR}
+     <!--   <if test="custId != null" >
+        cust_id = #{custId,jdbcType=VARCHAR}
+       </if> -->
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lhhs.loan.dao.domain.LoanBorrowerInfoWithBLOBs" >
+    update loan_borrower_info
+    set bname = #{bname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      mobile = #{mobile,jdbcType=CHAR},
+      id_num = #{idNum,jdbcType=CHAR},
+      education = #{education,jdbcType=VARCHAR},
+      cor_name = #{corName,jdbcType=VARCHAR},
+      credit_status = #{creditStatus,jdbcType=LONGVARCHAR},
+      mar_status = #{marStatus,jdbcType=VARCHAR},
+      relation_one = #{relationOne,jdbcType=VARCHAR},
+      relation_name_one = #{relationNameOne,jdbcType=VARCHAR},
+      relation_mode_one = #{relationModeOne,jdbcType=VARCHAR},
+      relation_two = #{relationTwo,jdbcType=VARCHAR},
+      relation_name_two = #{relationNameTwo,jdbcType=VARCHAR},
+      relation_mode_two = #{relationModeTwo,jdbcType=VARCHAR},
+      account_nature = #{accountNature,jdbcType=VARCHAR},
+      health = #{health,jdbcType=VARCHAR},
+      driving = #{driving,jdbcType=VARCHAR},
+      unit_property = #{unitProperty,jdbcType=VARCHAR},
+      work_years = #{workYears,jdbcType=VARCHAR},
+      technical_title = #{technicalTitle,jdbcType=VARCHAR},
+      monthly_income = #{monthlyIncome,jdbcType=VARCHAR},
+      mailbox = #{mailbox,jdbcType=VARCHAR},
+      spouse_name = #{spouseName,jdbcType=VARCHAR},
+      spouse_contact = #{spouseContact,jdbcType=VARCHAR},
+      average_income = #{averageIncome,jdbcType=VARCHAR},
+      average_pay = #{averagePay,jdbcType=VARCHAR},
+      debt_income_ratio = #{debtIncomeRatio,jdbcType=VARCHAR},
+      support_person_no = #{supportPersonNo,jdbcType=VARCHAR},
+      housing_situation = #{housingSituation,jdbcType=VARCHAR},
+      deposits_investments = #{depositsInvestments,jdbcType=VARCHAR},
+      vehicle_condition = #{vehicleCondition,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=VARCHAR},
+      live_address = #{liveAddress,jdbcType=VARCHAR},
+      add_province_no = #{addProvinceNo,jdbcType=VARCHAR},
+      add_city_no = #{addCityNo,jdbcType=VARCHAR},
+      cor_address = #{corAddress,jdbcType=VARCHAR},
+      cor_province_no = #{corProvinceNo,jdbcType=VARCHAR},
+      cor_city_no = #{corCityNo,jdbcType=VARCHAR},
+      spouse_address = #{spouseAddress,jdbcType=VARCHAR},
+      province_no = #{provinceNo,jdbcType=VARCHAR},
+      city_no = #{cityNo,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=DATE},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=DATE},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR},
+      cust_type = #{custType,jdbcType=INTEGER},
+      cust_nature = #{custNature,jdbcType=INTEGER},
+      spouse_credit = #{spouseCredit,jdbcType=LONGVARCHAR},
+      litiga_status = #{litigaStatus,jdbcType=LONGVARCHAR},
+      load_purpose = #{loadPurpose,jdbcType=LONGVARCHAR},
+      payment = #{payment,jdbcType=LONGVARCHAR},
+      spouse_litiga = #{spouseLitiga,jdbcType=LONGVARCHAR}
+    where cust_id = #{custId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanBorrowerInfo" >
+    update loan_borrower_info
+    set bname = #{bname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      mobile = #{mobile,jdbcType=CHAR},
+      id_num = #{idNum,jdbcType=CHAR},
+      education = #{education,jdbcType=VARCHAR},
+      cor_name = #{corName,jdbcType=VARCHAR},
+      credit_status = #{creditStatus,jdbcType=LONGVARCHAR},
+      mar_status = #{marStatus,jdbcType=VARCHAR},
+      relation_one = #{relationOne,jdbcType=VARCHAR},
+      relation_name_one = #{relationNameOne,jdbcType=VARCHAR},
+      relation_mode_one = #{relationModeOne,jdbcType=VARCHAR},
+      relation_two = #{relationTwo,jdbcType=VARCHAR},
+      relation_name_two = #{relationNameTwo,jdbcType=VARCHAR},
+      relation_mode_two = #{relationModeTwo,jdbcType=VARCHAR},
+      account_nature = #{accountNature,jdbcType=VARCHAR},
+      health = #{health,jdbcType=VARCHAR},
+      driving = #{driving,jdbcType=VARCHAR},
+      unit_property = #{unitProperty,jdbcType=VARCHAR},
+      work_years = #{workYears,jdbcType=VARCHAR},
+      technical_title = #{technicalTitle,jdbcType=VARCHAR},
+      monthly_income = #{monthlyIncome,jdbcType=VARCHAR},
+      mailbox = #{mailbox,jdbcType=VARCHAR},
+      spouse_name = #{spouseName,jdbcType=VARCHAR},
+      spouse_contact = #{spouseContact,jdbcType=VARCHAR},
+      average_income = #{averageIncome,jdbcType=VARCHAR},
+      average_pay = #{averagePay,jdbcType=VARCHAR},
+      debt_income_ratio = #{debtIncomeRatio,jdbcType=VARCHAR},
+      support_person_no = #{supportPersonNo,jdbcType=VARCHAR},
+      housing_situation = #{housingSituation,jdbcType=VARCHAR},
+      deposits_investments = #{depositsInvestments,jdbcType=VARCHAR},
+      vehicle_condition = #{vehicleCondition,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=VARCHAR},
+      live_address = #{liveAddress,jdbcType=VARCHAR},
+      add_province_no = #{addProvinceNo,jdbcType=VARCHAR},
+      add_city_no = #{addCityNo,jdbcType=VARCHAR},
+      cor_address = #{corAddress,jdbcType=VARCHAR},
+      cor_province_no = #{corProvinceNo,jdbcType=VARCHAR},
+      cor_city_no = #{corCityNo,jdbcType=VARCHAR},
+      spouse_address = #{spouseAddress,jdbcType=VARCHAR},
+      province_no = #{provinceNo,jdbcType=VARCHAR},
+      city_no = #{cityNo,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=DATE},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=DATE},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR},
+      cust_type = #{custType,jdbcType=INTEGER},
+      cust_nature = #{custNature,jdbcType=INTEGER}
+    where cust_id = #{custId,jdbcType=VARCHAR}
+  </update>
+  <!--*************************** Li Jianjun Start ***************************-->
+  <!-- 通过借款人的 custId 更新借款信息表 -->
+  <insert id="insertBorrowerInfoWithBLOBs" parameterType="com.lhhs.loan.dao.domain.LoanBorrowerInfoWithBLOBs" >
+    insert into loan_borrower_info (cust_id, bname, sex, 
+      mobile, id_num, education, 
+      live_address, cor_name, credit_status, 
+      cor_address, mar_status, relation_one, 
+      relation_name_one, relation_mode_one, relation_two, 
+      relation_name_two, relation_mode_two, account_nature, 
+      health, driving, unit_property, 
+      work_years, technical_title, monthly_income, 
+      mailbox, spouse_name, spouse_contact, 
+      spouse_address, average_income, average_pay, 
+      debt_income_ratio, support_person_no, housing_situation, 
+      deposits_investments, vehicle_condition, 
+      cust_type, cust_nature, spouse_credit, 
+      litiga_status, load_purpose, payment, 
+      spouse_litiga)
+    values (#{custId,jdbcType=VARCHAR}, #{bname,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, 
+      #{mobile,jdbcType=CHAR}, #{idNum,jdbcType=CHAR}, #{education,jdbcType=VARCHAR}, 
+      #{liveAddress,jdbcType=VARCHAR}, #{corName,jdbcType=VARCHAR}, #{creditStatus,jdbcType=LONGVARCHAR}, 
+      #{corAddress,jdbcType=VARCHAR}, #{marStatus,jdbcType=VARCHAR}, #{relationOne,jdbcType=VARCHAR}, 
+      #{relationNameOne,jdbcType=VARCHAR}, #{relationModeOne,jdbcType=VARCHAR}, #{relationTwo,jdbcType=VARCHAR}, 
+      #{relationNameTwo,jdbcType=VARCHAR}, #{relationModeTwo,jdbcType=VARCHAR}, #{accountNature,jdbcType=VARCHAR}, 
+      #{health,jdbcType=VARCHAR}, #{driving,jdbcType=VARCHAR}, #{unitProperty,jdbcType=VARCHAR}, 
+      #{workYears,jdbcType=VARCHAR}, #{technicalTitle,jdbcType=VARCHAR}, #{monthlyIncome,jdbcType=VARCHAR}, 
+      #{mailbox,jdbcType=VARCHAR}, #{spouseName,jdbcType=VARCHAR}, #{spouseContact,jdbcType=VARCHAR}, 
+      #{spouseAddress,jdbcType=VARCHAR}, #{averageIncome,jdbcType=VARCHAR}, #{averagePay,jdbcType=VARCHAR}, 
+      #{debtIncomeRatio,jdbcType=VARCHAR}, #{supportPersonNo,jdbcType=VARCHAR}, #{housingSituation,jdbcType=VARCHAR}, 
+      #{depositsInvestments,jdbcType=VARCHAR}, #{vehicleCondition,jdbcType=VARCHAR}, 
+      #{custType,jdbcType=INTEGER}, #{custNature,jdbcType=INTEGER}, #{spouseCredit,jdbcType=LONGVARCHAR}, 
+      #{litigaStatus,jdbcType=LONGVARCHAR}, #{loadPurpose,jdbcType=LONGVARCHAR}, #{payment,jdbcType=LONGVARCHAR}, 
+      #{spouseLitiga,jdbcType=LONGVARCHAR})
+  </insert>
+  
+	<!--*************************** 贷前系统碰碰旺系统模块对接 Li Jianjun START ***************************-->
+	<!-- 根据客户编号 custId 查询当前借款人是否存在 -->
+	<select id="selectBorrowerInfoWithBLOBsCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+	  	SELECT
+	  		COUNT(1)
+	  	FROM
+	  		loan_borrower_info
+	  	WHERE
+	  		cust_id = #{custId,jdbcType=VARCHAR}
+    </select>
+    <!-- 新增碰碰旺系统的借款人信息到贷前系统 -->
+    <insert id="insertBorrowerInfoWithBLOBsFromRemote" parameterType="com.lhhs.loan.dao.domain.LoanBorrowerInfoWithBLOBs">
+    	INSERT INTO
+    		loan_borrower_info 
+	    	(cust_id, bname, sex, mobile, id_num, education, 
+		     live_address, cor_name, credit_status, 
+		     cor_address, mar_status, relation_one, 
+		     relation_name_one, relation_mode_one, relation_two, 
+		     relation_name_two, relation_mode_two, account_nature, 
+		     health, driving, unit_property, 
+		     work_years, technical_title, monthly_income, 
+		     mailbox, spouse_name, spouse_contact, 
+		     spouse_address, average_income, average_pay, 
+		     debt_income_ratio, support_person_no, housing_situation, 
+		     deposits_investments, vehicle_condition, 
+		     cust_type, cust_nature, spouse_credit, 
+		     litiga_status, load_purpose, payment, 
+		     spouse_litiga)
+    	VALUES 
+		      (#{custId,jdbcType=VARCHAR}, #{bname,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, 
+		      #{mobile,jdbcType=CHAR}, #{idNum,jdbcType=CHAR}, #{education,jdbcType=VARCHAR}, 
+		      #{liveAddress,jdbcType=VARCHAR}, #{corName,jdbcType=VARCHAR}, #{creditStatus,jdbcType=LONGVARCHAR}, 
+		      #{corAddress,jdbcType=VARCHAR}, #{marStatus,jdbcType=VARCHAR}, #{relationOne,jdbcType=VARCHAR}, 
+		      #{relationNameOne,jdbcType=VARCHAR}, #{relationModeOne,jdbcType=VARCHAR}, #{relationTwo,jdbcType=VARCHAR}, 
+		      #{relationNameTwo,jdbcType=VARCHAR}, #{relationModeTwo,jdbcType=VARCHAR}, #{accountNature,jdbcType=VARCHAR}, 
+		      #{health,jdbcType=VARCHAR}, #{driving,jdbcType=VARCHAR}, #{unitProperty,jdbcType=VARCHAR}, 
+		      #{workYears,jdbcType=VARCHAR}, #{technicalTitle,jdbcType=VARCHAR}, #{monthlyIncome,jdbcType=VARCHAR}, 
+		      #{mailbox,jdbcType=VARCHAR}, #{spouseName,jdbcType=VARCHAR}, #{spouseContact,jdbcType=VARCHAR}, 
+		      #{spouseAddress,jdbcType=VARCHAR}, #{averageIncome,jdbcType=VARCHAR}, #{averagePay,jdbcType=VARCHAR}, 
+		      #{debtIncomeRatio,jdbcType=VARCHAR}, #{supportPersonNo,jdbcType=VARCHAR}, #{housingSituation,jdbcType=VARCHAR}, 
+		      #{depositsInvestments,jdbcType=VARCHAR}, #{vehicleCondition,jdbcType=VARCHAR}, 
+		      #{custType,jdbcType=INTEGER}, #{custNature,jdbcType=INTEGER}, #{spouseCredit,jdbcType=LONGVARCHAR}, 
+		      #{litigaStatus,jdbcType=LONGVARCHAR}, #{loadPurpose,jdbcType=LONGVARCHAR}, #{payment,jdbcType=LONGVARCHAR}, 
+		      #{spouseLitiga,jdbcType=LONGVARCHAR})
+    </insert>
+    <!-- 根据custId更新借款人信息 -->
+    <update id="updateBorrowerInfoWithBLOBsFromRemote" parameterType="com.lhhs.loan.dao.domain.LoanBorrowerInfoWithBLOBs">
+	    UPDATE 
+	    	  loan_borrower_info
+		      set bname = #{bname,jdbcType=VARCHAR},
+		      sex = #{sex,jdbcType=CHAR},
+		      mobile = #{mobile,jdbcType=CHAR},
+		      id_num = #{idNum,jdbcType=CHAR},
+		      education = #{education,jdbcType=VARCHAR},
+		      live_address = #{liveAddress,jdbcType=VARCHAR},
+		      cor_name = #{corName,jdbcType=VARCHAR},
+		      credit_status = #{creditStatus,jdbcType=LONGVARCHAR},
+		      cor_address = #{corAddress,jdbcType=VARCHAR},
+		      mar_status = #{marStatus,jdbcType=VARCHAR},
+		      relation_one = #{relationOne,jdbcType=VARCHAR},
+		      relation_name_one = #{relationNameOne,jdbcType=VARCHAR},
+		      relation_mode_one = #{relationModeOne,jdbcType=VARCHAR},
+		      relation_two = #{relationTwo,jdbcType=VARCHAR},
+		      relation_name_two = #{relationNameTwo,jdbcType=VARCHAR},
+		      relation_mode_two = #{relationModeTwo,jdbcType=VARCHAR},
+		      account_nature = #{accountNature,jdbcType=VARCHAR},
+		      health = #{health,jdbcType=VARCHAR},
+		      driving = #{driving,jdbcType=VARCHAR},
+		      unit_property = #{unitProperty,jdbcType=VARCHAR},
+		      work_years = #{workYears,jdbcType=VARCHAR},
+		      technical_title = #{technicalTitle,jdbcType=VARCHAR},
+		      monthly_income = #{monthlyIncome,jdbcType=VARCHAR},
+		      mailbox = #{mailbox,jdbcType=VARCHAR},
+		      spouse_name = #{spouseName,jdbcType=VARCHAR},
+		      spouse_contact = #{spouseContact,jdbcType=VARCHAR},
+		      spouse_address = #{spouseAddress,jdbcType=VARCHAR},
+		      average_income = #{averageIncome,jdbcType=VARCHAR},
+		      average_pay = #{averagePay,jdbcType=VARCHAR},
+		      debt_income_ratio = #{debtIncomeRatio,jdbcType=VARCHAR},
+		      support_person_no = #{supportPersonNo,jdbcType=VARCHAR},
+		      housing_situation = #{housingSituation,jdbcType=VARCHAR},
+		      deposits_investments = #{depositsInvestments,jdbcType=VARCHAR},
+		      vehicle_condition = #{vehicleCondition,jdbcType=VARCHAR},
+		      cust_type = #{custType,jdbcType=INTEGER},
+		      cust_nature = #{custNature,jdbcType=INTEGER},
+		      spouse_credit = #{spouseCredit,jdbcType=LONGVARCHAR},
+		      litiga_status = #{litigaStatus,jdbcType=LONGVARCHAR},
+		      load_purpose = #{loadPurpose,jdbcType=LONGVARCHAR},
+		      payment = #{payment,jdbcType=LONGVARCHAR},
+		      spouse_litiga = #{spouseLitiga,jdbcType=LONGVARCHAR}
+	    WHERE 
+	    	  cust_id = #{custId,jdbcType=VARCHAR}
+    </update>
+	<!--*************************** 贷前系统碰碰旺系统模块对接 Li Jianjun END ***************************-->
+	<!--*************************** 贷前系统 II 期 Li Jianjun START ***************************-->
+	<!-- 客户信息管理-借款人信息管理 -->
+	<select id="selectBorrowerInfo" parameterType="com.lhhs.loan.dao.domain.vo.LoanBorrowerInfoVo" resultType="com.lhhs.loan.dao.domain.vo.LoanBorrowerInfoVo">
+		SELECT lci.customer_id,lci.customer_name bname,lbi.sex,lci.id_num,lci.customer_mobile mobile,
+			lbi.credit_status,lci.create_time,ld.type_name,lbi.create_user,lci.manager_id
+		FROM loan_borrower_info lbi,loan_customer_info lci
+			LEFT JOIN loan_dictionary ld ON (ld.category='loan_customer_nature' AND ld.type_id = lci.customer_nature)
+		WHERE lci.customer_type='10' AND lci.customer_id=lbi.customer_id
+   			<if test="customerNature != null and customerNature !=''" >
+	      		and lci.customer_nature = #{customerNature,jdbcType=VARCHAR}
+	     	</if>
+   			<if test="customerId != null and customerId !=''" >
+	      		and lci.customer_id = #{customerId,jdbcType=VARCHAR}
+	     	</if>
+	     	<if test="bname != null and bname !=''" >
+	      		and lci.customer_name like concat(concat('%',#{bname,jdbcType=VARCHAR}),'%')
+	     	</if>
+   			<if test="mobile != null and mobile !=''" >
+	      		and lci.customer_mobile = #{mobile,jdbcType=CHAR}
+	     	</if>
+	     	<include refid="Where_Common"/>	
+	     ORDER BY
+	     	lci.create_time desc
+	     	<if test="page != null">
+				limit #{page.pageStartIndex},#{page.pageSize}
+		 	</if>
+	</select>
+	<!-- 客户信息管理-借款人信息管理总记录数查询 -->
+	<select id="selectBorrowerInfoCount" parameterType="com.lhhs.loan.dao.domain.vo.LoanBorrowerInfoVo" resultType="java.lang.Integer">
+		SELECT COUNT(1)
+   		FROM loan_borrower_info lbi,loan_customer_info lci
+		WHERE lci.customer_type='10' AND lci.customer_id=lbi.customer_id
+		<if test="customerNature != null and customerNature !=''" >
+      		and lci.customer_nature = #{customerNature,jdbcType=VARCHAR}
+     	</if>
+  			<if test="customerId != null and customerId !=''" >
+      		and lci.customer_id = #{customerId,jdbcType=VARCHAR}
+     	</if>
+     	<if test="bname != null and bname !=''" >
+      		and lci.customer_name like concat(concat('%',#{bname,jdbcType=VARCHAR}),'%')
+     	</if>
+  			<if test="mobile != null and mobile !=''" >
+      		and lci.customer_mobile = #{mobile,jdbcType=CHAR}
+     	</if>
+     	<include refid="Where_Common"/>	
+	</select>
+	<!-- 根据customer_id查询当前客户的基本信息和抵押物信息之基本信息查询 -->
+	<select id="selectBorrowerBasicInfo" parameterType="java.lang.String" resultType="com.lhhs.loan.dao.domain.vo.LoanBorrowerInfoVo">
+   		SELECT
+			lci.customer_id customerId, ld.type_name customerNature, lci.customer_name bname, lbi.sex sex, ld.type_id typeId,
+			lci.customer_mobile mobile, lci.id_num idNum, lbi.credit_status, lbi.account_nature,
+			lbi.health, lbi.litiga_status, lci.create_time, lbi.driving, lbi.education,lbi.create_user,
+			lbi.mailbox, lbi.live_address, lbi.cor_name, lbi.unit_property, lbi.work_years, lbi.technical_title,
+			lbi.cor_address, lbi.monthly_income, lbi.mar_status, lbi.spouse_name, lbi.spouse_contact, lbi.spouse_litiga,
+			lbi.spouse_credit, lbi.spouse_address, lbi.average_income, lbi.average_pay, lbi.debt_income_ratio,
+			lbi.support_person_no, lbi.housing_situation, lbi.deposits_investments, lbi.vehicle_condition,
+			lci.manager_id,lci.dept_id,le.staff_name as le_staff_name,le.user_id as le_emp_id
+		FROM
+			loan_customer_info lci
+		LEFT JOIN
+			loan_borrower_info lbi ON lbi.customer_id = lci.customer_id
+		LEFT JOIN
+			bump_user  le ON lci.manager_id=le.user_id
+		INNER JOIN
+			loan_dictionary ld ON (ld.type_id = lci.customer_nature AND ld.category = 'loan_customer_nature')
+		WHERE
+   			lci.customer_id = #{customerId,jdbcType=VARCHAR}
+	</select>
+	<!-- 通过客户基本信息的 LoanBorrowerInfoWithBLOBs 对象更新数据库表 -->
+	<update id="updateBorrowerInfoWithBLOBs" parameterType="com.lhhs.loan.dao.domain.LoanBorrowerInfoWithBLOBs" >
+	    update loan_borrower_info
+    <set >
+      <if test="bname != null" >
+        bname = #{bname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="idNum != null" >
+        id_num = #{idNum,jdbcType=CHAR},
+      </if>
+      <if test="education != null" >
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="corName != null" >
+        cor_name = #{corName,jdbcType=VARCHAR},
+      </if>
+      <if test="creditStatus != null" >
+        credit_status = #{creditStatus,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="marStatus != null" >
+        mar_status = #{marStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="relationOne != null" >
+        relation_one = #{relationOne,jdbcType=VARCHAR},
+      </if>
+      <if test="relationNameOne != null" >
+        relation_name_one = #{relationNameOne,jdbcType=VARCHAR},
+      </if>
+      <if test="relationModeOne != null" >
+        relation_mode_one = #{relationModeOne,jdbcType=VARCHAR},
+      </if>
+      <if test="relationTwo != null" >
+        relation_two = #{relationTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="relationNameTwo != null" >
+        relation_name_two = #{relationNameTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="relationModeTwo != null" >
+        relation_mode_two = #{relationModeTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNature != null" >
+        account_nature = #{accountNature,jdbcType=VARCHAR},
+      </if>
+      <if test="health != null" >
+        health = #{health,jdbcType=VARCHAR},
+      </if>
+      <if test="driving != null" >
+        driving = #{driving,jdbcType=VARCHAR},
+      </if>
+      <if test="unitProperty != null" >
+        unit_property = #{unitProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="workYears != null" >
+        work_years = #{workYears,jdbcType=VARCHAR},
+      </if>
+      <if test="technicalTitle != null" >
+        technical_title = #{technicalTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="monthlyIncome != null" >
+        monthly_income = #{monthlyIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="mailbox != null" >
+        mailbox = #{mailbox,jdbcType=VARCHAR},
+      </if>
+      <if test="spouseName != null" >
+        spouse_name = #{spouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="spouseContact != null" >
+        spouse_contact = #{spouseContact,jdbcType=VARCHAR},
+      </if>
+      <if test="averageIncome != null" >
+        average_income = #{averageIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="averagePay != null" >
+        average_pay = #{averagePay,jdbcType=VARCHAR},
+      </if>
+      <if test="debtIncomeRatio != null" >
+        debt_income_ratio = #{debtIncomeRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="supportPersonNo != null" >
+        support_person_no = #{supportPersonNo,jdbcType=VARCHAR},
+      </if>
+      <if test="housingSituation != null" >
+        housing_situation = #{housingSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="depositsInvestments != null" >
+        deposits_investments = #{depositsInvestments,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleCondition != null" >
+        vehicle_condition = #{vehicleCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="liveAddress != null" >
+        live_address = #{liveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="addProvinceNo != null" >
+        add_province_no = #{addProvinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="addCityNo != null" >
+        add_city_no = #{addCityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="corAddress != null" >
+        cor_address = #{corAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="corProvinceNo != null" >
+        cor_province_no = #{corProvinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="corCityNo != null" >
+        cor_city_no = #{corCityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="spouseAddress != null" >
+        spouse_address = #{spouseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceNo != null" >
+        province_no = #{provinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        city_no = #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=DATE},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+      <if test="custType != null" >
+        cust_type = #{custType,jdbcType=INTEGER},
+      </if>
+      <if test="custNature != null" >
+        cust_nature = #{custNature,jdbcType=INTEGER},
+      </if>
+      <if test="spouseCredit != null" >
+        spouse_credit = #{spouseCredit,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="litigaStatus != null" >
+        litiga_status = #{litigaStatus,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="loadPurpose != null" >
+        load_purpose = #{loadPurpose,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="payment != null" >
+        payment = #{payment,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="spouseLitiga != null" >
+        spouse_litiga = #{spouseLitiga,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+	    WHERE 
+	      customer_id = #{customerId,jdbcType=VARCHAR}
+  	</update>
+	<!-- *************************** 贷前系统 II 期 Li Jianjun END ***************************-->
+  <!--*************************** Li Jianjun END ***************************-->
+  <select id="selectByCustomerId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from loan_borrower_info
+    where customer_id = #{customerId,jdbcType=VARCHAR}
+  </select>
+  
+</mapper>

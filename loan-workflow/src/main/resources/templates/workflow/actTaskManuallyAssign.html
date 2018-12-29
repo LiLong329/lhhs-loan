@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li>我的任务</li>
+                        <li>手动指派任务</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                   <form id="inputForm" class="form-horizontal">
+                   <input type="hidden" id="type" value="2"/>
+                    <div class="formtitle"><span>任务信息</span></div>
+                    <div class="toolsli">
+                        <ul class="nbbdgl-Ui">
+                           <li >
+                                <span class="tips">任务编号：</span>
+								  <input type="text" name="taskId" class="txt validate[required]"/>
+                            </li>
+							  <li>
+                                <span class="tips">所属公司：</span>
+                            	  <div class="vocation">
+                            	 <select class="select-common select1 validate[required]" name="affiliatedCompanyId" id="affiliatedCompanyId">
+                                       <option value="">请选择</option>
+                                       <option th:each="companys : ${companys}" th:value="${companys.companyId}" th:text="${companys.CorName}"></option>
+                                 </select>
+                                  </div>
+                            </li>
+                              <li>
+                                <span class="tips">待办人：</span>
+                            	 <div class="vocation">
+                                        <select class="select-common select1" name="userId" id="accountManagerNo" >
+                                            <option value="">请选择</option>
+                                            <option th:each="allManager : ${allManager}" th:value="${allManager.leAccount}" th:text="${allManager.leStaffName}"></option>
+                                        </select>
+                                    </div>
+                            </li>
+                           <br> </br>
+                           <br> </br>
+                           <br> </br>
+                            <li style="width: 80%;">
+                                <span class="tips">&nbsp;</span>
+                                <input type="button" class="scbtn mlt10" id="btn_save"  value="保 存"/>
+                            </li>
+                        </ul>
+                    </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+      <script th:inline="javascript">
+    	/*<![CDATA[*/
+	    	seajs.use("workflow/actTaskTodoList");
+    	/*]]>*/
+    </script>
+</body>
+</html>

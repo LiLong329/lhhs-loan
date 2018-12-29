@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanFeesRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanFeesRecord" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="fees_id" property="feesId" jdbcType="BIGINT" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="fees_rate_unit" property="feesRateUnit" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="trans_main_id" property="transMainId" jdbcType="VARCHAR" />
+    <result column="trans_certificate_id" property="transCertificateId" jdbcType="VARCHAR" />
+    <result column="plan_do_time" property="planDoTime" jdbcType="TIMESTAMP" />
+    <result column="fees_amount" property="feesAmount" jdbcType="DECIMAL" />
+    <result column="trans_type" property="transType" jdbcType="VARCHAR" />
+    <result column="paid_amount" property="paidAmount" jdbcType="DECIMAL" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="fees_rate" property="feesRate" jdbcType="DECIMAL" />
+    <result column="do_time" property="doTime" jdbcType="TIMESTAMP" />
+    <result column="subject_id" property="subjectId" jdbcType="VARCHAR" />
+    <result column="subject_name" property="subjectName" jdbcType="VARCHAR" />
+    <result column="period" property="period" jdbcType="SMALLINT" />
+    <result column="card_no" property="cardNo" jdbcType="VARCHAR" />
+    <result column="account_name" property="accountName" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="branch_name" property="branchName" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="trans_way" property="transWay" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+    <result column="interest_start" property="interestStart" jdbcType="VARCHAR" />
+    <result column="interest_end" property="interestEnd" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, fees_id, order_no, fees_rate_unit, account_id, trans_main_id, trans_certificate_id, 
+    plan_do_time, fees_amount, trans_type, paid_amount, customer_id, fees_rate, do_time, 
+    subject_id, subject_name, period, card_no, account_name, bank_name, branch_name, 
+    remark, trans_way, company_id, union_id, status, create_user, create_time, last_user, 
+    last_modify_time, field1, field2, field3, field4, field5, interest_start, interest_end
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_fees_record
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_fees_record
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanFeesRecord" >
+    insert into loan_fees_record (id, fees_id, order_no, 
+      fees_rate_unit, account_id, trans_main_id, 
+      trans_certificate_id, plan_do_time, fees_amount, 
+      trans_type, paid_amount, customer_id, 
+      fees_rate, do_time, subject_id, 
+      subject_name, period, card_no, 
+      account_name, bank_name, branch_name, 
+      remark, trans_way, company_id, 
+      union_id, status, create_user, 
+      create_time, last_user, last_modify_time, 
+      field1, field2, field3, 
+      field4, field5, interest_start, 
+      interest_end)
+    values (#{id,jdbcType=VARCHAR}, #{feesId,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, 
+      #{feesRateUnit,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, #{transMainId,jdbcType=VARCHAR}, 
+      #{transCertificateId,jdbcType=VARCHAR}, #{planDoTime,jdbcType=TIMESTAMP}, #{feesAmount,jdbcType=DECIMAL}, 
+      #{transType,jdbcType=VARCHAR}, #{paidAmount,jdbcType=DECIMAL}, #{customerId,jdbcType=VARCHAR}, 
+      #{feesRate,jdbcType=DECIMAL}, #{doTime,jdbcType=TIMESTAMP}, #{subjectId,jdbcType=VARCHAR}, 
+      #{subjectName,jdbcType=VARCHAR}, #{period,jdbcType=SMALLINT}, #{cardNo,jdbcType=VARCHAR}, 
+      #{accountName,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, #{branchName,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{transWay,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, 
+      #{unionId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastUser,jdbcType=VARCHAR}, #{lastModifyTime,jdbcType=TIMESTAMP}, 
+      #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, 
+      #{field4,jdbcType=VARCHAR}, #{field5,jdbcType=VARCHAR}, #{interestStart,jdbcType=VARCHAR}, 
+      #{interestEnd,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanFeesRecord" >
+    insert into loan_fees_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="feesId != null" >
+        fees_id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="feesRateUnit != null" >
+        fees_rate_unit,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="transMainId != null" >
+        trans_main_id,
+      </if>
+      <if test="transCertificateId != null" >
+        trans_certificate_id,
+      </if>
+      <if test="planDoTime != null" >
+        plan_do_time,
+      </if>
+      <if test="feesAmount != null" >
+        fees_amount,
+      </if>
+      <if test="transType != null" >
+        trans_type,
+      </if>
+      <if test="paidAmount != null" >
+        paid_amount,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="feesRate != null" >
+        fees_rate,
+      </if>
+      <if test="doTime != null" >
+        do_time,
+      </if>
+      <if test="subjectId != null" >
+        subject_id,
+      </if>
+      <if test="subjectName != null" >
+        subject_name,
+      </if>
+      <if test="period != null" >
+        period,
+      </if>
+      <if test="cardNo != null" >
+        card_no,
+      </if>
+      <if test="accountName != null" >
+        account_name,
+      </if>
+      <if test="bankName != null" >
+        bank_name,
+      </if>
+      <if test="branchName != null" >
+        branch_name,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="transWay != null" >
+        trans_way,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUser != null" >
+        last_user,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+      <if test="interestStart != null" >
+        interest_start,
+      </if>
+      <if test="interestEnd != null" >
+        interest_end,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="feesId != null" >
+        #{feesId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="feesRateUnit != null" >
+        #{feesRateUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="transMainId != null" >
+        #{transMainId,jdbcType=VARCHAR},
+      </if>
+      <if test="transCertificateId != null" >
+        #{transCertificateId,jdbcType=VARCHAR},
+      </if>
+      <if test="planDoTime != null" >
+        #{planDoTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="feesAmount != null" >
+        #{feesAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="transType != null" >
+        #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="paidAmount != null" >
+        #{paidAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="feesRate != null" >
+        #{feesRate,jdbcType=DECIMAL},
+      </if>
+      <if test="doTime != null" >
+        #{doTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="subjectId != null" >
+        #{subjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectName != null" >
+        #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null" >
+        #{period,jdbcType=SMALLINT},
+      </if>
+      <if test="cardNo != null" >
+        #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null" >
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="branchName != null" >
+        #{branchName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="transWay != null" >
+        #{transWay,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+      <if test="interestStart != null" >
+        #{interestStart,jdbcType=VARCHAR},
+      </if>
+      <if test="interestEnd != null" >
+        #{interestEnd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanFeesRecord" >
+    update loan_fees_record
+    <set >
+      <if test="feesId != null" >
+        fees_id = #{feesId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="feesRateUnit != null" >
+        fees_rate_unit = #{feesRateUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="transMainId != null" >
+        trans_main_id = #{transMainId,jdbcType=VARCHAR},
+      </if>
+      <if test="transCertificateId != null" >
+        trans_certificate_id = #{transCertificateId,jdbcType=VARCHAR},
+      </if>
+      <if test="planDoTime != null" >
+        plan_do_time = #{planDoTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="feesAmount != null" >
+        fees_amount = #{feesAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="transType != null" >
+        trans_type = #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="paidAmount != null" >
+        paid_amount = #{paidAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="feesRate != null" >
+        fees_rate = #{feesRate,jdbcType=DECIMAL},
+      </if>
+      <if test="doTime != null" >
+        do_time = #{doTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="subjectId != null" >
+        subject_id = #{subjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectName != null" >
+        subject_name = #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null" >
+        period = #{period,jdbcType=SMALLINT},
+      </if>
+      <if test="cardNo != null" >
+        card_no = #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null" >
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="branchName != null" >
+        branch_name = #{branchName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="transWay != null" >
+        trans_way = #{transWay,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+      <if test="interestStart != null" >
+        interest_start = #{interestStart,jdbcType=VARCHAR},
+      </if>
+      <if test="interestEnd != null" >
+        interest_end = #{interestEnd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanFeesRecord" >
+    update loan_fees_record
+    set fees_id = #{feesId,jdbcType=BIGINT},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      fees_rate_unit = #{feesRateUnit,jdbcType=VARCHAR},
+      account_id = #{accountId,jdbcType=VARCHAR},
+      trans_main_id = #{transMainId,jdbcType=VARCHAR},
+      trans_certificate_id = #{transCertificateId,jdbcType=VARCHAR},
+      plan_do_time = #{planDoTime,jdbcType=TIMESTAMP},
+      fees_amount = #{feesAmount,jdbcType=DECIMAL},
+      trans_type = #{transType,jdbcType=VARCHAR},
+      paid_amount = #{paidAmount,jdbcType=DECIMAL},
+      customer_id = #{customerId,jdbcType=VARCHAR},
+      fees_rate = #{feesRate,jdbcType=DECIMAL},
+      do_time = #{doTime,jdbcType=TIMESTAMP},
+      subject_id = #{subjectId,jdbcType=VARCHAR},
+      subject_name = #{subjectName,jdbcType=VARCHAR},
+      period = #{period,jdbcType=SMALLINT},
+      card_no = #{cardNo,jdbcType=VARCHAR},
+      account_name = #{accountName,jdbcType=VARCHAR},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      branch_name = #{branchName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      trans_way = #{transWay,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR},
+      interest_start = #{interestStart,jdbcType=VARCHAR},
+      interest_end = #{interestEnd,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+   <!-- 汇总应收、已收总额 或者应付、已付总金额-->
+  <select id="queryPaysum" parameterType="com.lhhs.loan.dao.domain.LoanFeesRecord" resultType="com.lhhs.loan.dao.domain.LoanFeesRecord">
+    select sum(fees_amount) fees_amount ,sum(paid_amount) paid_amount
+    from loan_fees_record where trans_main_id=#{transMainId}  and trans_type = #{transType} and status ='03' 
+  </select>
+</mapper>

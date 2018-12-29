@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<script type="text/javascript" src="/js/public/area.js"></script>
+<style>
+   	.downSelect{background:#fff; height:26px;  line-height:26px;padding-left:10px; border:1px solid #ced9df ; border-top:0;}
+   	.downSelect:hover{ color:#fff; background:#1e90ff;}
+   	.cityStyle{margin-left:140px;}
+   	.cityStyle li{width:80%;}
+   	.aStyle{cursor: pointer;color:#FF0000;}
+   	.ac_results ul{overflow-y:auto !important;}
+</style>
+<body>
+	<div class="father">
+	    <header th:replace="common/top"></header>
+	    <div class="common-content">
+	        <div th:replace="common/left"></div>
+	        <div class="common-right">
+	            <div class="place" id="place">
+	                <span>位置：</span>
+	                <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>机构管理</li>
+                        <li><a href="/org/list">机构信息管理</a></li>
+                        <li>
+                        	<a th:if="${organization.orgId}">修改</a>
+                        	<a th:unless="${organization.orgId}">新增</a>
+                        </li>
+                    </ul>
+	            </div>
+	            <div class="right-content">
+	                <div class="formbody">
+	                    <div class="formtitle" th:if="${organization.orgId}"><span>修改机构信息</span></div>
+	                    <div class="formtitle" th:unless="${organization.orgId}"><span>新增机构信息</span></div>
+	                    <form id="myForm">
+		                    <div class="toolsli">
+	                            <ul class="nbbdgl-Ui">
+	                            	<input name="orgId" type="hidden" th:value="${organization.orgId}"/>
+	                            	<th:block th:if="${organization.orgId}">
+	                            		<li>
+		                                    <span class="tips">机构用户名：</span>
+		                                	<span th:text="${organization.orgUsername}"></span>
+		                                </li>
+		                                <li>
+		                                    <span class="tips">机构代码：</span>
+		                                    <span th:text="${organization.orgCode}"></span>
+		                               	</li>
+	                            	</th:block>
+	                            	<th:block th:unless="${organization.orgId}">
+	                            		<li>
+		                                    <span class="tips">机构用户名：</span>
+		                                	<input type="text" class="txt validate[required,maxSize[20],custom[onlyLetterNumber]]" name="orgUsername" id="orgUsername"/>
+		                                </li>
+		                                <li>
+		                                    <span class="tips">机构登录密码：</span>
+		                                    <input type="text" class="txt validate[required,maxSize[18],minSize[4]]" name="orgPassword"/>
+		                                </li>
+		                                <li>
+		                                    <span class="tips">机构代码：</span>
+		                                    <input type="text" class="txt validate[required,maxSize[10],custom[onlyLetterNumber]]" name="orgCode"/>
+	                                	</li>
+	                            	</th:block>
+	                            	<li>
+	                                    <span class="tips">机构名称：</span>
+	                                    <input type="text" class="txt validate[required,maxSize[50]]" name="orgName" th:value="${organization.orgName}"/>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">机构全称：</span>
+	                                    <input type="text" class="txt validate[required,maxSize[100]]" name="orgWholeName" th:value="${organization.orgWholeName}"/>
+	                                </li>
+	                            	<li>
+	                                    <span class="tips">机构类别：</span>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1 validate[required]" name="orgCategories">
+	                                        	<option value="">请选择</option>
+		                                        <option value="1" th:attr="selected=(${organization.orgCategories} and (${organization.orgCategories} eq '1'))">资金方</option>
+		                                        <option value="2" th:attr="selected=(${organization.orgCategories} and (${organization.orgCategories} eq '2'))">借款方</option>
+		                                        <option value="3" th:attr="selected=(${organization.orgCategories} and (${organization.orgCategories} eq '3'))">借款方&amp;资金方</option>
+	                                        </select>
+	                                    </div>
+	                                </li>
+	                            	<li>
+	                                    <span class="tips">机构类型：</span>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1 validate[required]" name="orgType">
+		      									<option value="">请选择</option>
+		      									<option value="1" th:attr="selected=(${organization.orgType} and (${organization.orgType} eq '1'))">银行</option>
+		      									<option value="2" th:attr="selected=(${organization.orgType} and (${organization.orgType} eq '2'))">典当行</option>
+		      									<option value="3" th:attr="selected=(${organization.orgType} and (${organization.orgType} eq '3'))">小贷公司</option>
+		      									<option value="4" th:attr="selected=(${organization.orgType} and (${organization.orgType} eq '4'))">催收机构</option>
+		      									<option value="5" th:attr="selected=(${organization.orgType} and (${organization.orgType} eq '5'))">律所</option>
+		      									<option value="6" th:attr="selected=(${organization.orgType} and (${organization.orgType} eq '6'))">其他</option>
+	                                        </select>
+	                                    </div>
+	                                </li>
+	                            	<li>
+	                                	<span class="tips">机构来源:</span>
+	                                	<div class="vocation">
+	                                        <select class="select-common select1 validate[required]" name="orgOutfitFrom">
+	      										<option value="">请选择</option>
+	      										<option value="1" th:attr="selected=(${organization.orgOutfitFrom} and (${organization.orgOutfitFrom} eq '1'))">晋商睦家</option>
+	      										<option value="2" th:attr="selected=(${organization.orgOutfitFrom} and (${organization.orgOutfitFrom} eq '2'))">联合汇商</option>
+	                                        </select>
+	                                    </div>
+	                                </li>
+	                            	<li>
+	                                    <span class="tips">业务类型：</span>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1 validate[required]" name="orgBusinessType">
+	      										<option value="">请选择</option>
+		      									<option value="1" th:attr="selected=(${organization.orgBusinessType} and (${organization.orgBusinessType} eq '1'))">资金批发</option>
+		      									<option value="2" th:attr="selected=(${organization.orgBusinessType} and (${organization.orgBusinessType} eq '2'))">非资金批发</option>
+	                                        </select>
+	                                    </div>
+	                                </li>
+	                            	<li>
+	                                    <span class="tips">晋商分公司：</span>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1" name="isCompany">
+		                                     	<option value="">请选择</option>
+		                                     	<option value="N" th:attr="selected=(${organization.isCompany} and (${organization.isCompany} eq 'N'))">否</option>
+		                                     	<option value="Y" th:attr="selected=(${organization.isCompany} and (${organization.isCompany} eq 'Y'))">是</option>
+	                                        </select>
+	                                    </div>
+	                                </li>
+	                            	<li>
+	                                    <span class="tips">营业执照编号：</span>
+	                                    <input type="text" class="txt validate[maxSize[20]]" name="orgBusinessLicenseNo" th:value="${organization.orgBusinessLicenseNo}"/>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">法人代表：</span>
+	                                    <input type="text" class="txt validate[minSize[2],maxSize[15],custom[chineseName]]" name="orgLegalRepresentative" th:value="${organization.orgLegalRepresentative}"/>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">机构网站：</span>
+	                                    <input type="text" class="txt" name="orgWebsite" th:value="${organization.orgWebsite}" maxLength="200"/>
+	                                </li>
+	                            	<li>
+	                                    <span class="tips">负责人姓名：</span>
+	                                    <input type="text" class="txt validate[minSize[2],maxSize[15],custom[chineseName]]" name="orgLeaderName" th:value="${organization.orgLeaderName}"/>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">负责人手机号：</span>
+	                                    <input type="tel" class="txt validate[custom[mobile]]" name="orgLeaderMobile" th:value="${organization.orgLeaderMobile}"/>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">负责人邮箱：</span>
+	                                    <input type="text" class="txt validate[maxSize[50]]" name="orgLeaderEmail" th:value="${organization.orgLeaderEmail}"/>
+	                                </li>
+	                            	<li style="width: 80%;" th:with="addr=(${organization.orgAddress})?(${#strings.arraySplit(organization.orgAddress,'-')}):(${#strings.arraySplit('','-')})">
+	                                    <span class="tips">地址：</span>
+	                                    <div class="vocation">
+							                <select class="select-common select3 provinceSelect" name="orgAddress_sub_1"
+							               		th:attr="data-val=(${#arrays.length(addr)} ge 1)?${addr[0]}:''">
+							                </select>
+							            </div>
+							            <span>省</span>
+	                                    <div class="vocation">
+											<select class="select-common select3 citySelect" name="orgAddress_sub_2"
+												th:attr="data-val=(${#arrays.length(addr)} ge 2)?${addr[1]}:''">
+											</select>
+										</div>
+							            <span>市</span>
+	                                    <input type="text" class="txt" name="orgAddress_sub_3" maxlength="50" 
+				            				th:value="(${#arrays.length(addr)} ge 3)?${addr[2]}:''" placeholder="最多输入50个字符"/>
+	                                </li>
+	                            	<li style="width: 80%;">
+	                                    <span class="tips" style="vertical-align: top;">机构LOGO：</span>
+					                    <span><img id="showImg" th:src="${organization.orgLogo}" class="imgs"/></span>
+						                <p style="float:left; margin-left: 20px; margin-top:10px; position:relative;">
+					                    	<input type="button" class="scbtn1" value="上传文件"/>
+				                            <input type="file" class="uploadImgs" name="file" id="uploadImg"/>
+					                    </p>
+					                    <input type="hidden" name="orgLogo" id="pathurl" th:value="${organization.orgLogo}"/>
+	                                </li>
+	                            	<li>
+	                                	<span class="tips">支持城市：</span>
+	                                	<div class="vocation">
+	                                        <select class="select-common select3 provinceSelect" id="provinceSelect"></select>
+	                                    </div>
+	                                    <span>省</span>
+	                                    <div class="vocation">
+	                                        <select class="select-common select3 citySelect" id="citySelect"></select>
+	                                    </div>
+	                                    <span>市</span>
+	                                    <span class="scbtn1 cityAdd">添加</span>
+	                                </li>
+	                            	<li style="width:80%;">
+	                                	<ul class="cityStyle" id="cityList">
+	                                		<th:block th:unless="${#lists.isEmpty(organization.supportCityList)}">
+	                                			<th:block th:each="single:${organization.supportCityList}">
+	                                				<li>
+														<span class='provinceName' th:text="${single.provinceName}"></span>
+														<span class='cityName' th:text="${single.cityName}"></span>
+			                                			<span class='aStyle'>×</span>
+		                                			</li>
+	                                			</th:block>
+	                                		</th:block>
+	                                	</ul>
+	                                </li>
+	                            </ul>
+	                        </div>
+		                    <div class="formtitle"><span>账户信息</span></div>
+		                    <div class="toolsli">
+	                            <ul class="nbbdgl-Ui">
+	                                <li style="width: 80%;">
+	                                    <span class="tips">机构账户(对公账号)：</span>
+	                                    <input type="text" class="txt validate[maxSize[50]]" name="orgAccountName" th:value="${organization.orgAccountName}"/>
+	                                </li>
+	                                <li style="width: 80%;">
+	                                    <span class="tips">开户银行：</span>
+	                                    <input type="text" class="txt validate[maxSize[10]]" name="orgAccountBank" th:value="${organization.orgAccountBank}"/>
+	                                </li>
+	                                <li style="width: 80%;">
+	                                    <span class="tips">开户银行支行：</span>
+	                                    <input type="text" class="txt validate[maxSize[50]]" name="orgAccountBanchBank" th:value="${organization.orgAccountBanchBank}"/>
+	                                </li>
+	                                <li style="width: 80%;">
+	                                    <span class="tips">银行账号：</span>
+	                                    <input type="text" class="txt validate[custom[integer],minSize[16],maxSize[19]]" name="orgAccountNo" th:value="${organization.orgAccountNo}"/>
+	                                </li>
+	                            </ul>
+	                        </div>
+	                    </form>
+	                    <div class="toolsli">
+                            <ul class="nbbdgl-Ui">
+                                <li style="width: 80%;">
+                                    <span class="tips">&nbsp;</span>
+                                    <input type="button" class="scbtn mlt10" value="保 存" id="update_btn"/>
+                                    <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);"/>
+                                </li>
+                            </ul>
+                        </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	    <script src="/js/public/select.js"></script>
+	    <footer th:replace="common/footer"></footer>
+	</div>
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		    seajs.use("organization/orgUpdate");
+		/*]]>*/
+	</script>
+</body>
+</html>

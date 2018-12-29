@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script src="/js/public/area.js"></script>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+        <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>财务管理</li>
+                        <li>付款管理</li>
+                        <li>待付款计划</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                	<div style="position: relative;">
+	                    <div class="formbody">
+	                        <div id="usual1" class="usual">
+	                            <ul class="seachform1">
+	                                <form id="myForm">
+	                                 <input  name="pageNumber" type="hidden" value="" id="currentPageNo"/>
+	                                   
+	                                    <li>
+	                                    <label>业务编号：</label>
+	                                    <input type="text" class="scinput1" name="orderno" th:value="${orderno}"/>
+	                                    </li>
+	                                    <li>
+	                                    <label>放款编号：</label>
+	                                    <input type="text" class="scinput1" name="transMainId" th:value="${transMainId}"/>
+	                                    </li>
+	                                    <li>
+	                                    <label>出借人姓名：</label>
+	                                    <input type="text" class="scinput1" name="customername" th:value="${customername}"/>
+	                                </li>
+	                                <li>
+	                                    <label>应收利息时间：</label>
+	                                    <input type="text" class="scinput1" name="interestminTime" th:value="${interestminTime}"  onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+	                                    <span> 至 </span>
+	                                    <input type="text" class="scinput1" name="interestmaxTime" th:value="${interestmaxTime}"  onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+	                                </li>
+	                                <li>
+	                                    <label>应收本金时间：</label>
+	                                    <input type="text" class="scinput1" name="capitalminTime" th:value="${capitalminTime}"  onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+	                                    <span>至</span>
+	                                    <input type="text" class="scinput1" name="capitalmaxTime" th:value="${capitalmaxTime}"  onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+	                                </li>
+	                                <li>
+	                                    <input type="button" class="scbtn searcher" value="查询"/>
+	                                </li>
+	                                </form>
+	                                
+	                            </ul>
+	                            <div class="table-title">
+	                                <p class="tab-font">待付款计划</p>
+	                            </div>
+	                            <table class="tablelist">
+	                                <thead>
+	                                    <tr>
+	                                        <th>放款编号</th>
+	                                        <th>业务编号</th>
+	                                        <th>产品名称</th>
+	                                        <th>出借人姓名</th>
+	                                        <th>当期/总期数</th>
+	                                        <th>应收总额（元）</th>
+	                                        <th>应收本金</th>
+	                                        <th>已收本金</th>
+	                                        <th>应收本金时间</th>
+	                                        <th>应收利息</th>
+	                                        <th>已收利息</th>
+	                                        <th>应收利息时间</th>
+	                                        <!-- <th>逾期天数</th> -->
+	                                        <!-- <th>应收贴息</th> -->
+	                                        <th sec:authorize="hasRole('ROLE_EXECUTE_PAYMENT')">操作</th>
+	                                    </tr>
+	                                </thead>
+	                                <tbody>
+	                                   <tr:block th:unless="${#lists.isEmpty(payplan)}" >
+	                                    <tr th:each="pay:${payplan}">
+	                                    <tr>
+	                                        <td th:text="${pay.transMainId}"></td>
+	                                        <td>
+	                                        <th:block th:if="${pay.transType} eq 1001" >
+	                                        <a th:href="@{/orderInfo/get(orderNo=${pay.orderNo})}" class="tablelink" th:text="${pay.orderNo}"></a>
+	                                        </th:block>
+	                                        <th:block th:if="${pay.transType} eq 1007" >
+	                                        <a th:href="@{/transAccountsManager/TotransAccountsById(transId=${pay.orderNo})}" class="tablelink" th:text="${pay.orderNo}"></a>
+	                                        </th:block>
+	                                        </td>
+	                                        <td th:text="${pay.productName}"></td>
+	                                        <td th:text="${pay.customerName}"></td>
+	                                        <td th:text="${pay.period}+'/'+${pay.periodTotal}"></td>
+	                                        <td th:text="${pay.repaymentTotal}?${#numbers.formatDecimal(pay.repaymentTotal,1,2)}"></td>
+	                                        <td th:text="${pay.repaymentCapital}?${#numbers.formatDecimal(pay.repaymentCapital,1,2)}"></td>
+	                                        <td th:text="${pay.paidCapital}?${#numbers.formatDecimal(pay.paidCapital,1,2)}"></td>
+	                                        <td th:text="${pay.repaymentCapitalTime}?${#dates.format(pay.repaymentCapitalTime, 'yyyy-MM-dd HH:mm:ss')}:''"></td>
+	                                        <td th:text="${pay.repaymentInterest}?${#numbers.formatDecimal(pay.repaymentInterest,1,2)}"></td>
+	                                        <td th:text="${pay.paidInterest}?${#numbers.formatDecimal(pay.paidInterest,1,2)}"></td>
+	                                        <td th:text="${pay.repaymentInterestTime}?${#dates.format(pay.repaymentInterestTime, 'yyyy-MM-dd HH:mm:ss')}:''"></td>
+	                                        <!-- <td th:text="${pay.overdueDays}"></td> -->
+	                                        <!-- <td th:text="${pay.overdueInterest}?${#numbers.formatDecimal(pay.overdueInterest,1,2)}"></td> -->
+	                                        <td sec:authorize="hasRole('ROLE_EXECUTE_PAYMENT')">
+	                                        	<a href="javascript:void(0);" class="tablelink topayment" 
+	                                        		th:attr="data-payId=${pay.id},data-mainId=${pay.transMainId},data-accountId=${pay.accountId},data-period=${pay.period},data-investperiod=${pay.investPeriod}+1">执行付款</a>
+                                       		</td>
+	                                    </tr>
+	                                    </tr>
+	                                    </tr:block>
+	                                    <tr:block th:if="${#lists.isEmpty(payplan)}">
+	                                      <tr>
+	                                      	<td sec:authorize="hasRole('ROLE_EXECUTE_PAYMENT')" colspan="15" class="textCt">暂无数据</td>
+	                                      	<td sec:authorize="not hasRole('ROLE_EXECUTE_PAYMENT')" colspan="14" class="textCt">暂无数据</td>
+	                                      </tr>
+	                                    </tr:block>
+	                                </tbody>
+	                            </table>
+	                            <div class="pagin" style="margin-top: 0px;" th:unless="${#lists.isEmpty(page.resultList)}">
+									<div class="message">
+										统计数据(<b th:text="${page.totalCount}"></b>条);&nbsp;&nbsp;&nbsp;
+										应付总额：<b th:text="${#maps.isEmpty(map)}?0.00:(${#maps.containsKey(map, 'repaymentTotal')}?${#numbers.formatDecimal(map.repaymentTotal,1,2)}:0.00)"></b>元&nbsp;&nbsp;&nbsp;
+										应付本金：<b th:text="${#maps.isEmpty(map)}?0.00:(${#maps.containsKey(map, 'repaymentCapital')}?${#numbers.formatDecimal(map.repaymentCapital,1,2)}:0.00)"></b>元&nbsp;&nbsp;&nbsp;
+				                                                                        应付利息：<b th:text="${#maps.isEmpty(map)}?0.00:(${#maps.containsKey(map, 'repaymentInterest')}?${#numbers.formatDecimal(map.repaymentInterest,1,2)}:0.00)"></b>
+				                    </div>
+								</div>
+	                            <div class="pagin" th:unless="${#lists.isEmpty(page.resultList)}">
+									<div class="message">
+										<input sec:authorize="hasRole('ROLE_PAYMENT_EXPORT')" type="button" value="导出" class="scbtn1" style="width: 65px;" id="export"/>
+										&nbsp;&nbsp;&nbsp;共 <i class="blue" th:text="${page.totalCount}"></i> 条记录，当前显示第 <i
+											class="blue" th:text="${page.pageIndex}"></i> 页
+											 
+									</div>
+									<ul class="paginList">
+										<li class="paginItem" th:if="${page.pageIndex} gt 1"><a
+											th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+										</li>
+										<li class="paginItem"
+											th:each="x:${#numbers.sequence(page.startNum, page.endNum)}"
+											th:classappend="(${page.pageIndex} eq ${x})?'current'"><a
+											th:attr="data-pagenum=${x}" th:text="${x}"></a></li>
+										<li class="paginItem"
+											th:if="${page.pageIndex} lt ${page.pageCount}"><a
+											th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+										</li>
+									</ul>
+								</div>
+	                        </div>
+	                    </div>
+                    	<div class="payment" style="display:none;" id="payment"></div>
+                    	<div class="paymentAll" style="display:none;" id="paymentAll"></div>
+                   	</div>
+                </div>
+            </div>
+        </div>
+        <script src="/js/public/select.js"></script>
+        <footer th:replace="common/footer"></footer>
+    </div>
+    <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+    <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+    <script>seajs.use("custManagment/awaitingpayment");</script>
+</body>
+</html>

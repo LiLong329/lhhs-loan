@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanEmpQuartersMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanEmpQuarters" >
+    <id column="leq_eq_id" property="leqEqId" jdbcType="INTEGER" />
+    <result column="leq_emp_id" property="leqEmpId" jdbcType="INTEGER" />
+    <result column="leq_quarters_id" property="leqQuartersId" jdbcType="INTEGER" />
+    <result column="leq_english_name" property="leqEnglishName" jdbcType="VARCHAR" />
+    <result column="le_staff_name" property="leStaffName" jdbcType="VARCHAR" />
+    <result column="lq_name" property="lqName" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="ld_dept_id" property="deptId" jdbcType="VARCHAR" />
+    <result column="ld_name" property="deptName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    leq_eq_id, leq_emp_id, leq_quarters_id,leq_english_name
+  </sql>
+  
+ <!-- 自定义方法区 -->
+  <sql id="Where_Common">
+  <if test="authgroupList != null">
+	 	and 
+         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+	         (1=1
+	             <if test="item.orgId != null and item.orgId != ''">
+				  		and le.branch_company_id =  #{item.orgId}
+				 </if>
+			  )
+          </foreach>
+	</if>
+	<if test="unionId != null and unionId != ''">
+  		and le.company_id = #{unionId}
+  	</if>
+  </sql>
+  
+     <!-- 公共查询条件 -->
+      <sql id="Where_query">
+  	     <if test="branchCompanyId != null and branchCompanyId != ''">
+	  		and le.branch_company_id= #{branchCompanyId}
+	     </if>
+  	     <if test="deptId != null and deptId != ''">
+	  		and le.le_dept_id = #{deptId}
+	  	</if>
+  	     <if test="leqEmpId != null and leqEmpId != ''">
+	  		and lep.leq_emp_id = #{leqEmpId}
+	  	</if>
+	  		<if test="leqQuartersId != null and leqQuartersId != ''">
+	  		and lep.leq_quarters_id = #{leqQuartersId}
+	  	</if>
+	  		<if test="leStaffName != null and leStaffName != ''">
+	  		and le.le_staff_name  LIKE CONCAT(CONCAT('%', #{leStaffName}), '%') 
+	  	</if>
+	  		<if test="lqName != null and lqName != ''">
+	  		and lq.lq_name  LIKE CONCAT(CONCAT('%', #{lqName}), '%') 
+	  	</if>
+	  		<if test="leqEnglishName != null and leqEnglishName != ''">
+	  		and lep.leq_english_name  LIKE CONCAT(CONCAT('%', #{leqEnglishName}), '%') 
+	  	</if>
+  </sql>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_emp_quarters
+    where leq_eq_id = #{leqEqId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from loan_emp_quarters
+    where leq_eq_id = #{leqEqId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanEmpQuarters" >
+    insert into loan_emp_quarters (leq_eq_id, leq_emp_id, leq_quarters_id,leq_english_name
+      )
+    values (#{leqEqId,jdbcType=INTEGER}, #{leqEmpId,jdbcType=INTEGER}, #{leqQuartersId,jdbcType=INTEGER}
+    , #{leqEnglishName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanEmpQuarters" >
+    insert into loan_emp_quarters
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="leqEqId != null" >
+        leq_eq_id,
+      </if>
+      <if test="leqEmpId != null" >
+        leq_emp_id,
+      </if>
+      <if test="leqQuartersId != null" >
+        leq_quarters_id,
+      </if>
+      <if test="leqEnglishName != null" >
+       leq_english_name
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="leqEqId != null" >
+        #{leqEqId,jdbcType=INTEGER},
+      </if>
+      <if test="leqEmpId != null" >
+        #{leqEmpId,jdbcType=INTEGER},
+      </if>
+      <if test="leqQuartersId != null" >
+        #{leqQuartersId,jdbcType=INTEGER},
+      </if>
+      <if test="leqEnglishName != null" >
+        #{leqEnglishName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanEmpQuarters" >
+    update loan_emp_quarters
+    <set >
+      <if test="leqEmpId != null" >
+        leq_emp_id = #{leqEmpId,jdbcType=INTEGER},
+      </if>
+      <if test="leqQuartersId != null" >
+        leq_quarters_id = #{leqQuartersId,jdbcType=INTEGER},
+      </if>
+      <if test="leqEnglishName != null" >
+        leq_english_name = #{leqEnglishName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where leq_eq_id = #{leqEqId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanEmpQuarters" >
+    update loan_emp_quarters
+    set leq_emp_id = #{leqEmpId,jdbcType=INTEGER},
+      leq_quarters_id = #{leqQuartersId,jdbcType=INTEGER},
+      leq_english_name = #{leqEnglishName,jdbcType=VARCHAR},
+    where leq_eq_id = #{leqEqId,jdbcType=INTEGER}
+  </update>
+  
+   <!--根据员工编号查询 -->
+   <select id="selectByEmpId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_emp_quarters
+    where leq_emp_id = #{leqEmpId,jdbcType=INTEGER}
+  </select>
+   <!--根据员工编号查询 -->
+   <select id="selectQuartersIdByEmpId" resultType="int" parameterType="java.lang.Integer" >
+    select leq_quarters_id  from loan_emp_quarters
+    where leq_emp_id = #{leqEmpId,jdbcType=INTEGER}
+  </select>
+  
+  <!--根据员工编号删除 -->
+  <delete id="deleteByEmpId" parameterType="java.lang.Integer" >
+    delete from loan_emp_quarters
+    where leq_emp_id = #{leqEmpId,jdbcType=INTEGER}
+  </delete>
+  
+   <!--根据员工编号查询岗位名称列表 -->
+   <select id="selectQuartersNamesByEmpId" resultType="String" parameterType="java.lang.Integer" >
+    select lq.lq_name  from loan_emp_quarters leq  left join loan_quarters  lq  on  leq.leq_quarters_id=lq.lq_quarters_id
+    where leq.leq_emp_id = #{leqEmpId,jdbcType=INTEGER}
+  </select>
+  
+    <!-- 员工岗位列表查询 -->
+    <select id="queryListPage" parameterType="com.lhhs.loan.dao.domain.LoanEmpQuarters"  resultType="com.lhhs.loan.dao.domain.LoanEmpQuarters">
+  	select  <include refid="Base_Column_List" />,le.le_staff_name,lq.lq_name,luc.company_name,ld.ld_name
+    from loan_emp_quarters lep
+    LEFT JOIN loan_emp le on lep.leq_emp_id=le.le_emp_id
+    LEFT JOIN loan_quarters lq on lep.leq_quarters_id=lq.lq_quarters_id
+    LEFT JOIN loan_union_company luc on le.branch_company_id=luc.company_id
+    LEFT JOIN loan_dept ld on le.le_dept_id=ld.ld_dept_id
+  	where 1=1
+  	 <include refid="Where_query"/>
+  	 <include refid="Where_Common"/>
+  	order by lep.leq_eq_id desc
+  	<if test="page != null">
+  		limit #{page.pageStartIndex},#{page.pageSize}
+  	</if>
+  </select>
+  
+    <select id="queryCount" parameterType="com.lhhs.loan.dao.domain.LoanEmpQuarters" resultType="int">
+  	select  count(1)
+  	from loan_emp_quarters lep
+  	LEFT JOIN loan_emp le on lep.leq_emp_id=le.le_emp_id
+    LEFT JOIN loan_quarters lq on lep.leq_quarters_id=lq.lq_quarters_id
+    LEFT JOIN loan_union_company luc on le.branch_company_id=luc.company_id
+    LEFT JOIN loan_dept ld on le.le_dept_id=ld.ld_dept_id
+  	where 1=1
+  	     <include refid="Where_query"/>
+         <include refid="Where_Common"/>
+  </select>
+  
+  <!-- 查询所属公司 -->
+   <select id="queryAllCompany" parameterType="com.lhhs.loan.dao.domain.LoanEmpQuarters" resultMap="BaseResultMap">
+       select company_id,company_name,union_id from loan_union_company  t
+       where t.status='03'
+       <if test="authgroupList != null">
+	 	and 
+	         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+		         (1=1
+		             <if test="item.orgId != null and item.orgId != ''">
+					  		and t.company_id =  #{item.orgId}
+					 </if>
+				  )
+	          </foreach>
+		</if>
+		<if test="unionId != null and unionId != ''">
+	  		and t.union_id = #{unionId}
+	  	</if>
+  </select>
+   <!-- 公司部门级联查询 -->
+   <select id="queryAllDept" parameterType="java.lang.String" resultType="map">
+       select ld_dept_id,ld_name from loan_dept where ld_company=#{companyId}
+  </select>
+</mapper>

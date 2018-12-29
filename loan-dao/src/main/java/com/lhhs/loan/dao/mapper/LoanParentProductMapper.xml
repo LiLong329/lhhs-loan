@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanParentProductMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanParentProduct" >
+    <id column="product_no" property="productNo" jdbcType="VARCHAR" />
+    <result column="product_type" property="productType" jdbcType="VARCHAR" />
+    <result column="product_money" property="productMoney" jdbcType="VARCHAR" />
+    <result column="product_term" property="productTerm" jdbcType="VARCHAR" />
+    <result column="product_term_unit" property="productTermUnit" jdbcType="VARCHAR" />
+    <result column="product_interest" property="productInterest" jdbcType="VARCHAR" />
+    <result column="thumbnail_picture" property="thumbnailPicture" jdbcType="VARCHAR" />
+    <result column="product_picture" property="productPicture" jdbcType="VARCHAR" />
+    <result column="product_state" property="productState" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    product_no, product_type, product_money, product_term, product_term_unit, product_interest, 
+    thumbnail_picture, product_picture, product_state, create_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_parent_product
+    where product_no = #{productNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_parent_product
+    where product_no = #{productNo,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanParentProduct" >
+    insert into loan_parent_product (product_no, product_type, product_money, 
+      product_term, product_term_unit, product_interest, 
+      thumbnail_picture, product_picture, product_state, 
+      create_date)
+    values (#{productNo,jdbcType=VARCHAR}, #{productType,jdbcType=VARCHAR}, #{productMoney,jdbcType=VARCHAR}, 
+      #{productTerm,jdbcType=VARCHAR}, #{productTermUnit,jdbcType=VARCHAR}, #{productInterest,jdbcType=VARCHAR}, 
+      #{thumbnailPicture,jdbcType=VARCHAR}, #{productPicture,jdbcType=VARCHAR}, #{productState,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanParentProduct" >
+    insert into loan_parent_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productNo != null" >
+        product_no,
+      </if>
+      <if test="productType != null" >
+        product_type,
+      </if>
+      <if test="productMoney != null" >
+        product_money,
+      </if>
+      <if test="productTerm != null" >
+        product_term,
+      </if>
+      <if test="productTermUnit != null" >
+        product_term_unit,
+      </if>
+      <if test="productInterest != null" >
+        product_interest,
+      </if>
+      <if test="thumbnailPicture != null" >
+        thumbnail_picture,
+      </if>
+      <if test="productPicture != null" >
+        product_picture,
+      </if>
+      <if test="productState != null" >
+        product_state,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productNo != null" >
+        #{productNo,jdbcType=VARCHAR},
+      </if>
+      <if test="productType != null" >
+        #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="productMoney != null" >
+        #{productMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="productTerm != null" >
+        #{productTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="productTermUnit != null" >
+        #{productTermUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="productInterest != null" >
+        #{productInterest,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbnailPicture != null" >
+        #{thumbnailPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="productPicture != null" >
+        #{productPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="productState != null" >
+        #{productState,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanParentProduct" >
+    update loan_parent_product
+    <set >
+      <if test="productType != null" >
+        product_type = #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="productMoney != null" >
+        product_money = #{productMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="productTerm != null" >
+        product_term = #{productTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="productTermUnit != null" >
+        product_term_unit = #{productTermUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="productInterest != null" >
+        product_interest = #{productInterest,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbnailPicture != null" >
+        thumbnail_picture = #{thumbnailPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="productPicture != null" >
+        product_picture = #{productPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="productState != null" >
+        product_state = #{productState,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where product_no = #{productNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanParentProduct" >
+    update loan_parent_product
+    set product_type = #{productType,jdbcType=VARCHAR},
+      product_money = #{productMoney,jdbcType=VARCHAR},
+      product_term = #{productTerm,jdbcType=VARCHAR},
+      product_term_unit = #{productTermUnit,jdbcType=VARCHAR},
+      product_interest = #{productInterest,jdbcType=VARCHAR},
+      thumbnail_picture = #{thumbnailPicture,jdbcType=VARCHAR},
+      product_picture = #{productPicture,jdbcType=VARCHAR},
+      product_state = #{productState,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where product_no = #{productNo,jdbcType=VARCHAR}
+  </update>
+  <!-- 检索一级产品列表-->
+  <select id="queryProductList" resultMap="BaseResultMap">
+     select <include refid="Base_Column_List"/>
+     from loan_parent_product    
+     <if test="_parameter!=null and _parameter!=''">
+      where product_no=#{_parameter,jdbcType=VARCHAR}
+     </if>
+  </select>
+  <!-- 检索一级产品列表-->
+  <select id="queryProductListByType" resultMap="BaseResultMap">
+     select <include refid="Base_Column_List"/>
+     from loan_parent_product    
+     <if test="_parameter != null and _parameter !=''">
+      where product_type = #{_parameter,jdbcType=VARCHAR}
+     </if>
+  </select>
+  
+  <!-- 查询 各种产品列表 -->
+ 
+  <select id="queryAllProduct"  resultType="map">
+     select product_no,product_type from loan_parent_product order by create_date
+  </select>
+  <select id="queryProductByStatus"  resultType="map">
+     select product_no,product_type from loan_parent_product
+     <if test="_parameter != null and _parameter !=''">
+     	where product_state = #{_parameter,jdbcType=VARCHAR}
+     </if>
+     order by create_date
+  </select>
+ 
+ 
+</mapper>

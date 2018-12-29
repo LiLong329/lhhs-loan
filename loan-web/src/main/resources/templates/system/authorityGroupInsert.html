@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<body>
+<div class="father">
+    <header th:replace="common/top"></header>
+    <div class="common-content">
+        <div th:replace="common/left"></div>
+        <div class="common-right">
+            <div class="place" id="place">
+                <span>位置：</span>
+                <ul class="placeul">
+                    <li><a href="/index/index">首页</a></li>
+                    <li>系统管理</li>
+                    <li>权限设置</li>
+                    <li><a th:href="@{/systemManager/authorityGroupList}">数据权限组</a></li>
+                    <li>新增</li>
+                </ul>
+            </div>
+            <div class="right-content">
+            	<div style="position: relative;">
+	                <div class="formbody">
+	                    <div class="formtitle"><span>新增数据权限组</span></div>
+	                    <div class="toolsli">
+	                        <ul class="nbbdgl-Ui">
+	                            <form id="myForm">
+		                            <li>
+		                                <span class="tips">数据组名称：</span>
+		                                <input type="text" class="txt groupName validate[required,maxSize[10]]"  maxlength="20" id="groupName"/>
+		                            </li>
+		                             <th:block th:if="${isAdmin} eq 'admin'">
+		                                 <li style="width: 80%;">
+		                                    <span class="tips">集团：</span>
+		                                    <div class="vocation">
+		                                    <select class="select-common select1 validate[required]" name="unionId" id="companyId">
+		                                        <option value="unionALL" >全部</option>
+		                                         <option th:each="g : ${allUnion}" th:value="${g.companyId}" 
+		                                         th:text="${g.companyName}"></option>
+		                                    </select>
+		                                </div>
+		                                </li>
+		                                <li style="width: 80%;">
+		                                    <span class="tips">集团分公司：</span>
+		                                    <div class="vocation">
+		                                    <select class="select-common select1 company validate[required]" name="companyId" id="company">
+		                                    	<option value="companyAll">全部</option>
+		                                    </select>
+		                                </div>
+		                                </li>
+                                    </th:block>
+                                     <li style="width: 80%;">
+		                               <span class="tips">数据范围：</span>
+		                              <div class="vocation">
+		                                  <select class="select-common select3 validate[required]" name="dataZone" id="dataZone">
+		                                      <option value="" >请选择</option>
+		                                      <option value="6" >通用权限组</option>
+		                                      <option value="7" >菜单权限组</option>
+		                                  </select>
+		                              </div>
+		                             </li>
+		                            <li style="width: 90%;">
+		                                <span class="tips">数据权限：</span>
+		                                <cite class="clearfix"  style="padding-left:140px;">
+		                                	<span id="treeCheckTip" style="margin-top:6px;">请先选择数据范围</span>
+		                                	<ul class="treeCheck" style="margin-left: 15px;" id="treeId"></ul>
+		                                </cite>
+	                                </li>
+		                            <li style="width: 80%;">
+		                                <span class="tips">&nbsp;</span>
+		                                <input type="button" class="scbtn mlt10 newdeptkeep" id="btn_save" value="保 存"/>
+		                                <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);"/>
+		                            </li>
+	                            </form>
+	                        </ul>
+	                    </div>
+	                </div>
+	                <div id="preview" style="display:none;">
+	                	<div class="previewBack"></div>
+	                	<div class="preview" style="width:500px; left:50%; margin-left:-250px; margin-right:0;">
+	                		<div class="formbody">
+	                			<div class="toolsli">
+                        			<ul class="nbbdgl-Ui">
+	                        			<li style="width:100%;">
+			                                <cite class="clearfix">
+			                                	<ul class="treeCheck" style="margin-left: 15px;" id="previewTree"></ul>
+			                                </cite>
+			                            </li>
+			                            <li style="width: 100%;text-align:center;margin-top:20px;">
+			                                <input type="button" class="scbtn" value="确 定" id="preview_btn"/>
+			                                <input type="button" class="scbtn2 mlt10" value="取 消" id="preview_not"/>
+			                            </li>
+                        			</ul>
+                       			</div>
+	                		</div>
+	                	</div>
+	                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="common/footer"></footer>
+</div>
+ <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+ <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+ <script src="/js/public/jquery.checktree.js" type="text/javascript" charset="utf-8"></script>
+ <script th:inline="javascript">
+    	/*<![CDATA[*/
+	    	var allLastAuthyList = [[${allLastAuthyList}]];
+	    	seajs.use("system/authorityGroupInsert");
+    	/*]]>*/
+  </script>
+</body>
+</html>

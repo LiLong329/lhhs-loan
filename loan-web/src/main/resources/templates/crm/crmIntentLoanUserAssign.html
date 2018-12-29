@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li>意向客户管理</li>
+                        <li th:if="${crmUser.actionType} eq 'assign'">指派</li>
+                        <li th:if="${crmUser.actionType} eq 'change'">转移</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                    	<div class="itab">
+	                        <ul>
+	                            <li><a data-show="#tab1">客户信息</a></li>
+	                            <li><a data-show="#tab2">回访记录</a></li>
+	                        </ul>
+	                    </div>
+		                <div id="tab1" class="tabson">
+		                	<form id="inputForm">
+			                    <input type="hidden" name="id"  th:attr="value=${crmUser.id}"/>
+			                    <input type="hidden" id="actionType" name="actionType"  th:attr="value=${crmUser.actionType}"/>
+			                    <div class="formtitle"><span>客户信息</span></div>
+			                    <div class="toolsli">
+			                        <ul class="nbbdgl-Ui">
+			                            <li>
+			                                <span class="tips">客户姓名：</span>
+											<span th:text="${crmUser.name}"></span>
+			                            </li>
+			                            <li>
+			                                <span class="tips">手机号：</span>
+											<span th:text="${crmUser.mobile}"></span>
+			                            </li>
+										<li>
+			                                <span class="tips">性别：</span>
+								            <cite>
+								            	<label th:if="${crmUser.sex} eq 1" for="sex0">男</label>
+									            <label th:if="${crmUser.sex} eq 0" for="sex1">女</label>
+								            </cite>
+			                            </li>
+			                            <li>
+			                                <span class="tips">年龄：</span>
+											<span th:text="${crmUser.age}"></span>
+			                            </li>
+			                            <li>
+			                                <span class="tips">身份证号：</span>
+											<span th:text="${crmUser.idNumber}"></span>
+			                            </li>
+										<li>
+			                                <span class="tips">业务类型：</span>
+											<span th:text="${crmUser.businessTypeName}"></span>
+			                            </li>  
+			                            <li>
+			                                <span class="tips">省份：</span>
+											<span th:text="${crmUser.province}"></span>
+			                            </li>
+			                            <li>
+			                                <span class="tips">城市：</span>
+											<span th:text="${crmUser.city}"></span>
+			                            </li>    
+										<li>
+								            <span class="tips">借款金额(元)：</span>
+								            <span th:text="${crmUser.loanAmount}"></span>
+								        </li>
+								        <li>
+								            <span class="tips">借款期限(月)：</span>
+								            <span th:text="${crmUser.duration}"></span>
+								        </li>
+								        <li>
+								            <span class="tips">借款利率(%/年)：</span>
+								            <span  th:text="${crmUser.interestRate}"></span>
+								        </li>
+				                        <li >
+								            <span class="tips">房产地址：</span>
+								            <span th:text="${crmUser.houseAddress}"></span>
+								        </li>
+			                            <li>
+			                                <span class="tips">客户来源：</span>
+											<span th:text="${crmUser.customerSource}"></span>
+			                            </li>
+			                            <li>
+								            <span class="tips">客户经理：</span>
+								            <span  th:text="${crmUser.appointEmpName}"></span>
+								        </li>
+								        <li>
+								            <span class="tips">客户所属公司：</span>
+								            <span  th:text="${crmUser.appointCompanyName}"></span>
+								        </li>
+								        <li>
+								            <span class="tips">客户所属部门：</span>
+								            <span th:text="${crmUser.deptName}"></span>
+								        </li>
+								        <li>
+								            <span class="tips">客户录入公司：</span>
+								            <span th:text="${crmUser.createrCompanyName}"></span>
+								        </li>
+			                            <li>
+			                                <span class="tips">分配客户经理：</span>
+		                                    <div class="vocation">
+		                                        <select class="select-common select1 validate[required]" name="appointEmpId">
+		                                            <option value="">请选择</option>
+		                                            <th:block th:unless="${#lists.isEmpty(allManager)}">
+						                        		<option th:each="allManager:${allManager}" th:value="${allManager.userId}" th:text="${allManager.staffName}"
+						                        		th:attr="selected=(${allManager.userId} eq ${crmUser.appointEmpId})?true:false">
+							                        	</option>
+							                        </th:block>
+		                                        </select>
+		                                    </div>
+			                            </li>
+			                        </ul>
+			                    </div>
+								<p class="textCt pt20">
+								    <input type="button" class="scbtn mlt10" id="btn_Assign"  value="保 存"/>
+			                        <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);"/>
+								</p>
+		                    </form>
+		                </div>
+		                <div id="tab2" class="tabson">
+		                	<div class="formtitle"><span>回访记录</span></div>
+							<div id="histoicFlow" th:include="crm/_histoicFlow"></div>
+		                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+    <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+    <script th:inline="javascript">
+    	/*<![CDATA[*/
+	    	seajs.use("crm/crmIntentLoanUser");
+    	/*]]>*/
+    </script>
+</body>
+</html>

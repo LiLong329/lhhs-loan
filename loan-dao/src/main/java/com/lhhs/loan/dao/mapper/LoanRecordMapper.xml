@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanRecord" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="trans_main_id" property="transMainId" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="lender_id" property="lenderId" jdbcType="VARCHAR" />
+    <result column="lender_name" property="lenderName" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+    <result column="customer_nature" property="customerNature" jdbcType="VARCHAR" />
+    <result column="loan_amount" property="loanAmount" jdbcType="DECIMAL" />
+    <result column="loan_term" property="loanTerm" jdbcType="VARCHAR" />
+    <result column="loan_rate" property="loanRate" jdbcType="DECIMAL" />
+    <result column="loan_rate_unit" property="loanRateUnit" jdbcType="VARCHAR" />
+    <result column="loan_time" property="loanTime" jdbcType="TIMESTAMP" />
+    <result column="anticipated_interest" property="anticipatedInterest" jdbcType="DECIMAL" />
+    <result column="interest_margin" property="interestMargin" jdbcType="DECIMAL" />
+    <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+    <result column="trans_type" property="transType" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, customer_id, account_id, trans_main_id, order_no, lender_id, lender_name, org_id, 
+    org_name, customer_nature, loan_amount, loan_term, loan_rate, loan_rate_unit, loan_time, 
+    anticipated_interest, interest_margin, apply_time, trans_type, company_id, union_id, 
+    status, create_user, create_time, last_user, last_modify_time, field1, field2, field3, 
+    field4, field5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_record
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_record
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanRecord" >
+    insert into loan_record (id, customer_id, account_id, 
+      trans_main_id, order_no, lender_id, 
+      lender_name, org_id, org_name, 
+      customer_nature, loan_amount, loan_term, 
+      loan_rate, loan_rate_unit, loan_time, 
+      anticipated_interest, interest_margin, apply_time, 
+      trans_type, company_id, union_id, 
+      status, create_user, create_time, 
+      last_user, last_modify_time, field1, 
+      field2, field3, field4, 
+      field5)
+    values (#{id,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, 
+      #{transMainId,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{lenderId,jdbcType=VARCHAR}, 
+      #{lenderName,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR}, 
+      #{customerNature,jdbcType=VARCHAR}, #{loanAmount,jdbcType=DECIMAL}, #{loanTerm,jdbcType=VARCHAR}, 
+      #{loanRate,jdbcType=DECIMAL}, #{loanRateUnit,jdbcType=VARCHAR}, #{loanTime,jdbcType=TIMESTAMP}, 
+      #{anticipatedInterest,jdbcType=DECIMAL}, #{interestMargin,jdbcType=DECIMAL}, #{applyTime,jdbcType=TIMESTAMP}, 
+      #{transType,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, #{unionId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastUser,jdbcType=VARCHAR}, #{lastModifyTime,jdbcType=TIMESTAMP}, #{field1,jdbcType=VARCHAR}, 
+      #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, #{field4,jdbcType=VARCHAR}, 
+      #{field5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanRecord" >
+    insert into loan_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="transMainId != null" >
+        trans_main_id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="lenderId != null" >
+        lender_id,
+      </if>
+      <if test="lenderName != null" >
+        lender_name,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="orgName != null" >
+        org_name,
+      </if>
+      <if test="customerNature != null" >
+        customer_nature,
+      </if>
+      <if test="loanAmount != null" >
+        loan_amount,
+      </if>
+      <if test="loanTerm != null" >
+        loan_term,
+      </if>
+      <if test="loanRate != null" >
+        loan_rate,
+      </if>
+      <if test="loanRateUnit != null" >
+        loan_rate_unit,
+      </if>
+      <if test="loanTime != null" >
+        loan_time,
+      </if>
+      <if test="anticipatedInterest != null" >
+        anticipated_interest,
+      </if>
+      <if test="interestMargin != null" >
+        interest_margin,
+      </if>
+      <if test="applyTime != null" >
+        apply_time,
+      </if>
+      <if test="transType != null" >
+        trans_type,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUser != null" >
+        last_user,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="transMainId != null" >
+        #{transMainId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lenderId != null" >
+        #{lenderId,jdbcType=VARCHAR},
+      </if>
+      <if test="lenderName != null" >
+        #{lenderName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNature != null" >
+        #{customerNature,jdbcType=VARCHAR},
+      </if>
+      <if test="loanAmount != null" >
+        #{loanAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="loanTerm != null" >
+        #{loanTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="loanRate != null" >
+        #{loanRate,jdbcType=DECIMAL},
+      </if>
+      <if test="loanRateUnit != null" >
+        #{loanRateUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="loanTime != null" >
+        #{loanTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="anticipatedInterest != null" >
+        #{anticipatedInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="interestMargin != null" >
+        #{interestMargin,jdbcType=DECIMAL},
+      </if>
+      <if test="applyTime != null" >
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transType != null" >
+        #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanRecord" >
+    update loan_record
+    <set >
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="transMainId != null" >
+        trans_main_id = #{transMainId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lenderId != null" >
+        lender_id = #{lenderId,jdbcType=VARCHAR},
+      </if>
+      <if test="lenderName != null" >
+        lender_name = #{lenderName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNature != null" >
+        customer_nature = #{customerNature,jdbcType=VARCHAR},
+      </if>
+      <if test="loanAmount != null" >
+        loan_amount = #{loanAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="loanTerm != null" >
+        loan_term = #{loanTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="loanRate != null" >
+        loan_rate = #{loanRate,jdbcType=DECIMAL},
+      </if>
+      <if test="loanRateUnit != null" >
+        loan_rate_unit = #{loanRateUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="loanTime != null" >
+        loan_time = #{loanTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="anticipatedInterest != null" >
+        anticipated_interest = #{anticipatedInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="interestMargin != null" >
+        interest_margin = #{interestMargin,jdbcType=DECIMAL},
+      </if>
+      <if test="applyTime != null" >
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transType != null" >
+        trans_type = #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanRecord" >
+    update loan_record
+    set customer_id = #{customerId,jdbcType=VARCHAR},
+      account_id = #{accountId,jdbcType=VARCHAR},
+      trans_main_id = #{transMainId,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      lender_id = #{lenderId,jdbcType=VARCHAR},
+      lender_name = #{lenderName,jdbcType=VARCHAR},
+      org_id = #{orgId,jdbcType=VARCHAR},
+      org_name = #{orgName,jdbcType=VARCHAR},
+      customer_nature = #{customerNature,jdbcType=VARCHAR},
+      loan_amount = #{loanAmount,jdbcType=DECIMAL},
+      loan_term = #{loanTerm,jdbcType=VARCHAR},
+      loan_rate = #{loanRate,jdbcType=DECIMAL},
+      loan_rate_unit = #{loanRateUnit,jdbcType=VARCHAR},
+      loan_time = #{loanTime,jdbcType=TIMESTAMP},
+      anticipated_interest = #{anticipatedInterest,jdbcType=DECIMAL},
+      interest_margin = #{interestMargin,jdbcType=DECIMAL},
+      apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      trans_type = #{transType,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <!-- 自定义方法区 -->
+  <sql id="Where_Common">
+  <if test="authgroupList != null">
+		 	and 
+	         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+		         (1=1
+		             <if test="item.orgId != null and item.orgId != ''">
+					  		and ltm.company_id =  #{item.orgId}
+					 </if>
+					 <if test="item.deptId != null and item.deptId != ''">
+					  		and ltm.field1 =  #{item.deptId}
+					 </if>
+					 <if test="item.dataOwner != null and item.dataOwner != ''">
+					  		and ltm.field4 =  #{item.dataOwner}
+					 </if>
+				  )
+	          </foreach>
+		</if>
+  	
+	<if test="unionId != null and unionId != ''">
+  		and ltm.union_id = #{unionId}
+  	</if>
+  </sql>
+  
+  <!-- 放款记录列表 -->
+  <select id="queryListPage" parameterType="com.lhhs.loan.dao.domain.vo.LoanRecordVo" resultType="com.lhhs.loan.dao.domain.vo.LoanRecordVo">
+  	SELECT lr.id,ltm.provience_name,ltm.city_name,lr.lender_name,lr.org_id,lr.org_name,ld.type_name,lr.loan_amount,lr.loan_rate,
+		lr.loan_term,lr.loan_rate_unit,lr.loan_time,lr.order_no,ltm.product_type,ltm.product_name,ltm.term,ltm.term_unit,
+		ltm.rate,ltm.rate_unit,ltm.borrower,lr.anticipated_interest,lr.interest_margin,lr.apply_time,lr.status,luc.company_name,lr.field1
+	FROM loan_record lr INNER JOIN loan_trans_main ltm ON lr.trans_main_id=ltm.trans_main_id
+		INNER JOIN loan_dictionary ld ON (ld.category='invest_customer_nature' AND ld.type_id=lr.customer_nature)
+		LEFT JOIN bump_union_company luc ON lr.company_id=luc.company_id
+		LEFT JOIN loan_organization lo ON lr.lender_id=lo.customer_id
+	WHERE 1=1
+  	<if test="selectType == 1">
+  		AND (ld.big_category='10' OR ld.big_category='40')
+  	</if>
+  	<if test="selectType == 2">
+  		AND ld.big_category='30' AND lr.customer_nature='33' AND lo.is_company='N'
+  	</if>
+  	<if test="selectType == 3">
+  		AND ld.big_category='30' AND lr.customer_nature='31' AND lo.is_company='N'
+  	</if>
+  	<!--  if test="provienceNo != null and provienceNo != '' ">
+  		AND ltm.provience_no LIKE CONCAT('%',#{provienceNo},'%')
+   	</if -->
+   	<if test="cityNo != null and cityNo != '' ">
+   	  	AND ltm.city_no LIKE CONCAT('%',#{cityNo},'%')
+   	</if>
+  	<if test="orderNo != null and '' != orderNo">
+  		AND lr.order_no = #{orderNo}
+  	</if>
+  	<if test="borrower != null and '' != borrower">
+  		AND ltm.borrower = #{borrower}
+  	</if>
+  	<if test="lenderName != null and '' != lenderName">
+  		AND lr.lender_name = #{lenderName}
+  	</if>
+  	<if test="status != null and '' != status">
+  		AND lr.status = #{status}
+  	</if>
+  	<if test="beginTime != null and '' != beginTime">
+  		<![CDATA[   
+  			AND DATE_FORMAT(lr.apply_time, '%Y-%m-%d %H:%i:%S') >= #{beginTime} 
+  		]]>
+  	</if>
+  	<if test="endTime != null and '' != endTime">
+  		<![CDATA[   
+  			AND DATE_FORMAT(lr.apply_time, '%Y-%m-%d %H:%i:%S') <= #{endTime}   
+  		]]>
+  	</if>
+  	<include refid="Where_Common"></include>
+  	ORDER BY lr.loan_time desc
+  	<if test="page != null">
+  		LIMIT #{page.pageStartIndex},#{page.pageSize}
+  	</if>
+  </select>
+  <!-- 放款记录总条数 -->
+  <select id="queryCountPage" parameterType="com.lhhs.loan.dao.domain.vo.LoanRecordVo" resultType="int">
+  	SELECT count(1)
+  	FROM loan_record lr INNER JOIN loan_trans_main ltm ON lr.trans_main_id=ltm.trans_main_id
+		INNER JOIN loan_dictionary ld ON (ld.category='invest_customer_nature' AND ld.type_id=lr.customer_nature)
+		LEFT JOIN loan_organization lo ON lr.lender_id=lo.customer_id
+  	WHERE 1=1
+  	<if test="selectType == 1">
+  		AND (ld.big_category='10' OR ld.big_category='40')
+  	</if>
+  	<if test="selectType == 2">
+  		AND ld.big_category='30' AND lr.customer_nature='33' AND lo.is_company='N'
+  	</if>
+  	<if test="selectType == 3">
+  		AND ld.big_category='30' AND lr.customer_nature='31' AND lo.is_company='N'
+  	</if>
+  	<!-- if test="provienceNo != null and provienceNo != '' ">
+  		AND ltm.provience_no LIKE CONCAT('%',#{provienceNo},'%')
+   	</if -->
+   	<if test="cityNo != null and cityNo != '' ">
+   	  	AND ltm.city_no LIKE CONCAT('%',#{cityNo},'%')
+   	</if>
+  	<if test="orderNo != null and '' != orderNo">
+  		AND lr.order_no = #{orderNo}
+  	</if>
+  	<if test="borrower != null and '' != borrower">
+  		AND ltm.borrower = #{borrower}
+  	</if>
+  	<if test="lenderName != null and '' != lenderName">
+  		AND lr.lender_name = #{lenderName}
+  	</if>
+  	<if test="status != null and '' != status">
+  		AND lr.status = #{status}
+  	</if>
+  	<if test="beginTime != null and '' != beginTime">
+  		<![CDATA[   
+  			AND DATE_FORMAT(lr.apply_time, '%Y-%m-%d %H:%i:%S') >= #{beginTime} 
+  		]]>
+  	</if>
+  	<if test="endTime != null and '' != endTime">
+  		<![CDATA[   
+  			AND DATE_FORMAT(lr.apply_time, '%Y-%m-%d %H:%i:%S') <= #{endTime}   
+  		]]>
+  	</if>
+  	<include refid="Where_Common"></include>
+  </select>
+  <!-- 放款总金额 -->
+  <select id="queryTotalAmount" parameterType="com.lhhs.loan.dao.domain.vo.LoanRecordVo" resultType="map">
+  	SELECT SUM(lr.loan_amount) loanAmountTotal
+  	FROM loan_record lr INNER JOIN loan_trans_main ltm ON lr.trans_main_id=ltm.trans_main_id
+		INNER JOIN loan_dictionary ld ON (ld.category='invest_customer_nature' AND ld.type_id=lr.customer_nature)
+		LEFT JOIN loan_organization lo ON lr.lender_id=lo.customer_id
+	WHERE 1=1
+  	<if test="selectType == 1">
+  		AND (ld.big_category='10' OR ld.big_category='40')
+  	</if>
+  	<if test="selectType == 2">
+  		AND ld.big_category='30' AND lr.customer_nature='33' AND lo.is_company='N'
+  	</if>
+  	<if test="selectType == 3">
+  		AND ld.big_category='30' AND lr.customer_nature='31' AND lo.is_company='N'
+  	</if>
+  	<if test="provienceNo != null and '' != provienceNo">
+  		AND ltm.provience_no = #{provienceNo}
+  	</if>
+  	<if test="cityNo != null and '' != cityNo">
+  		AND ltm.city_no = #{cityNo}
+  	</if>
+  	<if test="orderNo != null and '' != orderNo">
+  		AND lr.order_no = #{orderNo}
+  	</if>
+  	<if test="borrower != null and '' != borrower">
+  		AND ltm.borrower = #{borrower}
+  	</if>
+  	<if test="lenderName != null and '' != lenderName">
+  		AND lr.lender_name = #{lenderName}
+  	</if>
+  	<if test="status != null and '' != status">
+  		AND lr.status = #{status}
+  	</if>
+  	<if test="beginTime != null and '' != beginTime">
+  		<![CDATA[   
+  			AND DATE_FORMAT(lr.apply_time, '%Y-%m-%d %H:%i:%S') >= #{beginTime} 
+  		]]>
+  	</if>
+  	<if test="endTime != null and '' != endTime">
+  		<![CDATA[   
+  			AND DATE_FORMAT(lr.apply_time, '%Y-%m-%d %H:%i:%S') <= #{endTime}   
+  		]]>
+  	</if>
+  	<include refid="Where_Common"></include>
+  </select>
+  <!-- 放款记录列表 -->
+  <select id="queryList" parameterType="com.lhhs.loan.dao.domain.LoanRecord" resultType="com.lhhs.loan.dao.domain.LoanRecord">
+  	select 
+    <include refid="Base_Column_List" />
+    from loan_record
+    where 1=1 
+	  <if test="customerId != null" >
+        and customer_id = #{customerId}
+      </if>
+      <if test="accountId != null" >
+        and account_id = #{accountId}
+      </if>
+      <if test="transMainId != null" >
+        and trans_main_id = #{transMainId}
+      </if>
+      <if test="orderNo != null" >
+        and order_no = #{orderNo}
+      </if>
+      <if test="lenderId != null" >
+        and lender_id = #{lenderId,jdbcType=VARCHAR}
+      </if>
+      <if test="lenderName != null" >
+        and lender_name = #{lenderName,jdbcType=VARCHAR}
+      </if>
+
+      <if test="transType != null" >
+        and trans_type = #{transType,jdbcType=VARCHAR}
+      </if>
+      <if test="companyId != null" >
+        and company_id = #{companyId,jdbcType=VARCHAR}
+      </if>
+      <if test="unionId != null" >
+        and union_id = #{unionId,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null" >
+        and status = #{status,jdbcType=VARCHAR}
+      </if>
+      <if test="createUser != null" >
+        and create_user = #{createUser,jdbcType=VARCHAR}
+      </if>
+
+  </select>
+  <!-- 查询月统计交易额 -->
+  <select id="queryMonthStatisticsList" resultType="map" parameterType="com.lhhs.loan.dao.domain.vo.LoanRecordVo">
+     SELECT   
+    DATE_FORMAT(lr.create_Time,'%Y-%m') AS TIME,
+    SUM(lr.loan_amount) allAmount
+     FROM loan_record lr  INNER JOIN loan_trans_main ltm ON lr.trans_main_id=ltm.trans_main_id
+		WHERE 1=1   
+		    AND lr.STATUS='03'
+		    <include refid="Where_Common"></include>
+		GROUP BY TIME  
+		ORDER BY TIME  DESC
+  </select>
+   <!-- 查询周统计交易额 -->
+  <select id="queryWeekStatisticsList" resultType="BigDecimal" parameterType="com.lhhs.loan.dao.domain.vo.LoanRecordVo">
+		SELECT
+			SUM(lr.loan_amount) allAmount
+		FROM
+			loan_record lr
+		INNER JOIN loan_trans_main ltm ON lr.trans_main_id = ltm.trans_main_id
+		WHERE 1=1
+		 <if test="num != null" >
+             and (
+				WEEK (
+					date_format(lr.create_time, '%Y-%m-%d'),
+					1
+				) = WEEK (
+					date_format(now(), '%Y-%m-%d'),
+					1
+				) - #{num}
+			)
+         </if>
+     	<include refid="Where_Common"></include>
+  </select>
+   <!-- 查询日统计交易额 -->
+  <select id="queryDayStatisticsList" resultType="map" parameterType="com.lhhs.loan.dao.domain.vo.LoanRecordVo">
+    SELECT   
+    DATE_FORMAT(lr.create_Time,'%Y-%m-%d') AS TIME,
+    SUM(lr.loan_amount) allAmount
+	FROM loan_record  lr  INNER JOIN loan_trans_main ltm ON lr.trans_main_id=ltm.trans_main_id
+	WHERE 1=1   
+	    AND lr.STATUS='03'
+	    AND lr.create_Time BETWEEN DATE_SUB( DATE_FORMAT(NOW(),'%Y-%m-%d'),INTERVAL 6 DAY) AND   DATE_ADD(DATE_FORMAT(NOW(),'%Y-%m-%d'),INTERVAL 1 DAY)
+	    	<include refid="Where_Common"></include>
+	GROUP BY TIME  
+	ORDER BY TIME  DESC
+  </select>
+</mapper>

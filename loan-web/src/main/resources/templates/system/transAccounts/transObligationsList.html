@@ -1,0 +1,53 @@
+<div class="previewBack"></div>
+<div class="preview">
+    <div class="formbody">
+        <table class="tablelist">
+             <thead>
+                 <tr>
+                       <!--  <th>付款ID</th> -->
+                             <th>出借人姓名</th>
+                             <th>客户性质</th>
+                             <th>理财金额</th>
+                             <th>理财利率</th>
+                             <th>当期/总期数</th>
+                             <th>放款时间</th>
+                             <th>合同截止日期</th>
+                             <th>应收总额</th>
+                             <th>应收利息</th>
+                             <th>应收利息时间</th>
+                             <th>应收本金</th>
+                             <th>应收本金时间</th>
+                             <th>部门</th>
+                             <th>客户经理</th>
+                 </tr>
+             </thead>
+             <tbody th:unless="${#lists.isEmpty(payPlanlist)}">
+                  <tr:block th:unless="${#lists.isEmpty(payPlanlist)}" >
+                         <tr th:each="emp , iter : ${payPlanlist}">
+                            <!--  <td th:text="${emp.id}"></td> -->
+                             <td th:text="${emp.customerName}"></td>
+                             <td th:text="${emp.outPropertyName}"></td>
+                             <td th:text="${#numbers.formatDecimal(emp.financialAmount,1,2)}"></td>
+                             <td th:text="${#numbers.formatDecimal(emp.financialInterestRate,1,3)} +'%/'+${emp.financialInterestRateUnit}"></td>
+                             <td th:text="${emp.period}+'/'+${payPlanlist.size()}"></td><!-- ${emp.financialTerm} -->
+                             <td th:text="${emp.actualLendingTime}?${#dates.format(emp.actualLendingTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                             <td>
+                     <th:block th:if="${iter.index+1} eq ${payPlanlist.size()}"><span th:text="${emp.contractEndTime}?${#dates.format(emp.contractEndTime, 'yyyy-MM-dd HH:mm:ss')}"></span></th:block>
+                    </td>
+                             <td th:text="${#numbers.formatDecimal(emp.repaymentTotal,1,2)}"></td>
+                             <td th:text="${#numbers.formatDecimal(emp.repaymentInterest,1,2)}"></td>
+                             <td th:text="${emp.repaymentInterestTime}?${#dates.format(emp.repaymentInterestTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                             <td th:text="${#numbers.formatDecimal(emp.repaymentCapital,1,2)}"></td>
+                             <td th:text="${emp.repaymentCapitalTime}?${#dates.format(emp.repaymentCapitalTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                             <td th:text="${emp.accountManagerDepartmentName}"></td>
+                             <td th:text="${emp.accountManagerName}"></td>
+                         </tr>
+                         </tr:block>
+             </tbody>
+         </table>
+        <p class="textCt pt20">
+            <input type="button" class="scbtn" value="提 交" id="previewSubmit"/>
+            <input type="button" class="scbtn2 mlt10" value="取 消" id="previewCancel"/>
+        </p>
+    </div>
+</div>

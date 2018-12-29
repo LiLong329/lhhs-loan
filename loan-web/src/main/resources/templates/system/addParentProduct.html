@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li><a>产品管理</a></li>
+                        <li><a href="/systemManager/productInfoList">产品信息管理</a></li>
+                        <li><a>新增</a></li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual">
+                            <div class="formtitle">
+                                <p class="tab-font">产品信息管理</p>
+                            </div>
+                      		<div class="toolsli">
+                           	 <ul class="nbbdgl-Ui">
+                           	 <form id="productForm">
+                           		<li style="width: 80%;">
+                                    <span class="tips">产品类型：</span>
+                                    <input type="text" class="txt validate[required,maxSize[5]]" name="productType"/>
+                                </li>
+                                <!-- <li style="width: 80%;">
+                                    <span class="tips">金额范围：</span>
+                                    <input type="text" class="txtD validate[required,custom[integer],maxSize[4]]" name="productMoney"/><span>——</span>
+                                    <input type="text" class="txtD validate[required,custom[integer],maxSize[4]]" name="productMoneys"/><span>万</span>
+                                </li>
+                                <li style="width: 80%;">
+                                    <span class="tips">期       限：</span>
+                                   <input type="text" class="txtD validate[required,custom[integer],maxSize[4]]" name="productTerm"/><span>——</span>
+                                   <input type="text" class="txtD validate[required,custom[integer],maxSize[4]]" name="productTerms"/>
+                                   <span>
+                                   	<select class="select-common select4 provinceSelect" name="productTermUnit">
+                                            <option value="个月">个月</option>
+                                            <option value="天">天</option>
+                                            <option value="年">年</option>
+                                    </select>
+                                   </span>
+                                </li>
+                                <li style="width: 80%;">
+                                    <span class="tips">利       率：</span>
+                                    <input type="text" class="txt validate[required,custom[loanAmount]]" name="productInterest" id="productInterest" />
+                                    <span>
+                                       	<select class="select-common select4 provinceSelect" name="productInterestUnit">
+                                            <option value="年">%/年</option>
+                                            <option value="月">%/月</option>
+                                            <option value="天">%/天</option>
+                                            <option value="次">%/次</option>
+                                   	 </select>
+                                    </span>
+                                </li>
+                                <li style="width: 80%;">
+                                	<span class="tips">是否为推荐产品：</span>
+                                	<span>
+                                		<select class="select-common select4 provinceSelect" value="${parentProduct.isShow}" name="isShow">
+                                			<option value="1" selected="selected">是</option>
+                                			<option value="0">否</option>
+                                		</select>
+                                	</span>
+                                </li> -->
+                                </form>
+                                <li style="width: 80%;">
+                                    <span class="tips">产品背景图片：</span>
+				                    <img id="showImg" src="" name="orgLogo"  class="imgs validate[required]"/>
+                                   	<form id="img-upload" action="." enctype="multipart/form-data" method="post">
+                                    	<input type="file" id="uploadImgs" name="file" multiple="multiple" class="mlt10 fl validate[required]"/>
+				                    </form>
+				                    <span class="scbtn1" id="stateUpload" style="text-align: center;">上传</span>
+				                    <input type="hidden" id="pathurl" name="thumbnailPicture"/>
+                                </li>
+                                </ul>
+                      		</div>
+                      	<div class="toolsli">
+                            <ul class="nbbdgl-Ui">
+                                <li style="width: 80%;">
+                                    <span class="tips">&nbsp;</span>
+                                    <input type="button" class="scbtn mlt10" value="保 存" id="update_btn"/>
+                                    <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);"/>
+                                </li>
+                            </ul>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+</body>
+ 	<script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+		seajs.use("product/productUpload");
+		seajs.use("product/addProduct");
+	</script>
+</html>

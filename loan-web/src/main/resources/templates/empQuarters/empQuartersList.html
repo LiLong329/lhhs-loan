@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<script type="text/javascript" src="/js/public/area.js"></script>
+<body>
+	<div class="father">
+		<header th:replace="common/top"></header>
+		<div class="common-content">
+			<div th:replace="common/left"></div>
+			<div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>系统管理</li>
+                        <li>权限管理</li>
+                        <li>员工岗位查询</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                	<div style="position: relative;">
+	                    <div class="formbody">
+	                        <div id="usual1" class="usual">
+	                        	<form id="myForm" action="/empQuarters/list">
+	                        		<input  name="pageIndex" type="hidden" value="" id="currentPageNo"/>
+		                            <ul class="seachform1">
+		                                <li>
+			                                <span class="tips">所属公司：</span>
+			                            	  <div class="vocation">
+			                            	 <select class="select-common select1" name="companyId" id="companyId" >
+			                                       <option value="">请选择</option>
+			                                       <option th:each="companys : ${companys}" th:value="${companys.companyId}" th:text="${companys.companyName}" th:attr="selected=(${companys.companyId} eq ${params.companyId})?true:false"></option>
+			                                 </select>
+			                                  </div>
+			                            </li>
+		                                <li>
+		                                    <label>员工编号：</label>
+		                                    <input type="text" class="scinput1" name="userId" th:value="${params.userId}"/>
+		                                </li>
+		                                <li>
+		                                    <label>员工名称：</label>
+		                                    <input type="text" class="scinput1" name="staffName" th:value="${params.staffName}"/>
+		                                </li>
+		                                <li>
+		                                    <label>岗位中文名称：</label>
+		                                    <input type="text" class="scinput1" name="name" th:value="${params.name}"/>
+		                                </li>
+		                                <li>
+		                                    <label>岗位英文名称：</label>
+		                                    <input type="text" class="scinput1" name="englishName" th:value="${params.englishName}"/>
+		                                </li>
+		                                <li>
+		                                    <input type="button" class="scbtn" value="查询" id="searcher"/>
+		                                </li>
+		                            </ul>
+	                            </form>
+	                            <div class="table-title">
+	                                <p class="tab-font">员工岗位查询</p>
+	                            </div>
+	                             <table class="tablelist">
+									<thead>
+										<tr>
+											<th>公司</th>
+											<th>部门</th>
+											<th>员工编号</th>
+											<th>员工名称</th>
+											<th>岗位中文名称</th>
+											<th>岗位英文名称</th>
+										</tr>	
+									</thead>
+									<tbody>
+										<th:block th:unless="${#lists.isEmpty(page.resultList)}">
+											<tr th:each="empQuarters , iter: ${page.resultList}">
+												<td th:text="${empQuarters.companyName}"></td>
+												<td th:text="${empQuarters.deptName}"></td>
+												<td th:text="${empQuarters.userId}"></td>
+												<td th:text="${empQuarters.staffName}"></td>
+												<td th:text="${empQuarters.name}"></td>
+												<td th:text="${empQuarters.englishName}"></td>
+											</tr>
+										</th:block>
+								
+										<th:block th:if="${#lists.isEmpty(page.resultList)}">
+											<tr>
+												<td colspan="7" class="textCt">暂无数据</td>
+											</tr>
+										</th:block>
+									</tbody>
+								</table>
+								<div class="pagin" th:unless="${#lists.isEmpty(page.resultList)}">
+									<div class="message">
+										<!-- <input type="button" value="导出" class="scbtn1" style="width: 65px;" id="export"/>&nbsp;&nbsp;&nbsp; -->
+										共 <i class="blue" th:text="${page.totalCount}"></i> 
+										条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+									</div>
+									<ul class="paginList">
+										<li class="paginItem" th:if="${page.pageIndex} gt 1">
+											<a th:attr="data-pagenum=(${page.pageIndex}-1),data-pagesize=${page.pageSize}" class="pagepre"></a>
+										</li>
+										<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" 
+										th:classappend="(${page.pageIndex} eq ${x})?'current'">
+											<a th:attr="data-pagenum=${x},data-pagesize=(${page.pageSize})" th:text="${x}"></a>
+										</li>
+										<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+											<a th:attr="data-pagenum=(${page.pageIndex}+1),data-pagesize=(${page.pageSize})" class="pagenxt"></a>
+										</li> 
+									</ul>
+								</div>
+	                        </div>
+	                    </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+		<script src="/js/public/select.js"></script>
+		<footer th:replace="common/footer"></footer>
+	</div>
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+	<script th:inline="javascript">
+    	/*<![CDATA[*/
+	    	seajs.use("system/empQuartersList");
+    	/*]]>*/
+    </script>
+</body>
+</html>

@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanExTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanExTask" >
+    <id column="let_taskid" property="letTaskid" jdbcType="BIGINT" />
+    <result column="let_node" property="letNode" jdbcType="INTEGER" />
+    <result column="let_node_status" property="letNodeStatus" jdbcType="INTEGER" />
+    <result column="let_employeename" property="letEmployeename" jdbcType="VARCHAR" />
+    <result column="let_time" property="letTime" jdbcType="TIMESTAMP" />
+    <result column="let_result" property="letResult" jdbcType="INTEGER" />
+    <result column="let_employeeno" property="letEmployeeno" jdbcType="INTEGER" />
+    <result column="let_declarationformid" property="letDeclarationformid" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lhhs.loan.dao.domain.LoanExTaskWithBLOBs" extends="BaseResultMap" >
+    <result column="let_suggestion" property="letSuggestion" jdbcType="LONGVARCHAR" />
+    <result column="let_remark" property="letRemark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    let_taskid, let_node, let_node_status, let_employeename, let_time, let_result, let_employeeno, 
+    let_declarationformid
+  </sql>
+  <sql id="Blob_Column_List" >
+    let_suggestion, let_remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from loan_ex_task
+    where let_taskid = #{letTaskid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from loan_ex_task
+    where let_taskid = #{letTaskid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanExTaskWithBLOBs" >
+    insert into loan_ex_task (let_taskid, let_node, let_node_status, 
+      let_employeename, let_time, let_result, 
+      let_employeeno, let_declarationformid, let_suggestion, 
+      let_remark)
+    values (#{letTaskid,jdbcType=BIGINT}, #{letNode,jdbcType=INTEGER}, #{letNodeStatus,jdbcType=INTEGER}, 
+      #{letEmployeename,jdbcType=VARCHAR}, #{letTime,jdbcType=TIMESTAMP}, #{letResult,jdbcType=INTEGER}, 
+      #{letEmployeeno,jdbcType=INTEGER}, #{letDeclarationformid,jdbcType=VARCHAR}, #{letSuggestion,jdbcType=LONGVARCHAR}, 
+      #{letRemark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanExTaskWithBLOBs" >
+    insert into loan_ex_task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="letTaskid != null" >
+        let_taskid,
+      </if>
+      <if test="letNode != null" >
+        let_node,
+      </if>
+      <if test="letNodeStatus != null" >
+        let_node_status,
+      </if>
+      <if test="letEmployeename != null" >
+        let_employeename,
+      </if>
+      <if test="letTime != null" >
+        let_time,
+      </if>
+      <if test="letResult != null" >
+        let_result,
+      </if>
+      <if test="letEmployeeno != null" >
+        let_employeeno,
+      </if>
+      <if test="letDeclarationformid != null" >
+        let_declarationformid,
+      </if>
+      <if test="letSuggestion != null" >
+        let_suggestion,
+      </if>
+      <if test="letRemark != null" >
+        let_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="letTaskid != null" >
+        #{letTaskid,jdbcType=BIGINT},
+      </if>
+      <if test="letNode != null" >
+        #{letNode,jdbcType=INTEGER},
+      </if>
+      <if test="letNodeStatus != null" >
+        #{letNodeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="letEmployeename != null" >
+        #{letEmployeename,jdbcType=VARCHAR},
+      </if>
+      <if test="letTime != null" >
+        #{letTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="letResult != null" >
+        #{letResult,jdbcType=INTEGER},
+      </if>
+      <if test="letEmployeeno != null" >
+        #{letEmployeeno,jdbcType=INTEGER},
+      </if>
+      <if test="letDeclarationformid != null" >
+        #{letDeclarationformid,jdbcType=VARCHAR},
+      </if>
+      <if test="letSuggestion != null" >
+        #{letSuggestion,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="letRemark != null" >
+        #{letRemark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanExTaskWithBLOBs" >
+    update loan_ex_task
+    <set >
+      <if test="letNode != null" >
+        let_node = #{letNode,jdbcType=INTEGER},
+      </if>
+      <if test="letNodeStatus != null" >
+        let_node_status = #{letNodeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="letEmployeename != null" >
+        let_employeename = #{letEmployeename,jdbcType=VARCHAR},
+      </if>
+      <if test="letTime != null" >
+        let_time = #{letTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="letResult != null" >
+        let_result = #{letResult,jdbcType=INTEGER},
+      </if>
+      <if test="letEmployeeno != null" >
+        let_employeeno = #{letEmployeeno,jdbcType=INTEGER},
+      </if>
+      <if test="letDeclarationformid != null" >
+        let_declarationformid = #{letDeclarationformid,jdbcType=VARCHAR},
+      </if>
+      <if test="letSuggestion != null" >
+        let_suggestion = #{letSuggestion,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="letRemark != null" >
+        let_remark = #{letRemark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where let_taskid = #{letTaskid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lhhs.loan.dao.domain.LoanExTaskWithBLOBs" >
+    update loan_ex_task
+    set let_node = #{letNode,jdbcType=INTEGER},
+      let_node_status = #{letNodeStatus,jdbcType=INTEGER},
+      let_employeename = #{letEmployeename,jdbcType=VARCHAR},
+      let_time = #{letTime,jdbcType=TIMESTAMP},
+      let_result = #{letResult,jdbcType=INTEGER},
+      let_employeeno = #{letEmployeeno,jdbcType=INTEGER},
+      let_declarationformid = #{letDeclarationformid,jdbcType=VARCHAR},
+      let_suggestion = #{letSuggestion,jdbcType=LONGVARCHAR},
+      let_remark = #{letRemark,jdbcType=LONGVARCHAR}
+    where let_taskid = #{letTaskid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanExTask" >
+    update loan_ex_task
+    set let_node = #{letNode,jdbcType=INTEGER},
+      let_node_status = #{letNodeStatus,jdbcType=INTEGER},
+      let_employeename = #{letEmployeename,jdbcType=VARCHAR},
+      let_time = #{letTime,jdbcType=TIMESTAMP},
+      let_result = #{letResult,jdbcType=INTEGER},
+      let_employeeno = #{letEmployeeno,jdbcType=INTEGER},
+      let_declarationformid = #{letDeclarationformid,jdbcType=VARCHAR}
+    where let_taskid = #{letTaskid,jdbcType=BIGINT}
+  </update>
+  
+  <!-- ########################################### Li Jianjun Start ########################################### -->
+  <!-- 查询项目审核记录表(审批流程节点) -->
+  <select id="selectHandledRecord" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+  	SELECT
+  		<include refid="Base_Column_List" />,
+	    <include refid="Blob_Column_List" />
+  	FROM
+  		loan_ex_task
+  	WHERE
+  		let_declarationformid = #{orderNo}
+  </select>
+  
+  <!-- 节点审核流程 -->
+  <insert id="insertLoanExTaskWithBLOBs" parameterType="com.lhhs.loan.dao.domain.LoanExTaskWithBLOBs" >
+    insert into loan_ex_task (let_taskid, let_node, let_node_status, 
+      let_employeename, let_time, let_result, 
+      let_employeeno, let_declarationformid, let_suggestion, 
+      let_remark)
+    values (#{letTaskid,jdbcType=BIGINT}, #{letNode,jdbcType=INTEGER}, #{letNodeStatus,jdbcType=INTEGER}, 
+      #{letEmployeename,jdbcType=VARCHAR}, #{letTime,jdbcType=TIMESTAMP}, #{letResult,jdbcType=INTEGER}, 
+      #{letEmployeeno,jdbcType=INTEGER}, #{letDeclarationformid,jdbcType=VARCHAR}, #{letSuggestion,jdbcType=LONGVARCHAR}, 
+      #{letRemark,jdbcType=LONGVARCHAR})
+  </insert>
+  
+  <!-- 通过 orderNo insert审批流程 -->
+  <insert id="insertExTaskByOrderNo" parameterType="com.lhhs.loan.dao.domain.LoanExTaskWithBLOBs" >
+    insert into loan_ex_task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="letTaskid != null" >
+        let_taskid,
+      </if>
+      <if test="letNode != null" >
+        let_node,
+      </if>
+      <if test="letNodeStatus != null" >
+        let_node_status,
+      </if>
+      <if test="letEmployeename != null" >
+        let_employeename,
+      </if>
+      <if test="letTime != null" >
+        let_time,
+      </if>
+      <if test="letResult != null" >
+        let_result,
+      </if>
+      <if test="letEmployeeno != null" >
+        let_employeeno,
+      </if>
+      <if test="letDeclarationformid != null" >
+        let_declarationformid,
+      </if>
+      <if test="letSuggestion != null" >
+        let_suggestion,
+      </if>
+      <if test="letRemark != null" >
+        let_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="letTaskid != null" >
+        #{letTaskid,jdbcType=BIGINT},
+      </if>
+      <if test="letNode != null" >
+        #{letNode,jdbcType=INTEGER},
+      </if>
+      <if test="letNodeStatus != null" >
+        #{letNodeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="letEmployeename != null" >
+        #{letEmployeename,jdbcType=VARCHAR},
+      </if>
+      <if test="letTime != null" >
+        #{letTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="letResult != null" >
+        #{letResult,jdbcType=INTEGER},
+      </if>
+      <if test="letEmployeeno != null" >
+        #{letEmployeeno,jdbcType=INTEGER},
+      </if>
+      <if test="letDeclarationformid != null" >
+        #{letDeclarationformid,jdbcType=VARCHAR},
+      </if>
+      <if test="letSuggestion != null" >
+        #{letSuggestion,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="letRemark != null" >
+        #{letRemark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 通过 orderNo 更新审批流程 -->
+  <update id="updateExTaskByOrderNo" parameterType="com.lhhs.loan.dao.domain.LoanExTaskWithBLOBs" >
+    update loan_ex_task
+    <set >
+      <if test="letNode != null" >
+        let_node = #{letNode,jdbcType=INTEGER},
+      </if>
+      <if test="letNodeStatus != null" >
+        let_node_status = #{letNodeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="letEmployeename != null" >
+        let_employeename = #{letEmployeename,jdbcType=VARCHAR},
+      </if>
+      <if test="letTime != null" >
+        let_time = #{letTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="letResult != null" >
+        let_result = #{letResult,jdbcType=INTEGER},
+      </if>
+      <if test="letEmployeeno != null" >
+        let_employeeno = #{letEmployeeno,jdbcType=INTEGER},
+      </if>
+      <if test="letDeclarationformid != null" >
+        let_declarationformid = #{letDeclarationformid,jdbcType=VARCHAR},
+      </if>
+      <if test="letSuggestion != null" >
+        let_suggestion = #{letSuggestion,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="letRemark != null" >
+        let_remark = #{letRemark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where let_declarationformid = #{letDeclarationformid,jdbcType=BIGINT}
+  </update>
+  <!-- ########################################### Li Jianjun End   ########################################### -->
+  <!-- 通过 orderNo 更新审批流程 -->
+  <update id="updateFengKongExTaskByOrderNo" parameterType="com.lhhs.loan.dao.domain.LoanExTaskWithBLOBs" >
+    update loan_ex_task
+    <set >
+      <if test="letNode != null" >
+        let_node = #{letNode},
+      </if>
+      <if test="letNodeStatus != null" >
+        let_node_status = #{letNodeStatus},
+      </if>
+      <if test="letEmployeename != null" >
+        let_employeename = #{letEmployeename},
+      </if>
+      <if test="letTime != null" >
+        let_time = #{letTime},
+      </if>
+      <if test="letResult != null" >
+        let_result = #{letResult},
+      </if>
+      <if test="letEmployeeno != null" >
+        let_employeeno = #{letEmployeeno},
+      </if>
+      <if test="letDeclarationformid != null" >
+        let_declarationformid = #{letDeclarationformid},
+      </if>
+      <if test="letSuggestion != null" >
+        let_suggestion = #{letSuggestion},
+      </if>
+      <if test="letRemark != null" >
+        let_remark = #{letRemark},
+      </if>
+    </set>
+    where let_declarationformid = #{letDeclarationformid} and let_node_status = 1 AND let_result = 0
+  </update>
+  
+   <select id="transTaskByOrderNo" parameterType="String" resultMap="ResultMapWithBLOBs">
+  	SELECT
+  		<include refid="Base_Column_List" />,
+	    <include refid="Blob_Column_List" />
+  	FROM loan_ex_task
+  	WHERE let_declarationformid = #{orderNo} AND let_node_status NOT IN('8','13','14','15')
+		AND ((let_node_status IN('3','4','5') AND let_result IN('1','3')) OR let_node_status NOT IN('3','4','5'))
+	ORDER BY let_time DESC
+  </select>
+</mapper>

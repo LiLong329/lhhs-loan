@@ -1,0 +1,85 @@
+<table class="tablelist">
+	<thead>
+		<tr>
+			<th>债务ID</th>
+			<th>报单编号</th>
+			<th>省市</th>
+			<th>产品类型</th>
+			<th>产品名称</th>
+			<th>借款人姓名</th>
+			<th>期数/总期数</th>
+			<th>垫付金额</th>
+			<th>垫付本金</th>
+			<th>垫付利息</th>
+			<th>债务天数</th>
+			<th>债务利息</th>
+			<th>已还金额</th>
+			<th>待还金额</th>
+			<th>债务时间</th>
+			<th sec:authorize="hasRole('ROLE_EXECUTE_HZ')">操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		<th:block th:unless="${#lists.isEmpty(page.resultList)}">
+			<tr th:each="payPlan : ${page.resultList}">
+			    <td th:text="${payPlan.advanceId}"></td>
+				<td>
+				<a th:href="@{/orderInfo/get(orderNo=${payPlan.orderNo})}" class="tablelink" th:text="${payPlan.orderNo}"></a>
+				</td>
+				<td th:text="${payPlan.cityName}"></td>
+				<td th:text="${payPlan.productType}"></td>
+				<td th:text="${payPlan.productName}"></td>
+				<td th:text="${payPlan.borrower}"></td>
+				<td th:text="${payPlan.period}+'/'+${payPlan.periodTotal}"></td>
+				<td th:text="${payPlan.advanceTotal}?${#numbers.formatDecimal(payPlan.advanceTotal,1,2)}"></td>
+				<td th:text="${payPlan.advanceCapital}?${#numbers.formatDecimal(payPlan.advanceCapital,1,2)}"></td>
+				<td th:text="${payPlan.advanceInterest}?${#numbers.formatDecimal(payPlan.advanceInterest,1,2)}"></td>
+				<td th:text="${payPlan.overdueDays}"></td>
+				<td th:text="${payPlan.repaymentInterest}?${#numbers.formatDecimal(payPlan.repaymentInterest,1,2)}"></td>
+				<td th:text="${payPlan.paidTotal}?${#numbers.formatDecimal(payPlan.paidTotal,1,2)}"></td>
+				<td th:text="${payPlan.waitAmountTotal}?${#numbers.formatDecimal(payPlan.waitAmountTotal,1,2)}"></td>
+				<td th:text="${payPlan.advanceTime}?${#dates.format(payPlan.advanceTime,'yyyy/MM/dd HH:mm:ss')}"></td>
+				<td sec:authorize="hasRole('ROLE_EXECUTE_HZ')">
+					<a href="javascript:void(0);" class="tablelink pay" th:attr="data-payId=${payPlan.advanceId},data-mainId=${payPlan.transMainId},data-period=${payPlan.period},data-paidPeriod=${payPlan.paidPeriod}?${payPlan.paidPeriod+1}:1">
+						执行还债
+					</a>
+				</td>
+			</tr>
+		</th:block>
+
+		<th:block th:if="${#lists.isEmpty(page.resultList)}">
+			<tr sec:authorize="hasRole('ROLE_EXECUTE_HZ')">
+				<td colspan="16" class="textCt">暂无数据</td>
+			</tr>
+			<tr sec:authorize="not hasRole('ROLE_EXECUTE_HZ')">
+				<td colspan="15" class="textCt">暂无数据</td>
+			</tr>
+		</th:block>
+	</tbody>
+</table>
+
+<div class="pagin" style="margin-top: 0px;" th:unless="${#lists.isEmpty(page.resultList)}">
+	<div class="message">
+		统计数据(<b th:text="${page.totalCount}"></b>条);&nbsp;&nbsp;&nbsp;
+		垫付总额：<b th:text="${#maps.isEmpty(map)}?0.00:(${#maps.containsKey(map, 'advanceTotal')}?${#numbers.formatDecimal(map.advanceTotal,1,2)}:0.00)"></b>元&nbsp;&nbsp;&nbsp;
+    </div>	
+</div>
+
+<div class="pagin" style="margin-top: 0px;" th:unless="${#lists.isEmpty(page.resultList)}">
+	<div class="message">
+		共 <i class="blue" th:text="${page.totalCount}"></i> 
+		条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+	</div>
+	<ul class="paginList">
+		<li class="paginItem" th:if="${page.pageIndex} gt 1">
+			<a th:attr="data-pagenum=(${page.pageIndex}-1),data-pagesize=${page.pageSize}" class="pagepre"></a>
+		</li>
+		<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" 
+		th:classappend="(${page.pageIndex} eq ${x})?'current'">
+			<a th:attr="data-pagenum=${x},data-pagesize=(${page.pageSize})" th:text="${x}"></a>
+		</li>
+		<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+			<a th:attr="data-pagenum=(${page.pageIndex}+1),data-pagesize=(${page.pageSize})" class="pagenxt"></a>
+		</li> 
+	</ul>
+</div>

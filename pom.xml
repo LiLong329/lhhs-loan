@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.lhhs</groupId>
+	<artifactId>lhhs-loan</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>lhhs-loan</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<commons-lang3.version>3.3.2</commons-lang3.version>
+		<commons-codec.version>1.6</commons-codec.version>
+		<commons-io.version>1.3.2</commons-io.version>
+	</properties>
+	<!-- Inherit defaults from Spring Boot -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.2.RELEASE</version>
+	</parent>
+	<!-- Add typical dependencies for a web application -->
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- Insert Spring AOP Reference By LiJianjun START -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<!-- Insert Spring AOP Reference By LiJianjun END -->
+		<dependency>  
+        	<groupId>org.springframework.session</groupId> 
+        	<artifactId>spring-session-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.ant</groupId>
+		    <artifactId>ant</artifactId>
+		    <version>1.9.4</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
+		</dependency>
+		<!-- <dependency> <groupId>joda-time</groupId> <artifactId>joda-time</artifactId> 
+			</dependency> -->
+		<dependency>
+           <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+        <dependency>
+		    <groupId>org.apache.httpcomponents</groupId>
+		    <artifactId>httpclient</artifactId>
+		    <version>4.5.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.httpcomponents</groupId>
+		    <artifactId>httpasyncclient</artifactId>
+		    <version>4.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+		</dependency>
+		
+		<!-- 阿里zookeeper -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+			<version>2.5.3</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>3.4.10</version>
+			<type>pom</type>
+			<!-- <exclusions>
+				<exclusion>
+					<artifactId>slf4j-log4j12</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions> -->
+		</dependency>
+		 <dependency>
+			<groupId>com.101tec</groupId>
+			<artifactId>zkclient</artifactId>
+			<version>0.10</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-log4j12</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
+		 </dependency>
+	<!-- 阿里zookeeper 结束 -->
+	
+	<!-- 引入saas tk 消费接口 -->
+		<dependency>
+			<groupId>com.lhhs.api</groupId>
+			<artifactId>bump-api</artifactId>
+			<version>1.6.0.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.lhhs</groupId>
+			<artifactId>tk_server_api</artifactId>
+			<version>0.0.1.RELEASES</version>
+		</dependency>
+	<!--  -->
+		<dependency>
+			<groupId>com.pathcurve</groupId>
+			<artifactId>common</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.pathcurve</groupId>
+			<artifactId>security</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+		
+	</dependencies>
+	<modules>
+		<module>loan-common</module>
+		<module>loan-dao</module>
+		<module>loan-service</module>
+		<module>loan-web</module>
+		<module>loan-core</module>
+		<module>loan-workflow</module>
+	</modules>
+	<build>
+		<plugins>
+	 		<plugin>
+            	<artifactId>maven-resources-plugin</artifactId>
+            	<version>2.5</version>
+            	<executions>
+                	<execution>
+	                    <id>copy-xmls</id>
+	                    <phase>process-sources</phase>
+	                    <goals>
+	                        <goal>copy-resources</goal>
+	                    </goals>
+	                    <configuration>
+	                        <outputDirectory>${basedir}/target/classes</outputDirectory>
+	                        <resources>
+	                            <resource>
+	                                <directory>${basedir}/src/main/java</directory>
+	                                <includes>
+	                                    <include>**/*.xml</include>
+	                                    <include>**/*.KEY</include>
+	                                </includes>
+	                            </resource>
+	                        </resources>
+	                    </configuration>
+                	</execution>
+            	</executions>
+        	</plugin>  
+        </plugins>
+    </build> 
+</project>

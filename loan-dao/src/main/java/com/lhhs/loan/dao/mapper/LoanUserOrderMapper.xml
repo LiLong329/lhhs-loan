@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanUserOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanUserOrder" >
+    <id column="id" property="id" jdbcType="TINYINT" />
+    <result column="intent_user_id" property="intentUserId" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="creat_date" property="creatDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, intent_user_id, order_no, creat_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Byte" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_user_order
+    where id = #{id,jdbcType=TINYINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Byte" >
+    delete from loan_user_order
+    where id = #{id,jdbcType=TINYINT}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanUserOrder" >
+    insert into loan_user_order (id, intent_user_id, order_no, 
+      creat_date)
+    values (#{id,jdbcType=TINYINT}, #{intentUserId,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, 
+      #{creatDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanUserOrder" >
+    insert into loan_user_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="intentUserId != null" >
+        intent_user_id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="creatDate != null" >
+        creat_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=TINYINT},
+      </if>
+      <if test="intentUserId != null" >
+        #{intentUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="creatDate != null" >
+        #{creatDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanUserOrder" >
+    update loan_user_order
+    <set >
+      <if test="intentUserId != null" >
+        intent_user_id = #{intentUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="creatDate != null" >
+        creat_date = #{creatDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=TINYINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanUserOrder" >
+    update loan_user_order
+    set intent_user_id = #{intentUserId,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      creat_date = #{creatDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=TINYINT}
+  </update>
+  <select id="selectLoanUserOrderById" parameterType="java.lang.Integer" resultType="com.lhhs.loan.dao.domain.LoanUserOrder">
+	  SELECT * FROM loan_user_order WHERE intent_user_id = #{intentUserId}
+  </select>
+  
+  <select id="selectLoanUserOrderByOrderNo" parameterType="java.lang.String" resultType="com.lhhs.loan.dao.domain.LoanUserOrder">
+	  SELECT * FROM loan_user_order WHERE order_no = #{orderNo}
+  </select>
+</mapper>

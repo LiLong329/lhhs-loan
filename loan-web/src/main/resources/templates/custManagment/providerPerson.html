@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script src="/js/public/area.js"></script>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>客户管理</li>
+                        <li>经纪人信息(个人)</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual">
+                            <ul class="seachform1">
+                            <form id="myForm">
+                                 <input  name="pageNumber" type="hidden" value="" id="currentPageNo"/>
+                                 <input  name="isPerson" type="hidden" value="00" id="isPerson"/>
+                                 <li>
+	                                    <span class="tips">省市：</span>
+				                        <div class="vocation">
+								          	<select class="select-common select3 provinceSelect" name="province" th:attr="data-val=${province}"></select>
+							            </div>
+							            <span>省</span>
+				                        <div class="vocation">
+								          	<select class="select-common select3 citySelect" name="city" th:attr="data-val=${city}"></select>
+							            </div>
+				                        <span>市</span>
+	                                </li>
+                                    <li>
+                                    <label>客户编号：</label>
+                                    <input type="text" class="scinput1" th:value="${providerno}" name="providerno"/>
+                                    </li>
+                                    <li>
+                                    <label>经纪人姓名：</label>
+                                    <input type="text" class="scinput1" th:value="${providername}" name="providername" />
+                                     </li>
+                                <li>
+                                    <label>手机号码：</label>
+                                    <input type="text" class="scinput1" th:value="${providermobile}" name="providermobile" />
+                                </li>
+                                 </form>
+                                <li>
+                                    <input type="button" class="scbtn searcher" value="查询"/>
+                                </li>
+                            </ul>
+                            <div class="table-title">
+                                <p class="tab-font">经纪人信息管理</p>
+                            </div>
+                            <table class="tablelist">
+                                <thead>
+                                    <tr>
+                                        
+                                        <th>省市</th>
+                                        <th>客户编号</th>
+                                        <th>经纪人姓名</th>
+                                        <th>性别</th>
+                                        <th>手机号码</th>
+                                        <th>身份证号</th>
+                                        <th>注册时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr:block th:unless="${#lists.isEmpty(providerInfo)}" >
+                                    <tr th:each="provider : ${providerInfo}">
+                                    <tr>
+                                        
+                                        <td th:text="${provider.cityName}"></td>
+                                        <td th:text="${provider.providerNo}"></td>
+                                        <td th:text="${provider.providerName}"></td>
+                                        <td>
+                                        	<th:block th:if="${provider.providerSex} eq 0">女</th:block>
+		                                	<th:block th:if="${provider.providerSex} eq 1">男</th:block>
+                                        </td>
+                                        <th:block th:unless="${provider.mobileNo} eq ${loanEmp.leMobile}">
+                                        	<td th:text="${provider.mobileNo}==null?'':${provider.mobileNo.substring(0,3)+'****'+provider.mobileNo.substring(7,11)}"></td>
+                                        </th:block>
+                                        <th:block th:if="${provider.mobileNo} eq ${loanEmp.leMobile}">
+                                        	<td th:text="${provider.mobileNo}"></td>
+                                        </th:block>
+                                        <th:block th:unless="${provider.mobileNo} eq ${loanEmp.leMobile}">
+                                        	<td th:text="${provider.idNo}==null?'':${provider.idNo.substring(0,6)+'********'+provider.idNo.substring(provider.idNo.length()-4,provider.idNo.length())}"></td>
+                                        </th:block>
+                                        <th:block th:if="${provider.mobileNo} eq ${loanEmp.leMobile}">
+                                        	<td th:text="${provider.idNo}"></td>
+                                        </th:block>
+                                       <td th:text="${provider.registerTime}?${#dates.format(provider.registerTime, 'yyyy-MM-dd HH:mm:ss')}:''"></td>
+                                        <td>
+                                            <a th:href="@{/customerManager/providerPersonDetail(providerno=${provider.providerNo})}"  class="tablelink">查看</a>
+                                            <a th:href="@{/customerManager/providerPersonModifyView(providerno=${provider.providerNo})}"  class="tablelink mlt10">修改</a>
+                                        </td>
+                                        </tr>
+                                    </tr>
+                                    </tr:block>
+                                </tbody>
+                            </table>
+                          <div class="pagin" th:unless="${#lists.isEmpty(page.resultList)}">
+								<div class="message">
+									<input type="button" value="导出" class="scbtn1" style="width: 65px;" id="export"/>
+									&nbsp;&nbsp;&nbsp;共 <i class="blue" th:text="${page.totalCount}"></i> 条记录，当前显示第 <i
+										class="blue" th:text="${page.pageIndex}"></i> 页
+								</div>
+								<ul class="paginList">
+									<li class="paginItem" th:if="${page.pageIndex} gt 1"><a
+										th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+									</li>
+									<li class="paginItem"
+										th:each="x:${#numbers.sequence(page.startNum, page.endNum)}"
+										th:classappend="(${page.pageIndex} eq ${x})?'current'"><a
+										th:attr="data-pagenum=${x}" th:text="${x}"></a></li>
+									<li class="paginItem"
+										th:if="${page.pageIndex} lt ${page.pageCount}"><a
+										th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+									</li>
+								</ul>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/js/public/select.js"></script>
+        <footer th:replace="common/footer"></footer>
+        <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	    <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+        <script>seajs.use("custManagment/providerPerson");</script>
+    </div>
+</body>
+</html>

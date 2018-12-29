@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script type="text/javascript" src="/js/public/area.js"></script>
+<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>财务管理</li>
+                        <li>放款管理</li>
+                        <li>个人放款记录</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual">
+                        	<form id="myForm">
+	                            <ul class="seachform1">
+	                                <li>
+	                                    <label>省市：</label>
+	                                    <div class="vocation">
+	                                        <select class="select-common select3 provinceSelect" name="provienceNo"></select>
+	                                    </div>
+	                                    <span>省</span>
+	                                    <div class="vocation">
+	                                        <select class="select-common select3 citySelect" name="cityNo"></select>
+	                                    </div>
+	                                    <span>市</span>
+	                                </li>
+	                                <li>
+	                                    <label>报单编号：</label>
+	                                    <input type="text" class="scinput1" name="orderNo"/>
+	                                </li>
+	                                <li>
+	                                    <label>出借人姓名：</label>
+	                                    <input type="text" class="scinput1" name="lenderName"/>
+	                                </li>
+	                                <li>
+	                                    <label>借款人姓名：</label>
+	                                    <input type="text" class="scinput1" name="borrower"/>
+	                                </li>
+	                                <li>
+	                                    <label>状态：</label>
+	                                    <div class="vocation">
+	                                        <select class="select-common select3" name="status">
+	                                            <option value="">请选择</option>
+	                                            <option value="03">放款成功</option>
+	                                            <option value="91">放款失败</option>
+	                                        </select>
+	                                    </div>
+	                                </li>
+	                                <li>
+	                                    <label>申请时间：</label>
+	                                    <input type="text" class="scinput1" name="beginTime" id="startTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'endTime\')}'})" readonly="readonly"/>
+	                                    <span> 至 </span>
+	                                    <input type="text" class="scinput1" name="endTime" id="endTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'startTime\')}'})" readonly="readonly"/>
+	                                </li>
+	                                <li>
+	                                	<input type="hidden" id="selectType" name="selectType" th:value="${selectType}?${selectType}:1"/>
+	                                    <input type="button" class="scbtn" id="queryBtn" value="查询"/>
+	                                </li>
+	                            </ul>
+                            </form>
+                            <div class="table-title">
+                                <p class="tab-font">个人放款记录</p>
+                            </div>
+                            <div id="recordList" th:include="loanManager/_personalLoanRecordSub"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/js/public/select.js"></script>
+        <footer th:replace="common/footer"></footer>
+    </div>
+    <script>
+    	seajs.use("loanManager/personalLoanRecord");
+    </script>
+</body>
+</html>

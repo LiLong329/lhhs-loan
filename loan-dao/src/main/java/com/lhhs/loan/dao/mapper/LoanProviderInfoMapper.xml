@@ -1,0 +1,784 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanProviderInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanProviderInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="provider_no" property="providerNo" jdbcType="VARCHAR" />
+    <result column="mobile_no" property="mobileNo" jdbcType="VARCHAR" />
+    <result column="provider_sex" property="providerSex" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="provider_name" property="providerName" jdbcType="VARCHAR" />
+    <result column="report_name" property="reportName" jdbcType="VARCHAR" />
+    <result column="abutment_name" property="abutmentName" jdbcType="VARCHAR" />
+    <result column="organization_no" property="organizationNo" jdbcType="VARCHAR" />
+    <result column="customer_manager" property="customerManager" jdbcType="VARCHAR" />
+    <result column="register_time" property="registerTime" jdbcType="TIMESTAMP" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="region" property="region" jdbcType="VARCHAR" />
+    <result column="id_no" property="idNo" jdbcType="VARCHAR" />
+    <result column="household_type" property="householdType" jdbcType="VARCHAR" />
+    <result column="health_condition" property="healthCondition" jdbcType="VARCHAR" />
+    <result column="driving_years" property="drivingYears" jdbcType="VARCHAR" />
+    <result column="edu_status" property="eduStatus" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="opening_bank" property="openingBank" jdbcType="VARCHAR" />
+    <result column="credit_no" property="creditNo" jdbcType="VARCHAR" />
+    <result column="head_url" property="headUrl" jdbcType="VARCHAR" />
+    <result column="self_invitecode" property="selfInvitecode" jdbcType="VARCHAR" />
+    <result column="qrcode_url" property="qrcodeUrl" jdbcType="VARCHAR" />
+    <result column="com_address" property="comAddress" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="province_no" property="provinceNo" jdbcType="VARCHAR" />
+    <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+    <result column="city_no" property="cityNo" jdbcType="VARCHAR" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="DATE" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+    <result column="le_staff_name" property="leStaffName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, provider_no, mobile_no,provider_sex, password, provider_name, report_name, abutment_name, organization_no, customer_manager, 
+    register_time, company_name, region, id_no, household_type, health_condition, driving_years, 
+    edu_status, address, email, opening_bank, credit_no, head_url, self_invitecode, qrcode_url, 
+    com_address, customer_id, province_no, province_name, city_no, city_name, union_id, 
+    company_id, status, create_user, create_time, last_user, last_modify_time, field1, 
+    field2, field3, field4, field5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_provider_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from loan_provider_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanProviderInfo" >
+    insert into loan_provider_info (id, provider_no, mobile_no,provider_sex, 
+      password, provider_name, provider_name, report_name, organization_no, 
+      customer_manager, register_time, company_name, 
+      region, id_no, household_type, 
+      health_condition, driving_years, edu_status, 
+      address, email, opening_bank, 
+      credit_no, head_url, self_invitecode, 
+      qrcode_url, com_address, customer_id, 
+      province_no, province_name, city_no, 
+      city_name, union_id, company_id, 
+      status, create_user, create_time, 
+      last_user, last_modify_time, field1, 
+      field2, field3, field4, 
+      field5)
+    values (#{id,jdbcType=INTEGER}, #{providerNo,jdbcType=VARCHAR}, #{mobileNo,jdbcType=VARCHAR}, #{providerSex,jdbcType=VARCHAR},
+      #{password,jdbcType=VARCHAR}, #{providerName,jdbcType=VARCHAR}, #{providerName,jdbcType=VARCHAR}, #{reportName,jdbcType=VARCHAR},
+       #{organizationNo,jdbcType=VARCHAR}, #{customerManager,jdbcType=VARCHAR}, #{registerTime,jdbcType=TIMESTAMP}, #{companyName,jdbcType=VARCHAR}, 
+      #{region,jdbcType=VARCHAR}, #{idNo,jdbcType=VARCHAR}, #{householdType,jdbcType=VARCHAR}, 
+      #{healthCondition,jdbcType=VARCHAR}, #{drivingYears,jdbcType=VARCHAR}, #{eduStatus,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{openingBank,jdbcType=VARCHAR}, 
+      #{creditNo,jdbcType=VARCHAR}, #{headUrl,jdbcType=VARCHAR}, #{selfInvitecode,jdbcType=VARCHAR}, 
+      #{qrcodeUrl,jdbcType=VARCHAR}, #{comAddress,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, 
+      #{provinceNo,jdbcType=VARCHAR}, #{provinceName,jdbcType=VARCHAR}, #{cityNo,jdbcType=VARCHAR}, 
+      #{cityName,jdbcType=VARCHAR}, #{unionId,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastUser,jdbcType=VARCHAR}, #{lastModifyTime,jdbcType=DATE}, #{field1,jdbcType=VARCHAR}, 
+      #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, #{field4,jdbcType=VARCHAR}, 
+      #{field5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanProviderInfo" >
+    insert into loan_provider_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="providerNo != null" >
+        provider_no,
+      </if>
+      <if test="mobileNo != null" >
+        mobile_no,
+      </if>
+       <if test="providerSex != null" >
+        provider_sex,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="providerName != null" >
+        provider_name,
+      </if>
+      <if test="reportName != null" >
+        report_name,
+      </if>
+      <if test="abutmentName != null" >
+        abutment_name,
+      </if>
+      <if test="organizationNo != null" >
+        organization_no,
+      </if>
+      <if test="customerManager != null" >
+        customer_manager,
+      </if>
+      <if test="registerTime != null" >
+        register_time,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="region != null" >
+        region,
+      </if>
+      <if test="idNo != null" >
+        id_no,
+      </if>
+      <if test="householdType != null" >
+        household_type,
+      </if>
+      <if test="healthCondition != null" >
+        health_condition,
+      </if>
+      <if test="drivingYears != null" >
+        driving_years,
+      </if>
+      <if test="eduStatus != null" >
+        edu_status,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="openingBank != null" >
+        opening_bank,
+      </if>
+      <if test="creditNo != null" >
+        credit_no,
+      </if>
+      <if test="headUrl != null" >
+        head_url,
+      </if>
+      <if test="selfInvitecode != null" >
+        self_invitecode,
+      </if>
+      <if test="qrcodeUrl != null" >
+        qrcode_url,
+      </if>
+      <if test="comAddress != null" >
+        com_address,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="provinceNo != null" >
+        province_no,
+      </if>
+      <if test="provinceName != null" >
+        province_name,
+      </if>
+      <if test="cityNo != null" >
+        city_no,
+      </if>
+      <if test="cityName != null" >
+        city_name,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUser != null" >
+        last_user,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="providerNo != null" >
+        #{providerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileNo != null" >
+        #{mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="providerSex != null" >
+        #{providerSex,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="providerName != null" >
+        #{providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="reportName != null" >
+        #{reportName,jdbcType=VARCHAR},
+      </if>
+      <if test="abutmentName != null" >
+        #{abutmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationNo != null" >
+        #{organizationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerManager != null" >
+        #{customerManager,jdbcType=VARCHAR},
+      </if>
+      <if test="registerTime != null" >
+        #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="idNo != null" >
+        #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="householdType != null" >
+        #{householdType,jdbcType=VARCHAR},
+      </if>
+      <if test="healthCondition != null" >
+        #{healthCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="drivingYears != null" >
+        #{drivingYears,jdbcType=VARCHAR},
+      </if>
+      <if test="eduStatus != null" >
+        #{eduStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="openingBank != null" >
+        #{openingBank,jdbcType=VARCHAR},
+      </if>
+      <if test="creditNo != null" >
+        #{creditNo,jdbcType=VARCHAR},
+      </if>
+      <if test="headUrl != null" >
+        #{headUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="selfInvitecode != null" >
+        #{selfInvitecode,jdbcType=VARCHAR},
+      </if>
+      <if test="qrcodeUrl != null" >
+        #{qrcodeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="comAddress != null" >
+        #{comAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceNo != null" >
+        #{provinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null" >
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=DATE},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanProviderInfo" >
+    update loan_provider_info
+    <set >
+      <if test="providerNo != null" >
+        provider_no = #{providerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileNo != null" >
+        mobile_no = #{mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="providerSex != null" >
+        provider_sex = #{providerSex,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="providerName != null" >
+        provider_name = #{providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="reportName != null" >
+        report_name = #{reportName,jdbcType=VARCHAR},
+      </if>
+      <if test="abutmentName != null" >
+        abutment_name = #{abutmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationNo != null" >
+        organization_no = #{organizationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerManager != null" >
+        customer_manager = #{customerManager,jdbcType=VARCHAR},
+      </if>
+      <if test="registerTime != null" >
+        register_time = #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        region = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="idNo != null" >
+        id_no = #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="householdType != null" >
+        household_type = #{householdType,jdbcType=VARCHAR},
+      </if>
+      <if test="healthCondition != null" >
+        health_condition = #{healthCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="drivingYears != null" >
+        driving_years = #{drivingYears,jdbcType=VARCHAR},
+      </if>
+      <if test="eduStatus != null" >
+        edu_status = #{eduStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="openingBank != null" >
+        opening_bank = #{openingBank,jdbcType=VARCHAR},
+      </if>
+      <if test="creditNo != null" >
+        credit_no = #{creditNo,jdbcType=VARCHAR},
+      </if>
+      <if test="headUrl != null" >
+        head_url = #{headUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="selfInvitecode != null" >
+        self_invitecode = #{selfInvitecode,jdbcType=VARCHAR},
+      </if>
+      <if test="qrcodeUrl != null" >
+        qrcode_url = #{qrcodeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="comAddress != null" >
+        com_address = #{comAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceNo != null" >
+        province_no = #{provinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null" >
+        province_name = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        city_no = #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=DATE},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where provider_no = #{providerNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanProviderInfo" >
+    update loan_provider_info
+    set provider_no = #{providerNo,jdbcType=VARCHAR},
+      mobile_no = #{mobileNo,jdbcType=VARCHAR},
+      provider_sex = #{providerSex,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      provider_name = #{providerName,jdbcType=VARCHAR},
+      report_name = #{reportName,jdbcType=VARCHAR},
+      abutment_name = #{abutmentName,jdbcType=VARCHAR},
+      organization_no = #{organizationNo,jdbcType=VARCHAR},
+      customer_manager = #{customerManager,jdbcType=VARCHAR},
+      register_time = #{registerTime,jdbcType=TIMESTAMP},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      region = #{region,jdbcType=VARCHAR},
+      id_no = #{idNo,jdbcType=VARCHAR},
+      household_type = #{householdType,jdbcType=VARCHAR},
+      health_condition = #{healthCondition,jdbcType=VARCHAR},
+      driving_years = #{drivingYears,jdbcType=VARCHAR},
+      edu_status = #{eduStatus,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      opening_bank = #{openingBank,jdbcType=VARCHAR},
+      credit_no = #{creditNo,jdbcType=VARCHAR},
+      head_url = #{headUrl,jdbcType=VARCHAR},
+      self_invitecode = #{selfInvitecode,jdbcType=VARCHAR},
+      qrcode_url = #{qrcodeUrl,jdbcType=VARCHAR},
+      com_address = #{comAddress,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=VARCHAR},
+      province_no = #{provinceNo,jdbcType=VARCHAR},
+      province_name = #{provinceName,jdbcType=VARCHAR},
+      city_no = #{cityNo,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=DATE},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="queryProviderByNo" parameterType="String" resultType="com.lhhs.loan.dao.domain.LoanProviderInfo">
+    select * from loan_provider_info where 
+      <if test="providerNo != null" >
+         provider_no=#{providerNo}  
+      </if>
+      <if test="mobile_no != null" >
+         mobile_no=#{mobile_no}  
+      </if>
+      limit 1;
+  </select>
+  <select id="selectProviderByMobile" parameterType="String" resultType="com.lhhs.loan.dao.domain.LoanProviderInfo">
+    select * from loan_provider_info where  mobile_no=#{mobile_no}  limit 1;
+  </select>
+  
+   <update id="updateByProviderNo" parameterType="com.lhhs.loan.dao.domain.LoanProviderInfo" >
+    update loan_provider_info
+    <set >
+      <if test="mobileNo != null" >
+        mobile_no = #{mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="providerSex != null" >
+        provider_sex = #{providerSex,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="providerName != null" >
+        provider_name = #{providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationNo != null" >
+        organization_no = #{organizationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerManager != null" >
+        customer_manager = #{customerManager,jdbcType=VARCHAR},
+      </if>
+      <if test="registerTime != null" >
+        register_time = #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        region = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="idNo != null" >
+        id_no = #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="householdType != null" >
+        household_type = #{householdType,jdbcType=VARCHAR},
+      </if>
+      <if test="healthCondition != null" >
+        health_condition = #{healthCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="drivingYears != null" >
+        driving_years = #{drivingYears,jdbcType=VARCHAR},
+      </if>
+      <if test="eduStatus != null" >
+        edu_status = #{eduStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="openingBank != null" >
+        opening_bank = #{openingBank,jdbcType=VARCHAR},
+      </if>
+      <if test="creditNo != null" >
+        credit_no = #{creditNo,jdbcType=VARCHAR},
+      </if>
+      <if test="headUrl != null" >
+        head_url = #{headUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="selfInvitecode != null" >
+        self_invitecode = #{selfInvitecode,jdbcType=VARCHAR},
+      </if>
+      <if test="qrcodeUrl != null" >
+        qrcode_url = #{qrcodeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="comAddress != null" >
+        com_address = #{comAddress,jdbcType=VARCHAR},
+      </if>
+        <if test="provinceNo != null" >
+        province_no = #{provinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null" >
+        province_name = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        city_no = #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where provider_no=#{providerNo,jdbcType=VARCHAR}
+  </update>
+
+  <!--经纪人列表  -->
+  <select id="provaderList" parameterType="map" resultMap="BaseResultMap">
+    select lpi.id, lpi.provider_no, lpi.mobile_no,lpi.provider_sex, lpi.password, lpi.provider_name, lpi.report_name, lpi.abutment_name, lpi.organization_no, 
+    lpi.register_time, lpi.company_name, lpi.region, lpi.id_no, lpi.household_type, lpi.health_condition, lpi.driving_years, 
+    lpi.edu_status, lpi.address, lpi.email, lpi.opening_bank, lpi.credit_no, lpi.head_url, lpi.self_invitecode, lpi.qrcode_url, 
+    lpi.com_address, lpi.customer_id, lpi.province_no, lpi.province_name, lpi.city_no, lpi.city_name, lpi.union_id, 
+    lpi.company_id, lpi.status, lpi.create_user, lpi.create_time, lpi.last_user,le.staff_name le_staff_name
+    from loan_provider_info lpi
+    left join bump_user le on le.user_id=lpi.customer_manager 
+    where (organization_no='' or organization_no is null)
+      <if test="city != null and ''!=city" >
+        and lpi.city_name = #{city,jdbcType=VARCHAR}
+      </if> 
+      <if test="providerno!=null and ''!=providerno">
+		 and lpi.provider_no like concat(concat('%',#{providerno}),'%')
+	  </if>
+      <if test="providername!=null and ''!=providername">
+		 and lpi.provider_name like concat(concat('%',#{providername}),'%')
+	  </if>
+      <if test="providermobile != null and ''!=providermobile" >
+        and lpi.mobile_no = #{providermobile,jdbcType=VARCHAR}
+      </if>
+      order by lpi.register_time desc
+      <if test="page != null" >
+ 	    limit #{page.pageStartIndex},#{page.pageSize}
+ 	  </if>
+  </select>
+  
+  <select id="provaderListCount" parameterType="map" resultType="Integer">
+   select count(1)
+   from loan_provider_info
+   where (organization_no='' or organization_no is null)
+       <if test="city != null and ''!=city" >
+        and loan_provider_info.city_name = #{city,jdbcType=VARCHAR}
+       </if> 
+       <if test="providerno!=null and ''!=providerno">
+		 and loan_provider_info.provider_no like concat(concat('%',#{providerno}),'%')
+	   </if>
+       <if test="providername!=null and ''!=providername">
+		 and loan_provider_info.provider_name like concat(concat('%',#{providername}),'%')
+	   </if>
+       <if test="providermobile != null and ''!=providermobile" >
+        and loan_provider_info.mobile_no = #{providermobile,jdbcType=VARCHAR}
+       </if>
+   </select>
+  
+  <select id="queryProviderInfo" parameterType="String" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from loan_provider_info
+    where provider_no=#{providerno,jdbcType=VARCHAR}
+  </select>
+  <!-- 经纪人导出 -->
+   <select id="provaderListExport" parameterType="map" resultMap="BaseResultMap">
+     select 
+      <include refid="Base_Column_List" />
+     from loan_provider_info
+     where 1=1
+       <if test="isCompany != null and ''!=isCompany" >
+        and organization_no!=''
+       </if>
+       <if test="isPerson != null and ''!=isPerson" >
+        and (organization_no='' or organization_no is null)
+       </if>
+       <if test="province != null and ''!=province" >
+        and loan_provider_info.province_name = #{province,jdbcType=VARCHAR}
+       </if>
+       <if test="city != null and ''!=city" >
+        and loan_provider_info.city_name = #{city,jdbcType=VARCHAR}
+       </if> 
+       <if test="providerno!=null and ''!=providerno">
+		 and loan_provider_info.provider_no like concat(concat('%',#{providerno}),'%')
+	   </if>
+       <if test="providername!=null and ''!=providername">
+		 and loan_provider_info.provider_name like concat(concat('%',#{providername}),'%')
+	   </if>
+       <if test="providermobile != null and ''!=providermobile" >
+        and loan_provider_info.mobile_no = #{providermobile,jdbcType=VARCHAR}
+      </if>
+  </select>
+  
+<!-- 经纪人列表 企业 -->
+<!--经纪人列表  -->
+  <select id="provaderCompanyList" parameterType="map" resultMap="BaseResultMap">
+    select lpi.id, lpi.provider_no, lpi.mobile_no,lpi.provider_sex, lpi.password, lpi.provider_name, lpi.report_name, lpi.abutment_name, lpi.organization_no, 
+    lpi.register_time, lpi.company_name, lpi.region, lpi.id_no, lpi.household_type, lpi.health_condition, lpi.driving_years, 
+    lpi.edu_status, lpi.address, lpi.email, lpi.opening_bank, lpi.credit_no, lpi.head_url, lpi.self_invitecode, lpi.qrcode_url, 
+    lpi.com_address, lpi.customer_id, lpi.province_no, lpi.province_name, lpi.city_no, lpi.city_name, lpi.union_id, 
+    lpi.company_id, lpi.status, lpi.create_user, lpi.create_time, lpi.last_user,le.staff_name le_staff_name
+    from loan_provider_info lpi
+    left join bump_user le on le.user_id=lpi.customer_manager 
+    where organization_no!=''
+      <if test="city != null and ''!=city" >
+        and lpi.city_name = #{city,jdbcType=VARCHAR}
+      </if> 
+        <if test="providerno!=null and ''!=providerno">
+		 and lpi.provider_no like concat(concat('%',#{providerno}),'%')
+	  </if>
+      <if test="providername!=null and ''!=providername">
+		 and lpi.provider_name like concat(concat('%',#{providername}),'%')
+	  </if>
+       <if test="providermobile != null and ''!=providermobile" >
+        and lpi.mobile_no = #{providermobile,jdbcType=VARCHAR}
+      </if>
+      order by lpi.register_time desc
+ 	  limit #{page.pageStartIndex},#{page.pageSize}
+  </select>
+  
+  <select id="provaderCompanyListCount" parameterType="map" resultType="Integer">
+   select count(1)
+   from loan_provider_info lpi
+   left join bump_user le on le.user_id=lpi.customer_manager 
+   where organization_no!=''
+      <if test="city != null and ''!=city" >
+        and lpi.city_name = #{city,jdbcType=VARCHAR}
+      </if> 
+      <if test="providerno!=null and ''!=providerno">
+		 and lpi.provider_no like concat(concat('%',#{providerno}),'%')
+	  </if>
+      <if test="providername!=null and ''!=providername">
+		 and lpi.provider_name like concat(concat('%',#{providername}),'%')
+	  </if>
+       <if test="providermobile != null and ''!=providermobile" >
+        and lpi.mobile_no = #{providermobile,jdbcType=VARCHAR}
+      </if>
+  </select>
+  
+    <!--根据部门公司查询经纪人  -->
+    <select id="selectByDeptAndCompany" parameterType="String" resultMap="BaseResultMap">
+     select pi.provider_no,pi.provider_name 
+     from  loan_provider_info  pi  inner join  bump_user le on  pi.mobile_no = le.mobile  
+     where  le.dept_id =#{deptId,jdbcType=VARCHAR} and le.company_id=#{companyId,jdbcType=VARCHAR}
+    </select>
+    
+    <!--根据当前登录用户所在公司查询经纪人  -->
+    <select id="selectProviderByEmp" parameterType="com.lhhs.loan.dao.domain.LoanEmp" resultMap="BaseResultMap">
+     select lpi.provider_no,lpi.provider_name,lpi.mobile_no
+     from loan_provider_info lpi inner join bump_user le
+     	on lpi.mobile_no=le.mobile
+     where le.user_id!=1
+     <if test="leEmpId != 1 and branchCompanyId!=null and branchCompanyId!='' and branchCompanyId!=companyId" >
+        and le.union_id=#{companyId} and le.company_id=#{branchCompanyId}
+     </if>
+    </select>
+
+</mapper>

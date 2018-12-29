@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>资金管理</li>
+                        <li>用户资金账目管理</li>
+                        <li><a href="/userFundsAccountsManager/assetsLiabilitiesInfo">资产负债</a></li>
+                        <li>查看详情</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div class="formtitle"><span>资产负债详情</span></div>
+                        <div class="toolsli">
+                            <ul class="nbbdgl-Ui">
+                                <li style="width:80%;">
+                                    <span class="tips">手机号：</span>
+                                    <span th:text="${mobile}"></span>
+                                </li>
+                                <li style="width:80%;">
+                                    <span class="tips">姓名：</span>
+                                    <span th:text="${ownerName}"></span>
+                                </li>
+                                <li style="width:80%;">
+                                    <span class="tips">身份证号：</span>
+                                    <span th:text="${certificateNo}"></span>
+                                </li>
+                                <li style="width:80%;">
+                                    <span class="tips">资产总额：</span>
+                                    <span th:text="${#numbers.formatDecimal(assetTotal,1,2)}+'元'"></span>
+                                </li>
+                                <li style="width:80%;">
+                                    <span class="tips">负债总额：</span>
+                                    <span th:text="${#numbers.formatDecimal(liabilitiesTotal,1,2)}+'元'"></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <p class="textCt">
+                            <input type="button" class="scbtn2" value="返  回" onclick="javascript:history.go(-1);"/>
+                        </p>
+                    </div>
+                </div>
+         	</div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+    <script type="text/javascript" charset="utf-8" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+    <script> seajs.use("fundsAccountsManager/transRecord");</script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<body>
+<div class="father">
+    <header th:replace="common/top"></header>
+    <div class="common-content">
+        <div th:replace="common/left"></div>
+        <div class="common-right">
+            <div class="place" id="place">
+                <span>位置：</span>
+                <ul class="placeul">
+                    <li><a href="/index/index">首页</a></li>
+                    <li>客户管理</li>
+                    <li><a th:href="@{/investCustomer/investCustomerList}">理财人信息（银主）</a></li>
+                    <li th:if="${msg eq 'edit'}">修改</li>
+                    <li th:if="${msg eq 'save'}">新增</li>
+                </ul>
+            </div>
+            <div class="right-content">
+                <div class="formbody">
+                      <form id="myForm">
+                        <input type="hidden"  th:value="${investCustomer.customerId}" name="customerId"/>
+                        <input type="hidden"  th:value="${investCustomer.accountId}" name="accountId"/>
+                        <input type="hidden"  th:value="${investCustomer.id}" name="id"/>
+                        <input type="hidden"  th:value="${msg}" name="msg"/>
+                        <input type="hidden"  th:value="${investCustomer.investCustomerMobile}" name="hiddenMobile"/>
+                    <div class="formtitle"><span>基本信息</span></div>
+                    <div class="toolsli">
+                        <ul class="nbbdgl-Ui">
+                           <li>
+                                <span th:if="${msg eq 'edit'}" class="tips">客户编号：</span>
+                                <span th:if="${msg eq 'edit'}"><span th:text="${investCustomer.customerId}"></span></span>
+                            </li>
+                            <li>
+                                <span class="tips">客户性质：</span>
+                                 <div class="vocation">
+                                          <select class="select-common select3 validate[required]" name="investCustomerNature" style="width:251px;">
+                                            <option value="">请选择</option>
+                                            <option th:each="property : ${accountCustProperty}" th:value="${property.type_id}" th:text="${property.type_name}"
+                                            th:attr="selected=(${property.type_id} eq ${investCustomer.investCustomerNature})?true:false" ></option>
+                                           </select>
+                                  </div>
+                            </li>
+                            <li>
+                                <span class="tips">客户名称：</span>
+                                <input type="text" name="investCustomerName" th:value="${investCustomer.investCustomerName}" class="txt validate[required,custom[chinese]]"/>
+                            </li>
+                            <li>
+                                <span class="tips">手机号码：</span>
+                                <input type="text" name="investCustomerMobile" th:value="${investCustomer.investCustomerMobile}" class="txt validate[required,custom[mobile]]"/>
+                            </li>
+                            <li>
+                                <span class="tips">客户性别：</span>
+                                <cite>
+                                    <input type="radio" id="sex0" name="sex" value="1" th:attr="checked=(${investCustomer.sex} eq '1'?true:false)"/>
+                                    <label for="sex0">男</label>
+                                    <input type="radio" id="sex1" name="sex" value="0" th:attr="checked=(${investCustomer.sex} eq '0'?true:false)"/>
+                                    <label for="sex1">女</label>
+                                </cite>
+                            </li>
+                            <li style="width:80%;">
+                                <span class="tips">身份证号：</span>
+                                <input type="text" name="idNum" th:value="${investCustomer.idNum}" class="txt validate[custom[chinaIdLoose]]"/>
+                            </li>
+                            <li>
+                                <span class="tips">银行卡号：</span>
+                                <input type="text" name="bankCardNo" th:value="${investCustomer.bankCardNo}" class="txt validate[custom[bankCard]]"/>
+                            </li>
+                            <li>
+                                <span class="tips">开户行：</span>
+                                <div class="vocation">
+                            	 <select class="select-common select1" name="bankId" id="bankId">
+                                           <option value="">请选择</option>
+                                           <option th:each="bank : ${banks}" th:value="${bank.bankId}" th:text="${bank.bankName}"
+                                            th:attr="selected=(${bank.bankId} eq ${investCustomer.bankId})?true:false"></option>
+                                 </select>
+                               </div>
+                            </li>
+                             <li>
+                                <span class="tips">开户支行：</span>
+                                <input type="text" name="branchName" th:value="${investCustomer.branchName}" class="txt validate[custom[chinese]]"/>
+                            </li>
+                            <li>
+                                <span class="tips">所属公司：</span>
+                            	  <div class="vocation">
+                            	 <select class="select-common select1 validate[required]" name="affiliatedCompanyId" id="affiliatedCompanyId">
+                                       <option value="">请选择</option>
+                                       <option th:each="companys : ${companys}" th:value="${companys.companyId}" th:text="${companys.CorName}"
+                                       th:attr="selected=(${companys.companyId} eq ${investCustomer.affiliatedCompanyId})?true:false"></option>
+                                 </select>
+                                  </div>
+                            </li>
+                              <li>
+                                <span class="tips">客户经理：</span>
+                            	 <div class="vocation">
+                                        <select class="select-common select1" name="accountManagerNo" id="accountManagerNo" >
+                                            <option value="">请选择</option>
+                                            <option th:each="allManager : ${allManager}" th:value="${allManager.le_emp_id}" th:text="${allManager.le_staff_name}"
+                                              th:attr="selected=(${allManager.le_emp_id} eq ${investCustomer.accountManagerNo})?true:false"></option>
+                                        </select>
+                                    </div>
+                            </li>
+                            <li style="width: 80%;">
+                                <span class="tips">&nbsp;</span>
+                                <input type="button" class="scbtn mlt10" id="btn_save"  value="保 存"/>
+                                <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);"/>
+                            </li>
+                        </ul>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+   <footer th:replace="common/footer"></footer>
+    <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+    <script>seajs.use("login/investCustomer");</script>
+</div>
+</body>
+</html>

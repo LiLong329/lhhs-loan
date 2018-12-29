@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanAuthgroupMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanAuthgroup" >
+    <id column="group_id" property="groupId" jdbcType="INTEGER" />
+    <result column="group_name" property="groupName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="data_zone" property="dataZone" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+     <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    group_id, group_name, status, type, data_zone, union_id, company_id,creat_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_authgroup
+    where group_id = #{groupId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from loan_authgroup
+    where group_id = #{groupId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanAuthgroup" >
+    insert into loan_authgroup (group_id, group_name, status, 
+      type, data_zone, union_id, company_id,creat_time)
+    values (#{groupId,jdbcType=INTEGER}, #{groupName,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{dataZone,jdbcType=VARCHAR},
+      #{unionId,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR},#{creatTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanAuthgroup" useGeneratedKeys="true" keyProperty="groupId" >
+    insert into loan_authgroup
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="groupName != null" >
+        group_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="dataZone != null" >
+        data_zone,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="groupId != null" >
+        #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="groupName != null" >
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="dataZone != null" >
+        #{dataZone,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+       <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanAuthgroup" >
+    update loan_authgroup
+    <set >
+      <if test="groupName != null" >
+        group_name = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="dataZone != null" >
+        data_zone = #{dataZone,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+       <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where group_id = #{groupId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanAuthgroup" >
+    update loan_authgroup
+    set group_name = #{groupName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      data_zone = #{dataZone,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+       creat_time = #{creatTime,jdbcType=TIMESTAMP}
+    where group_id = #{groupId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 自定义方法区 -->
+  <select id="queryAuthGroupList" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_authgroup
+    where 1=1
+    <if test="groupId != null" >
+      and group_id = #{groupId}
+    </if>
+    <if test="groupName != null and groupName!=''" >
+      and group_name = #{groupName}
+    </if>
+    <if test="status != null and status!=''" >
+      and status = #{status}
+    </if>
+    <if test="type != null and type!=''" >
+      and type = #{type}
+    </if>
+    <if test="dataZone != null and dataZone!=''" >
+      and data_zone = #{dataZone}
+    </if>
+    <if test="unionId != null and unionId!='' " >
+      and (union_id = #{unionId} or union_id is null)
+    </if>
+    <if test="companyId != null and companyId!='' " >
+      and (company_id = #{companyId} or company_id is null)
+    </if>
+  </select>
+  
+  <!-- 查询所有数据权限组 -->
+  <select id="getAuthorityGroups" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	SELECT la.group_id,la.group_name,la.status,la.type,la.data_zone
+  	FROM loan_authgroup la 
+  	where la.type = "default" or (la.type = "define"
+	<if test="unionId!=null and unionId!=''">
+		and (la.union_id = #{unionId} or la.union_id  is null or la.union_id="")
+	</if>
+	<if test="companyId!=null and companyId!=''">
+		and (la.company_id = #{companyId} or la.company_id is null or la.company_id="")
+	</if>
+	)
+	order by type,creat_time desc
+	<if test="page!= null">
+		limit #{page.pageStartIndex},#{page.pageSize}
+	</if>
+  </select>
+  
+  <!-- 查询所有数据权限组 COUNT-->
+  <select id="getAuthorityCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+	SELECT count(1)
+  	FROM loan_authgroup la 
+  	where la.type = "default" or (la.type = "define"
+	<if test="unionId!=null and unionId!=''">
+		and (la.union_id = #{unionId} or la.union_id  is null or la.union_id="")
+	</if>
+	<if test="companyId!=null and companyId!=''">
+		and (la.company_id = #{companyId} or la.company_id is null or la.company_id="")
+	</if>)
+  </select>
+  
+   <!-- 查询所有数据权限组名称-->
+  <select id="getAuthgroupNames" resultType="java.lang.String" parameterType="java.lang.Integer">
+  	select group_name from loan_authgroup  la where 1=1 and la.status = '03'
+  </select>
+  
+   <select id="authorityGroupDetail" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	 select la.*,lc.company_name as unionName,lcc.company_name as companyName
+    from loan_authgroup la
+    left join loan_union_company lc
+    on la.union_id = lc.company_id
+    left join loan_union_company lcc
+    on la.company_id = lcc.company_id
+    where group_id = #{groupId,jdbcType=INTEGER}
+  </select>
+  
+  
+  
+</mapper>

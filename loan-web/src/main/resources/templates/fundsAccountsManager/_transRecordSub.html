@@ -1,0 +1,72 @@
+<table class="tablelist">
+                                <thead>
+                                    <tr>
+                                        <th>交易ID</th>
+                                        <th>城市</th>
+                                        <th>账号ID</th>
+                                        <th>报单编号</th>
+                                        <th>用户ID</th>
+                                        <th>手机号</th>
+                                        <th>姓名</th>
+                                        <th>收入</th>
+                                        <th>支出</th>
+                                        <th>账户余额</th>
+                                        <th>交易时间</th>
+                                        <th>交易摘要</th>
+                                        <th>备注</th>
+                                    </tr>
+                                </thead>
+                             <tbody>
+                             <th:block th:unless="${#lists.isEmpty(page.resultList)}">
+			                     <tr th:each="userTransInfos : ${page.resultList}">
+				                     <td  th:text="${userTransInfos.transId}"></td>
+					                 <td  th:text="${userTransInfos.cityName}"></td>
+					                 <td  th:text="${userTransInfos.accountId}"></td>
+					                 <td  th:text="${userTransInfos.orderNo}"></td>
+					                 <td  th:text="${userTransInfos.ownerId}"></td>
+					                 <td  th:text="${userTransInfos.mobile}"></td>
+					                 <td  th:text="${userTransInfos.ownerName}"></td>
+					                 <td  th:text="${userTransInfos.debitAmount}?${#numbers.formatDecimal(userTransInfos.debitAmount,1,2)}:0.00"></td>
+					                 <td  th:text="${userTransInfos.creditAmount}?${#numbers.formatDecimal(userTransInfos.creditAmount,1,2)}:0.00"></td>
+					                 <td  th:text="${userTransInfos.amountTotal}?${#numbers.formatDecimal(userTransInfos.amountTotal,1,2)}:0.00"></td>
+					                 <td  th:text="${userTransInfos.transTime}?${#dates.format(userTransInfos.transTime, 'yyyy-MM-dd HH:mm:ss')}:''"></td>
+					                 <td  th:text="${userTransInfos.subjectName}"></td>
+					                 <td  th:text="${userTransInfos.transRemark}"></td>
+								</tr>
+								</th:block>
+								<th:block th:if="${#lists.isEmpty(page.resultList)}">
+									<tr>
+										<td colspan="9" class="textCt">暂无数据</td>
+									</tr>
+								</th:block>
+                            </tbody>
+                            </table>
+					<th:block th:unless="${#lists.isEmpty(page.resultList)}">
+					    <div class="pagin" style="margin-top: 0px;">
+					        <div class="message">
+						    	统计数据（<i class="blue" th:text="${page.totalCount}"></i> 条 );&nbsp;&nbsp;&nbsp;
+						    	
+						    	收入总额：<i class="blue" th:text="${#numbers.formatDecimal(map.debitAmount,1,2)}"></i> 元&nbsp;&nbsp;&nbsp;
+						    	支出总额：<i class="blue" th:text="${#numbers.formatDecimal(map.creditAmount,1,2)}"></i> 元
+						    	
+						   	</div>
+					    </div>
+					    <div class="pagin" style="margin-top: 0px;">
+					    	<div class="message">
+					    		<input type="button" value="导出" class="scbtn1" style="width: 65px;" id="export"/>&nbsp;&nbsp;&nbsp;
+								共 <i class="blue" th:text="${page.totalCount}"></i> 
+								条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+							</div>
+							<ul class="paginList">
+								<li class="paginItem" th:if="${page.pageIndex} gt 1">
+									<a th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+								</li>
+								<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" th:classappend="(${page.pageIndex} eq ${x})?'current'">
+									<a th:attr="data-pagenum=${x}" th:text="${x}"></a>
+								</li>
+								<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+									<a th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+								</li> 
+							</ul>
+					    </div>
+					</th:block>

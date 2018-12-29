@@ -1,0 +1,91 @@
+<table class="tablelist">
+         <thead>
+             <tr>
+                  <th>客户姓名</th>
+                  <th>回访次数</th>
+                  <th>客户手机号</th>
+                  <th>业务类型</th>
+                  <th>获客来源</th>
+                  <th>客户状态</th>
+                  <th>回访时间</th>
+                  <th>回访方式</th>
+                  <th>回访内容</th>
+             </tr>
+         </thead>
+         <tbody>
+             <tr:block th:unless="${#lists.isEmpty(page.resultList)}" >
+             <tr th:each="info , iter : ${page.resultList}">
+             	<!--  <td th:if="${info.name} ne ''" th:attr="rowspan=${info.rowSpan}" th:text="${info.name}"></td>  -->
+             	 <td th:text="${info.name}"></td> 
+                 <td th:text="${info.visitCount}"></td>
+                 <td th:text="${info.mobile}"></td>
+                 <td th:if="${info.businessType} eq '1'">房产抵押贷</td>
+                 <td th:if="${info.businessType} eq '2'">信用贷</td>
+                 <td th:if="${info.businessType} eq '3'">车辆抵押贷</td>
+                 <td th:if="${info.businessType} eq '4'">垫资过桥</td>
+                 <td th:if="${info.businessType} eq '5'">解查封</td>
+                 <td th:if="${info.businessType} eq '6'"></td>
+                 <td th:if="!${info.businessType}"></td>
+                 <td th:if="${info.businessType} eq ''"></td>
+                 
+                 <td th:if="${info.source} eq '01'">陌拜</td>
+                 <td th:if="${info.source} eq '02'">电销</td>
+                 <td th:if="${info.source} eq '03'">转介绍</td>
+                 <td th:if="${info.source} eq '04'">网络</td>
+                 <td th:if="${info.source} eq '05'">报刊 </td>
+                 <td th:if="${info.source} eq '06'">其他</td>
+                 <td th:if="${info.source} eq '07'">中视天脉</td>
+                 <td th:if="!${info.source}"></td>
+                 <td th:if="${info.source} eq ''"></td>
+                 
+                 <td th:if="${info.businessStatus} eq '01'">初步接触</td>
+                 <td th:if="${info.businessStatus} eq '02'">意向客户</td>
+                 <td th:if="${info.businessStatus} eq '03'">跟进客户</td>
+                 <td th:if="${info.businessStatus} eq '04'">签约客户</td>
+                 <td th:if="${info.businessStatus} eq '05'">放弃客户</td>
+                 <td th:if="${info.businessStatus} eq '06'">黑名单</td>
+                 <td th:if="${info.businessStatus} eq '07'">面谈客户</td>
+                 <td th:if="${info.businessStatus} eq '08'">已报单</td>
+                 <td th:if="${info.businessStatus} eq '90'">已拒贷</td>
+                 <td th:if="${info.businessStatus} eq '99'">无效</td>
+                 <td th:if="!${info.businessStatus}"></td>
+                 <td th:if="${info.businessStatus} eq ''"></td>
+                 
+                 <td th:text="${info.visitTime}?${#dates.format(info.visitTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                 
+                 <td th:if="${info.followType eq '1'}">电话</td>
+                 <td th:if="${info.followType eq '2'}">QQ</td>
+                 <td th:if="${info.followType eq '3'}">微信</td>
+                 <td th:if="${info.followType eq '4'}">当面拜访</td>
+                 <td th:if="${info.followType eq '5'}">其他</td>
+                 <td th:if="${info.followType eq '6'}">再写6打死你</td>
+                 <td th:if="!${info.followType}"></td>
+                 <td th:if="${info.followType} eq ''"></td>
+                 <td th:text="${info.remark}"></td>
+                 </tr>
+             </tr:block>
+    </tbody>
+</table>  
+<div class="pagin" style="margin-top: 0px;" th:unless="${#lists.isEmpty(page.resultList)}">
+	<div class="message">
+		共 <i class="blue" th:text="${page.totalCount}"></i> 
+		条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+	</div>
+	<ul class="paginList">
+		<li class="paginItem" th:if="${page.pageIndex} gt 1">
+			<a th:attr="data-pagenum=(${page.pageIndex}-1),data-pagesize=${page.pageSize}" class="pagepre"></a>
+		</li>
+		<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" 
+		th:classappend="(${page.pageIndex} eq ${x})?'current'">
+			<a th:attr="data-pagenum=${x},data-pagesize=(${page.pageSize})" th:text="${x}"></a>
+		</li>
+		<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+			<a th:attr="data-pagenum=(${page.pageIndex}+1),data-pagesize=(${page.pageSize})" class="pagenxt"></a>
+		</li> 
+	</ul>
+</div>
+<div>
+      <p class="textCt">
+                   <input type="button" class="scbtn2" value="返  回" onclick="javascript:history.go(-1);"/>
+      </p>
+</div>

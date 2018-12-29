@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script src="/js/public/area.js"></script>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                <span>位置：</span>
+                <ul class="placeul">
+                    <li><a href="/index/index">首页</a></li>
+                    <li>客户管理</li>
+                    <li><a th:href="@{/customerManager/providerCompany}">经纪人信息（企业）</a></li>
+                    <li>修改</li>
+                </ul>
+            </div>
+            <div class="right-content">
+                <div class="formbody">
+                    <form id="myForm">
+                    <div class="formtitle"><span>基本信息</span></div>
+                    <div class="toolsli">
+                        <ul class="nbbdgl-Ui">
+                             <li style="width: 80%;">
+	                                    <span class="tips">省市：</span>
+				                        <div class="vocation">
+								          	<select class="select-common select3 provinceSelect validate[required]" name="provinceName" th:attr="data-val=${providerInfo.provinceName}" ></select>
+							            </div>
+							            <span>省</span>
+				                        <div class="vocation">
+								          	<select class="select-common select3 citySelect validate[required]" name="cityName" th:attr="data-val=${providerInfo.cityName}"></select>
+							            </div>
+				                        <span>市</span>
+	                                </li>
+                            <li>
+                                <span class="tips">客户编号：</span>
+                                 <input  name="providerNo" type="hidden" th:value="${providerInfo.providerNo}" />
+                                <span  th:text="${providerInfo.providerNo}"></span>
+                            </li>
+                            <li>
+                                <span class="tips">经纪人姓名：</span>
+                                <input name="providerName" th:value="${providerInfo.providerName}" type="text" class="txt validate[required]"/>
+                            </li>
+                            <li>
+                                <span class="tips">联系方式：</span>
+                                <span th:text="${providerInfo.mobileNo}"></span>
+                            </li>
+                            <li>
+                                <span class="tips">身份证号：</span>
+                                <input name="idNo" th:value="${providerInfo.idNo}" type="text" class="txt validate[required,custom[number],maxSize[18],minSize[18]]"/>
+                            </li>
+                            <li>
+                                <span class="tips">注册时间：</span>
+                                <span th:text="${providerInfo.registerTime}?${#dates.format(providerInfo.registerTime, 'yyyy-MM-dd HH:mm:ss')}:''"></span>
+                            </li>
+                            <li>
+                                <span class="tips">公司名称：</span>
+                                <input name="companyName" th:value="${providerInfo.companyName}" type="text" class="txt validate[required]"/>
+                            </li>
+                            <li>
+                                <span class="tips">邮箱：</span>
+                                <input name="email" th:value="${providerInfo.email}" type="text" class="txt validate[required]"/>
+                            </li>
+                            <li style="width: 80%;">
+                                <span class="tips">&nbsp;</span>
+                                <input type="button" class="scbtn mlt10 companyModify" value="保 存"/>
+                                <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);"/>
+                            </li>
+                        </ul>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+     <script src="/js/public/select.js"></script>
+        <footer th:replace="common/footer"></footer>
+         <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	    <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+        <script>seajs.use("custManagment/providerCompany");</script>
+</div>
+</body>
+</html>

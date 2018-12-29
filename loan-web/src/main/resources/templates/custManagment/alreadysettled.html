@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script src="/js/public/area.js"></script>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>财务管理</li>
+                        <li>付款管理</li>
+                        <li>已结清记录</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual">
+                            <ul class="seachform1">
+                                 <form id="myForm">
+                                 <input  name="pageNumber" type="hidden" value="" id="currentPageNo"/>
+                                   <li>
+	                                    <span class="tips">省市：</span>
+				                        <div class="vocation">
+								          	<select class="select-common select3 provinceSelect" name="province" th:attr="data-val=${province}"></select>
+							            </div>
+							            <span>省</span>
+				                        <div class="vocation">
+								          	<select class="select-common select3 citySelect" name="city" th:attr="data-val=${city}"></select>
+							            </div>
+				                        <span>市</span>
+	                                </li>
+                                    <li>
+                                    <label>业务编号：</label>
+                                    <input type="text" class="scinput1" th:value="${orderno}" name="orderno"/>
+                                    </li>
+                                    <li>
+                                     <label>出借人姓名：</label>
+                                     <input type="text" class="scinput1" th:value="${customer}" name="customer"/>
+                                     </li>
+                                     <li>
+                                    <label>放款时间：</label>
+                                    <input type="text" class="scinput1" th:value="${beginTime}" name="beginTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+                                    <span> 至 </span>
+                                    <input type="text" class="scinput1" th:value="${endTime}" name="endTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+                                     </li>
+                                     <li>
+                                     <input type="button" class="scbtn searcher" value="查询"/>
+                                    </li>
+                                </form>
+                            </ul>
+                            <div class="table-title">
+                                <p class="tab-font">已结清记录</p>
+                            </div>
+                            <table class="tablelist">
+                                <thead>
+                                    <tr>
+                                        <th>报单编号</th>
+                                        <th>省市</th>
+                                        <th>产品类型</th>
+                                        <th>产品名称</th>
+                                        <th>出借人姓名</th>
+                                        <th>放款金额</th>
+                                        <th>放款利率</th>
+                                        <th>还款方式</th>
+                                        <th>收息方式</th>
+                                        <th>实收/总期数</th>
+                                        <th>实收总额</th>
+                                        <th>实收本金</th>
+                                        <th>实收利息</th>
+                                        <th>放款时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr:block th:unless="${#lists.isEmpty(payRecord)}">
+                                    <tr th:each="pay : ${payRecord}">
+                                    <tr>
+                                        <td><a th:href="@{/orderInfo/get(orderNo=${pay.businessId})}" class="tablelink" th:text="${pay.businessId}"></a></td>
+                                        <td th:text="${pay.cityName}"></td>
+                                        <td th:text="${pay.productType}"></td>
+                                        <td th:text="${pay.productName}"></td>
+                                        <td th:text="${pay.borrower}"></td>
+                                        <td th:text="${pay.amount}?${#numbers.formatDecimal(pay.amount,1,2)}"></td>
+                                        <td th:text="${pay.rate}?${#numbers.formatDecimal(pay.rate,1,3)}+'%'+${pay.rateUnit}"></td>
+                                        <td>
+                                        	<th:block th:if="${pay.repaymentMethod} eq 0">每月还息,到期还本</th:block>
+		                                	<th:block th:if="${pay.repaymentMethod} eq 1">等额本息</th:block>
+		                                	<th:block th:if="${pay.repaymentMethod} eq 2">一次性还款</th:block>
+                                        </td>
+                                        <td>
+                                        	<th:block th:if="${pay.interestWay} eq 0">放款日结息</th:block>
+		                                	<th:block th:if="${pay.interestWay} eq 1">到期日结息</th:block>
+		                                	<th:block th:if="${pay.interestWay} eq 2">指定日期结息</th:block>
+                                        </td>
+                                        <td th:text="${pay.investPeriod}+'/'+${pay.periodTotal}"></td>
+                                        <td th:text="${pay.gatheringTotal}?${#numbers.formatDecimal(pay.gatheringTotal,1,2)}"></td>
+                                        <td th:text="${pay.investCapitalAmount}?${#numbers.formatDecimal(pay.investCapitalAmount,1,2)}"></td>
+                                        <td th:text="${pay.investInterestAmount}?${#numbers.formatDecimal(pay.investInterestAmount,1,2)}"></td>
+                                        <td th:text="${pay.lendingTime}?${#dates.format(pay.lendingTime, 'yyyy-MM-dd HH:mm:ss')}:''"></td>
+                                        <td><a th:href="@{/customerManager/settleDetailList(orderNo=${pay.businessId})}" class="tablelink">查看</a></td>
+                                    </tr>
+                                    </tr>
+                                    </tr:block>
+                                    <tr:block th:if="${#lists.isEmpty(payRecord)}">
+                                      <tr><td colspan="15" class="textCt">暂无数据</td></tr>
+                                    </tr:block>
+                                </tbody>
+                            </table>
+                            <!--  div class="message">
+                                                                           统计数据（<span th:text="${page.totalCount}"></span>条);&nbsp;&nbsp;&nbsp;付款总额：<span th:text="${paidTotal}"></span>元
+                            </div-->
+                            <div class="pagin" th:unless="${#lists.isEmpty(page.resultList)}">
+								<div class="message">
+									<input sec:authorize="hasRole('ROLE_SETTLE_EXPORT')" type="button" value="导出" class="scbtn1" style="width: 65px;" id="export"/>
+									&nbsp;&nbsp;&nbsp;共 <i class="blue" th:text="${page.totalCount}"></i> 条记录，当前显示第 <i
+										class="blue" th:text="${page.pageIndex}"></i> 页
+								</div>
+								<ul class="paginList">
+									<li class="paginItem" th:if="${page.pageIndex} gt 1"><a
+										th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+									</li>
+									<li class="paginItem"
+										th:each="x:${#numbers.sequence(page.startNum, page.endNum)}"
+										th:classappend="(${page.pageIndex} eq ${x})?'current'"><a
+										th:attr="data-pagenum=${x}" th:text="${x}"></a></li>
+									<li class="paginItem"
+										th:if="${page.pageIndex} lt ${page.pageCount}"><a
+										th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+									</li>
+								</ul>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/js/public/select.js"></script>
+        <footer th:replace="common/footer"></footer>
+         <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	    <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+        <script>seajs.use("custManagment/alreadysettled");</script>
+    </div>
+</body>
+</html>

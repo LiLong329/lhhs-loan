@@ -1,0 +1,1803 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanTransMainMapper">
+	<resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanTransMain" >
+    <id column="trans_main_id" property="transMainId" jdbcType="VARCHAR" />
+    <result column="borrower" property="borrower" jdbcType="VARCHAR" />
+    <result column="borrower_id" property="borrowerId" jdbcType="VARCHAR" />
+    <result column="borrower_account_id" property="borrowerAccountId" jdbcType="VARCHAR" />
+    <result column="product_type" property="productType" jdbcType="VARCHAR" />
+    <result column="product_no" property="productNo" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_id" property="productId" jdbcType="VARCHAR" />
+    <result column="lending_time" property="lendingTime" jdbcType="TIMESTAMP" />
+    <result column="over_time" property="overTime" jdbcType="TIMESTAMP" />
+    <result column="borrower_amount" property="borrowerAmount" jdbcType="DECIMAL" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="term" property="term" jdbcType="SMALLINT" />
+    <result column="term_unit" property="termUnit" jdbcType="VARCHAR" />
+    <result column="rate_unit" property="rateUnit" jdbcType="VARCHAR" />
+    <result column="rate" property="rate" jdbcType="DECIMAL" />
+    <result column="borrow_customer_type" property="borrowCustomerType" jdbcType="VARCHAR" />
+    <result column="provience_no" property="provienceNo" jdbcType="VARCHAR" />
+    <result column="provience_name" property="provienceName" jdbcType="VARCHAR" />
+    <result column="city_no" property="cityNo" jdbcType="VARCHAR" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="business_id" property="businessId" jdbcType="VARCHAR" />
+    <result column="trans_type" property="transType" jdbcType="VARCHAR" />
+    <result column="repayment_method" property="repaymentMethod" jdbcType="VARCHAR" />
+    <result column="period_total" property="periodTotal" jdbcType="SMALLINT" />
+    <result column="invest_period" property="investPeriod" jdbcType="SMALLINT" />
+    <result column="paid_period" property="paidPeriod" jdbcType="SMALLINT" />
+    <result column="paid_capital_amount" property="paidCapitalAmount" jdbcType="DECIMAL" />
+    <result column="paid_interest_amount" property="paidInterestAmount" jdbcType="DECIMAL" />
+    <result column="paid_overdue_amount" property="paidOverdueAmount" jdbcType="DECIMAL" />
+    <result column="paid_compensate_amount" property="paidCompensateAmount" jdbcType="DECIMAL" />
+    <result column="invest_capital_amount" property="investCapitalAmount" jdbcType="DECIMAL" />
+    <result column="invest_compensate_amount" property="investCompensateAmount" jdbcType="DECIMAL" />
+    <result column="invest_interest_amount" property="investInterestAmount" jdbcType="DECIMAL" />
+    <result column="invest_overdue_amount" property="investOverdueAmount" jdbcType="DECIMAL" />
+    <result column="paid_advanced_capital_amount" property="paidAdvancedCapitalAmount" jdbcType="DECIMAL" />
+    <result column="paid_advanced_interest_amount" property="paidAdvancedInterestAmount" jdbcType="DECIMAL" />
+    <result column="advanced_amount" property="advancedAmount" jdbcType="DECIMAL" />
+    <result column="paid_fees_amount" property="paidFeesAmount" jdbcType="DECIMAL" />
+    <result column="outgoings_fees_amount" property="outgoingsFeesAmount" jdbcType="DECIMAL" />
+    <result column="interest_spread_amount" property="interestSpreadAmount" jdbcType="DECIMAL" />
+    <result column="is_overdue" property="isOverdue" jdbcType="VARCHAR" />
+    <result column="is_guarantee" property="isGuarantee" jdbcType="VARCHAR" />
+    <result column="is_advanced" property="isAdvanced" jdbcType="VARCHAR" />
+    <result column="interest_way" property="interestWay" jdbcType="VARCHAR" />
+    <result column="pay_interest_way" property="payInterestWay" jdbcType="VARCHAR" />
+    <result column="over_rate" property="overRate" jdbcType="VARCHAR" />
+    <result column="debt_rate" property="debtRate" jdbcType="VARCHAR" />
+    <result column="breach_rate" property="breachRate" jdbcType="VARCHAR" />
+    <result column="invest_breach_rate" property="investBreachRate" jdbcType="VARCHAR" />
+    <result column="invest_over_rate" property="investOverRate" jdbcType="VARCHAR" />
+    <result column="set_remark" property="setRemark" jdbcType="VARCHAR" />
+    <result column="account_manager" property="accountManager" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="clean_up_time" property="cleanUpTime" jdbcType="TIMESTAMP" />
+    <result column="pay_off_time" property="payOffTime" jdbcType="TIMESTAMP" />
+    <result column="clean_up_status" property="cleanUpStatus" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="payer_id" property="payerId" jdbcType="VARCHAR" />
+    <result column="payer_name" property="payerName" jdbcType="VARCHAR" />
+    <result column="payer_account_id" property="payerAccountId" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+    <result column="overdue_interest_spread_amount" property="overdueInterestSpreadAmount" jdbcType="DECIMAL" />
+    <result column="rate_and_unit" property="rateAndUnit" jdbcType="VARCHAR" />
+    <result column="period_total_all" property="periodTotalAll" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    trans_main_id, borrower, borrower_id, borrower_account_id, product_type, product_no, 
+    product_name, product_id, lending_time, over_time, borrower_amount, amount, term, 
+    term_unit, rate_unit, rate, borrow_customer_type, provience_no, provience_name, city_no, 
+    city_name, business_id, trans_type, repayment_method, period_total, invest_period, 
+    paid_period, paid_capital_amount, paid_interest_amount, paid_overdue_amount, paid_compensate_amount, 
+    invest_capital_amount, invest_compensate_amount, invest_interest_amount, invest_overdue_amount, 
+    paid_advanced_capital_amount, paid_advanced_interest_amount, advanced_amount, paid_fees_amount, 
+    outgoings_fees_amount, interest_spread_amount, is_overdue, is_guarantee, is_advanced, 
+    interest_way, pay_interest_way, over_rate, debt_rate, breach_rate, invest_breach_rate, 
+    invest_over_rate, set_remark, account_manager, department, company_id, union_id, 
+    clean_up_time, pay_off_time, clean_up_status, status, payer_id, payer_name, payer_account_id, 
+    create_user, create_time, last_user, last_modify_time, field1, field2, field3, field4, 
+    field5, org_id, org_name, overdue_interest_spread_amount
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_trans_main
+    where trans_main_id = #{transMainId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_trans_main
+    where trans_main_id = #{transMainId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanTransMain" >
+    insert into loan_trans_main (trans_main_id, borrower, borrower_id, 
+      borrower_account_id, product_type, product_no, 
+      product_name, product_id, lending_time, 
+      over_time, borrower_amount, amount, 
+      term, term_unit, rate_unit, 
+      rate, borrow_customer_type, provience_no, 
+      provience_name, city_no, city_name, 
+      business_id, trans_type, repayment_method, 
+      period_total, invest_period, paid_period, 
+      paid_capital_amount, paid_interest_amount, 
+      paid_overdue_amount, paid_compensate_amount, 
+      invest_capital_amount, invest_compensate_amount, 
+      invest_interest_amount, invest_overdue_amount, 
+      paid_advanced_capital_amount, paid_advanced_interest_amount, 
+      advanced_amount, paid_fees_amount, outgoings_fees_amount, 
+      interest_spread_amount, is_overdue, is_guarantee, 
+      is_advanced, interest_way, pay_interest_way, 
+      over_rate, debt_rate, breach_rate, 
+      invest_breach_rate, invest_over_rate, set_remark, 
+      account_manager, department, company_id, 
+      union_id, clean_up_time, pay_off_time, 
+      clean_up_status, status, payer_id, 
+      payer_name, payer_account_id, create_user, 
+      create_time, last_user, last_modify_time, 
+      field1, field2, field3, 
+      field4, field5, org_id, 
+      org_name, overdue_interest_spread_amount)
+    values (#{transMainId,jdbcType=VARCHAR}, #{borrower,jdbcType=VARCHAR}, #{borrowerId,jdbcType=VARCHAR}, 
+      #{borrowerAccountId,jdbcType=VARCHAR}, #{productType,jdbcType=VARCHAR}, #{productNo,jdbcType=VARCHAR}, 
+      #{productName,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR}, #{lendingTime,jdbcType=TIMESTAMP}, 
+      #{overTime,jdbcType=TIMESTAMP}, #{borrowerAmount,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, 
+      #{term,jdbcType=SMALLINT}, #{termUnit,jdbcType=VARCHAR}, #{rateUnit,jdbcType=VARCHAR}, 
+      #{rate,jdbcType=DECIMAL}, #{borrowCustomerType,jdbcType=VARCHAR}, #{provienceNo,jdbcType=VARCHAR}, 
+      #{provienceName,jdbcType=VARCHAR}, #{cityNo,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, 
+      #{businessId,jdbcType=VARCHAR}, #{transType,jdbcType=VARCHAR}, #{repaymentMethod,jdbcType=VARCHAR}, 
+      #{periodTotal,jdbcType=SMALLINT}, #{investPeriod,jdbcType=SMALLINT}, #{paidPeriod,jdbcType=SMALLINT}, 
+      #{paidCapitalAmount,jdbcType=DECIMAL}, #{paidInterestAmount,jdbcType=DECIMAL}, 
+      #{paidOverdueAmount,jdbcType=DECIMAL}, #{paidCompensateAmount,jdbcType=DECIMAL}, 
+      #{investCapitalAmount,jdbcType=DECIMAL}, #{investCompensateAmount,jdbcType=DECIMAL}, 
+      #{investInterestAmount,jdbcType=DECIMAL}, #{investOverdueAmount,jdbcType=DECIMAL}, 
+      #{paidAdvancedCapitalAmount,jdbcType=DECIMAL}, #{paidAdvancedInterestAmount,jdbcType=DECIMAL}, 
+      #{advancedAmount,jdbcType=DECIMAL}, #{paidFeesAmount,jdbcType=DECIMAL}, #{outgoingsFeesAmount,jdbcType=DECIMAL}, 
+      #{interestSpreadAmount,jdbcType=DECIMAL}, #{isOverdue,jdbcType=VARCHAR}, #{isGuarantee,jdbcType=VARCHAR}, 
+      #{isAdvanced,jdbcType=VARCHAR}, #{interestWay,jdbcType=VARCHAR}, #{payInterestWay,jdbcType=VARCHAR}, 
+      #{overRate,jdbcType=VARCHAR}, #{debtRate,jdbcType=VARCHAR}, #{breachRate,jdbcType=VARCHAR}, 
+      #{investBreachRate,jdbcType=VARCHAR}, #{investOverRate,jdbcType=VARCHAR}, #{setRemark,jdbcType=VARCHAR}, 
+      #{accountManager,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, 
+      #{unionId,jdbcType=VARCHAR}, #{cleanUpTime,jdbcType=TIMESTAMP}, #{payOffTime,jdbcType=TIMESTAMP}, 
+      #{cleanUpStatus,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{payerId,jdbcType=VARCHAR}, 
+      #{payerName,jdbcType=VARCHAR}, #{payerAccountId,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastUser,jdbcType=VARCHAR}, #{lastModifyTime,jdbcType=TIMESTAMP}, 
+      #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, 
+      #{field4,jdbcType=VARCHAR}, #{field5,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, 
+      #{orgName,jdbcType=VARCHAR}, #{overdueInterestSpreadAmount,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanTransMain" >
+    insert into loan_trans_main
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="transMainId != null" >
+        trans_main_id,
+      </if>
+      <if test="borrower != null" >
+        borrower,
+      </if>
+      <if test="borrowerId != null" >
+        borrower_id,
+      </if>
+      <if test="borrowerAccountId != null" >
+        borrower_account_id,
+      </if>
+      <if test="productType != null" >
+        product_type,
+      </if>
+      <if test="productNo != null" >
+        product_no,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="lendingTime != null" >
+        lending_time,
+      </if>
+      <if test="overTime != null" >
+        over_time,
+      </if>
+      <if test="borrowerAmount != null" >
+        borrower_amount,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="term != null" >
+        term,
+      </if>
+      <if test="termUnit != null" >
+        term_unit,
+      </if>
+      <if test="rateUnit != null" >
+        rate_unit,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+      <if test="borrowCustomerType != null" >
+        borrow_customer_type,
+      </if>
+      <if test="provienceNo != null" >
+        provience_no,
+      </if>
+      <if test="provienceName != null" >
+        provience_name,
+      </if>
+      <if test="cityNo != null" >
+        city_no,
+      </if>
+      <if test="cityName != null" >
+        city_name,
+      </if>
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="transType != null" >
+        trans_type,
+      </if>
+      <if test="repaymentMethod != null" >
+        repayment_method,
+      </if>
+      <if test="periodTotal != null" >
+        period_total,
+      </if>
+      <if test="investPeriod != null" >
+        invest_period,
+      </if>
+      <if test="paidPeriod != null" >
+        paid_period,
+      </if>
+      <if test="paidCapitalAmount != null" >
+        paid_capital_amount,
+      </if>
+      <if test="paidInterestAmount != null" >
+        paid_interest_amount,
+      </if>
+      <if test="paidOverdueAmount != null" >
+        paid_overdue_amount,
+      </if>
+      <if test="paidCompensateAmount != null" >
+        paid_compensate_amount,
+      </if>
+      <if test="investCapitalAmount != null" >
+        invest_capital_amount,
+      </if>
+      <if test="investCompensateAmount != null" >
+        invest_compensate_amount,
+      </if>
+      <if test="investInterestAmount != null" >
+        invest_interest_amount,
+      </if>
+      <if test="investOverdueAmount != null" >
+        invest_overdue_amount,
+      </if>
+      <if test="paidAdvancedCapitalAmount != null" >
+        paid_advanced_capital_amount,
+      </if>
+      <if test="paidAdvancedInterestAmount != null" >
+        paid_advanced_interest_amount,
+      </if>
+      <if test="advancedAmount != null" >
+        advanced_amount,
+      </if>
+      <if test="paidFeesAmount != null" >
+        paid_fees_amount,
+      </if>
+      <if test="outgoingsFeesAmount != null" >
+        outgoings_fees_amount,
+      </if>
+      <if test="interestSpreadAmount != null" >
+        interest_spread_amount,
+      </if>
+      <if test="isOverdue != null" >
+        is_overdue,
+      </if>
+      <if test="isGuarantee != null" >
+        is_guarantee,
+      </if>
+      <if test="isAdvanced != null" >
+        is_advanced,
+      </if>
+      <if test="interestWay != null" >
+        interest_way,
+      </if>
+      <if test="payInterestWay != null" >
+        pay_interest_way,
+      </if>
+      <if test="overRate != null" >
+        over_rate,
+      </if>
+      <if test="debtRate != null" >
+        debt_rate,
+      </if>
+      <if test="breachRate != null" >
+        breach_rate,
+      </if>
+      <if test="investBreachRate != null" >
+        invest_breach_rate,
+      </if>
+      <if test="investOverRate != null" >
+        invest_over_rate,
+      </if>
+      <if test="setRemark != null" >
+        set_remark,
+      </if>
+      <if test="accountManager != null" >
+        account_manager,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+      <if test="cleanUpTime != null" >
+        clean_up_time,
+      </if>
+      <if test="payOffTime != null" >
+        pay_off_time,
+      </if>
+      <if test="cleanUpStatus != null" >
+        clean_up_status,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="payerId != null" >
+        payer_id,
+      </if>
+      <if test="payerName != null" >
+        payer_name,
+      </if>
+      <if test="payerAccountId != null" >
+        payer_account_id,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUser != null" >
+        last_user,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="orgName != null" >
+        org_name,
+      </if>
+      <if test="overdueInterestSpreadAmount != null" >
+        overdue_interest_spread_amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="transMainId != null" >
+        #{transMainId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrower != null" >
+        #{borrower,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerId != null" >
+        #{borrowerId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerAccountId != null" >
+        #{borrowerAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="productType != null" >
+        #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="productNo != null" >
+        #{productNo,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="lendingTime != null" >
+        #{lendingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overTime != null" >
+        #{overTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowerAmount != null" >
+        #{borrowerAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="term != null" >
+        #{term,jdbcType=SMALLINT},
+      </if>
+      <if test="termUnit != null" >
+        #{termUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="rateUnit != null" >
+        #{rateUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="borrowCustomerType != null" >
+        #{borrowCustomerType,jdbcType=VARCHAR},
+      </if>
+      <if test="provienceNo != null" >
+        #{provienceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provienceName != null" >
+        #{provienceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="transType != null" >
+        #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentMethod != null" >
+        #{repaymentMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="periodTotal != null" >
+        #{periodTotal,jdbcType=SMALLINT},
+      </if>
+      <if test="investPeriod != null" >
+        #{investPeriod,jdbcType=SMALLINT},
+      </if>
+      <if test="paidPeriod != null" >
+        #{paidPeriod,jdbcType=SMALLINT},
+      </if>
+      <if test="paidCapitalAmount != null" >
+        #{paidCapitalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="paidInterestAmount != null" >
+        #{paidInterestAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="paidOverdueAmount != null" >
+        #{paidOverdueAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="paidCompensateAmount != null" >
+        #{paidCompensateAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="investCapitalAmount != null" >
+        #{investCapitalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="investCompensateAmount != null" >
+        #{investCompensateAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="investInterestAmount != null" >
+        #{investInterestAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="investOverdueAmount != null" >
+        #{investOverdueAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="paidAdvancedCapitalAmount != null" >
+        #{paidAdvancedCapitalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="paidAdvancedInterestAmount != null" >
+        #{paidAdvancedInterestAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="advancedAmount != null" >
+        #{advancedAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="paidFeesAmount != null" >
+        #{paidFeesAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="outgoingsFeesAmount != null" >
+        #{outgoingsFeesAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="interestSpreadAmount != null" >
+        #{interestSpreadAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="isOverdue != null" >
+        #{isOverdue,jdbcType=VARCHAR},
+      </if>
+      <if test="isGuarantee != null" >
+        #{isGuarantee,jdbcType=VARCHAR},
+      </if>
+      <if test="isAdvanced != null" >
+        #{isAdvanced,jdbcType=VARCHAR},
+      </if>
+      <if test="interestWay != null" >
+        #{interestWay,jdbcType=VARCHAR},
+      </if>
+      <if test="payInterestWay != null" >
+        #{payInterestWay,jdbcType=VARCHAR},
+      </if>
+      <if test="overRate != null" >
+        #{overRate,jdbcType=VARCHAR},
+      </if>
+      <if test="debtRate != null" >
+        #{debtRate,jdbcType=VARCHAR},
+      </if>
+      <if test="breachRate != null" >
+        #{breachRate,jdbcType=VARCHAR},
+      </if>
+      <if test="investBreachRate != null" >
+        #{investBreachRate,jdbcType=VARCHAR},
+      </if>
+      <if test="investOverRate != null" >
+        #{investOverRate,jdbcType=VARCHAR},
+      </if>
+      <if test="setRemark != null" >
+        #{setRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="accountManager != null" >
+        #{accountManager,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="cleanUpTime != null" >
+        #{cleanUpTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payOffTime != null" >
+        #{payOffTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cleanUpStatus != null" >
+        #{cleanUpStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="payerId != null" >
+        #{payerId,jdbcType=VARCHAR},
+      </if>
+      <if test="payerName != null" >
+        #{payerName,jdbcType=VARCHAR},
+      </if>
+      <if test="payerAccountId != null" >
+        #{payerAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="overdueInterestSpreadAmount != null" >
+        #{overdueInterestSpreadAmount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanTransMain" >
+    update loan_trans_main
+    <set >
+      <if test="borrower != null" >
+        borrower = #{borrower,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerId != null" >
+        borrower_id = #{borrowerId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerAccountId != null" >
+        borrower_account_id = #{borrowerAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="productType != null" >
+        product_type = #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="productNo != null" >
+        product_no = #{productNo,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="lendingTime != null" >
+        lending_time = #{lendingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overTime != null" >
+        over_time = #{overTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowerAmount != null" >
+        borrower_amount = #{borrowerAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="term != null" >
+        term = #{term,jdbcType=SMALLINT},
+      </if>
+      <if test="termUnit != null" >
+        term_unit = #{termUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="rateUnit != null" >
+        rate_unit = #{rateUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null" >
+        rate = #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="borrowCustomerType != null" >
+        borrow_customer_type = #{borrowCustomerType,jdbcType=VARCHAR},
+      </if>
+      <if test="provienceNo != null" >
+        provience_no = #{provienceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provienceName != null" >
+        provience_name = #{provienceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        city_no = #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null" >
+        business_id = #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="transType != null" >
+        trans_type = #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentMethod != null" >
+        repayment_method = #{repaymentMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="periodTotal != null" >
+        period_total = #{periodTotal,jdbcType=SMALLINT},
+      </if>
+      <if test="investPeriod != null" >
+        invest_period = #{investPeriod,jdbcType=SMALLINT},
+      </if>
+      <if test="paidPeriod != null" >
+        paid_period = #{paidPeriod,jdbcType=SMALLINT},
+      </if>
+      <if test="paidCapitalAmount != null" >
+        paid_capital_amount = #{paidCapitalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="paidInterestAmount != null" >
+        paid_interest_amount = #{paidInterestAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="paidOverdueAmount != null" >
+        paid_overdue_amount = #{paidOverdueAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="paidCompensateAmount != null" >
+        paid_compensate_amount = #{paidCompensateAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="investCapitalAmount != null" >
+        invest_capital_amount = #{investCapitalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="investCompensateAmount != null" >
+        invest_compensate_amount = #{investCompensateAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="investInterestAmount != null" >
+        invest_interest_amount = #{investInterestAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="investOverdueAmount != null" >
+        invest_overdue_amount = #{investOverdueAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="paidAdvancedCapitalAmount != null" >
+        paid_advanced_capital_amount = #{paidAdvancedCapitalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="paidAdvancedInterestAmount != null" >
+        paid_advanced_interest_amount = #{paidAdvancedInterestAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="advancedAmount != null" >
+        advanced_amount = #{advancedAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="paidFeesAmount != null" >
+        paid_fees_amount = #{paidFeesAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="outgoingsFeesAmount != null" >
+        outgoings_fees_amount = #{outgoingsFeesAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="interestSpreadAmount != null" >
+        interest_spread_amount = #{interestSpreadAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="isOverdue != null" >
+        is_overdue = #{isOverdue,jdbcType=VARCHAR},
+      </if>
+      <if test="isGuarantee != null" >
+        is_guarantee = #{isGuarantee,jdbcType=VARCHAR},
+      </if>
+      <if test="isAdvanced != null" >
+        is_advanced = #{isAdvanced,jdbcType=VARCHAR},
+      </if>
+      <if test="interestWay != null" >
+        interest_way = #{interestWay,jdbcType=VARCHAR},
+      </if>
+      <if test="payInterestWay != null" >
+        pay_interest_way = #{payInterestWay,jdbcType=VARCHAR},
+      </if>
+      <if test="overRate != null" >
+        over_rate = #{overRate,jdbcType=VARCHAR},
+      </if>
+      <if test="debtRate != null" >
+        debt_rate = #{debtRate,jdbcType=VARCHAR},
+      </if>
+      <if test="breachRate != null" >
+        breach_rate = #{breachRate,jdbcType=VARCHAR},
+      </if>
+      <if test="investBreachRate != null" >
+        invest_breach_rate = #{investBreachRate,jdbcType=VARCHAR},
+      </if>
+      <if test="investOverRate != null" >
+        invest_over_rate = #{investOverRate,jdbcType=VARCHAR},
+      </if>
+      <if test="setRemark != null" >
+        set_remark = #{setRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="accountManager != null" >
+        account_manager = #{accountManager,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="cleanUpTime != null" >
+        clean_up_time = #{cleanUpTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payOffTime != null" >
+        pay_off_time = #{payOffTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cleanUpStatus != null" >
+        clean_up_status = #{cleanUpStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="payerId != null" >
+        payer_id = #{payerId,jdbcType=VARCHAR},
+      </if>
+      <if test="payerName != null" >
+        payer_name = #{payerName,jdbcType=VARCHAR},
+      </if>
+      <if test="payerAccountId != null" >
+        payer_account_id = #{payerAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="overdueInterestSpreadAmount != null" >
+        overdue_interest_spread_amount = #{overdueInterestSpreadAmount,jdbcType=DECIMAL},
+      </if>
+	  last_modify_time = now()
+    </set>
+   where trans_main_id = #{transMainId} and last_modify_time = #{lastModifyTime}
+  </update>
+	
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanTransMain" >
+    update loan_trans_main
+    set borrower = #{borrower,jdbcType=VARCHAR},
+      borrower_id = #{borrowerId,jdbcType=VARCHAR},
+      borrower_account_id = #{borrowerAccountId,jdbcType=VARCHAR},
+      product_type = #{productType,jdbcType=VARCHAR},
+      product_no = #{productNo,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=VARCHAR},
+      lending_time = #{lendingTime,jdbcType=TIMESTAMP},
+      over_time = #{overTime,jdbcType=TIMESTAMP},
+      borrower_amount = #{borrowerAmount,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=DECIMAL},
+      term = #{term,jdbcType=SMALLINT},
+      term_unit = #{termUnit,jdbcType=VARCHAR},
+      rate_unit = #{rateUnit,jdbcType=VARCHAR},
+      rate = #{rate,jdbcType=DECIMAL},
+      borrow_customer_type = #{borrowCustomerType,jdbcType=VARCHAR},
+      provience_no = #{provienceNo,jdbcType=VARCHAR},
+      provience_name = #{provienceName,jdbcType=VARCHAR},
+      city_no = #{cityNo,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      business_id = #{businessId,jdbcType=VARCHAR},
+      trans_type = #{transType,jdbcType=VARCHAR},
+      repayment_method = #{repaymentMethod,jdbcType=VARCHAR},
+      period_total = #{periodTotal,jdbcType=SMALLINT},
+      invest_period = #{investPeriod,jdbcType=SMALLINT},
+      paid_period = #{paidPeriod,jdbcType=SMALLINT},
+      paid_capital_amount = #{paidCapitalAmount,jdbcType=DECIMAL},
+      paid_interest_amount = #{paidInterestAmount,jdbcType=DECIMAL},
+      paid_overdue_amount = #{paidOverdueAmount,jdbcType=DECIMAL},
+      paid_compensate_amount = #{paidCompensateAmount,jdbcType=DECIMAL},
+      invest_capital_amount = #{investCapitalAmount,jdbcType=DECIMAL},
+      invest_compensate_amount = #{investCompensateAmount,jdbcType=DECIMAL},
+      invest_interest_amount = #{investInterestAmount,jdbcType=DECIMAL},
+      invest_overdue_amount = #{investOverdueAmount,jdbcType=DECIMAL},
+      paid_advanced_capital_amount = #{paidAdvancedCapitalAmount,jdbcType=DECIMAL},
+      paid_advanced_interest_amount = #{paidAdvancedInterestAmount,jdbcType=DECIMAL},
+      advanced_amount = #{advancedAmount,jdbcType=DECIMAL},
+      paid_fees_amount = #{paidFeesAmount,jdbcType=DECIMAL},
+      outgoings_fees_amount = #{outgoingsFeesAmount,jdbcType=DECIMAL},
+      interest_spread_amount = #{interestSpreadAmount,jdbcType=DECIMAL},
+      is_overdue = #{isOverdue,jdbcType=VARCHAR},
+      is_guarantee = #{isGuarantee,jdbcType=VARCHAR},
+      is_advanced = #{isAdvanced,jdbcType=VARCHAR},
+      interest_way = #{interestWay,jdbcType=VARCHAR},
+      pay_interest_way = #{payInterestWay,jdbcType=VARCHAR},
+      over_rate = #{overRate,jdbcType=VARCHAR},
+      debt_rate = #{debtRate,jdbcType=VARCHAR},
+      breach_rate = #{breachRate,jdbcType=VARCHAR},
+      invest_breach_rate = #{investBreachRate,jdbcType=VARCHAR},
+      invest_over_rate = #{investOverRate,jdbcType=VARCHAR},
+      set_remark = #{setRemark,jdbcType=VARCHAR},
+      account_manager = #{accountManager,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      clean_up_time = #{cleanUpTime,jdbcType=TIMESTAMP},
+      pay_off_time = #{payOffTime,jdbcType=TIMESTAMP},
+      clean_up_status = #{cleanUpStatus,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      payer_id = #{payerId,jdbcType=VARCHAR},
+      payer_name = #{payerName,jdbcType=VARCHAR},
+      payer_account_id = #{payerAccountId,jdbcType=VARCHAR},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR},
+      org_id = #{orgId,jdbcType=VARCHAR},
+      org_name = #{orgName,jdbcType=VARCHAR},
+      overdue_interest_spread_amount = #{overdueInterestSpreadAmount,jdbcType=DECIMAL},
+	   last_modify_time = now(3)
+    where trans_main_id = #{transMainId,jdbcType=VARCHAR} and last_modify_time = #{lastModifyTime}
+  </update>
+  
+	<!-- 自定义方法区 -->
+	<sql id="Where_Common">
+  		<if test="authgroupList != null">
+		 	and 
+	         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+		         (1=1
+		             <if test="item.orgId != null and item.orgId != ''">
+					  		and ltm.company_id =  #{item.orgId}
+					 </if>
+					 <if test="item.deptId != null and item.deptId != ''">
+					  		and ltm.field1 =  #{item.deptId}
+					 </if>
+					 <if test="item.dataOwner != null and item.dataOwner != ''">
+					  		and ltm.field4 =  #{item.dataOwner}
+					 </if>
+				  )
+	          </foreach>
+		</if>
+		<if test="unionId != null and unionId != ''">
+ 			and ltm.union_id = #{unionId}
+ 		</if>
+  	</sql>
+
+	<!-- 查询提前还款的公用查询条件SQL -->
+	<sql id="Common_Query_Param">
+		<if test="cityNo != null and '' != cityNo">
+			and ltm.city_no = #{cityNo}
+		</if>
+		<if test="businessId != null and '' != businessId">
+			and ltm.business_id = #{businessId}
+		</if>
+		<if test="borrower != null and '' != borrower">
+			and ltm.borrower like concat(concat('%',#{borrower}),'%')
+		</if>
+		<if test="customerName != null and '' != customerName">
+			and lppc.customer_name like concat(concat('%',#{customerName}),'%')
+		</if>
+		<!-- 还款条件start -->
+		<if test="beginTime != null and '' != beginTime">
+  		<![CDATA[   
+  		and DATE_FORMAT(ltm.clean_up_time,'%Y-%m-%d %H:%i:%S')>= #{beginTime}      
+  		]]>
+		</if>
+		<if test="endTime != null and '' != endTime">
+  		<![CDATA[   
+  		and DATE_FORMAT(ltm.clean_up_time, '%Y-%m-%d %H:%i:%S')<= #{endTime}     
+  		]]>
+		</if>
+		<!-- 查询已还清记录 -->
+		<if test="cleanUpStatus == '90'">
+			and ltm.clean_up_status in ('89','90')
+		</if>
+		<!-- 查询提前还款记录 -->
+		<if test="cleanUpStatus == '88'">
+			and ltm.clean_up_status = '88'
+		</if>
+		<!-- 还款条件end -->
+		<!-- 付清条件start -->
+		<if test="null!=beginTimeTwo and beginTimeTwo!=''">
+			AND <![CDATA[date_format(ltm.lending_time,'%Y-%m-%d %H:%i:%S') >= #{beginTimeTwo}]]>
+		</if>
+		<if test="null!=endTimeTwo and endTimeTwo!=''">
+			AND <![CDATA[date_format(ltm.lending_time,'%Y-%m-%d %H:%i:%S') <= #{endTimeTwo}]]>
+		</if>
+		<if test="statusList != null">
+			and ltm.status in (${statusList})
+		</if>
+		<!-- 付清条件end -->
+		<include refid="Where_Common"/>
+	</sql>
+	
+	<!-- 待处理任务 公用查询条件SQL -->
+	<sql id="Common_Query_Param_Task">
+		<if test="businessId != null and '' != businessId">
+			and ltm.business_id = #{businessId}
+		</if>
+		<if test="borrower != null and '' != borrower">
+			and ltm.borrower like concat(concat('%',#{borrower}),'%')
+		</if>
+		<if test="customerName != null and '' != customerName">
+			and lppc.customer_name like concat(concat('%',#{customerName}),'%')
+		</if>
+		<if test="beginTime != null and '' != beginTime">
+  		<![CDATA[   
+  		and DATE_FORMAT(lpp.repayment_capital_time,'%Y-%m-%d %H:%i:%S')>= #{beginTime}      
+  		]]>
+		</if>
+		<if test="endTime != null and '' != endTime">
+  		<![CDATA[   
+  		and DATE_FORMAT(lpp.repayment_capital_time, '%Y-%m-%d %H:%i:%S')<= #{endTime}     
+  		]]>
+		</if>
+		<if test="null!=beginTimeTwo and beginTimeTwo!=''">
+			and <![CDATA[date_format(lpp.repayment_interest_time,'%Y-%m-%d %H:%i:%S') >= #{beginTimeTwo}]]>
+		</if>
+		<if test="null!=endTimeTwo and endTimeTwo!=''">
+			and <![CDATA[date_format(lpp.repayment_interest_time,'%Y-%m-%d %H:%i:%S') <= #{endTimeTwo}]]>
+		</if>
+		
+		<if test="beginTimeThree != null and '' != beginTimeThree">
+  		<![CDATA[   
+  		and DATE_FORMAT(lppc.repayment_capital_time,'%Y-%m-%d %H:%i:%S')>= #{beginTimeThree}      
+  		]]>
+  		</if>
+  		<if test="endTimeThree != null and '' != endTimeThree">
+  		<![CDATA[   
+  		and DATE_FORMAT(lppc.repayment_capital_time,'%Y-%m-%d %H:%i:%S')<= #{endTimeThree}      
+  		]]>
+  		</if>
+		<if test="beginTimeFour != null and '' != beginTimeFour">
+  		<![CDATA[   
+  		and DATE_FORMAT(lppc.repayment_interest_time,'%Y-%m-%d %H:%i:%S')>= #{beginTimeFour}      
+  		]]>
+  		</if>
+  		<if test="endTimeFour != null and '' != endTimeFour">
+  		<![CDATA[   
+  		and DATE_FORMAT(lppc.repayment_interest_time,'%Y-%m-%d %H:%i:%S')<= #{endTimeFour}      
+  		]]>
+  		</if>
+		<include refid="Where_Common"/>
+	</sql>
+	
+	<!-- 分页列表查询 -->
+	<select id="queryListPage" parameterType="com.lhhs.loan.dao.domain.LoanTransMain"
+		resultType="com.lhhs.loan.dao.domain.LoanTransMain">
+		select
+		<include refid="Base_Column_List" />,
+		ltm.paid_capital_amount+ltm.paid_interest_amount+ltm.paid_overdue_amount+ltm.paid_compensate_amount
+		totalAmount
+		from loan_trans_main ltm
+		where 1 = 1
+		<include refid="Common_Query_Param" />
+		order by ltm.clean_up_time
+		<if test="page != null">
+			limit #{page.pageStartIndex},#{page.pageSize}
+		</if>
+	</select>
+
+	<!-- 总条数查询 -->
+	<select id="queryCount" parameterType="com.lhhs.loan.dao.domain.LoanTransMain" resultType="int">
+		select count(*)
+		from loan_trans_main ltm
+		where 1 = 1
+		<include refid="Common_Query_Param" />
+	</select>
+
+	<!-- 查询还清总额(已还本金总额+已还利息总额+已还逾期利息总额+已还违约赔偿金总额) -->
+	<select id="queryTotalAmount" parameterType="com.lhhs.loan.dao.domain.LoanTransMain"
+		resultType="map">
+		select
+		sum(ltm.paid_capital_amount+ltm.paid_interest_amount+ltm.paid_overdue_amount+ltm.paid_compensate_amount)
+		totalAmount
+		from loan_trans_main ltm
+		where 1 = 1
+		<include refid="Common_Query_Param" />
+	</select>
+	
+	<!-- Excel-已还清记录导出查询 -->
+	<select id="queryPayFinishedExcelList" parameterType="com.lhhs.loan.dao.domain.LoanTransMain"
+		resultType="com.lhhs.loan.dao.domain.excel.PayFinishedExcelVo">
+		select
+		ltm.business_id,ltm.city_name,ltm.product_type,ltm.product_name,ltm.borrower,
+  		truncate(ltm.amount,2) amount,ltm.repayment_method,ltm.interest_way,
+  		CONCAT(ltm.paid_period,'/',ltm.period_total) period_total_all,
+  		truncate(ltm.paid_capital_amount,2) paid_capital_amount,
+  		truncate(ltm.paid_interest_amount,2) paid_interest_amount,
+  		ltm.clean_up_time, CONCAT(truncate(ltm.rate,3),'%/',ltm.rate_unit) rate_and_unit,
+		ltm.paid_capital_amount+ltm.paid_interest_amount+ltm.paid_overdue_amount+ltm.paid_compensate_amount
+		total_amount,luc.company_name
+		from loan_trans_main ltm
+		left join bump_union_company luc on ltm.company_id = luc.company_id
+		where 1 = 1
+		<include refid="Common_Query_Param" />
+		order by ltm.clean_up_time
+	</select>
+	<!-- Excel-提前还清记录导出查询 -->
+	<select id="queryAdvancePayFinishedExcelList" parameterType="com.lhhs.loan.dao.domain.LoanTransMain"
+		resultType="com.lhhs.loan.dao.domain.excel.AdvancePayFinishedExcelVo">
+		select
+		ltm.business_id,ltm.city_name,ltm.product_type,ltm.product_name,ltm.borrower,
+  		truncate(ltm.amount,2) amount,ltm.repayment_method,ltm.interest_way,
+  		CONCAT(ltm.paid_period,'/',ltm.period_total) period_total_all,
+  		truncate(ltm.paid_capital_amount,2) paid_capital_amount,
+  		truncate(ltm.paid_interest_amount,2) paid_interest_amount,
+  		ltm.clean_up_time, CONCAT(truncate(ltm.rate,3),'%/',ltm.rate_unit) rate_and_unit,
+		ltm.paid_capital_amount+ltm.paid_interest_amount+ltm.paid_overdue_amount+ltm.paid_compensate_amount
+		total_amount,luc.company_name
+		from loan_trans_main ltm
+		left join bump_union_company luc on ltm.company_id = luc.company_id
+		where 1 = 1
+		<include refid="Common_Query_Param" />
+		order by ltm.clean_up_time
+	</select>
+
+
+	<!-- 查询已结清记录 -->
+	<select id="querySettleList" parameterType="map" resultMap="BaseResultMap">
+		select
+		ltm.trans_main_id,ltm.business_id,ltm.provience_name,ltm.city_name,ltm.product_type,ltm.product_name,ltm.borrower,
+		ltm.amount,ltm.rate,ltm.rate_unit,ltm.repayment_method,ltm.interest_way,ltm.invest_period,ltm.period_total,ltm.invest_capital_amount,ltm.invest_interest_amount,
+		ltm.invest_compensate_amount,ltm.invest_overdue_amount,ltm.lending_time,(ltm.paid_capital_amount+ltm.paid_interest_amount+ltm.paid_overdue_amount+ltm.paid_compensate_amount)
+		gathering_total
+		from loan_trans_main ltm
+		where ltm.status in ('90','88','89')
+		<include refid="Common_Query_Param" />
+		<if test="page != null">
+			limit #{page.pageStartIndex},#{page.pageSize}
+		</if>
+	</select>
+
+	<select id="querySettleListCount" parameterType="map"
+		resultType="int">
+		select count(1)
+		from loan_trans_main ltm
+		where ltm.status in ('90','88','89')
+		<include refid="Common_Query_Param" />
+	</select>
+
+	<!-- 导出 -->
+	<select id="querySettleListExport" parameterType="map" resultMap="BaseResultMap">
+		select
+		ltm.trans_main_id,ltm.business_id,ltm.city_name,ltm.product_type,ltm.product_name,ltm.borrower,
+		truncate(ltm.amount,2) amount,ltm.repayment_method,ltm.interest_way,ltm.paid_period,truncate(ltm.invest_capital_amount,2) invest_capital_amount,
+		truncate(ltm.invest_interest_amount,2) invest_interest_amount,
+		truncate(ltm.paid_capital_amount,2) paid_capital_amount,
+		truncate(ltm.invest_compensate_amount,2) invest_compensate_amount,
+		truncate(ltm.invest_overdue_amount,2) invest_overdue_amount,
+		truncate(ltm.paid_interest_amount,2) paid_interest_amount,ltm.lending_time,
+		truncate(ltm.paid_capital_amount+ltm.paid_interest_amount+ltm.paid_overdue_amount+ltm.paid_compensate_amount,2) gathering_total,
+		CONCAT(truncate(ltm.rate,3),'%/',ltm.rate_unit) rate_and_unit,
+		CONCAT(ltm.invest_period,'/',ltm.period_total) period_total_all
+		from loan_trans_main ltm
+		where ltm.status in ('90','88','89')
+		<include refid="Common_Query_Param" />
+	</select>
+
+	<!-- 查询付清总额(已付本金总额+已付利息总额+已付逾期利息总额) -->
+	<select id="queryPaidTotalAmount" parameterType="map"
+		resultType="map">
+		select
+		sum(ltm.invest_capital_amount+ltm.invest_interest_amount+ltm.invest_overdue_amount)
+		totalAmount
+		from loan_trans_main ltm
+		where ltm.status in ('90','88','89')
+		<include refid="Common_Query_Param" />
+	</select>
+
+	<!--已结清明细 -->
+	<select id="querySettleDetail" parameterType="String"
+		resultType="map">
+		select lprc.period,ltm.period_total, lprc.paid_total,lprc.paid_capital,
+		lprc.paid_interest,lprc.interest_time,lprc.paid_overdue,lprc.paid_compensate,ltm.paid_compensate_amount
+		from loan_trans_main ltm
+		left join loan_pay_record_company lprc on
+		lprc.trans_main_id=ltm.trans_main_id
+		where lprc.order_no=#{orderNo}
+	</select>
+
+	<!-- 根据实体参数查询实体 -->
+	<select id="getByEntity" parameterType="com.lhhs.loan.dao.domain.LoanTransMain"
+		resultType="com.lhhs.loan.dao.domain.LoanTransMain">
+		select
+		<include refid="Base_Column_List" />
+		,
+		(paid_capital_amount+paid_interest_amount+paid_overdue_amount+paid_compensate_amount)
+		totalAmount
+		from loan_trans_main
+		where 1 = 1
+		<if test="transMainId != null">
+			and trans_main_id = #{transMainId}
+		</if>
+		<if test="businessId != null and '' != businessId">
+			and business_id = #{businessId}
+		</if>
+		<if test="companyId != null and companyId != ''">
+			and company_id = #{companyId}
+		</if>
+		<if test="unionId != null and unionId != ''">
+			and union_id = #{unionId}
+		</if>
+		
+	</select>
+
+	<insert id="insertLoanPayPlan" parameterType="com.lhhs.loan.dao.domain.LoanTransMain">
+		insert into loan_pay_plan (trans_main_id,last_user, last_modify_time,
+		order_no, customer_id, customer_name, account_id, repayment_method,
+		repayment_total, repayment_capital, repayment_capital_time,
+		repayment_interest, repayment_interest_time,
+		overdue_days, period, overdue_interest_total, overdue_capital, overdue_interest,
+		compensate, fees_total, sevice_fee, trans_type, advance_total,
+		advance_capital, advance_interest,
+		repayment_actual_time, repaymented_time, capital_time, interest_time, paid_total,
+		paid_capital, paid_interest, paid_overdue, paid_compensate,
+		interest_start, interest_end,
+		interest_spread, status, create_user, create_time, field1,
+		field2, field3, field4, field5
+		)
+		select
+		#{transMainId},#{lastUser}, now(),
+		order_no, customer_id, customer_name, account_id, repayment_method,
+		repayment_total, repayment_capital, repayment_capital_time,
+		repayment_interest, repayment_interest_time,
+		overdue_days, period, overdue_interest_total, overdue_capital, overdue_interest,
+		compensate, fees_total, sevice_fee, trans_type, advance_total,
+		advance_capital, advance_interest,
+		repayment_actual_time, repaymented_time, capital_time, interest_time, paid_total,
+		paid_capital, paid_interest, paid_overdue, paid_compensate,
+		interest_start, interest_end,
+		interest_spread, status, create_user, create_time, field1,
+		field2, field3, repayment_interest field4, field5
+		from loan_pay_plan_temp where
+		order_no=#{businessId} and status='03' order by period asc,customer_id asc
+	</insert>
+	<insert id="insertLoanPayPlanCompany" parameterType="com.lhhs.loan.dao.domain.LoanTransMain">
+		insert into loan_pay_plan_company (trans_main_id,last_user,
+		last_modify_time,
+		order_no, customer_id, customer_name, account_id, repayment_method,
+		repayment_total, repayment_capital, repayment_capital_time,
+		repayment_interest, repayment_interest_time,
+		overdue_days, period, overdue_interest_total, overdue_capital, overdue_interest,
+		compensate, fees_total, sevice_fee, advance_total, advance_capital,
+		advance_interest,
+		repayment_actual_time, repaymented_time, capital_time, interest_time, trans_type,
+		paid_total, paid_capital, paid_interest, paid_overdue,
+		paid_compensate, interest_start,
+		interest_end, interest_spread, status, create_user, create_time,
+		field1, field2, field3, field4, field5
+		)
+		select
+		#{transMainId},#{lastUser}, now(),
+		order_no, customer_id, customer_name, account_id, repayment_method,
+		repayment_total, repayment_capital, repayment_capital_time,
+		repayment_interest, repayment_interest_time,
+		overdue_days, period, overdue_interest_total, overdue_capital, overdue_interest,
+		compensate, fees_total, sevice_fee, advance_total, advance_capital,
+		advance_interest,
+		repayment_actual_time, repaymented_time, capital_time, interest_time, trans_type,
+		paid_total, paid_capital, paid_interest, paid_overdue,
+		paid_compensate, interest_start,
+		interest_end, interest_spread, status, create_user, create_time,
+		field1, field2, field3, repayment_interest field4, field5
+		from loan_pay_plan_company_temp where order_no=#{businessId} and
+		status='03' order by period asc,customer_id asc
+	</insert>
+	<insert id="insertLoanRecord" parameterType="com.lhhs.loan.dao.domain.LoanTransMain">
+		insert into loan_record (trans_main_id,last_user, last_modify_time,
+		id, customer_id, account_id, order_no, lender_id, lender_name, org_id,
+		org_name, customer_nature, loan_amount, loan_term, loan_rate,
+		loan_rate_unit, loan_time,
+		anticipated_interest, interest_margin, apply_time, trans_type, company_id, union_id,
+		status, create_user, create_time, field1, field2, field3, field4,
+		field5
+		)
+		select
+		#{transMainId},#{lastUser}, now(),
+		id, customer_id, account_id, order_no, lender_id, lender_name, org_id,
+		org_name, customer_nature, loan_amount, loan_term, loan_rate,
+		loan_rate_unit, loan_time,
+		anticipated_interest, interest_margin, apply_time, trans_type, company_id, union_id,
+		status, create_user, create_time, field1, field2, field3, field4,
+		field5
+		from loan_record_temp where order_no=#{businessId} and status='03'
+	</insert>
+	<update id="updateLoanFeesPlan" parameterType="com.lhhs.loan.dao.domain.LoanTransMain">
+		update loan_fees_plan
+		set
+		trans_main_id = #{transMainId},
+		status = '03',
+		last_modify_time = now(),
+		last_user = #{lastUser}
+		where order_no = #{businessId} and status='01'
+	</update>
+	<!-- 更新放款记录表 field3客户性质-->
+	<update id="updateLoanPayPlanCompany" parameterType="com.lhhs.loan.dao.domain.LoanTransMain">
+		update loan_pay_plan_company lppc
+		<choose>
+			<when test="transType != null and transType=='1007'">
+				set field3=#{field2}
+			</when>
+			<otherwise>  
+	            set field3=(
+				select customer_nature from loan_record lr where lr.trans_main_id = #{transMainId} and lr.lender_id=lppc.customer_id
+				AND LENGTH(lr.customer_nature) >0 LIMIT 1
+				)
+	         </otherwise> 
+         </choose>
+		where lppc.trans_main_id = #{transMainId} AND lppc.field3 IS NULL 
+	</update>
+    <!-- 统计具体单号的放款金额 -->
+  <select id="queryLoanRecordTempSum" parameterType="com.lhhs.loan.dao.domain.LoanRecord" resultType="com.lhhs.loan.dao.domain.LoanRecord">
+  	select sum(loan_amount) loan_amount from loan_record_temp where order_no = #{orderNo}
+  </select>
+  
+  <!-- 事业部维度统计成交额 -->
+  <select id="queryBusinessListPage" parameterType="com.lhhs.loan.dao.domain.vo.LoanTransRecordVo" resultType="com.lhhs.loan.dao.domain.vo.LoanTransRecordVo">
+  		SELECT ltm.provience_no,ltm.provience_name,ltm.city_no,ltm.city_name,a.company_name,ltm.department,ltm.account_manager,ltm.lending_time,SUM(c.loan_amount)loan_amount
+    	FROM loan_trans_main ltm 
+		INNER JOIN loan_record c on  ltm.trans_main_id = c.trans_main_id
+		left join bump_union_company a on ltm.company_id = a.company_id
+		left join bump_dept ld on ltm.field1 = ld.dept_id
+		where 1=1 
+    <if test="provienceName != null and '' != provienceName">
+			and ltm.provience_name = #{provienceName}
+	</if>
+	 <if test="cityName != null and '' != cityName">
+			and ltm.city_name = #{cityName}
+	</if>
+	 <if test="companyName != null and '' != companyName">
+			and (a.company_name = #{companyName} or a.company_id= #{companyName})
+	</if>
+	 <if test="department != null and '' != department">
+			<!-- and ltm.department = #{department} -->
+			and (ltm.field1 = #{department} OR find_in_set(#{department},ld.parent_ids)>0)
+	</if>
+	 <if test="accountManager != null and '' != accountManager">
+			and ltm.account_manager like CONCAT('%', #{accountManager}, '%')       
+	</if>
+	<if test="beginTime != null and '' != beginTime">
+		 <![CDATA[  
+		  AND DATE_FORMAT(ltm.lending_time,'%Y-%m-%d') >= #{beginTime} 
+		 	]]>	   
+	 </if>
+	 <if test="endTime != null and '' != endTime">
+	 <![CDATA[   
+		  AND DATE_FORMAT(ltm.lending_time,'%Y-%m-%d') <=#{endTime}
+		]]>	  
+	 </if>
+	 <include refid="Where_Common"></include>
+	  GROUP BY ltm.field4
+	 order by c.loan_amount desc
+	 <if test="page != null">
+		limit #{page.pageStartIndex},#{page.pageSize}
+	</if>
+  </select>
+  <!-- 事业部总额 -->
+  <select id="queryBusinessList" parameterType="com.lhhs.loan.dao.domain.vo.LoanTransRecordVo" resultType="BigDecimal">
+  SELECT SUM(c.loan_amount)loan_amount
+	FROM loan_trans_main ltm 
+	INNER JOIN loan_record c on  ltm.trans_main_id = c.trans_main_id
+	left join bump_union_company a on ltm.company_id = a.company_id
+	left join bump_dept ld on ltm.field1 = ld.dept_id
+	where 1=1
+    <if test="provienceName != null and '' != provienceName">
+			and ltm.provience_name = #{provienceName}
+	</if>
+	 <if test="cityName != null and '' != cityName">
+			and ltm.city_name = #{cityName}
+	</if>
+	 <if test="companyName != null and '' != companyName">
+			and (a.company_name = #{companyName} or a.company_id= #{companyName})
+	</if>
+	 <if test="department != null and '' != department">
+			<!-- and ltm.department = #{department} -->
+			and (ltm.field1 = #{department} OR find_in_set(#{department},ld.parent_ids)>0)
+	</if>
+	 <if test="accountManager != null and '' != accountManager">
+			and ltm.account_manager like CONCAT('%', #{accountManager}, '%')       
+	</if>
+	<if test="beginTime != null and '' != beginTime">
+		 <![CDATA[  
+		  AND DATE_FORMAT(ltm.lending_time,'%Y-%m-%d') >= #{beginTime} 
+		 	]]>	   
+	 </if>
+	 <if test="endTime != null and '' != endTime">
+	 <![CDATA[   
+		  AND DATE_FORMAT(ltm.lending_time,'%Y-%m-%d') <=#{endTime}
+		]]>	  
+	 </if>
+	 <include refid="Where_Common"></include>
+	 order by c.loan_amount desc
+  </select>
+    <!-- 事业部维度统计count-->
+  <select id="queryBusinessCount" parameterType="com.lhhs.loan.dao.domain.vo.LoanTransRecordVo" resultType="int">
+  	SELECT COUNT(a.COUNT) FROM (SELECT count(*) COUNT
+    FROM loan_trans_main ltm 
+	INNER JOIN loan_record c on  ltm.trans_main_id = c.trans_main_id
+	left join bump_union_company a on ltm.company_id = a.company_id
+	left join bump_dept ld
+	on ltm.field1 = ld.dept_id
+	where 1=1
+      <if test="provienceName != null and '' != provienceName">
+			and ltm.provience_name = #{provienceName}
+	</if>
+	 <if test="cityName != null and '' != cityName">
+			and ltm.city_name = #{cityName}
+	</if>
+	 <if test="companyName != null and '' != companyName">
+			and (a.company_name = #{companyName} or a.company_id= #{companyName})
+	</if>
+	 <if test="department != null and '' != department">
+			<!-- and ltm.department = #{department} -->
+			and (ltm.field1 = #{department} OR find_in_set(#{department},ld.parent_ids)>0)
+	</if>
+	 <if test="accountManager != null and '' != accountManager">
+			and ltm.account_manager like CONCAT('%', #{accountManager}, '%')       
+	</if>
+	<if test="beginTime != null and '' != beginTime">
+		 <![CDATA[  
+		  AND DATE_FORMAT(ltm.lending_time,'%Y-%m-%d') >= #{beginTime} 
+		 	]]>	   
+	 </if>
+	 <if test="endTime != null and '' != endTime">
+	 <![CDATA[   
+		  AND DATE_FORMAT(ltm.lending_time,'%Y-%m-%d') <=#{endTime}
+		]]>	  
+	 </if>
+	  <include refid="Where_Common"></include>
+	    GROUP BY ltm.field4
+	  order by c.loan_amount desc) a
+  </select>
+  <!-- 借款人维度统计成交额 -->
+  <select id="queryBorrowerListPage" parameterType="com.lhhs.loan.dao.domain.vo.LoanTransRecordVo" resultType="com.lhhs.loan.dao.domain.vo.LoanTransRecordVo">
+  	SELECT ltm.provience_no,ltm.provience_name,ltm.city_no,ltm.city_name,ltm.borrower,c.customer_mobile,SUM(a.loan_amount) amount,ltm.lending_time,ltm.field4
+ FROM loan_record a,loan_trans_main ltm,loan_customer_info c WHERE  a.trans_main_id=ltm.trans_main_id AND a.customer_id=c.customer_id
+     <if test="provienceName != null and '' != provienceName">
+			and ltm.provience_name = #{provienceName}
+	</if>
+	 <if test="cityName != null and '' != cityName">
+			and ltm.city_name = #{cityName}
+	</if>
+	 <if test="borrower != null and '' != borrower">
+			and ltm.borrower like CONCAT('%', #{borrower}, '%')       
+	</if>
+	 <if test="customerMobile != null and '' != customerMobile">
+			and c.customer_mobile = #{customerMobile}
+	</if>
+	<if test="beginTime != null and '' != beginTime">
+	   <![CDATA[ 
+		  AND DATE_FORMAT(ltm.lending_time,'%Y-%m-%d') >= #{beginTime} 
+	  ]]>	  	  
+	 </if>
+	 <if test="endTime != null and '' != endTime">
+	    <![CDATA[
+		  AND DATE_FORMAT(ltm.lending_time,'%Y-%m-%d') <=#{endTime}
+		 ]]>  
+	 </if>
+	  <include refid="Where_Common"></include>
+	  GROUP BY ltm.borrower_id 
+	  order by ltm.amount desc
+	 <if test="page != null">
+		limit #{page.pageStartIndex},#{page.pageSize}
+	</if>
+  </select>
+  <!-- 借款总额 -->
+   <select id="queryBorrowerList" parameterType="com.lhhs.loan.dao.domain.vo.LoanTransRecordVo" resultType="BigDecimal">
+  	SELECT SUM(a.loan_amount) amount
+ FROM loan_record a,loan_trans_main ltm,loan_customer_info c WHERE  a.trans_main_id=ltm.trans_main_id AND a.customer_id=c.customer_id
+     <if test="provienceName != null and '' != provienceName">
+			and ltm.provience_name = #{provienceName}
+	</if>
+	 <if test="cityName != null and '' != cityName">
+			and ltm.city_name = #{cityName}
+	</if>
+	 <if test="borrower != null and '' != borrower">
+			and ltm.borrower like CONCAT('%', #{borrower}, '%')       
+	</if>
+	 <if test="customerMobile != null and '' != customerMobile">
+			and c.customer_mobile = #{customerMobile}
+	</if>
+	<if test="beginTime != null and '' != beginTime">
+	   <![CDATA[ 
+		  AND DATE_FORMAT(ltm.lending_time,'%Y-%m-%d') >= #{beginTime} 
+	  ]]>	  	  
+	 </if>
+	 <if test="endTime != null and '' != endTime">
+	    <![CDATA[
+		  AND DATE_FORMAT(ltm.lending_time,'%Y-%m-%d') <=#{endTime}
+		 ]]>  
+	 </if>
+	  <include refid="Where_Common"></include>
+	  order by ltm.amount desc
+  </select>
+    <!-- 借款人维度统计count-->
+  <select id="queryBorrowerCount" parameterType="com.lhhs.loan.dao.domain.vo.LoanTransRecordVo" resultType="int">
+  	SELECT COUNT(a.COUNT) FROM (SELECT count(*) COUNT
+FROM loan_record a,loan_trans_main ltm,loan_customer_info c WHERE a.customer_id=ltm.borrower_id AND a.customer_id=c.customer_id
+ <if test="provienceName != null and '' != provienceName">
+			and ltm.provience_name = #{provienceName}
+	</if>
+	 <if test="cityName != null and '' != cityName">
+			and ltm.city_name = #{cityName}
+	</if>
+	 <if test="borrower != null and '' != borrower">
+			and ltm.borrower  like CONCAT('%', #{borrower}, '%') 
+	</if>
+	 <if test="customerMobile != null and '' != customerMobile">
+			and c.customer_mobile = #{customerMobile}
+	</if>
+	<if test="beginTime != null and '' != beginTime">
+	   <![CDATA[ 
+		  AND DATE_FORMAT(ltm.lending_time,'%Y-%m-%d') >= #{beginTime} 
+	  ]]>	  	  
+	 </if>
+	 <if test="endTime != null and '' != endTime">
+	    <![CDATA[
+		  AND DATE_FORMAT(ltm.lending_time,'%Y-%m-%d') <=#{endTime}
+		 ]]>  
+	 </if>
+	  <include refid="Where_Common"></include>
+	  GROUP BY ltm.borrower_id 
+	   order by ltm.amount desc) a
+  </select>
+  <!-- 放款人维度统计成交额 -->
+  <select id="queryLoanerListPage" parameterType="com.lhhs.loan.dao.domain.vo.LoanTransRecordVo" resultType="com.lhhs.loan.dao.domain.vo.LoanTransRecordVo">
+  	SELECT ltm.provience_no,ltm.provience_name,ltm.city_no,ltm.city_name,a.lender_name,a.trans_type,SUM(a.loan_amount) loan_amount,ltm.lending_time,a.customer_nature
+FROM  loan_record a,loan_trans_main ltm WHERE a.trans_main_id=ltm.trans_main_id
+ <if test="provienceName != null and '' != provienceName">
+			and ltm.provience_name = #{provienceName}
+	</if>
+	 <if test="cityName != null and '' != cityName">
+			and ltm.city_name = #{cityName}
+	</if>
+	 <if test="lenderName != null and '' != lenderName">
+			and a.lender_name like CONCAT('%', #{lenderName}, '%')  
+	</if>
+	 <if test="transType != null and '' != transType">
+			and a.trans_type = #{transType}
+	</if>
+	 <if test="customerNature != null and '' != customerNature">
+			and a.customer_nature in 
+			 <foreach collection="borrowCustomerTypeList" index="index" item="item" open="(" separator="," close=")">
+                #{item}       
+            </foreach>    
+	</if>
+	<if test="beginTime != null and '' != beginTime">
+	    <![CDATA[ 
+		  AND DATE_FORMAT(ltm.lending_time,'%Y-%m-%d') >= #{beginTime} 
+		 ]]>    
+	 </if>
+	 <if test="endTime != null and '' != endTime">
+	   <![CDATA[ 
+		  AND DATE_FORMAT(ltm.lending_time,'%Y-%m-%d') <=#{endTime}
+	 ]]>	  
+	 </if>
+	  <include refid="Where_Common"></include>
+	  GROUP BY a.lender_id
+	  order by a.loan_amount desc
+	 <if test="page != null">
+		limit #{page.pageStartIndex},#{page.pageSize}
+	</if>
+  </select>
+  <!-- 放款总额 -->
+  <select id="queryLoanerList" parameterType="com.lhhs.loan.dao.domain.vo.LoanTransRecordVo" resultType="BigDecimal">
+  	SELECT SUM(a.loan_amount) loan_amount
+FROM  loan_record a,loan_trans_main ltm WHERE a.trans_main_id=ltm.trans_main_id
+ <if test="provienceName != null and '' != provienceName">
+			and ltm.provience_name = #{provienceName}
+	</if>
+	 <if test="cityName != null and '' != cityName">
+			and ltm.city_name = #{cityName}
+	</if>
+	 <if test="lenderName != null and '' != lenderName">
+			and a.lender_name like CONCAT('%', #{lenderName}, '%')  
+	</if>
+	 <if test="transType != null and '' != transType">
+			and a.trans_type = #{transType}
+	</if>
+	 <if test="customerNature != null and '' != customerNature">
+			and a.customer_nature in 
+			 <foreach collection="borrowCustomerTypeList" index="index" item="item" open="(" separator="," close=")">
+                #{item}       
+            </foreach>    
+	</if>
+	<if test="beginTime != null and '' != beginTime">
+	    <![CDATA[ 
+		  AND DATE_FORMAT(ltm.lending_time,'%Y-%m-%d') >= #{beginTime} 
+		 ]]>    
+	 </if>
+	 <if test="endTime != null and '' != endTime">
+	   <![CDATA[ 
+		  AND DATE_FORMAT(ltm.lending_time,'%Y-%m-%d') <=#{endTime}
+	 ]]>	  
+	 </if>
+	  <include refid="Where_Common"></include>
+	  order by a.loan_amount desc
+  </select>
+    <!-- 放款人维度统计count-->
+  <select id="queryLoanerCount" parameterType="com.lhhs.loan.dao.domain.vo.LoanTransRecordVo" resultType="int">
+  	SELECT COUNT(a.COUNT) FROM (SELECT count(*)COUNT
+FROM  loan_record a,loan_trans_main ltm WHERE a.trans_main_id=ltm.trans_main_id
+ <if test="provienceName != null and '' != provienceName">
+			and ltm.provience_name = #{provienceName}
+	</if>
+	 <if test="cityName != null and '' != cityName">
+			and ltm.city_name = #{cityName}
+	</if>
+	 <if test="lenderName != null and '' != lenderName">
+			and a.lender_name like CONCAT('%', #{lenderName}, '%')  
+	</if>
+	 <if test="transType != null and '' != transType">
+			and a.trans_type = #{transType}
+	</if>
+	 <if test="customerNature != null and '' != customerNature">
+			and a.customer_nature  in 
+			 <foreach collection="borrowCustomerTypeList" index="index" item="item" open="(" separator="," close=")">
+                #{item}       
+            </foreach>    
+	</if>
+	<if test="beginTime != null and '' != beginTime">
+	    <![CDATA[ 
+		  AND DATE_FORMAT(ltm.lending_time,'%Y-%m-%d') >= #{beginTime} 
+		 ]]>    
+	 </if>
+	 <if test="endTime != null and '' != endTime">
+	   <![CDATA[ 
+		  AND DATE_FORMAT(ltm.lending_time,'%Y-%m-%d') <=#{endTime}
+	 ]]>	  
+	 </if>
+	  <include refid="Where_Common"></include>
+	   GROUP BY a.lender_id
+	   order by a.loan_amount desc) a
+  </select>
+  <!-- 查询部门 -->
+   <select id="queryDepartment" resultType="String">
+      SELECT department FROM loan_trans_main GROUP BY department
+   </select>
+   
+   
+   	<!-- 待处理任务-分页列表查询 -->
+	<select id="queryListPageByTask" parameterType="com.lhhs.loan.dao.domain.LoanTransMain" resultType="com.lhhs.loan.dao.domain.LoanTransMain">
+        SELECT DISTINCT business_id,borrower,lending_time,amount,rate_unit,rate,
+			ltm.repayment_method,lppc.period,ltm.period_total,bu.staff_name username,
+			lpp.repayment_total,lpp.repayment_capital_time,lpp.repayment_interest_time,bus.staff_name account_manager,
+			lppc.repayment_total companyRepaymentTotal,lppc.customer_name,
+			lppc.repayment_capital_time companyRepaymentCapitalTime,lppc.repayment_interest_time companyRepaymentInterestTime,lppc.field2
+		FROM loan_trans_main ltm
+		LEFT JOIN loan_pay_plan lpp ON (ltm.trans_main_id = lpp.trans_main_id and ltm.clean_up_status='03')
+   	    LEFT JOIN loan_pay_plan_company lppc ON (ltm.trans_main_id = lppc.trans_main_id and ltm.status='03' AND lppc.period=lpp.period)<!-- AND  lpp.period = lppc.period -->
+   	    LEFT JOIN loan_customer_info lci on ltm.borrower_id=lci.customer_id
+		LEFT JOIN bump_user bus on lci.manager_id=bus.user_id
+   	    LEFT JOIN loan_invest_customer_info lici ON lppc.customer_id = lici.customer_id
+		LEFT JOIN bump_user bu ON lici.account_manager_no = bu.user_id
+		LEFT JOIN loan_fees_plan lfp on ltm.business_id=lfp.order_no
+		WHERE (lpp.STATUS = '03' OR lppc.STATUS = '03' or lfp.STATUS='03')
+		  <include refid="Common_Query_Param_Task"></include>
+		  GROUP BY ltm.trans_main_id, lppc.period
+		ORDER BY lpp.repayment_interest_time, lpp.repayment_capital_time 
+		<if test="page != null">
+			limit #{page.pageStartIndex},#{page.pageSize}
+		</if>
+	</select>
+
+	<!-- 待处理任务-总条数查询 -->
+	<select id="queryListPageByTaskCount" parameterType="com.lhhs.loan.dao.domain.LoanTransMain" resultType="int">
+		  <!--   SELECT count(1) 
+		    FROM loan_trans_main ltm
+			LEFT JOIN loan_pay_plan lpp ON ltm.trans_main_id = lpp.trans_main_id
+	   	    LEFT JOIN loan_pay_plan_company lppc ON ltm.trans_main_id = lppc.trans_main_id AND  lpp.period = lppc.period
+			LEFT JOIN loan_customer_info lci on ltm.borrower_id=lci.customer_id
+			LEFT JOIN bump_user bus on lci.manager_id=bus.user_id
+			LEFT JOIN loan_invest_customer_info lici ON lppc.customer_id = lici.customer_id
+		    LEFT JOIN bump_user bu ON lici.account_manager_no = bu.user_id
+		    LEFT JOIN loan_fees_plan lfp on ltm.business_id=lfp.order_no
+			WHERE lpp.STATUS = '03' OR lppc.STATUS = '03' or lfp.STATUS='03' -->
+			select count(1)  from (SELECT DISTINCT 
+	business_id,
+	borrower,
+	lending_time,
+	amount,
+	rate_unit,
+	rate,
+	ltm.repayment_method,
+	lppc.period,
+	ltm.period_total,
+	bu.staff_name username,
+	lpp.repayment_total,
+	lpp.repayment_capital_time,
+	lpp.repayment_interest_time,
+	bus.staff_name account_manager,
+	lppc.repayment_total companyRepaymentTotal,
+	lppc.customer_name,
+	lppc.repayment_capital_time companyRepaymentCapitalTime,
+	lppc.repayment_interest_time companyRepaymentInterestTime,
+	lppc.field2
+FROM
+	loan_trans_main ltm
+LEFT JOIN loan_pay_plan lpp ON (ltm.trans_main_id = lpp.trans_main_id and ltm.clean_up_status='03')
+   	    LEFT JOIN loan_pay_plan_company lppc ON (ltm.trans_main_id = lppc.trans_main_id and ltm.status='03' AND lppc.period=lpp.period)<!--  AND  lpp.period = lppc.period -->
+LEFT JOIN loan_fees_plan lfp ON ltm.business_id = lfp.order_no
+LEFT JOIN loan_customer_info lci ON ltm.borrower_id = lci.customer_id
+LEFT JOIN bump_user bus ON lci.manager_id = bus.user_id
+LEFT JOIN loan_invest_customer_info lici ON lppc.customer_id = lici.customer_id
+LEFT JOIN bump_user bu ON lici.account_manager_no = bu.user_id
+WHERE  
+	(lpp. STATUS = '03'
+OR lppc. STATUS = '03'
+OR lfp. STATUS = '03')
+		  <include refid="Common_Query_Param_Task"></include>
+		  GROUP BY ltm.trans_main_id, lppc.period
+) t 
+	</select>
+	
+	   <!-- 放款金额统计 -->
+   <select id="queryTransAmount" parameterType="map" resultType="map">
+   		select 	<if test='"month" eq queryType'>
+   					<if test='"single" eq compareType'>a.time</if>
+					<if test='"section" eq compareType'>DATE_FORMAT(a.time,'%Y-%m') time</if>
+   				</if>
+   				<if test='"year" eq queryType'>DATE_FORMAT(a.time,'%Y-%m') time</if>, 
+   				ifnull(SUM(b.amount),0) amount
+   		from (
+   			select datelist time
+   			from calendar
+   			where 1=1
+   			<if test='"month" eq queryType'>
+				<if test='"single" eq compareType'>
+					<if test="null!=lendingTime and ''!=lendingTime">
+						<![CDATA[ 
+							AND DATE_FORMAT(datelist,'%Y-%m') = #{lendingTime}
+						]]>    
+					</if>
+				</if>
+				<if test='"section" eq compareType'>
+					<if test="null!=beginTime and ''!=beginTime">
+						<![CDATA[ 
+							AND DATE_FORMAT(datelist,'%Y-%m') >= #{beginTime}
+						]]>    
+					</if>
+					<if test="endTime != null and '' != endTime">
+						<![CDATA[ 
+							AND DATE_FORMAT(datelist,'%Y-%m') <= #{endTime}
+						]]>	  
+					</if>
+				</if>
+			</if>
+			<if test='"year" eq queryType'>
+				<if test="null!=lendingTime and ''!=lendingTime">
+					<![CDATA[ 
+						AND DATE_FORMAT(datelist,'%Y') = #{lendingTime}
+					]]>    
+				</if>
+			</if>
+   		) a left join (
+   			select lending_time time, ifnull(ltm.amount/10000,0) amount
+   			from loan_trans_main ltm
+   			where 1=1
+   			<if test='"month" eq queryType'>
+				<if test='"single" eq compareType'>
+					<if test="null!=lendingTime and ''!=lendingTime">
+						<![CDATA[ 
+							AND DATE_FORMAT(ltm.lending_time,'%Y-%m') = #{lendingTime}
+						]]>    
+					</if>
+				</if>
+				<if test='"section" eq compareType'>
+					<if test="null!=beginTime and ''!=beginTime">
+						<![CDATA[ 
+							AND DATE_FORMAT(ltm.lending_time,'%Y-%m') >= #{beginTime}
+						]]>    
+					</if>
+					<if test="endTime != null and '' != endTime">
+						<![CDATA[ 
+							AND DATE_FORMAT(ltm.lending_time,'%Y-%m') <= #{endTime}
+						]]>	  
+					</if>
+				</if>
+			</if>
+			<if test='"year" eq queryType'>
+				<if test="null!=lendingTime and ''!=lendingTime">
+					<![CDATA[ 
+						AND DATE_FORMAT(ltm.lending_time,'%Y') = #{lendingTime}
+					]]>    
+				</if>
+			</if>
+			<if test="null!=transType and ''!=transType">
+				and ltm.trans_type=#{transType}
+			</if>
+			and ltm.status!='01'
+			and ltm.status!='99'
+			<include refid="Where_Common"></include>
+   		) b on DATE_FORMAT(a.time, '%Y-%m-%d') = DATE_FORMAT(b.time, '%Y-%m-%d')
+		<if test='"month" eq queryType'>
+			<if test='"single" eq compareType'>
+				GROUP BY a.time
+			</if>
+			<if test='"section" eq compareType'>
+				GROUP BY DATE_FORMAT(a.time,'%Y-%m')
+			</if>
+		</if>
+		<if test='"year" eq queryType'>
+			GROUP BY DATE_FORMAT(a.time,'%Y-%m')
+		</if>
+   </select>
+   
+</mapper>

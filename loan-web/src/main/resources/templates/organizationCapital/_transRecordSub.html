@@ -1,0 +1,62 @@
+<table class="tablelist">
+    <thead>
+    	<tr>
+            <th>交易ID</th>
+            
+            <th>机构名称</th>
+            <th>业务编号</th>
+            <th>收入</th>
+            <th>支出</th>
+            <th>账户余额</th>
+            <th>交易摘要</th>
+            <th>交易时间</th>
+            <th>备注</th>
+        </tr>
+    </thead>
+    <tbody>
+        <th:block th:unless="${#lists.isEmpty(page.resultList)}">
+			<tr th:each="singe : ${page.resultList}">
+				<td th:text="${singe.transId}"></td>
+				<td th:text="${singe.ownerName}"></td>
+				<td th:text="${singe.orderNo}"></td>
+				<td th:text="${singe.debitAmount}?${#numbers.formatDecimal(singe.debitAmount,1,2)}:0.00"></td>
+				<td th:text="${singe.creditAmount}?${#numbers.formatDecimal(singe.creditAmount,1,2)}:0.00"></td>
+				<td th:text="${singe.amountTotal}?${#numbers.formatDecimal(singe.amountTotal,1,2)}:0.00"></td>
+				<td th:text="${singe.subjectName}"></td>
+				<td th:text="${singe.transTime}?${#dates.format(singe.transTime,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+				<td th:text="${singe.transRemark}"></td>
+			</tr>
+		</th:block>
+		<th:block th:if="${#lists.isEmpty(page.resultList)}">
+			<tr>
+				<td colspan="9" class="textCt">暂无数据</td>
+			</tr>
+		</th:block>
+    </tbody>
+</table>
+<th:block th:unless="${#lists.isEmpty(page.resultList)}">
+    <div class="pagin" style="margin-top: 0px;">
+        <div class="message">
+	    	统计数据（<i class="blue" th:text="${page.totalCount}"></i> 条 );&nbsp;&nbsp;&nbsp;
+	    	收入总额：<i class="blue" th:text="${#maps.isEmpty(map)}?0.00:(${#maps.containsKey(map, 'debitAmountTotal')}?${#numbers.formatDecimal(map.debitAmountTotal,1,2)}:0.00)"></i> 元&nbsp;&nbsp;&nbsp;
+	    	支出总额：<i class="blue" th:text="${#maps.isEmpty(map)}?0.00:(${#maps.containsKey(map, 'creditAmountTotal')}?${#numbers.formatDecimal(map.creditAmountTotal,1,2)}:0.00)"></i> 元
+	   	</div>
+    </div>
+    <div class="pagin" style="margin-top: 0px;">
+    	<div class="message">
+			共 <i class="blue" th:text="${page.totalCount}"></i> 
+			条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+		</div>
+		<ul class="paginList">
+			<li class="paginItem" th:if="${page.pageIndex} gt 1">
+				<a th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+			</li>
+			<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" th:classappend="(${page.pageIndex} eq ${x})?'current'">
+				<a th:attr="data-pagenum=${x}" th:text="${x}"></a>
+			</li>
+			<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+				<a th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+			</li> 
+		</ul>
+    </div>
+</th:block>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>客户管理</li>
+                        <li>银主信息</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual">
+                            <ul class="seachform1">
+                             <form id="myForm">
+                             <input  name="pageNumber" type="hidden" value="" id="currentPageNo"/>
+                                <li>
+                                    <label>客户编号：</label>
+                                    <input name="customerId" type="text" class="scinput1" th:value="${customerId}"/>
+                                </li>
+                                <li>
+                                    <label>客户性质：</label>
+                                     <div class="vocation">
+                                          <select class="select-common select3" name="investCustomerNature" style="width:150px;">
+                                            <option value="">请选择</option>
+                                            <option th:each="property : ${accountCustProperty}" th:value="${property.type_id}" th:text="${property.type_name}"
+                                              th:attr="selected=(${property.type_id} eq ${investCustomerNature})?true:false"></option>
+                                           </select>
+                                     </div>
+                                </li>
+                                 <li>
+                                    <label>客户姓名：</label>
+                                    <input name="investCustomerName" type="text" class="scinput1" th:value="${investCustomerName}"/>
+                                </li>
+                                 <li>
+                                    <label>手机号码：</label>
+                                    <input name="investCustomerMobile" type="text" class="scinput1" th:value="${investCustomerMobile}"/>
+                                </li>
+                                </form>
+                                <li>
+                                    <input type="button" class="scbtn searcher" value="查询"/>
+                                </li>
+                                <li class="sarchbtn" style="float: right;">
+                                    <input type="button" class="scbtn1" value="新增" onclick="javascrtpt:window.location.href='/investCustomer/toInvestCustomerAdd'"/>
+                                </li>
+                            </ul>
+                            <div class="table-title">
+                                <p class="tab-font">银主信息</p>
+                            </div>
+                            <table class="tablelist">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>客户编号</th>
+                                        <th>客户性质</th>
+                                        <th>客户名称</th>
+                                        <th>性别</th>
+                                        <th>手机号码</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr:block th:unless="${#lists.isEmpty(investCustomerList)}" >
+                                    <tr th:each="emp , iter : ${investCustomerList}">
+                                        <input type="hidden" th:value="${emp.id}"/> 
+                                        <td th:text="${iter.index+1}"></td>
+                                        <td th:text="${emp.customerId}"></td>
+                                        <td th:text="${emp.customerNatureName}"></td>
+                                        <td th:text="${emp.investCustomerName}"></td>
+                                        <td>
+                                        <th:block th:if="${emp.sex} eq 1">男</th:block>
+                                        <th:block th:if="${emp.sex} eq 0">女</th:block>
+                                        </td>
+                                        <td th:if="${customerManager} neq ${emp.accountManagerNo}" th:text="${emp.investCustomerMobile}==null ? '': ${emp.investCustomerMobile.substring(0,3)+'****'+emp.investCustomerMobile.substring(emp.investCustomerMobile.length()-4,emp.investCustomerMobile.length())}"></td>
+                                        <td th:if="${customerManager} eq ${emp.accountManagerNo}" th:text="${emp.investCustomerMobile}"></td>
+                                        <td>
+                                            <a th:href="@{/investCustomer/toInvestCustomerInfo(id=${emp.id})}" class="tablelink mlt10">查看</a>
+                                            <a th:href="@{/investCustomer/toInvestCustomerUpdate(id=${emp.id})}" class="tablelink mlt10" sec:authorize="hasRole('ROLE_LCRXXXG')">修改</a>
+                                            <!-- th:if="${customerManager} eq ${emp.accountManagerNo}" -->
+                                        </td>
+                                    </tr>
+                                    </tr:block>
+                                </tbody>
+                            </table>                           
+                           	<div class="pagin" th:unless="${#lists.isEmpty(page.resultList)}">
+								<div class="message">
+									<!-- <input type="button" value="导出" class="scbtn1" style="width: 65px;" id="export"/> -->
+									&nbsp;&nbsp;&nbsp;共 <i class="blue" th:text="${page.totalCount}"></i> 条记录，当前显示第 <i
+										class="blue" th:text="${page.pageIndex}"></i> 页
+								</div>
+								<ul class="paginList">
+									<li class="paginItem" th:if="${page.pageIndex} gt 1"><a
+										th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+									</li>
+									<li class="paginItem"
+										th:each="x:${#numbers.sequence(page.startNum, page.endNum)}"
+										th:classappend="(${page.pageIndex} eq ${x})?'current'"><a
+										th:attr="data-pagenum=${x}" th:text="${x}"></a></li>
+									<li class="paginItem"
+										th:if="${page.pageIndex} lt ${page.pageCount}"><a
+										th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+									</li>
+								</ul>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+        <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	    <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+        <script>seajs.use("login/investCustomer");</script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<div class="formtitle"><span>报单基本信息</span></div>
+<div class="toolsli">
+    <ul class="nbbdgl-Ui" th:unless="${#maps.isEmpty(basicInfo)}">
+    	<li>
+            <span class="tips">报单编号：</span>
+            <span th:text="${#maps.containsKey(basicInfo,'order_no')}?${basicInfo.order_no}"></span>
+        </li>
+        <li>
+            <span class="tips">报单人：</span>
+            <span th:text="${#maps.containsKey(basicInfo,'provider_name')}?${basicInfo.provider_name}"></span>
+        </li>
+        <li>
+            <span class="tips">报单人手机号：</span>
+            <span th:text="${#maps.containsKey(basicInfo,'mobile_no')}?${basicInfo.mobile_no}"></span>
+        </li>
+        <li>
+            <span class="tips">业务类型：</span>
+            <span>
+            	<th:block th:if="${#maps.containsKey(basicInfo,'org_business_type')}?(${basicInfo.org_business_type} eq 2):false">非资金批发</th:block>
+            	<th:block th:if="${#maps.containsKey(basicInfo,'org_business_type')}?(${basicInfo.org_business_type} eq 1):false">资金批发</th:block>
+            </span>
+        </li>
+        <li>
+            <span class="tips">客户来源：</span>
+            <span>
+            	<th:block th:if="${#maps.containsKey(basicInfo,'customer_origin')}">
+            		<th:block th:if="${basicInfo.customer_origin} eq 0">公户</th:block>
+	            	<th:block th:if="${basicInfo.customer_origin} eq 1">自主开发</th:block>
+	            	<th:block th:if="${basicInfo.customer_origin} eq 2">平台渠道</th:block>
+	            	<th:block th:if="${basicInfo.customer_origin} eq 3">独立经纪人</th:block>
+	            	<th:block th:if="${basicInfo.customer_origin} eq 4">同行机构</th:block>
+	            	<th:block th:if="${basicInfo.customer_origin} eq 5">非银行金融机构</th:block>
+	            	<th:block th:if="${basicInfo.customer_origin} eq 6">银行机构</th:block>
+            	</th:block>
+            </span>
+        </li>
+        <li>
+            <span class="tips">客户经理：</span>
+            <span th:text="${#maps.containsKey(basicInfo,'le_staff_name')}?${basicInfo.le_staff_name}"></span>
+        </li>
+        <li>
+            <span class="tips">资金方：</span>
+            <span th:text="${#maps.containsKey(basicInfo,'org_name')}?${basicInfo.org_name}"></span>
+        </li>
+        <li>
+            <span class="tips">产品类型：</span>
+            <span th:text="${#maps.containsKey(basicInfo,'product_type')}?${basicInfo.product_type}"></span>
+        </li>
+        <li>
+            <span class="tips">产品名称：</span>
+            <span th:text="${#maps.containsKey(basicInfo,'product_name')}?${basicInfo.product_name}"></span>
+        </li>
+        <li>
+            <span class="tips">借款金额：</span>
+            <span th:text="${#maps.containsKey(basicInfo,'loan_amount')}?${#numbers.formatDecimal(basicInfo.loan_amount,1,2)}+'万元':0.00+'万元'"></span>
+        </li>
+        <li>
+            <span class="tips">借款期限：</span>
+            <span th:text="${#maps.containsKey(basicInfo,'loan_term')}?${basicInfo.loan_term}+${basicInfo.loan_term_unit}"></span>
+        </li>
+        <li>
+            <span class="tips">借款利率：</span>
+            <span th:text="${#maps.containsKey(basicInfo,'loan_rate')}?${#numbers.formatDecimal(basicInfo.loan_rate,1,3)}+'%/'+${basicInfo.loan_rate_unit}"></span>
+        </li>
+        <li>
+            <span class="tips">还款方式：</span>
+            <span>
+            	<th:block th:if="${#maps.containsKey(basicInfo,'repayment')}">
+                  		<th:block th:if="${basicInfo.repayment} eq 0">每月还息,到期还本</th:block>
+                  		<th:block th:if="${basicInfo.repayment} eq 2">一次性还款</th:block>
+                  	</th:block>
+            </span>
+        </li>
+    </ul>
+</div>
+<div class="formtitle"><span>借款人信息</span></div>
+<th:block th:unless="${#lists.isEmpty(loanOrderBorrowerExtendBLOBsList)}">
+	<th:block th:each="borrower:${loanOrderBorrowerExtendBLOBsList}">
+		<div class="toolsli">
+		    <ul class="nbbdgl-Ui">
+		    	<li>
+		            <span class="tips">借款人姓名：</span>
+		            <span th:text="${borrower.bname}"></span>
+		        </li>
+		        <li>
+		            <span class="tips">性别：</span>
+		            <span>
+		            	<th:block th:if="${borrower.sex} eq 0">女</th:block>
+			            <th:block th:if="${borrower.sex} eq 1">男</th:block>
+		            </span>
+		        </li>
+		        <li>
+		            <span class="tips">手机号码：</span>
+		            <span th:text="${borrower.mobile}"></span>
+		        </li>
+		        <li>
+		            <span class="tips">银行卡号：</span>
+		            <span th:text="${borrower.bankCardNo}"></span>
+		        </li>
+		        <li>
+		            <span class="tips">开户行：</span>
+		            <span>
+		            	<th:block th:each="bank : ${banks}">
+		            		<th:block th:if="${bank.bankId} eq ${borrower.bankId}" th:text="${bank.bankName}"></th:block>
+		            	</th:block>
+		            </span>
+		        </li>
+		        <li>
+		            <span class="tips">开户支行：</span>
+		            <span th:text="${borrower.branchName}"></span>
+		        </li>
+		        <li>
+		            <span class="tips">客户类型：</span>
+		            <span>
+		            	<th:block th:if="${borrower.custType} eq 10">个人</th:block>
+		            </span>
+		        </li>
+		        <li>
+		            <span class="tips">客户性质：</span>
+		            <span>
+		            	<th:block th:if="${borrower.custNature} eq 11">个人</th:block>
+		            	<th:block th:if="${borrower.custNature} eq 15">公户</th:block>
+		            </span>
+		        </li>
+		        <li>
+		            <span class="tips">身份证号：</span>
+		            <span th:text="${borrower.idNum}"></span>
+		        </li>
+		        <li>
+		            <span class="tips">教育程度：</span>
+		            <span>
+		            	<th:block th:if="${borrower.education} eq 0">小学</th:block>
+		            	<th:block th:if="${borrower.education} eq 1">中学</th:block>
+		            	<th:block th:if="${borrower.education} eq 2">高中</th:block>
+		            	<th:block th:if="${borrower.education} eq 3">中专</th:block>
+		            	<th:block th:if="${borrower.education} eq 4">大专</th:block>
+		            	<th:block th:if="${borrower.education} eq 5">本科</th:block>
+		            	<th:block th:if="${borrower.education} eq 6">研究生</th:block>
+		            	<th:block th:if="${borrower.education} eq 7">博士</th:block>
+		            </span>
+		        </li>
+		        <li style="width: 80%;">
+		        	<span class="tips">现居住地址：</span>
+		        	<span th:text="${borrower.liveAddress}"></span>
+		        </li>
+		        <li>
+		            <span class="tips">公司名称：</span>
+		            <span th:text="${borrower.corName}"></span>
+		        </li>
+		        <li style="width: 80%;">
+		        	<span class="tips">公司地址：</span>
+		        	<span th:text="${borrower.corAddress}"></span>
+		        </li>
+		        <li style="width: 80%;">
+		            <span class="tips">婚姻状况：</span>
+		            <span>
+		            	<th:block th:if="${borrower.marStatus} eq 0"><span>已婚</span></th:block>
+                        <th:block th:if="${borrower.marStatus} eq 1"><span>未婚</span></th:block>
+                        <th:block th:if="${borrower.marStatus} eq 2"><span>离异</span></th:block>
+                        <th:block th:if="${borrower.marStatus} eq 3"><span>丧偶</span></th:block>
+		            </span>
+		        </li>
+		        <li style="width:100%;">
+                    <span class="tips">征信情况：</span>
+                    <span style="width: 80%;"  th:text="${borrower.creditStatus}"></span>
+                </li>
+		        <li style="width:100%;">
+                    <span class="tips">配偶征信情况：</span>
+                    <span style="width: 80%;"  th:text="${borrower.spouseCredit}"></span>
+                </li>
+                <li style="width:100%;">
+                    <span class="tips">诉讼情况：</span>
+                    <span style="width: 80%;"  th:text="${borrower.litigaStatus}"></span>
+                </li>
+                <li style="width:100%;">
+                    <span class="tips">借款用途：</span>
+                    <span style="width: 80%;"  th:text="${borrower.loadPurpose}" ></span>
+                </li>
+                <li style="width:100%;">
+                    <span class="tips">还款来源：</span>
+                    <span style="width: 80%;"  th:text="${borrower.payment}" ></span>
+                </li>
+                <li style="width:100%;">
+                    <span class="tips">配偶诉讼情况：</span>
+                    <span style="width: 80%;"  th:text="${borrower.spouseLitiga}"></span>
+                </li>
+		    </ul>
+		</div>
+		<div class="formtitle"><span>联系人信息</span></div>
+		<div class="toolsli">
+			<th:block th:if="${#lists.isEmpty(contactsList)}">
+				<ul class="nbbdgl-Ui">
+			        <li style="width: 30%;">
+			            <span class="tips" style="width: 50px;">关系：</span>
+			            <span></span>
+			        </li>
+			        <li style="width: 30%;">
+			            <span class="tips" style="width: 50px;">姓名：</span>
+			            <span></span>
+			        </li>
+			        <li style="width: 30%;">
+			            <span class="tips" style="width: 80px;">手机号码：</span>
+			            <span></span>
+			        </li>
+			    </ul>
+			</th:block>
+			<th:block th:unless="${#lists.isEmpty(contactsList)}">
+				<ul class="nbbdgl-Ui" th:each="single:${contactsList}">
+			        <li style="width: 30%;">
+			            <span class="tips" style="width: 50px;">关系：</span>
+			            <span th:text="${single.relation}" ></span>
+			        </li>
+			        <li style="width: 30%;">
+			            <span class="tips" style="width: 50px;">姓名：</span>
+			            <span th:text="${single.name}" ></span>
+			        </li>
+			        <li style="width: 30%;">
+			            <span class="tips" style="width: 80px;">手机号码：</span>
+			            <span th:text="${single.mobile}" ></span>
+			        </li>
+			    </ul>
+			</th:block>
+		</div>
+		<div class="formtitle"><span>共同借款人信息</span></div>
+		<div class="toolsli">
+			<th:block th:if="${#lists.isEmpty(coborrowerList)}">
+				<ul class="nbbdgl-Ui">
+			        <li style="width: 25%;">
+			            <span class="tips" style="width: 50px;">姓名：</span>
+			            <span></span>
+			        </li>
+			        <li style="width: 17%;">
+			            <span class="tips" style="width: 50px;">性别：</span>
+			            <span></span>
+			        </li>
+			        <li style="width: 25%;">
+			            <span class="tips" style="width: 80px;">身份证号：</span>
+			            <span></span>
+			        </li>
+			        <li style="width: 25%;">
+			            <span class="tips" style="width: 80px;">手机号码：</span>
+			            <span></span>
+			        </li>
+			    </ul>
+			</th:block>
+			<th:block th:unless="${#lists.isEmpty(coborrowerList)}">
+				<ul class="nbbdgl-Ui" th:each="single:${coborrowerList}">
+			        <li style="width: 25%;">
+			            <span class="tips" style="width: 50px;">姓名：</span>
+			            <span th:text="${single.name}"></span>
+			        </li>
+			        <li style="width: 17%;">
+			            <span class="tips" style="width: 50px;">性别：</span>
+			            <span>
+				            <th:block th:if="${single.sex} eq 0">女</th:block>
+				            <th:block th:if="${single.sex} eq 1">男</th:block>
+			            </span>
+			        </li>
+			        <li style="width: 25%;">
+			            <span class="tips" style="width: 80px;">身份证号：</span>
+			            <span th:text="${single.idNum}"></span>
+			        </li>
+			        <li style="width: 25%;">
+			            <span class="tips" style="width: 80px;">手机号码：</span>
+			            <span th:text="${single.mobile}"></span>
+			        </li>
+			    </ul>
+			</th:block>
+		</div>
+		<div class="formtitle"><span>担保人信息</span></div>
+		<div class="toolsli">
+			<th:block th:if="${#lists.isEmpty(guaranteeList)}">
+				<ul class="nbbdgl-Ui">
+			        <li style="width: 25%;">
+			            <span class="tips" style="width: 50px;">姓名：</span>
+			            <span></span>
+			        </li>
+			        <li style="width: 17%;">
+			            <span class="tips" style="width: 50px;">性别：</span>
+			            <span></span>
+			        </li>
+			        <li style="width: 25%;">
+			            <span class="tips" style="width: 80px;">身份证号：</span>
+			            <span></span>
+			        </li>
+			        <li style="width: 25%;">
+			            <span class="tips" style="width: 80px;">手机号码：</span>
+			            <span></span>
+			        </li>
+			    </ul>
+			</th:block>
+			<th:block th:unless="${#lists.isEmpty(guaranteeList)}">
+				<ul class="nbbdgl-Ui" th:each="single:${guaranteeList}">
+			        <li style="width: 25%;">
+			            <span class="tips" style="width: 50px;">姓名：</span>
+			            <span th:text="${single.name}"></span>
+			        </li>
+			        <li style="width: 17%;">
+			            <span class="tips" style="width: 50px;">性别：</span>
+			            <span>
+				            <th:block th:if="${single.sex} eq 0">女</th:block>
+				            <th:block th:if="${single.sex} eq 1">男</th:block>
+			            </span>
+			        </li>
+			        <li style="width: 25%;">
+			            <span class="tips" style="width: 80px;">身份证号：</span>
+			            <span th:text="${single.idNum}"></span>
+			        </li>
+			        <li style="width: 25%;">
+			            <span class="tips" style="width: 80px;">手机号码：</span>
+			            <span th:text="${single.mobile}"></span>
+			        </li>
+			    </ul>
+			</th:block>
+		</div>
+	</th:block>
+</th:block>
+<div class="formtitle"><span>处理记录</span></div>
+<div id="histoicFlow"></div>
+<p class="textCt pt20">
+    <input type="button" class="scbtn2" value="返 回" onclick="javascript:history.go(-1);"/>
+</p>

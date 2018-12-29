@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanAccountCardMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanAccountCard" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="bank_card_no" property="bankCardNo" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="account_name" property="accountName" jdbcType="VARCHAR" />
+    <result column="bank_id" property="bankId" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="kind" property="kind" jdbcType="VARCHAR" />
+    <result column="bank_ab" property="bankAb" jdbcType="VARCHAR" />
+    <result column="branch_name" property="branchName" jdbcType="VARCHAR" />
+    <result column="bank_province" property="bankProvince" jdbcType="VARCHAR" />
+    <result column="bank_city" property="bankCity" jdbcType="VARCHAR" />
+    <result column="account_holder" property="accountHolder" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="def" property="def" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, bank_card_no, account_id, account_name, bank_id, bank_name, kind, bank_ab, branch_name, 
+    bank_province, bank_city, account_holder, mobile, def, status, create_user, create_time, 
+    last_user, last_modify_time, field1, field2, field3, field4, field5
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_account_card
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" >
+    delete from loan_account_card
+    where id = #{id}
+  </delete>
+  
+  <delete id="deleteByBankCardNo" >
+    delete from loan_account_card
+    where bank_card_no = #{hidBankCardNo}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanAccountCard" >
+    insert into loan_account_card (id, bank_card_no, account_id, 
+      account_name, bank_id, bank_name, 
+      kind, bank_ab, branch_name, 
+      bank_province, bank_city, account_holder, 
+      mobile, def, status, 
+      create_user, create_time, last_user, 
+      last_modify_time, field1, field2, 
+      field3, field4, field5
+      )
+    values (#{id,jdbcType=BIGINT}, #{bankCardNo,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, 
+      #{accountName,jdbcType=VARCHAR}, #{bankId,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, 
+      #{kind,jdbcType=VARCHAR}, #{bankAb,jdbcType=VARCHAR}, #{branchName,jdbcType=VARCHAR}, 
+      #{bankProvince,jdbcType=VARCHAR}, #{bankCity,jdbcType=VARCHAR}, #{accountHolder,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{def,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastUser,jdbcType=VARCHAR}, 
+      #{lastModifyTime,jdbcType=TIMESTAMP}, #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, 
+      #{field3,jdbcType=VARCHAR}, #{field4,jdbcType=VARCHAR}, #{field5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanAccountCard" >
+    insert into loan_account_card
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bankCardNo != null" >
+        bank_card_no,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="accountName != null" >
+        account_name,
+      </if>
+      <if test="bankId != null" >
+        bank_id,
+      </if>
+      <if test="bankName != null" >
+        bank_name,
+      </if>
+      <if test="kind != null" >
+        kind,
+      </if>
+      <if test="bankAb != null" >
+        bank_ab,
+      </if>
+      <if test="branchName != null" >
+        branch_name,
+      </if>
+      <if test="bankProvince != null" >
+        bank_province,
+      </if>
+      <if test="bankCity != null" >
+        bank_city,
+      </if>
+      <if test="accountHolder != null" >
+        account_holder,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="def != null" >
+        def,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUser != null" >
+        last_user,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="bankCardNo != null" >
+        #{bankCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null" >
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankId != null" >
+        #{bankId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="kind != null" >
+        #{kind,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAb != null" >
+        #{bankAb,jdbcType=VARCHAR},
+      </if>
+      <if test="branchName != null" >
+        #{branchName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankProvince != null" >
+        #{bankProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCity != null" >
+        #{bankCity,jdbcType=VARCHAR},
+      </if>
+      <if test="accountHolder != null" >
+        #{accountHolder,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="def != null" >
+        #{def,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanAccountCard" >
+    update loan_account_card
+    <set >
+      <if test="bankCardNo != null" >
+        bank_card_no = #{bankCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null" >
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankId != null" >
+        bank_id = #{bankId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="kind != null" >
+        kind = #{kind,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAb != null" >
+        bank_ab = #{bankAb,jdbcType=VARCHAR},
+      </if>
+      <if test="branchName != null" >
+        branch_name = #{branchName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankProvince != null" >
+        bank_province = #{bankProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCity != null" >
+        bank_city = #{bankCity,jdbcType=VARCHAR},
+      </if>
+      <if test="accountHolder != null" >
+        account_holder = #{accountHolder,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="def != null" >
+        def = #{def,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+   <!-- 理财人信息-修改 -->
+   <update id="updateByInvestCustomer" parameterType="com.lhhs.loan.dao.domain.LoanAccountCard" >
+    update loan_account_card
+    <set >
+      <if test="bankCardNo != null" >
+        bank_card_no = #{bankCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null" >
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankId != null" >
+        bank_id = #{bankId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="kind != null" >
+        kind = #{kind,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAb != null" >
+        bank_ab = #{bankAb,jdbcType=VARCHAR},
+      </if>
+      <if test="branchName != null" >
+        branch_name = #{branchName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankProvince != null" >
+        bank_province = #{bankProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCity != null" >
+        bank_city = #{bankCity,jdbcType=VARCHAR},
+      </if>
+      <if test="accountHolder != null" >
+        account_holder = #{accountHolder,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="def != null" >
+        def = #{def,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where  account_id = #{accountId,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanAccountCard" >
+    update loan_account_card
+    set bank_card_no = #{bankCardNo,jdbcType=VARCHAR},
+      account_id = #{accountId,jdbcType=VARCHAR},
+      account_name = #{accountName,jdbcType=VARCHAR},
+      bank_id = #{bankId,jdbcType=VARCHAR},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      kind = #{kind,jdbcType=VARCHAR},
+      bank_ab = #{bankAb,jdbcType=VARCHAR},
+      branch_name = #{branchName,jdbcType=VARCHAR},
+      bank_province = #{bankProvince,jdbcType=VARCHAR},
+      bank_city = #{bankCity,jdbcType=VARCHAR},
+      account_holder = #{accountHolder,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      def = #{def,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <sql id="Base_Column_List_All" >
+    a.account_id,a.use_type, a.owner_id, a.owner_name, a.certificate_no, a.union_id, a.account_id_parent, 
+    a.level,  a.account_type, a.provience_no, a.provience_name, a.city_no, a.city_name,
+    c.id, c.bank_card_no,  c.account_name, c.bank_id, c.bank_name, c.kind, c.bank_ab, c.branch_name, 
+    c.bank_province, c.bank_city, c.account_holder, c.mobile, c.def, c.status, c.create_user, c.create_time, 
+    c.last_user, c.last_modify_time, c.field1, c.field2, c.field3, c.field4, c.field5
+  </sql>
+  <sql id="Base_Column_List_All1" >
+    a.account_id,a.use_type, a.owner_id, a.owner_name, a.certificate_no, a.union_id, a.account_id_parent, 
+    a.level,  a.account_type, a.provience_no, a.provience_name, a.city_no, a.city_name,a.mobile field1,
+    c.id, c.bank_card_no,  c.account_name, c.bank_id, c.bank_name, c.kind, c.bank_ab, c.branch_name, 
+    c.bank_province, c.bank_city, c.account_holder, c.mobile, c.def, c.status, c.create_user, c.create_time, 
+    c.last_user, c.last_modify_time,  c.field2, c.field3, c.field4, c.field5,
+    t.asset_total, t.liabilities_total, t.debit_amount, t.credit_amount, t.amount, 
+    t.balance, t.freeze_total, t.freeze_financing, t.freeze_invest, t.freeze_withdrawals, t.transit_total, 
+    t.payable_total, t.receivable_total, t.belong_date
+  </sql>
+  <sql id="Where_Clause" >
+    <where >
+    	a.account_id = c.account_id
+    	
+    	<if test="id != null" >
+        and c.id = #{id}
+      </if>
+      <if test="accountId != null and accountId !=''" >
+        and a.account_id = #{accountId}
+      </if>
+      <if test="useType != null and useType !=''" >
+        and a.use_type=#{useType}
+      </if>
+      <if test="ownerId != null and ownerId !=''" >
+        and a.owner_id=#{ownerId}
+      </if>
+      <if test="ownerName != null and ownerName !=''" >
+        and a.owner_name =#{ownerName}
+      </if>
+      <if test="certificateNo != null and certificateNo !=''" >
+        and a.certificate_no=#{certificateNo}
+      </if>
+
+      <if test="unionId != null and unionId !=''" >
+        and a.union_id=#{unionId}
+      </if>
+      <if test="accountIdParent != null and accountIdParent !=''" >
+        and a.account_id_parent=#{accountIdParent}
+      </if>
+      <if test="level != null and level !=''" >
+      	and a.level=#{level}
+      </if>
+      <if test="accountType != null and accountType !=''" >
+        and a.account_type=#{accountType}
+      </if>
+      <if test="provienceNo != null and provienceNo !=''" >
+        and a.provience_no=#{provienceNo}
+      </if>
+      <if test="cityNo != null and cityNo !=''" >
+        and a.city_no=#{cityNo}
+      </if>
+      <if test="status != null and status !=''" >
+        and a.status=#{status}
+      </if>
+      <if test="bankCardNo != null" >
+        and c.bank_card_no = #{bankCardNo}
+      </if>
+      
+      <if test="accountName != null" >
+        and c.account_name LIKE CONCAT('%', #{accountName}, '%')
+      </if>
+      <if test="bankId != null" >
+        and c.bank_id = #{bankId}
+      </if>
+      <if test="bankName != null" >
+        and c.bank_name LIKE CONCAT('%', #{bankName}, '%')
+      </if>
+      <if test="kind != null" >
+        and c.kind = #{kind}
+      </if>
+      <if test="bankAb != null" >
+        and c.bank_ab = #{bankAb,jdbcType=VARCHAR}
+      </if>
+      <if test="branchName != null" >
+        and c.branch_name LIKE CONCAT('%', #{branchName}, '%')
+      </if>
+      <if test="bankProvince != null" >
+        and c.bank_province = #{bankProvince,jdbcType=VARCHAR}
+      </if>
+      <if test="bankCity != null" >
+        and c.bank_city = #{bankCity,jdbcType=VARCHAR}
+      </if>
+      <if test="accountHolder != null" >
+        and (c.account_holder = #{accountHolder} or a.account_holder = #{accountHolder})
+      </if>
+      <if test="mobile != null and mobile !=''" >
+        and (c.mobile = #{mobile} or a.mobile = #{mobile} or a.owner_id=#{mobile})
+      </if>
+      <if test="def != null" >
+        and c.def = #{def,jdbcType=VARCHAR}
+      </if>
+      <if test="authgroupList != null">
+		 	and 
+		         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+			         (1=1
+			             <if test="item.orgId != null and item.orgId != ''">
+						  		and a.company_id =  #{item.orgId}
+						 </if>
+						 <if test="item.dataOwner != null and item.dataOwner != ''">
+						  		and a.ownerId =  #{item.dataOwner}
+						 </if>
+					  )
+		          </foreach>
+	
+		</if>
+    </where>
+
+  </sql>
+  <select id="queryList" resultType="com.lhhs.loan.dao.domain.LoanAccountCard" parameterType="com.lhhs.loan.dao.domain.LoanAccountCard" >
+    select
+    <include refid="Base_Column_List_All" />
+    from loan_account_card c,loan_account_info a
+    <include refid="Where_Clause" />
+    order by c.create_time desc
+    <if test="page!=null and page.pageStartIndex != null and page.pageSize != null">
+    	Limit #{page.pageStartIndex},#{page.pageSize}
+    </if>
+  </select>
+   <select id="queryCount" resultType="int" parameterType="com.lhhs.loan.dao.domain.LoanAccountCard" >
+    select  count(c.*)   from loan_account_card c,loan_account_info a
+    <include refid="Where_Clause" />
+  </select>
+  <select id="queryAccountCard" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from loan_account_card where account_id=#{accountId} and account_holder=#{accountHolder}
+  </select>
+  <!-- 查询银行卡和余额 -->
+   <select id="queryCardAndBalList" resultType="com.lhhs.loan.dao.domain.LoanAccountCard" parameterType="com.lhhs.loan.dao.domain.LoanAccountCard" >
+    select
+    <include refid="Base_Column_List_All1" />
+    from loan_account_card c,loan_account_info a left join loan_accounts_total t on a.account_id = t.account_id
+    <include refid="Where_Clause" />
+    order by c.create_time desc
+    <if test="page!=null and page.pageStartIndex != null and page.pageSize != null">
+    	Limit #{page.pageStartIndex},#{page.pageSize}
+    </if>
+  </select>
+  
+  <!-- 根据公司ID查询银行卡 -->
+  <select id="queryCardByCompany" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select  ac.id,ac.bank_card_no, ac.account_id, ac.account_name,ac.bank_name, ac.bank_ab, ac.account_holder from loan_account_card ac
+    left join loan_account_info  ai  on  ac.account_id =ai.account_id 
+    where ai.company_id = #{companyId,jdbcType=VARCHAR}  and (ac.kind =#{kind,jdbcType=VARCHAR} or ac.kind='00')
+  </select>
+  
+  <select id="queryCardByAccountAndCardNo" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from loan_account_card
+    where account_id = #{accountId} and bank_card_no=#{bankCardNo}
+  </select>
+  
+  <select id="queryCusInfoAndBankInfo" parameterType="map" resultType="com.lhhs.loan.dao.domain.LoanAccountCard">
+        SELECT lac.account_holder,lac.bank_card_no,lac.bank_name,lac.bank_id,
+	      lac.mobile,lai.owner_id, lci.customer_name,lci.customer_nature,lci.customer_type
+		FROM loan_account_card lac
+		LEFT JOIN loan_account_info lai ON lac.account_id = lai.account_id
+		LEFT JOIN loan_customer_info lci ON  lai.owner_id= lci.customer_id
+		where  lac.bank_card_no=#{bankCardNo}
+		 <if test="accountId != null and accountId!='' ">
+           and lac.account_id = #{accountId}
+         </if>
+         <if test="accountName != null and accountName!='' ">
+           and lac.account_name = #{accountName}
+         </if>
+  </select>
+  
+  <!-- 根据银行卡号查询开户行及开户支行suncj -->
+  <select id="getBankByCard" resultType="com.lhhs.loan.dao.domain.LoanAccountCard">
+    select  t.account_id,t.bank_id,t.branch_name,t.id,lb.bank_name,lai.account_holder,lai.certificate_no,lai.mobile
+    from loan_account_card t
+	LEFT JOIN loan_bank lb on t.bank_id=lb.bank_id
+	LEFT JOIN loan_account_info  lai on t.account_id=lai.account_id
+    where bank_card_no=#{bankCardNo}
+  </select>
+  
+  <delete id="deleteBankInfoByCustomerId">
+ 	  DELETE lac.* FROM loan_account_card lac,loan_customer_info  lci
+	  WHERE lac.account_id = lci.account_id
+	  AND lci.customer_id=#{customerId}
+  </delete>
+  
+   <select id="selectbankCarkList"  parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT lac.bank_card_no,lac.bank_id,lb.bank_name,lac.branch_name
+    FROM loan_account_info lai 
+	LEFT JOIN loan_account_card lac ON lai.account_id = lac.account_id
+	LEFT JOIN loan_bank lb ON lac.bank_id = lb.bank_id
+	WHERE lai.owner_id = #{customerId, jdbcType=VARCHAR}
+  </select>
+   <select id="selectByAccountId"  parameterType="com.lhhs.loan.dao.domain.LoanAccountCard" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+    from loan_account_card
+    where 1=1 
+      <if test="accountId != null" >
+       and account_id= #{accountId}
+      </if>
+      limit 1
+  </select>
+</mapper>

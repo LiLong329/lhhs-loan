@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/js/public/area.js"></script>
+<script type="text/javascript" src="/js/public/Chart.js"></script>
+    <script src="/js/public/echarts/echarts.min.js"></script>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>报表统计</li>
+                        <li>成交额统计报表</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="common" th:include="transactionVolumeStatistics/common"></div>
+     
+                        <div id="usual1" class="usual">
+                          <form id="myform2" th:include="transactionVolumeStatistics/borrower">
+                          </form>
+                           <form id="myform3" th:include="transactionVolumeStatistics/loaner">
+                           </form>
+                           <form id="myform1">
+                            <ul class="seachform1" id="seachform1">
+                               <input  name="pageNumber" type="hidden" value="" id="currentPageNo"/>
+                               <input  name="statisticsName" type="hidden" value="1"/>
+                                <li>
+                                    <label>省市：</label>
+                                    <div class="vocation">
+                                        <select class="select-common select3 provinceSelect" name="provienceName"></select>
+                                    </div>
+                                    <span>省</span>
+                                    <div class="vocation">
+                                        <select class="select-common select3 citySelect" name="cityNo"></select>
+                                    </div>
+                                    <span>市</span>
+                                </li>
+                                 <li>
+                                      <label>分公司：</label>
+                                        <div class="vocation">
+                                            <select class="select-common select3 common-company" name="companyName">
+                                                <option value="">请选择</option>
+                                                <option th:each="type : ${companyList}" th:text="${type.companyName}" th:value="${type.companyId}"></option> 
+                                            </select>
+                                        </div>
+                                 </li>
+                                  <li>
+                                      <label>事业部：</label>
+                                        <div class="vocation">
+                                            <select class="select-common select3 common-dept" name="department">
+                                             	<option value="" >请选择</option>
+                                            </select>
+                                        </div>
+                                 </li>
+                                 <li>
+                                    <label>客户经理：</label>
+                                    <input name="accountManager" type="text" class="scinput1" />
+                                </li>
+                                <li>
+                                    <label>放款时间：</label>
+                                    <input type="text" class="scinput1" name="beginTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd'})"/>
+                                    <span> 至 </span>
+                                    <input type="text" class="scinput1" name="endTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd'})"/>
+                                </li>
+                                <li>
+                                    <input type="hidden" name="page.pageIndex" th:value="${page.pageIndex}"/>
+		                            <input type="hidden" name="page.pageSize" th:value="${page.pageSize}"/>
+                                    <input type="button" class="scbtn searcher" value="查询" th:attr="data-id='11'"/>
+                                    <input type="button" value="导出" class="scbtn1" style="width: 65px;" id="export1"/>
+                                </li>
+                            </ul>
+                            </form>
+                            <div class="table-title">
+                                <p class="tab-font" id="fileName">统计维度：事业部</p>
+                            </div>
+                              <div id="companyId" th:include="transactionVolumeStatistics/_business"> 
+	                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+        <script src="/js/public/select.js"></script>
+        <footer th:replace="common/footer"></footer>
+        <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	    <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+      <script th:inline="javascript">
+    	/*<![CDATA[*/
+	    	seajs.use("transactionVolumeStatistics/business");
+    	    var statisticsName=[[${statisticsName}]];
+    	    if(statisticsName=='1'){
+    	    	 $('#myform1').show();
+        		 $('#myform2').hide();
+        		 $('#myform3').hide();
+    	    }
+    	/*]]>*/
+    </script>
+    </div>
+</body>
+</html>

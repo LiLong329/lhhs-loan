@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanEmpMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanEmp" >
+    <id column="le_emp_id" property="leEmpId" jdbcType="INTEGER" />
+    <result column="le_account" property="leAccount" jdbcType="VARCHAR" />
+    <result column="le_password" property="lePassword" jdbcType="VARCHAR" />
+    <result column="le_staff_name" property="leStaffName" jdbcType="VARCHAR" />
+    <result column="le_mobile" property="leMobile" jdbcType="VARCHAR" />
+    <result column="le_sex" property="leSex" jdbcType="VARCHAR" />
+    <result column="le_time" property="leTime" jdbcType="TIMESTAMP" />
+    <result column="le_status" property="leStatus" jdbcType="VARCHAR" />
+    <result column="le_dept_id" property="leDeptId" jdbcType="INTEGER" />
+    <result column="le_quarters_id" property="leQuartersId" jdbcType="INTEGER" />
+    <result column="le_group_id" property="leGroupId" jdbcType="INTEGER" />
+    <result column="le_remark" property="leRemark" jdbcType="VARCHAR" />
+    <result column="le_city" property="leCity" jdbcType="VARCHAR" />
+    <result column="ld_name" property="ldName" jdbcType="VARCHAR" />
+    <result column="lq_name" property="lqName" jdbcType="VARCHAR" />
+    <result column="ld_status" property="ldStatus" jdbcType="VARCHAR" />
+    <result column="lr_status" property="lrStatus" jdbcType="VARCHAR" />
+    <result column="lr_name" property="lrName" jdbcType="VARCHAR" />
+    <result column="lg_status" property="lgStatus" jdbcType="VARCHAR" />
+    <result column="lq_status" property="lqStatus" jdbcType="VARCHAR" />
+    <result column="le_grade" property="leGrade" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="branch_company_id" property="branchCompanyId" jdbcType="VARCHAR" />
+    <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    le_emp_id, le_account, le_password, le_staff_name, le_mobile, le_sex, le_time, le_status, 
+    le_dept_id, le_quarters_id, le_group_id, le_remark, le_city,le_grade,company_id,branch_company_id
+  </sql>
+  
+     <sql id="Where_Common">
+     <if test="authgroupList != null">
+		 	and 
+	         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+		         (1=1
+		             <if test="item.orgId != null and item.orgId != ''">
+					  		and branch_company_id =  #{item.orgId}
+					 </if>
+					 <if test="item.deptId != null and item.deptId != ''">
+					  		and le_dept_id =  #{item.deptId}
+					 </if>
+					 <if test="item.dataOwner != null and item.dataOwner != ''">
+					  		and le_emp_id =  #{item.dataOwner}
+					 </if>
+				  )
+	          </foreach>
+		</if>
+
+	<if test="unionId != null and unionId != ''">
+  		and company_id = #{unionId}
+  	</if>
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_emp
+    where le_emp_id = #{leEmpId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from loan_emp
+    where le_emp_id = #{leEmpId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanEmp" >
+    insert into loan_emp (le_emp_id, le_account, le_password, 
+      le_staff_name, le_mobile, le_sex, 
+      le_time, le_status, le_dept_id, 
+      le_quarters_id, le_group_id, le_remark,le_grade,company_id,branch_company_id
+      )
+    values (#{leEmpId,jdbcType=INTEGER}, #{leAccount,jdbcType=VARCHAR}, #{lePassword,jdbcType=VARCHAR}, 
+      #{leStaffName,jdbcType=VARCHAR}, #{leMobile,jdbcType=VARCHAR}, #{leSex,jdbcType=VARCHAR}, 
+      #{leTime,jdbcType=TIMESTAMP}, #{leStatus,jdbcType=VARCHAR}, #{leDeptId,jdbcType=INTEGER}, 
+      #{leQuartersId,jdbcType=INTEGER}, #{leGroupId,jdbcType=INTEGER}, #{leRemark,jdbcType=VARCHAR},
+      #{leGrade,jdbcType=INTEGER},  #{companyId,jdbcType=VARCHAR}, #{branchCompanyId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanEmp" >
+    insert into loan_emp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="leEmpId != null" >
+        le_emp_id,
+      </if>
+      <if test="leAccount != null" >
+        le_account,
+      </if>
+      <if test="lePassword != null" >
+        le_password,
+      </if>
+      <if test="leStaffName != null" >
+        le_staff_name,
+      </if>
+      <if test="leMobile != null" >
+        le_mobile,
+      </if>
+      <if test="leSex != null" >
+        le_sex,
+      </if>
+      <if test="leTime != null" >
+        le_time,
+      </if>
+      <if test="leStatus != null" >
+        le_status,
+      </if>
+      <if test="leDeptId != null" >
+        le_dept_id,
+      </if>
+      <if test="leQuartersId != null" >
+        le_quarters_id,
+      </if>
+      <if test="leGroupId != null" >
+        le_group_id,
+      </if>
+      <if test="leRemark != null" >
+        le_remark,
+      </if>
+      <if test="leCity != null" >
+        le_city,
+      </if>
+      <if test="leGrade != null" >
+        le_grade,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="branchCompanyId != null" >
+        branch_company_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="leEmpId != null" >
+        #{leEmpId,jdbcType=INTEGER},
+      </if>
+      <if test="leAccount != null" >
+        #{leAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="lePassword != null" >
+        #{lePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="leStaffName != null" >
+        #{leStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="leMobile != null" >
+        #{leMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="leSex != null" >
+        #{leSex,jdbcType=VARCHAR},
+      </if>
+      <if test="leTime != null" >
+        #{leTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leStatus != null" >
+        #{leStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="leDeptId != null" >
+        #{leDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="leQuartersId != null" >
+        #{leQuartersId,jdbcType=INTEGER},
+      </if>
+      <if test="leGroupId != null" >
+        #{leGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="leRemark != null" >
+        #{leRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="leCity != null" >
+        #{leCity,jdbcType=VARCHAR},
+      </if>
+      <if test="leGrade != null" >
+        #{leGrade,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="branchCompanyId != null" >
+        #{branchCompanyId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanEmp" >
+    update loan_emp
+    <set >
+      <if test="leAccount != null" >
+        le_account = #{leAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="lePassword != null" >
+        le_password = #{lePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="leStaffName != null" >
+        le_staff_name = #{leStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="leMobile != null" >
+        le_mobile = #{leMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="leSex != null" >
+        le_sex = #{leSex,jdbcType=VARCHAR},
+      </if>
+      <if test="leTime != null" >
+        le_time = #{leTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leStatus != null" >
+        le_status = #{leStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="leDeptId != null" >
+        le_dept_id = #{leDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="leQuartersId != null" >
+        le_quarters_id = #{leQuartersId,jdbcType=INTEGER},
+      </if>
+      <if test="leGroupId != null" >
+      	<if test="leGroupId &lt; 0">
+      		le_group_id = null,
+      	</if>
+        <if test="leGroupId &gt; 0">
+      		le_group_id = #{leGroupId,jdbcType=INTEGER},
+      	</if>
+      </if>
+      <if test="leRemark != null" >
+        le_remark = #{leRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="leCity != null" >
+        le_city = #{leCity,jdbcType=VARCHAR},
+      </if>
+       <if test="leGrade != null" >
+        le_grade =#{leGrade,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null" >
+       company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="branchCompanyId != null" >
+       branch_company_id = #{branchCompanyId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where le_emp_id = #{leEmpId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanEmp" >
+    update loan_emp
+    set le_account = #{leAccount,jdbcType=VARCHAR},
+      le_password = #{lePassword,jdbcType=VARCHAR},
+      le_staff_name = #{leStaffName,jdbcType=VARCHAR},
+      le_mobile = #{leMobile,jdbcType=VARCHAR},
+      le_sex = #{leSex,jdbcType=VARCHAR},
+      le_time = #{leTime,jdbcType=TIMESTAMP},
+      le_status = #{leStatus,jdbcType=VARCHAR},
+      le_dept_id = #{leDeptId,jdbcType=INTEGER},
+      le_quarters_id = #{leQuartersId,jdbcType=INTEGER},
+      le_group_id = #{leGroupId,jdbcType=INTEGER},
+      le_remark = #{leRemark,jdbcType=VARCHAR},
+      le_city = #{leCity,jdbcType=VARCHAR},
+      le_grade = #{leGrade,jdbcType=INTEGER},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      branch_company_id = #{branchCompanyId,jdbcType=VARCHAR}
+    where le_emp_id = #{leEmpId,jdbcType=INTEGER}
+  </update>
+  <!--修改登录密码  -->
+  <update id="updateEmpPassword" parameterType="java.util.Map">
+   		update loan_emp emp set emp.le_password = #{password} where emp.le_account = #{account}
+   </update>
+    
+     <!--登录查询用户  -->
+    <select id="selectByAccount" resultMap="BaseResultMap" parameterType="java.lang.String" >
+		 <![CDATA[
+		 select  le.le_emp_id, le.le_account, le.le_password, le.le_staff_name, le.le_mobile, le.le_sex, le.le_time, 
+		 le.le_status, le.le_dept_id, le.le_quarters_id, le.le_group_id, le.le_remark, le.le_city,ld.ld_status,lr.lr_status,
+		 lr.lr_name,lg.lg_status,lq.lq_status,le.le_grade,le.company_id,le.branch_company_id from loan_emp le  
+		 left join loan_dept ld on le.le_dept_id =ld.ld_dept_id 
+		 left join loan_emp_role  ler  on  le.le_emp_id =ler.ler_emp_id 
+		 left join loan_role lr  on  ler.ler_role_id = lr.lr_role_id 
+		 left join loan_group lg on  le.le_group_id =lg.lg_group_id
+		 left join loan_quarters lq on  le.le_quarters_id =lq.lq_quarters_id
+		 where le.le_account = #{leAccount,jdbcType=VARCHAR}  
+		 order by lr.lr_status limit 1
+		   ]]>
+    </select>
+  
+  <sql id="where_common_query">
+  <if test="authgroupList != null">
+		 	and 
+	         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+		         (1=1
+		             <if test="item.orgId != null and item.orgId != ''">
+					  		and loan_emp.branch_company_id =  #{item.orgId}
+					 </if>
+					 <if test="item.deptId != null and item.deptId != ''">
+					  		and loan_emp.le_dept_id =  #{item.deptId}
+					 </if>
+					 <if test="item.dataOwner != null and item.dataOwner != ''">
+					  		and loan_emp.le_emp_id =  #{item.dataOwner}
+					 </if>
+				  )
+	          </foreach>
+		</if>
+  </sql>
+  
+  
+  
+  
+  
+   <!-- 分页查询员工信息列表 -->
+   <select id="queryEmployeeList" parameterType="map" resultMap="BaseResultMap">
+    select le_emp_id, le_account, le_password, le_staff_name, le_mobile, le_sex, loan_emp.le_time, le_status, 
+    le_dept_id, le_quarters_id, le_group_id, le_remark, le_city, dp.ld_name
+    from loan_emp left join loan_dept dp on dp.ld_dept_id=loan_emp.le_dept_id
+    where loan_emp.le_account!='admin'
+       <if test="companyId != null and ''!=companyId" >
+          and loan_emp.branch_company_id = #{companyId,jdbcType=VARCHAR}
+       </if>
+       <if test="empCity != null and ''!=empCity" >
+        and loan_emp.le_city = #{empCity,jdbcType=VARCHAR}
+       </if>
+      <if test="leCity != null and ''!=leCity" >
+        and loan_emp.le_city = #{leCity,jdbcType=VARCHAR}
+      </if>
+      <if test="leStaffName != null and ''!=leStaffName" >
+        and loan_emp.le_staff_name like concat(concat('%',#{leStaffName}),'%')
+      </if> 
+      <if test="leDeptId != null and ''!=leDeptId" >
+        and (loan_emp.le_dept_id = #{leDeptId} OR find_in_set(#{leDeptId},dp.parent_ids)>0)
+      </if>
+     <!--  order by le_time desc -->
+      <include refid="where_common_query"/>
+       order by loan_emp.le_time desc
+      
+      <if test="page != null">
+ 	  	limit #{page.pageStartIndex},#{page.pageSize}
+      </if>
+   </select>
+   
+    <select id="queryEmployeeCount" parameterType="map" resultType="Integer">
+    select count(1)
+    from loan_emp left join loan_dept dp on dp.ld_dept_id=loan_emp.le_dept_id
+    where loan_emp.le_account!='admin'
+       <if test="empCity != null and ''!=empCity" >
+        and loan_emp.le_city = #{empCity,jdbcType=VARCHAR}
+      </if>
+      <if test="leCity != null and ''!=leCity" >
+        and le_city = #{leCity,jdbcType=VARCHAR}
+      </if>
+      <if test="leStaffName != null and ''!=leStaffName" >
+       and loan_emp.le_staff_name like concat(concat('%',#{leStaffName}),'%')
+      </if> 
+      <if test="leDeptId != null and ''!=leDeptId" >
+        and (le_dept_id = #{leDeptId,jdbcType=INTEGER} OR find_in_set(#{leDeptId},dp.parent_ids)>0)
+      </if>
+      <if test="leQuartersId != null and ''!=leQuartersId" >
+       and le_quarters_id = #{leQuartersId,jdbcType=INTEGER}
+      </if>
+      <if test="companyId != null and ''!=companyId" >
+          and loan_emp.branch_company_id = #{companyId,jdbcType=VARCHAR}
+       </if>
+       <include refid="where_common_query"/>
+   </select>
+   <!-- 员工信息导出 -->
+   <select id="queryEmployeeListExport" parameterType="map" resultMap="BaseResultMap">
+    select le_emp_id, le_account, le_password, le_staff_name, le_mobile, le_sex, loan_emp.le_time, le_status, 
+    le_dept_id, le_quarters_id, le_group_id, le_remark, le_city, dp.ld_name
+    from loan_emp 
+    left join loan_dept dp on dp.ld_dept_id=loan_emp.le_dept_id
+    where 1=1 and loan_emp.le_account!='admin'
+     <if test="companyId != null and ''!=companyId" >
+          and loan_emp.branch_company_id = #{companyId,jdbcType=VARCHAR}
+       </if>
+      <if test="leCity != null and ''!=leCity" >
+        and loan_emp.le_city = #{leCity,jdbcType=VARCHAR}
+      </if>
+      <if test="leStaffName != null and ''!=leStaffName" >
+        and loan_emp.le_staff_name = #{leStaffName,jdbcType=VARCHAR}
+      </if> 
+      <if test="leDeptId != null and ''!=leDeptId" >
+        and (loan_emp.le_dept_id = #{leDeptId} OR find_in_set(#{leDeptId},dp.parent_ids)>0)
+      </if>
+      order by loan_emp.le_time desc
+   </select>
+
+   
+   <!-- 查询所有城市 -->
+   <select id="queryAllCity" resultType="map">
+    select distinct(le_city) from loan_emp where le_city!=''
+   </select>
+   <select id="queryAllDept" resultType="map">
+   select ld_dept_id,ld_name from loan_dept where ld_status='1'
+   </select>
+   <select id="queryDeptAll" resultType="map">
+   select ld_dept_id,ld_name from loan_dept
+   </select>
+   
+   <select id="queryOneLevelDeptByCompanyId" parameterType="java.lang.String" resultType="com.lhhs.loan.dao.domain.LoanDept">
+	   select *
+	   from loan_dept
+	   where layer=1
+	   <if test="ldCompany != null and ''!=ldCompany" >
+	     and ld_company = #{ldCompany}
+	   </if>
+   </select>
+   
+   <select id="querySubDeptByDeptId" parameterType="java.lang.String" resultType="com.lhhs.loan.dao.domain.LoanDept">
+	   select *
+	   from loan_dept
+	   where 1=1
+	   <if test="ldDeptId != null and ''!=ldDeptId" >
+	     and find_in_set(#{ldDeptId}, parent_ids)>0
+	   </if>
+   </select>
+   
+   <select id="queryAllQuarters" parameterType="Map"  resultType="map">
+      select lq_quarters_id,lq_name from loan_quarters where lq_status='1'
+      <if test="lqDeptId != null and ''!=lqDeptId" >
+        and loan_quarters.lq_dept_id = #{lqDeptId,jdbcType=INTEGER}
+      </if>
+   </select>
+   
+   <select id="queryAllGroup" resultType="map" parameterType="int">
+   select lg_group_id,lg_name from loan_group where lg_status='1' and lg_dept_id=#{lgDeptId} 
+   </select>
+   <select id="queryEmpRole" parameterType="int" resultType="map">
+    select ler_er_id,ler_role_id,ler_emp_id from loan_emp_role where loan_emp_role.ler_emp_id=#{leEmpId}
+   </select>
+   
+   <select id="queryEmpInfo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from loan_emp where le_emp_id=#{leEmpId,jdbcType=INTEGER}
+   </select>
+   
+   <!-- 员工角色启用禁用 -->
+   <update id="updateEmpByStuts" parameterType="java.util.Map" >
+   update loan_dept set ld_status=#{ldStatus} where ld_dept_id=#{deptId}
+  </update>
+   <!-- 账号唯一性查询 -->
+   <select id="queryEmpByAccount" parameterType="String" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from loan_emp where le_account=#{account,jdbcType=VARCHAR}
+   </select>
+   <!-- 手机号唯一性查询 -->
+    <select id="queryEmpByMobile" parameterType="String" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from loan_emp where le_mobile=#{leMobile,jdbcType=VARCHAR}
+   </select>
+   
+   <!-- **************************** 小贷 II 期  LiJian jun START********************************* -->
+   <!-- 根据部门编号查询下属的所有客户经理 -->
+   <select id="selectCustManagerByDeptId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+	SELECT
+		<include refid="Base_Column_List" />
+	FROM
+		loan_emp
+	WHERE
+		le_dept_id = #{leDeptId}   
+   </select>
+   
+   <select id="selectCustManagerByQuartersId">
+   </select>
+   
+   <!-- 查询资金部门和风控部门下面的人员 
+		1.面审>>>会签>>>具体会签人：当前登录人所在部门的全部人员+集团下风控部所有人+集团下资金部所有人
+		2.集团下风控部所有人：查询根据两个条件：1.集团编号  2.部门名称=风控部     拥有该分公司的权限
+		3.集团下资金部所有人：查询根据两个条件：1.集团编号  2.部门名称=资金部     拥有该分公司的权限 -->
+   
+   <select id="selectFunderAndRiskerList" resultMap="BaseResultMap" parameterType="com.lhhs.loan.dao.domain.LoanEmp">
+   	SELECT
+   		<include refid="Base_Column_List" />
+	, ld.ld_name
+	FROM
+	loan_emp le
+	INNER JOIN loan_dept ld ON le.le_dept_id = ld.ld_dept_id
+	WHERE
+	( le.company_id != le.branch_company_id and le.le_dept_id=#{leDeptId})
+	OR
+	(   le.company_id = le.branch_company_id
+		AND ld.ld_name IN ('集团风控部', '集团资金部')
+		AND le.le_emp_id IN (
+			SELECT ler.ler_emp_id
+			FROM loan_role_company lrc
+			LEFT JOIN loan_emp_role ler ON lrc.role_id = ler.ler_role_id
+			WHERE lrc.company_id = #{businessCompanyId}
+		)
+	)
+   </select>
+   <!-- **************************** 小贷 II 期  LiJian jun END********************************* -->
+   
+   <select id="selectByDeptQuarters" resultMap="BaseResultMap"  >
+    SELECT
+		<include refid="Base_Column_List" />
+	FROM loan_emp WHERE le_dept_id = #{leDeptId}  and le_quarters_id = #{leQuartersId}
+	limit 0,1
+  </select>
+   <select id="selectByDeptQuartersTwo" resultMap="BaseResultMap"  >
+    SELECT
+		<include refid="Base_Column_List" />
+	FROM loan_emp WHERE le_dept_id = #{leDeptId}  and le_quarters_id = #{leQuartersId} and branch_company_id=#{branchCompanyId}
+	limit 0,1
+  </select>
+   <select id="selectByMobileAndCompany" resultMap="BaseResultMap"  >
+    SELECT
+		<include refid="Base_Column_List" />
+	FROM loan_emp WHERE le_mobile = #{mobile}  
+	<if test="companyId != null and ''!=companyId" >
+       and branch_company_id = #{companyId}
+      </if>
+	limit 0,1
+  </select>
+   <select id="queryEmpByCompanyId" resultMap="BaseResultMap"  >
+    select
+		<include refid="Base_Column_List" />
+	from loan_emp where  branch_company_id = #{companyId}
+  </select>
+  <!-- 根据当前登录用户查询账号列表 -->
+  <select id="queryEmpListByEmp" parameterType="com.lhhs.loan.dao.domain.LoanEmp" resultMap="BaseResultMap"  >
+    select le.user_id le_emp_id,le.staff_name le_staff_name,le.union_id company_id,le.company_id branch_company_id,le.dept_id le_dept_id,
+    	luc.province_name,luc.city_name le_city
+	from bump_user le inner join bump_union_company luc
+		on le.company_id=luc.company_id
+	where le.user_id!=1
+	<if test="leEmpId != 1 and branchCompanyId!=null and branchCompanyId!='' and branchCompanyId!=companyId" >
+        and le.union_id=#{companyId} and le.company_id=#{branchCompanyId}
+    </if>
+  </select>
+  
+    <!--  -->
+    <select id="queryCustManagerByDeptId" parameterType="map" resultMap="BaseResultMap">
+	SELECT
+		<include refid="Base_Column_List" />
+	FROM  loan_emp
+	WHERE le_status='1' and le_account &lt;&gt;'admin'
+	 <include refid="Where_Common"/>
+	 <if test="deptId !=null and deptId !='' ">
+	 and le_dept_id=#{deptId}
+	 </if>	
+	 order by  le_staff_name 
+   </select>
+   
+    <select id="queryCustManagerBySaas" parameterType="map" resultType="com.lhhs.bump.domain.User">
+	select bu.user_id,bu.staff_name
+	from bump_user bu
+	where bu.status='03' and bu.username &lt;&gt;'admin' 
+	 <if test="deptId !=null and deptId !='' ">
+	   and bu.dept_id =#{deptId}
+	 </if>	
+   </select>
+   
+   <!-- 查询组别领导 -->
+   <select id="queryTeamDirector" parameterType="com.lhhs.loan.dao.domain.LoanEmp" resultMap="BaseResultMap">
+	SELECT <include refid="Base_Column_List" />
+	FROM loan_emp
+	WHERE company_id=#{companyId} and branch_company_id=#{branchCompanyId} and le_dept_id=#{leDeptId} and le_group_id=#{leGroupId} and le_grade=2
+   </select>
+   <!-- 查询部门领导 -->
+   <select id="queryDeptLeader" parameterType="com.lhhs.loan.dao.domain.LoanEmp" resultMap="BaseResultMap">
+	SELECT <include refid="Base_Column_List" />
+	FROM loan_emp
+	WHERE company_id=#{companyId} and branch_company_id=#{branchCompanyId} and le_dept_id=#{leDeptId} and le_grade=1
+   </select>
+   <!-- 查询员工手机号是否存在 -->
+   <select id="queryEmpMobileIsExistence" parameterType="com.lhhs.loan.dao.domain.LoanEmp" resultMap="BaseResultMap">
+	SELECT <include refid="Base_Column_List" />
+	FROM loan_emp
+	WHERE le_emp_id!=#{leEmpId} and le_mobile=#{leMobile}
+   </select>
+</mapper>

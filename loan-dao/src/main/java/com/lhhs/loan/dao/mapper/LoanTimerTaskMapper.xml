@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanTimerTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanTimerTask" >
+    <id column="task_id" property="taskId" jdbcType="BIGINT" />
+    <result column="task_url" property="taskUrl" jdbcType="VARCHAR" />
+    <result column="task_work_id" property="taskWorkId" jdbcType="VARCHAR" />
+    <result column="task_request_type" property="taskRequestType" jdbcType="VARCHAR" />
+    <result column="task_request_methed" property="taskRequestMethed" jdbcType="VARCHAR" />
+    <result column="task_state" property="taskState" jdbcType="VARCHAR" />
+    <result column="task_time" property="taskTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lhhs.loan.dao.domain.LoanTimerTask" extends="BaseResultMap" >
+    <result column="task_parameter" property="taskParameter" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    task_id, task_url, task_work_id, task_request_type, task_request_methed, task_state, 
+    task_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    task_parameter
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from loan_timer_task
+    where task_id = #{taskId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from loan_timer_task
+    where task_id = #{taskId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanTimerTask" >
+    insert into loan_timer_task (task_id, task_url, task_work_id, 
+      task_request_type, task_request_methed, task_state, 
+      task_time, task_parameter)
+    values (#{taskId,jdbcType=BIGINT}, #{taskUrl,jdbcType=VARCHAR}, #{taskWorkId,jdbcType=VARCHAR}, 
+      #{taskRequestType,jdbcType=VARCHAR}, #{taskRequestMethed,jdbcType=VARCHAR}, #{taskState,jdbcType=VARCHAR}, 
+      #{taskTime,jdbcType=TIMESTAMP}, #{taskParameter,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanTimerTask" >
+    insert into loan_timer_task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        task_id,
+      </if>
+      <if test="taskUrl != null" >
+        task_url,
+      </if>
+      <if test="taskWorkId != null" >
+        task_work_id,
+      </if>
+      <if test="taskRequestType != null" >
+        task_request_type,
+      </if>
+      <if test="taskRequestMethed != null" >
+        task_request_methed,
+      </if>
+      <if test="taskState != null" >
+        task_state,
+      </if>
+      <if test="taskTime != null" >
+        task_time,
+      </if>
+      <if test="taskParameter != null" >
+        task_parameter,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        #{taskId,jdbcType=BIGINT},
+      </if>
+      <if test="taskUrl != null" >
+        #{taskUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="taskWorkId != null" >
+        #{taskWorkId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskRequestType != null" >
+        #{taskRequestType,jdbcType=VARCHAR},
+      </if>
+      <if test="taskRequestMethed != null" >
+        #{taskRequestMethed,jdbcType=VARCHAR},
+      </if>
+      <if test="taskState != null" >
+        #{taskState,jdbcType=VARCHAR},
+      </if>
+      <if test="taskTime != null" >
+        #{taskTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskParameter != null" >
+        #{taskParameter,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanTimerTask" >
+    update loan_timer_task
+    <set >
+      <if test="taskUrl != null" >
+        task_url = #{taskUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="taskWorkId != null" >
+        task_work_id = #{taskWorkId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskRequestType != null" >
+        task_request_type = #{taskRequestType,jdbcType=VARCHAR},
+      </if>
+      <if test="taskRequestMethed != null" >
+        task_request_methed = #{taskRequestMethed,jdbcType=VARCHAR},
+      </if>
+      <if test="taskState != null" >
+        task_state = #{taskState,jdbcType=VARCHAR},
+      </if>
+      <if test="taskTime != null" >
+        task_time = #{taskTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskParameter != null" >
+        task_parameter = #{taskParameter,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where task_id = #{taskId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lhhs.loan.dao.domain.LoanTimerTask" >
+    update loan_timer_task
+    set task_url = #{taskUrl,jdbcType=VARCHAR},
+      task_work_id = #{taskWorkId,jdbcType=VARCHAR},
+      task_request_type = #{taskRequestType,jdbcType=VARCHAR},
+      task_request_methed = #{taskRequestMethed,jdbcType=VARCHAR},
+      task_state = #{taskState,jdbcType=VARCHAR},
+      task_time = #{taskTime,jdbcType=TIMESTAMP},
+      task_parameter = #{taskParameter,jdbcType=LONGVARCHAR}
+    where task_id = #{taskId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanTimerTask" >
+    update loan_timer_task
+    set task_url = #{taskUrl,jdbcType=VARCHAR},
+      task_work_id = #{taskWorkId,jdbcType=VARCHAR},
+      task_request_type = #{taskRequestType,jdbcType=VARCHAR},
+      task_request_methed = #{taskRequestMethed,jdbcType=VARCHAR},
+      task_state = #{taskState,jdbcType=VARCHAR},
+      task_time = #{taskTime,jdbcType=TIMESTAMP}
+    where task_id = #{taskId,jdbcType=BIGINT}
+  </update>
+  <!-- 查询是否存在该任务  -->
+  <select id="queryTaskByWorkId" parameterType="map" resultType="int">
+    select count(1) from loan_timer_task where task_work_id=#{taskWorkId}
+  </select>
+  
+  <!-- 碰碰旺数据同步跑批任务查询 -->
+  <select id="queryAllTask"  resultMap="ResultMapWithBLOBs">
+     select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from loan_timer_task
+    where task_state = '01'
+  </select>
+  
+  <select id="queryTaskWorkIdAndType" parameterType="Map"  resultMap="ResultMapWithBLOBs">
+     select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from loan_timer_task
+    where task_work_id = #{taskWorkId} and task_request_type=#{taskType}
+  </select>
+  
+  
+  
+</mapper>

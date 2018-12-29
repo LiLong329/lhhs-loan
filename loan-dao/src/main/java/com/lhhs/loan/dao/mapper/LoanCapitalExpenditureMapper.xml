@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanCapitalExpenditureMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanCapitalExpenditure" >
+    <id column="capital_expenditure_id" property="capitalExpenditureId" jdbcType="VARCHAR" />
+    <result column="expenditure_variety" property="expenditureVariety" jdbcType="VARCHAR" />
+    <result column="subject_name" property="subjectName" jdbcType="VARCHAR" />
+    <result column="expenditure_rate" property="expenditureRate" jdbcType="DECIMAL" />
+    <result column="expenditure_rate_unit" property="expenditureRateUnit" jdbcType="CHAR" />
+    <result column="expenditure_term" property="expenditureTerm" jdbcType="VARCHAR" />
+    <result column="expenditure_term_unit" property="expenditureTermUnit" jdbcType="CHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="disbursement" property="disbursement" jdbcType="INTEGER" />
+    <result column="account_name" property="accountName" jdbcType="VARCHAR" />
+    <result column="bankcard_id" property="bankcardId" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="branch_bank" property="branchBank" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    capital_expenditure_id, expenditure_variety, subject_name, expenditure_rate, expenditure_rate_unit, 
+    expenditure_term, expenditure_term_unit, amount, disbursement, account_name, bankcard_id, 
+    bank_name, branch_bank, remark, order_id, org_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_capital_expenditure
+    where capital_expenditure_id = #{capitalExpenditureId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_capital_expenditure
+    where capital_expenditure_id = #{capitalExpenditureId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanCapitalExpenditure" >
+    insert into loan_capital_expenditure (capital_expenditure_id, expenditure_variety, subject_name,
+      expenditure_rate, expenditure_rate_unit, expenditure_term, 
+      expenditure_term_unit, amount, disbursement, 
+      account_name, bankcard_id, bank_name, 
+      branch_bank, remark, order_id, 
+      org_id)
+    values (#{capitalExpenditureId,jdbcType=VARCHAR}, #{expenditureVariety,jdbcType=VARCHAR}, #{subjectName,jdbcType=VARCHAR},
+      #{expenditureRate,jdbcType=DECIMAL}, #{expenditureRateUnit,jdbcType=CHAR}, #{expenditureTerm,jdbcType=VARCHAR}, 
+      #{expenditureTermUnit,jdbcType=CHAR}, #{amount,jdbcType=DECIMAL}, #{disbursement,jdbcType=INTEGER}, 
+      #{accountName,jdbcType=VARCHAR}, #{bankcardId,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, 
+      #{branchBank,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, 
+      #{orgId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanCapitalExpenditure" >
+    insert into loan_capital_expenditure
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="capitalExpenditureId != null" >
+        capital_expenditure_id,
+      </if>
+      <if test="expenditureVariety != null" >
+        expenditure_variety,
+      </if>
+      <if test="subjectName != null" >
+        subject_name,
+      </if>
+      <if test="expenditureRate != null" >
+        expenditure_rate,
+      </if>
+      <if test="expenditureRateUnit != null" >
+        expenditure_rate_unit,
+      </if>
+      <if test="expenditureTerm != null" >
+        expenditure_term,
+      </if>
+      <if test="expenditureTermUnit != null" >
+        expenditure_term_unit,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="disbursement != null" >
+        disbursement,
+      </if>
+      <if test="accountName != null" >
+        account_name,
+      </if>
+      <if test="bankcardId != null" >
+        bankcard_id,
+      </if>
+      <if test="bankName != null" >
+        bank_name,
+      </if>
+      <if test="branchBank != null" >
+        branch_bank,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="capitalExpenditureId != null" >
+        #{capitalExpenditureId,jdbcType=VARCHAR},
+      </if>
+      <if test="expenditureVariety != null" >
+        #{expenditureVariety,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectName != null" >
+        #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="expenditureRate != null" >
+        #{expenditureRate,jdbcType=DECIMAL},
+      </if>
+      <if test="expenditureRateUnit != null" >
+        #{expenditureRateUnit,jdbcType=CHAR},
+      </if>
+      <if test="expenditureTerm != null" >
+        #{expenditureTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="expenditureTermUnit != null" >
+        #{expenditureTermUnit,jdbcType=CHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="disbursement != null" >
+        #{disbursement,jdbcType=INTEGER},
+      </if>
+      <if test="accountName != null" >
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcardId != null" >
+        #{bankcardId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="branchBank != null" >
+        #{branchBank,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanCapitalExpenditure" >
+    update loan_capital_expenditure
+    <set >
+      <if test="expenditureVariety != null" >
+        expenditure_variety = #{expenditureVariety,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectName != null" >
+        subject_name = #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="expenditureRate != null" >
+        expenditure_rate = #{expenditureRate,jdbcType=DECIMAL},
+      </if>
+      <if test="expenditureRateUnit != null" >
+        expenditure_rate_unit = #{expenditureRateUnit,jdbcType=CHAR},
+      </if>
+      <if test="expenditureTerm != null" >
+        expenditure_term = #{expenditureTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="expenditureTermUnit != null" >
+        expenditure_term_unit = #{expenditureTermUnit,jdbcType=CHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="disbursement != null" >
+        disbursement = #{disbursement,jdbcType=INTEGER},
+      </if>
+      <if test="accountName != null" >
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcardId != null" >
+        bankcard_id = #{bankcardId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="branchBank != null" >
+        branch_bank = #{branchBank,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where capital_expenditure_id = #{capitalExpenditureId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanCapitalExpenditure" >
+    update loan_capital_expenditure
+    set expenditure_variety = #{expenditureVariety,jdbcType=VARCHAR},
+      subject_name = #{subjectName,jdbcType=VARCHAR},
+      expenditure_rate = #{expenditureRate,jdbcType=DECIMAL},
+      expenditure_rate_unit = #{expenditureRateUnit,jdbcType=CHAR},
+      expenditure_term = #{expenditureTerm,jdbcType=VARCHAR},
+      expenditure_term_unit = #{expenditureTermUnit,jdbcType=CHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      disbursement = #{disbursement,jdbcType=INTEGER},
+      account_name = #{accountName,jdbcType=VARCHAR},
+      bankcard_id = #{bankcardId,jdbcType=VARCHAR},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      branch_bank = #{branchBank,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      org_id = #{orgId,jdbcType=VARCHAR}
+    where capital_expenditure_id = #{capitalExpenditureId,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- ########################################### Li Jianjun Start ########################################### -->
+   
+   <!-- 查询放款申请表-支出信息 -->
+   <select id="selectLoanCapitalExpenditure" parameterType="java.util.Map" resultMap="BaseResultMap">
+   	SELECT 
+    	<include refid="Base_Column_List" />
+    FROM 
+    	loan_capital_expenditure
+    WHERE
+    	order_id = #{orderNo}
+   </select>
+   
+   <!-- ########################################### Li Jianjun End ########################################### -->
+  <delete id="delByOrderNo" parameterType="String">
+    delete from loan_capital_expenditure where order_id=#{orderNo}
+  </delete>
+  
+  <select id="queryFeesPlanOutByOrderNo" parameterType="String" resultType="com.lhhs.loan.dao.domain.LoanFeesPlan">
+   	SELECT lce.order_id order_no,lce.amount fees_amount,lce.expenditure_variety subject_id,lce.subject_name,lce.bankcard_id card_no,
+		lce.account_name,lce.bank_name,lce.branch_bank branch_name,lce.remark,lce.disbursement trans_way,loi.company_id,loi.union_id
+	FROM loan_capital_expenditure lce,loan_order_info loi
+	WHERE lce.order_id=loi.order_no AND lce.order_id=#{orderNo}
+   </select>
+  
+</mapper>

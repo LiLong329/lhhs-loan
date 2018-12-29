@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.SipAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.SipAccount" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="accountSid" property="accountsid" jdbcType="VARCHAR" />
+    <result column="sipNumber" property="sipnumber" jdbcType="VARCHAR" />
+    <result column="cts" property="cts" jdbcType="TIMESTAMP" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="dept_id" property="deptId" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, accountSid, sipNumber, cts, password, user_id, dept_id, company_id, union_id, 
+    field1, field2, field3, field4, field5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_sip_account
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="getByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_sip_account
+    where user_id = #{userId}
+  </select>
+  <select id="getByEntity" resultMap="BaseResultMap" parameterType="com.lhhs.loan.dao.domain.SipAccount" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_sip_account
+    where 1=1
+      <if test="id != null" >
+    	and id = #{id}
+      </if>
+      <if test="accountsid != null and accountsid != ''" >
+        and accountSid = #{accountsid}
+      </if>
+      <if test="sipnumber != null and sipnumber != ''" >
+        and sipNumber = #{sipnumber}
+      </if>
+      <if test="cts != null" >
+        and cts = #{cts}
+      </if>
+      <if test="password != null and password != ''" >
+        and password = #{password}
+      </if>
+      <if test="userId != null and userId != ''" >
+        and user_id = #{userId}
+      </if>
+      <if test="deptId != null and deptId != ''" >
+        and dept_id = #{deptId}
+      </if>
+      <if test="companyId != null and companyId != ''" >
+        and company_id = #{companyId}
+      </if>
+      <if test="unionId != null and unionId != ''" >
+        and union_id = #{unionId}
+      </if>
+      <if test="field1 != null and field1 != ''" >
+        and field1 = #{field1}
+      </if>
+      <if test="field2 != null and field2 != ''" >
+        and field2 = #{field2}
+      </if>
+      <if test="field2 != null and field2 != ''" >
+        and field3 = #{field3}
+      </if>
+      <if test="field4 != null and field4 != ''" >
+        and field4 = #{field4}
+      </if>
+      <if test="field5 != null and field5 != ''" >
+        and field5 = #{field5}
+      </if>
+      limit 1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from loan_sip_account
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.SipAccount" >
+    insert into loan_sip_account (id, accountSid, sipNumber, 
+      cts, password, user_id, 
+      dept_id, company_id, union_id, 
+      field1, field2, field3, 
+      field4, field5)
+    values (#{id,jdbcType=INTEGER}, #{accountsid,jdbcType=VARCHAR}, #{sipnumber,jdbcType=VARCHAR}, 
+      #{cts,jdbcType=TIMESTAMP}, #{password,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, #{unionId,jdbcType=VARCHAR}, 
+      #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, 
+      #{field4,jdbcType=VARCHAR}, #{field5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.SipAccount" >
+    insert into loan_sip_account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="accountsid != null" >
+        accountSid,
+      </if>
+      <if test="sipnumber != null" >
+        sipNumber,
+      </if>
+      <if test="cts != null" >
+        cts,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="deptId != null" >
+        dept_id,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="accountsid != null" >
+        #{accountsid,jdbcType=VARCHAR},
+      </if>
+      <if test="sipnumber != null" >
+        #{sipnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cts != null" >
+        #{cts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.SipAccount" >
+    update loan_sip_account
+    <set >
+      <if test="accountsid != null" >
+        accountSid = #{accountsid,jdbcType=VARCHAR},
+      </if>
+      <if test="sipnumber != null" >
+        sipNumber = #{sipnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cts != null" >
+        cts = #{cts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        dept_id = #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.SipAccount" >
+    update loan_sip_account
+    set accountSid = #{accountsid,jdbcType=VARCHAR},
+      sipNumber = #{sipnumber,jdbcType=VARCHAR},
+      cts = #{cts,jdbcType=TIMESTAMP},
+      password = #{password,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

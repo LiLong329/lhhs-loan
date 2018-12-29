@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanTaskListMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanTaskList" >
+    <id column="task_id" property="taskId" jdbcType="INTEGER" />
+    <result column="task_name" property="taskName" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="play_date" property="playDate" jdbcType="TIMESTAMP" />
+    <result column="begin_date" property="beginDate" jdbcType="TIMESTAMP" />
+    <result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="task_total" property="taskTotal" jdbcType="VARCHAR" />
+    <result column="do_total" property="doTotal" jdbcType="VARCHAR" />
+    <result column="fail_total" property="failTotal" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="delay" property="delay" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="msg" property="msg" jdbcType="VARCHAR" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    task_id, task_name, description, play_date, begin_date, end_date, task_total, do_total, 
+    fail_total, type, delay, status, create_date, last_modify_time, code, msg, 
+    field1, field2, field3, field4, field5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_task_list
+    where task_name = #{taskName}
+  </select>
+  <delete id="deleteByPrimaryKey" >
+    delete from loan_task_list
+    where task_id = #{taskId}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanTaskList" >
+    insert into loan_task_list (task_id, task_name, description, 
+      play_date, begin_date, end_date, 
+      task_total, do_total, fail_total, 
+      type, delay, status, 
+      create_date, last_modify_time, code, 
+      msg,  field1, 
+      field2, field3, field4, 
+      field5)
+    values (#{taskId,jdbcType=INTEGER}, #{taskName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{playDate,jdbcType=TIMESTAMP}, #{beginDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, 
+      #{taskTotal,jdbcType=VARCHAR}, #{doTotal,jdbcType=VARCHAR}, #{failTotal,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{delay,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP}, #{code,jdbcType=VARCHAR}, 
+      #{msg,jdbcType=VARCHAR}, #{field1,jdbcType=VARCHAR}, 
+      #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, #{field4,jdbcType=VARCHAR}, 
+      #{field5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanTaskList" >
+    insert into loan_task_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        task_id,
+      </if>
+      <if test="taskName != null" >
+        task_name,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="playDate != null" >
+        play_date,
+      </if>
+      <if test="beginDate != null" >
+        begin_date,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="taskTotal != null" >
+        task_total,
+      </if>
+      <if test="doTotal != null" >
+        do_total,
+      </if>
+      <if test="failTotal != null" >
+        fail_total,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="delay != null" >
+        delay,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="msg != null" >
+        msg,
+      </if>
+      
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="taskName != null" >
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="playDate != null" >
+        #{playDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="beginDate != null" >
+        #{beginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskTotal != null" >
+        #{taskTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="doTotal != null" >
+        #{doTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="failTotal != null" >
+        #{failTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="delay != null" >
+        #{delay,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null" >
+        #{msg,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanTaskList" >
+    update loan_task_list
+    <set >
+      
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="playDate != null" >
+        play_date = #{playDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="beginDate != null" >
+        begin_date = #{beginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskTotal != null" >
+        task_total = #{taskTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="doTotal != null" >
+        do_total = #{doTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="failTotal != null" >
+        fail_total = #{failTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="delay != null" >
+        delay = #{delay,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null" >
+        msg = #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where task_name = #{taskName} 
+   <if test="oldLastModifyTime != null" >
+         and last_modify_time=#{oldLastModifyTime}
+   </if>
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanTaskList" >
+    update loan_task_list
+    set 
+      description = #{description,jdbcType=VARCHAR},
+      play_date = #{playDate,jdbcType=TIMESTAMP},
+      begin_date = #{beginDate,jdbcType=TIMESTAMP},
+      end_date = #{endDate,jdbcType=TIMESTAMP},
+      task_total = #{taskTotal,jdbcType=VARCHAR},
+      do_total = #{doTotal,jdbcType=VARCHAR},
+      fail_total = #{failTotal,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      delay = #{delay,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      code = #{code,jdbcType=VARCHAR},
+      msg = #{msg,jdbcType=VARCHAR},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </update>
+  <select id="queryList" resultMap="BaseResultMap" parameterType="com.lhhs.loan.dao.domain.LoanTaskList" >
+    select
+    <include refid="Base_Column_List" />
+    from loan_task_list
+    where task_name = #{taskName}
+  </select>
+   <select id="queryCount" resultType="int" parameterType="com.lhhs.loan.dao.domain.LoanTaskList" >
+    select  count(*)   from loan_task_list
+    task_name = #{taskName}
+  </select>
+</mapper>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="common/src"></head>
+	<body>
+		<div class="father">
+			<header th:replace="common/top"></header>
+			<div class="common-content">
+				<div th:replace="common/left"></div>
+				<div class="common-right">
+					<div class="place" id="place">
+						<span>位置：</span>
+						<ul class="placeul">
+							<li>
+								<a href="/index/index">首页</a>
+							</li>
+	                        <li>系统管理</li>
+	                        <li>通知信息管理</li>
+	                        <li>通知信息接口设置</li>
+						</ul>
+					</div>
+					<div class="right-content">
+						<div class="formbody">
+							<div class="itab">
+	                            <ul>
+	                                <li><a href="/noticeConfig/toConfig/1" th:attr="class=(${type} eq '1'?selected:'')">邮箱接口</a></li>
+	                                <li><a href="/noticeConfig/toConfig/2" th:attr="class=(${type} eq '2'?selected:'')">短信接口</a></li>
+	                                
+	                            </ul>
+	                        </div>
+							<div class="toolsli" style="margin-top: 28px;">
+								<form id="myForm">
+									<input type="hidden" name="id" th:value="${noticeConfig.id}"/>
+									<ul class="nbbdgl-Ui">
+										<th:block th:if="${noticeConfig.type} eq '1'">
+											<!-- <li style="width: 80%;">
+												<span class="tips">模板类型：</span>
+												<input type="text" class="txt" disabled="disabled" th:value="${noticeConfig.id}"/>
+											</li> -->
+											<li>
+			                                    <span class="tips">是否启用：</span>
+				                                <cite>
+				                                    <input type="radio" name="status" value="1" disabled="disabled"/>
+				                                    <label>是</label>
+				                                    <input type="radio" name="status" value="0" checked="checked" disabled="disabled"/>
+				                                    <label>否</label>
+				                                </cite>
+			                                </li>
+										</th:block>
+										<th:block th:if="${noticeConfig.type} eq '2'">
+											<!-- <li style="width: 80%;">
+												<span class="tips">发送者名称：</span>
+												<input type="text" class="txt" disabled="disabled" th:value="${noticeConfig.name}"/>
+											</li>
+											<li style="width: 80%;">
+												<span class="tips">服务器地址：</span>
+												<input type="text" class="txt" disabled="disabled" th:value="${noticeConfig.url}"/>
+											</li> -->
+											<li>
+			                                    <span class="tips">是否启用：</span>
+				                                <cite>
+				                                    <input type="radio" name="status" value="1" th:attr="checked=(${noticeConfig.status} eq '1'?true:false)"/>
+				                                    <label>是</label>
+				                                    <input type="radio" name="status" value="0" th:attr="checked=(${noticeConfig.status} eq '0'?true:false)"/>
+				                                    <label>否</label>
+				                                </cite>
+			                                </li>
+										</th:block>
+										<li style="width: 80%;">
+											<span class="tips">&nbsp;</span>
+											<input type="button" class="scbtn mlt10" id="saveButton" value="保 存" />
+										</li>
+									</ul>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<footer th:replace="common/footer"></footer>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(function(){
+			$("#saveButton").on("click",function(){
+				var obj = $("#myForm").serializeJson();
+				if(obj.id==1){
+					alert("暂不支持邮箱功能");
+					return false;
+				}
+				$.post("/noticeConfig/sava",obj,function(data){
+		    		if(data.retCode=='00'){
+		    			alert("操作成功",true,function(){
+		    				window.location.reload();
+		    			});
+		    		}else{
+		    			alert("操作失败",true,function(){
+		    				window.location.reload();
+		    			});
+		    		}
+		    	});
+			});
+		});
+	</script>
+
+</html>

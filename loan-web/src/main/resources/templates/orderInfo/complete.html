@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script src="/js/public/area.js"></script>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/">首页</a></li>
+                        <li>报单管理</li>
+                        <li> <a href="javascript:window.location.reload(true)">已完成报单</a></li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual">
+                        
+                           <form action="/orderInfo/complete" id="myForm"  method="post" >
+                          <input  name="pageIndex" type="hidden" value="" id="currentPageNo"/>
+                           <input  name="orderStatusCondition" type="hidden" th:value="${orderStatusCondition}" />
+                            <ul class="seachform1">
+                                <li>
+                                    <label>报单编号：</label>
+                                    <input type="text" name="orderNo" class="scinput1" th:value="${params.orderNo}"/>
+                                </li>
+                                <li>
+                                    <label>客户经理：</label>
+                                    <input type="text" name="leStaffName" class="scinput1"  th:value="${params.leStaffName}" />
+                                </li>
+                                <li>
+                                    <label>借款人：</label>
+                                    <input type="text" name="bname" class="scinput1" th:value="${params.bname}" />
+                                </li>
+                                <li>
+                                    <label>资金方：</label>
+                                    <input type="text" name="orgName" class="scinput1" th:value="${params.orgName}" />
+                                </li>
+                                <li >
+	                                    <span class="tips">省市：</span>
+	                                    <span th:value="${params.province}" ></span>
+				                        <div class="vocation">
+								          	<select class="select-common select3 provinceSelect" name="province" th:attr="data-val=(${params.province})" ></select>
+							            </div>
+							            <span>省</span>
+				                        <div class="vocation">
+								          	<select class="select-common select3 citySelect" name="city" th:attr="data-val=(${params.city})"></select>
+							            </div>
+				                        <span>市</span>
+	                            </li>
+                                <!-- 
+                                 <li>
+                                    <label>状态：</label>
+                                    <div class="vocation">
+                                        <select class="select-common select3" name="orderStatus" >
+                                        	   <option value="" > 全部</option>
+                                            <option th:each="oi : ${#ctx.servletContext.getAttribute('enumMap').orderInfoList}" th:text="${oi.value}" th:value="${oi.order}"  th:attr="selected=(${params.orderStatus} eq ${oi.order})?true:false"></option> 
+                                        </select>
+                                    </div>
+                                </li>
+                                 -->
+                                <li>
+                                    <label>申请时间：</label>
+                                   	   <input type="text" id="startDate" name="startDate" readOnly='true' class="scinput1" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})" th:value="${params.startDate}?${#dates.format(orderInfo.startDate, 'yyyy-MM-dd HH:mm:ss')}:'' "/>
+										<span>至</span>
+	                                    <input type="text" id="endDate" name="endDate" readOnly='true' class="scinput1" onClick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})" th:value="${params.endDate}?${#dates.format(orderInfo.endDate, 'yyyy-MM-dd HH:mm:ss')}:'' "/>
+                                </li>
+                                <li>
+                                    <input type="button" id="searcher" class="scbtn" value="查询"/>
+                                </li>
+                            </ul>
+                             </form>
+                            <div class="table-title">
+                                <p class="tab-font">报单管理</p>
+                            </div>
+                            <table class="tablelist">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>省市</th>
+                                        <th>报单编号</th>
+                                        <th>业务类型</th>
+                                        <th>借款人</th>
+                                        <th>报单人</th>
+                                        <th>报单人手机号</th>
+                                        <th>客户经理</th>
+                                        <th>资金方</th>
+                                        <th>产品名称</th>
+                                        <th>申请时间</th>
+                                        <th>状态</th>
+                                    </tr>
+                                </thead>
+                             <tbody>
+		                     	<tr th:each="orderInfo,start: ${page.resultList}">
+				                    <td  th:text="${start.index+1}"></td>
+						            <td th:text="${orderInfo.city}">  </td>
+						            <td> 
+						            		 <a th:href="@{/orderInfo/get(orderNo=${orderInfo.orderNo})}" th:text="${orderInfo.orderNo}" class="tablelink">
+						            		 </a>
+						             </td>
+						             <td>
+						             	<th:block th:if="${orderInfo.orgBusinessType} eq 1"><span>资金批发</span></th:block>
+	                                     <th:block th:if="${orderInfo.orgBusinessType} eq 2"><span>非资金批发</span></th:block>
+						             </td>
+						             <td th:text="${orderInfo.bname}">  </td>
+						             <td th:text="${orderInfo.providerName}">  </td>
+						             <td th:text="${orderInfo.mobileNo}"> 报单人手机号 </td>
+						             <td th:text="${orderInfo.leStaffName}"> 客户经理 </td>
+						             <td th:text="${orderInfo.orgName}"> 资金方  </td>
+						             <td th:text="${orderInfo.productName}"> 产品二级？？  </td>
+						             <td th:text="${orderInfo.applyDate}?${#dates.format(orderInfo.applyDate, 'yyyy-MM-dd HH:mm:ss')}:''  "> </td>
+						             <td th:each="oi : ${#ctx.servletContext.getAttribute('enumMap').orderInfoList}" th:if="${orderInfo.orderStatus} eq ${oi.order}"  > 
+						                 <th:block  th:text="${oi.value}" ></th:block>
+						             </td>
+							    </tr>
+                             
+                             
+                             <th:block th:if="${#lists.isEmpty(page.resultList)}">
+                                 <tr>
+                                     <td colspan="12" class="textCt">暂无数据</td>
+                                 </tr>
+                             </th:block>
+                             
+                             
+                            </tbody>
+                            </table>
+                            
+                   				<div class="pagin" th:unless="${#lists.isEmpty(page.resultList)}">
+								<div class="message">
+								<input type="button" value="导出" class="scbtn1" style="width: 65px;" id="export" />&nbsp;&nbsp;&nbsp;
+									共 <i class="blue" th:text="${page.totalCount}"></i> 条记录，当前显示第 <i
+										class="blue" th:text="${page.pageIndex}"></i> 页
+								</div>
+								<ul class="paginList">
+									<li class="paginItem" th:if="${page.pageIndex} gt 1"><a
+										th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+									</li>
+									<li class="paginItem"
+										th:each="x:${#numbers.sequence(page.startNum, page.endNum)}"
+										th:classappend="(${page.pageIndex} eq ${x})?'current'"><a
+										th:attr="data-pagenum=${x}" th:text="${x}"></a></li>
+									<li class="paginItem"
+										th:if="${page.pageIndex} lt ${page.pageCount}"><a
+										th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+									</li>
+								</ul>
+							</div>
+                       
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     	<script src="/js/public/select.js"></script>
+        <footer th:replace="common/footer"></footer>
+    </div>
+    <script type="text/javascript" charset="utf-8" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+    <script> seajs.use("orderInfo/orderInfoList");</script>
+</body>
+</html>

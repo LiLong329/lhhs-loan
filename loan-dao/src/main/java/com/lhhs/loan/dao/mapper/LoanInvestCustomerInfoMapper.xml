@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanInvestCustomerInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanInvestCustomerInfo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="invest_customer_type" property="investCustomerType" jdbcType="VARCHAR" />
+    <result column="invest_customer_nature" property="investCustomerNature" jdbcType="VARCHAR" />
+    <result column="invest_customer_name" property="investCustomerName" jdbcType="VARCHAR" />
+    <result column="invest_customer_mobile" property="investCustomerMobile" jdbcType="VARCHAR" />
+    <result column="id_num" property="idNum" jdbcType="VARCHAR" />
+    <result column="affiliated_company_id" property="affiliatedCompanyId" jdbcType="VARCHAR" />
+    <result column="affiliated_company" property="affiliatedCompany" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="account_manager_no" property="accountManagerNo" jdbcType="VARCHAR" />
+    <result column="account_manager_department_no" property="accountManagerDepartmentNo" jdbcType="VARCHAR" />
+    <result column="account_manager_department_name" property="accountManagerDepartmentName" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="DATE" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="cust_type" property="custType" jdbcType="VARCHAR" />
+    <result column="bank_card_no" property="bankCardNo" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="bank_id" property="bankId" jdbcType="VARCHAR" />
+    <result column="branch_name" property="branchName" jdbcType="VARCHAR" />
+    <result column="customer_nature_name" property="customerNatureName" jdbcType="VARCHAR" />
+    <result column="customer_type_name" property="customerTypeName" jdbcType="VARCHAR" />
+    <result column="company_name" property="CorName" jdbcType="VARCHAR" />
+    <result column="account_manager_group_id" property="accountManagerGroupId" jdbcType="VARCHAR" />
+    <result column="le_staff_name" property="accountManagerName" jdbcType="VARCHAR" />
+<!--     <result column="lg_name" property="accountManagerGroupName" jdbcType="VARCHAR" /> -->
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, customer_id, invest_customer_type, invest_customer_nature, invest_customer_name, 
+    invest_customer_mobile, id_num, affiliated_company_id, affiliated_company, account_id, 
+    union_id, company_id, status, account_manager_no, account_manager_name, account_manager_department_no, 
+    account_manager_department_name, create_user, create_time, last_user, last_modify_time, 
+    field1, field2, field3, field4, field5
+  </sql>
+  
+  <!-- 理财人信息（银主）列表查询 -->
+  <select id="investCustomerList" resultMap="BaseResultMap" parameterType="map">
+	   SELECT t.id,t.customer_id,invest_customer_type,
+			invest_customer_nature,invest_customer_name,invest_customer_mobile,t.id_num,
+			affiliated_company_id,affiliated_company,account_id,t.union_id,t.company_id,t.STATUS,lb.sex,ld.type_name as customer_nature_name,t.account_manager_no
+	   FROM loan_invest_customer_info t
+	        LEFT JOIN loan_borrower_info lb ON t.customer_id = lb.customer_id
+            LEFT JOIN loan_dictionary ld ON t.invest_customer_nature = ld.type_id and ld.category='invest_customer_nature'
+	    where 1=1 
+	    <if test="customerId != null and ''!=customerId" >
+	       and t.customer_id =#{customerId}
+	    </if>
+	    <if test="investCustomerNature != null and ''!=investCustomerNature" >
+	       and t.invest_customer_nature =#{investCustomerNature}
+	    </if>
+	    <if test="investCustomerName != null and ''!=investCustomerName" >
+	       and t.invest_customer_name  LIKE CONCAT(CONCAT('%', #{investCustomerName}), '%')
+	    </if>
+	    <if test="investCustomerMobile != null and ''!=investCustomerMobile" >
+	       and (t.invest_customer_mobile =#{investCustomerMobile} or t.customer_id =#{investCustomerMobile}) 
+	    </if>
+	      <if test="investCustomerType != null and ''!=investCustomerType" >
+	       and t.invest_customer_type =#{investCustomerType}
+	    </if>
+	     <include refid="Where_Common"/>	
+	    order by t.create_time desc 
+	     <if test="page!=null and page.pageStartIndex != null and page.pageSize != null">
+    	  Limit #{page.pageStartIndex},#{page.pageSize}
+         </if>
+  </select>
+  <!-- 理财人信息（银主）列表查询总数-->
+  <select id="investCustomerListCount" resultType="java.lang.Integer" parameterType="map">
+	  select count(1)
+	   FROM loan_invest_customer_info t
+	        LEFT JOIN loan_borrower_info lb ON t.customer_id = lb.customer_id
+            LEFT JOIN loan_dictionary ld ON t.invest_customer_nature = ld.type_id and ld.category='invest_customer_nature'
+	    where 1=1 
+	    <if test="customerId != null and ''!=customerId" >
+	       and t.customer_id =#{customerId}
+	    </if>
+	    <if test="investCustomerNature != null and ''!=investCustomerNature" >
+	       and t.invest_customer_nature =#{investCustomerNature}
+	    </if>
+	    <if test="investCustomerName != null and ''!=investCustomerName" >
+	       and t.invest_customer_name  LIKE CONCAT(CONCAT('%', #{investCustomerName}), '%')
+	    </if>
+	    <if test="investCustomerMobile != null and ''!=investCustomerMobile" >
+	       and t.invest_customer_mobile =#{investCustomerMobile}
+	    </if>
+	      <if test="investCustomerType != null and ''!=investCustomerType" >
+	       and t.invest_customer_type =#{investCustomerType}
+	    </if>
+	     <include refid="Where_Common"/>	
+  </select>
+  
+  <!-- 理财人信息（银主）列表查询总数-->
+  <select id="selectByMobile" resultType="java.lang.Integer" parameterType="java.lang.String">
+	  select count(1)
+	   FROM loan_invest_customer_info t
+	    where t.invest_customer_mobile=#{mobile}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+      SELECT  DISTINCT t.id,t.customer_id,invest_customer_type,invest_customer_nature,
+			invest_customer_name,invest_customer_mobile,t.id_num,affiliated_company_id,
+			affiliated_company,t.account_id,t.union_id,t.company_id,account_manager_group_id,lg.lg_name,
+			t. STATUS,account_manager_no,account_manager_name,account_manager_department_no,ldp.name as account_manager_department_name,
+			lb.sex,lac.bank_card_no,lac.bank_name,lac.branch_name,lac.bank_id,ld.type_name as customer_nature_name,ldy.type_name as  customer_type_name,luc.company_name,le.staff_name as le_staff_name
+	  FROM loan_invest_customer_info t
+		LEFT JOIN loan_borrower_info lb ON t.customer_id = lb.customer_id
+		LEFT JOIN loan_account_info laf ON t.customer_id = laf.owner_id
+		LEFT JOIN loan_account_card lac ON laf.account_id = lac.account_id
+		LEFT JOIN loan_dictionary ld ON t.invest_customer_nature = ld.type_id and ld.category='invest_customer_nature'
+		LEFT JOIN loan_dictionary ldy ON t.invest_customer_type = ldy.type_id  and ldy.category='invest_customer_nature'
+		LEFT JOIN bump_dept ldp ON t.account_manager_department_no = ldp.dept_id
+		LEFT JOIN bump_union_company luc ON t.affiliated_company_id = luc.company_id
+		  LEFT JOIN loan_group lg ON t.account_manager_group_id = lg.lg_group_id
+		      LEFT JOIN bump_user le on t.account_manager_no=le.user_id
+	    where t.id = #{id,jdbcType=VARCHAR} limit 1
+  </select>
+  
+  
+  <!-- bumen 查询 -->
+    <select id="queryAllDepts" resultType="map">
+      select  t.dept_id,t.name from bump_dept t  where t.status='1'
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_invest_customer_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanInvestCustomerInfo" >
+    insert into loan_invest_customer_info (id, customer_id, invest_customer_type, 
+      invest_customer_nature, invest_customer_name, 
+      invest_customer_mobile, id_num, affiliated_company_id, 
+      affiliated_company, account_id, union_id, 
+      company_id, status,account_manager_no, 
+      account_manager_name, account_manager_department_no, 
+      account_manager_department_name, create_user, 
+      create_time, last_user, last_modify_time, 
+      field1, field2, field3, 
+      field4, field5)
+    values (#{id,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, #{investCustomerType,jdbcType=VARCHAR}, 
+      #{investCustomerNature,jdbcType=VARCHAR}, #{investCustomerName,jdbcType=VARCHAR}, 
+      #{investCustomerMobile,jdbcType=VARCHAR}, #{idNum,jdbcType=VARCHAR}, #{affiliatedCompanyId,jdbcType=VARCHAR}, 
+      #{affiliatedCompany,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, #{unionId,jdbcType=VARCHAR}, 
+      #{companyId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},#{accountManagerNo,jdbcType=VARCHAR}, 
+      #{accountManagerName,jdbcType=VARCHAR}, #{accountManagerDepartmentNo,jdbcType=VARCHAR}, 
+      #{accountManagerDepartmentName,jdbcType=VARCHAR},#{createUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastUser,jdbcType=VARCHAR}, #{lastModifyTime,jdbcType=DATE}, 
+      #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, 
+      #{field4,jdbcType=VARCHAR}, #{field5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanInvestCustomerInfo" >
+    insert into loan_invest_customer_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="investCustomerType != null" >
+        invest_customer_type,
+      </if>
+      <if test="investCustomerNature != null" >
+        invest_customer_nature,
+      </if>
+      <if test="investCustomerName != null" >
+        invest_customer_name,
+      </if>
+      <if test="investCustomerMobile != null" >
+        invest_customer_mobile,
+      </if>
+      <if test="idNum != null" >
+        id_num,
+      </if>
+      <if test="affiliatedCompanyId != null" >
+        affiliated_company_id,
+      </if>
+      <if test="affiliatedCompany != null" >
+        affiliated_company,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="accountManagerNo != null" >
+        account_manager_no,
+      </if>
+      <if test="accountManagerName != null" >
+        account_manager_name,
+      </if>
+      <if test="accountManagerDepartmentNo != null" >
+        account_manager_department_no,
+      </if>
+      <if test="accountManagerDepartmentName != null" >
+        account_manager_department_name,
+      </if>	
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUser != null" >
+        last_user,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+      <if test="accountManagerGroupId != null" >
+        account_manager_group_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="investCustomerType != null" >
+        #{investCustomerType,jdbcType=VARCHAR},
+      </if>
+      <if test="investCustomerNature != null" >
+        #{investCustomerNature,jdbcType=VARCHAR},
+      </if>
+      <if test="investCustomerName != null" >
+        #{investCustomerName,jdbcType=VARCHAR},
+      </if>
+      <if test="investCustomerMobile != null" >
+        #{investCustomerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="idNum != null" >
+        #{idNum,jdbcType=VARCHAR},
+      </if>
+      <if test="affiliatedCompanyId != null" >
+        #{affiliatedCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="affiliatedCompany != null" >
+        #{affiliatedCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="accountManagerNo != null" >
+        #{accountManagerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountManagerName != null" >
+        #{accountManagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountManagerDepartmentNo != null" >
+        #{accountManagerDepartmentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountManagerDepartmentName != null" >
+        #{accountManagerDepartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=DATE},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+       <if test="accountManagerGroupId != null" >
+       #{accountManagerGroupId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanInvestCustomerInfo" >
+    update loan_invest_customer_info
+    <set >
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="investCustomerType != null" >
+        invest_customer_type = #{investCustomerType,jdbcType=VARCHAR},
+      </if>
+      <if test="investCustomerNature != null" >
+        invest_customer_nature = #{investCustomerNature,jdbcType=VARCHAR},
+      </if>
+      <if test="investCustomerName != null" >
+        invest_customer_name = #{investCustomerName,jdbcType=VARCHAR},
+      </if>
+      <if test="investCustomerMobile != null" >
+        invest_customer_mobile = #{investCustomerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="idNum != null" >
+        id_num = #{idNum,jdbcType=VARCHAR},
+      </if>
+      <if test="affiliatedCompanyId != null" >
+        affiliated_company_id = #{affiliatedCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="affiliatedCompany != null" >
+        affiliated_company = #{affiliatedCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="accountManagerNo != null" >
+        account_manager_no = #{accountManagerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountManagerName != null" >
+        account_manager_name = #{accountManagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountManagerDepartmentNo != null" >
+        account_manager_department_no = #{accountManagerDepartmentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountManagerDepartmentName != null" >
+        account_manager_department_name = #{accountManagerDepartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=DATE},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+       <if test="accountManagerGroupId != null" >
+         account_manager_group_id = #{accountManagerGroupId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanInvestCustomerInfo" >
+    update loan_invest_customer_info
+    set customer_id = #{customerId,jdbcType=VARCHAR},
+      invest_customer_type = #{investCustomerType,jdbcType=VARCHAR},
+      invest_customer_nature = #{investCustomerNature,jdbcType=VARCHAR},
+      invest_customer_name = #{investCustomerName,jdbcType=VARCHAR},
+      invest_customer_mobile = #{investCustomerMobile,jdbcType=VARCHAR},
+      id_num = #{idNum,jdbcType=VARCHAR},
+      affiliated_company_id = #{affiliatedCompanyId,jdbcType=VARCHAR},
+      affiliated_company = #{affiliatedCompany,jdbcType=VARCHAR},
+      account_id = #{accountId,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      account_manager_no = #{accountManagerNo,jdbcType=VARCHAR},
+      account_manager_name = #{accountManagerName,jdbcType=VARCHAR},
+      account_manager_department_no = #{accountManagerDepartmentNo,jdbcType=VARCHAR},
+      account_manager_department_name = #{accountManagerDepartmentName,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=DATE},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR},
+      account_manager_group_id = #{accountManagerGroupId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 自定义方法 -->
+  <select id="selectByCustomerId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_invest_customer_info
+    where customer_id = #{customerId}
+  </select>
+  
+  
+ <sql id="Where_Common">
+	 <if test="authgroupList != null">
+		 	and 
+	         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+		         (1=1
+		             <if test="item.orgId != null and item.orgId != ''">
+					  		and t.company_id =  #{item.orgId}
+					 </if>
+					 <if test="item.deptId != null and item.deptId != ''">
+					  		and t.account_manager_department_no =  #{item.deptId}
+					 </if>
+					 <if test="item.dataOwner != null and item.dataOwner != ''">
+					  		and t.account_manager_no =  #{item.dataOwner}
+					 </if>
+				  )
+	          </foreach>
+		</if>
+
+	<if test="unionId != null and unionId != ''">
+  		and t.union_id = #{unionId}
+  	</if>
+  </sql>
+  
+  <!-- 查询所属公司 -->
+   <select id="queryAllCompany" resultMap="BaseResultMap" resultType="map">
+       select company_id,company_name,union_id from bump_union_company  t
+       where t.status='03'
+       <if test="authgroupList != null">
+		 	and 
+	         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+		         (1=1
+		             <if test="item.orgId != null and item.orgId != ''">
+					  		and t.company_id =  #{item.orgId}
+					 </if>
+				  )
+	          </foreach>
+		</if>
+
+	<if test="unionId != null and unionId != ''">
+  		and t.union_id = #{unionId}
+  	</if>
+  </select>
+  <!-- 公司客户经理级联查询 -->
+   <select id="queryAllManager" parameterType="java.lang.String" resultType="map">
+      select t.user_id le_emp_id ,t.staff_name le_staff_name,t.username le_account from bump_user t where  t.status='03' and t.company_id = #{affiliatedCompanyId}
+  </select>
+</mapper>

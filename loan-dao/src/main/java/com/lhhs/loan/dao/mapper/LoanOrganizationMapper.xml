@@ -1,0 +1,984 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanOrganizationMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanOrganization" >
+    <id column="org_id" property="orgId" jdbcType="BIGINT" />
+    <result column="org_username" property="orgUsername" jdbcType="VARCHAR" />
+    <result column="org_password" property="orgPassword" jdbcType="VARCHAR" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+    <result column="org_whole_name" property="orgWholeName" jdbcType="VARCHAR" />
+    <result column="org_code" property="orgCode" jdbcType="VARCHAR" />
+    <result column="org_add_time" property="orgAddTime" jdbcType="TIMESTAMP" />
+    <result column="org_categories" property="orgCategories" jdbcType="TINYINT" />
+    <result column="org_business_type" property="orgBusinessType" jdbcType="TINYINT" />
+    <result column="org_type" property="orgType" jdbcType="TINYINT" />
+    <result column="org_outfit_from" property="orgOutfitFrom" jdbcType="TINYINT" />
+    <result column="org_legal_representative" property="orgLegalRepresentative" jdbcType="VARCHAR" />
+    <result column="org_profile" property="orgProfile" jdbcType="VARCHAR" />
+    <result column="org_website" property="orgWebsite" jdbcType="VARCHAR" />
+    <result column="org_logo" property="orgLogo" jdbcType="VARCHAR" />
+    <result column="org_leader_name" property="orgLeaderName" jdbcType="VARCHAR" />
+    <result column="org_leader_mobile" property="orgLeaderMobile" jdbcType="VARCHAR" />
+    <result column="org_leader_email" property="orgLeaderEmail" jdbcType="VARCHAR" />
+    <result column="org_account_name" property="orgAccountName" jdbcType="VARCHAR" />
+    <result column="org_account_bank" property="orgAccountBank" jdbcType="VARCHAR" />
+    <result column="org_account_banch_bank" property="orgAccountBanchBank" jdbcType="VARCHAR" />
+    <result column="org_account_no" property="orgAccountNo" jdbcType="VARCHAR" />
+    <result column="org_business_license_no" property="orgBusinessLicenseNo" jdbcType="VARCHAR" />
+    <result column="org_state" property="orgState" jdbcType="VARCHAR" />
+    <result column="registered_address" property="registeredAddress" jdbcType="VARCHAR" />
+    <result column="reg_province_no" property="regProvinceNo" jdbcType="VARCHAR" />
+    <result column="reg_city_no" property="regCityNo" jdbcType="VARCHAR" />
+    <result column="org_address" property="orgAddress" jdbcType="VARCHAR" />
+    <result column="add_province_no" property="addProvinceNo" jdbcType="VARCHAR" />
+    <result column="add_city_no" property="addCityNo" jdbcType="VARCHAR" />
+    <result column="province_no" property="provinceNo" jdbcType="VARCHAR" />
+    <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+    <result column="city_no" property="cityNo" jdbcType="VARCHAR" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="company_nature" property="companyNature" jdbcType="VARCHAR" />
+    <result column="found_time" property="foundTime" jdbcType="DATE" />
+    <result column="company_mobile" property="companyMobile" jdbcType="VARCHAR" />
+    <result column="employee_num" property="employeeNum" jdbcType="INTEGER" />
+    <result column="org_legal_sex" property="orgLegalSex" jdbcType="CHAR" />
+    <result column="org_legal_mobile" property="orgLegalMobile" jdbcType="VARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="customer_sex" property="customerSex" jdbcType="CHAR" />
+    <result column="customer_mobile" property="customerMobile" jdbcType="VARCHAR" />
+    <result column="id_num" property="idNum" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="is_company" property="isCompany" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="DATE" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lhhs.loan.dao.domain.LoanOrganization" extends="BaseResultMap" >
+    <result column="business_scope" property="businessScope" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    org_id, org_username, org_password, org_name, org_whole_name, org_code, org_add_time, 
+    org_categories, org_business_type, org_type, org_outfit_from, org_legal_representative, 
+    org_profile, org_website, org_logo, org_leader_name, org_leader_mobile, org_leader_email, 
+    org_account_name, org_account_bank, org_account_banch_bank, org_account_no, org_business_license_no, 
+    org_state, registered_address, reg_province_no, reg_city_no, org_address, add_province_no, 
+    add_city_no, province_no, province_name, city_no, city_name, company_nature, found_time, 
+    company_mobile, employee_num, org_legal_sex, org_legal_mobile, customer_name, customer_sex, 
+    customer_mobile, id_num, customer_id, category, union_id, is_company, company_id, status, create_user, 
+    create_time, last_user, last_modify_time, field1, field2, field3, field4, field5
+  </sql>
+  <sql id="Blob_Column_List" >
+    business_scope
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from loan_organization
+    where org_id = #{orgId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from loan_organization
+    where org_id = #{orgId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanOrganization" >
+    insert into loan_organization (org_id, org_username, org_password, 
+      org_name, org_whole_name, org_code, 
+      org_add_time, org_categories, org_business_type, 
+      org_type, org_outfit_from, org_legal_representative, 
+      org_profile, org_website, org_logo, 
+      org_leader_name, org_leader_mobile, org_leader_email, 
+      org_account_name, org_account_bank, org_account_banch_bank, 
+      org_account_no, org_business_license_no, org_state, 
+      registered_address, reg_province_no, reg_city_no, 
+      org_address, add_province_no, add_city_no, 
+      province_no, province_name, city_no, 
+      city_name, company_nature, found_time, 
+      company_mobile, employee_num, org_legal_sex, 
+      org_legal_mobile, customer_name, customer_sex, 
+      customer_mobile, id_num, customer_id, 
+      category, union_id, is_company, company_id, 
+      status, create_user, create_time, 
+      last_user, last_modify_time, field1, 
+      field2, field3, field4, 
+      field5, business_scope)
+    values (#{orgId,jdbcType=BIGINT}, #{orgUsername,jdbcType=VARCHAR}, #{orgPassword,jdbcType=VARCHAR}, 
+      #{orgName,jdbcType=VARCHAR}, #{orgWholeName,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR}, 
+      #{orgAddTime,jdbcType=TIMESTAMP}, #{orgCategories,jdbcType=TINYINT}, #{orgBusinessType,jdbcType=TINYINT}, 
+      #{orgType,jdbcType=TINYINT}, #{orgOutfitFrom,jdbcType=TINYINT}, #{orgLegalRepresentative,jdbcType=VARCHAR}, 
+      #{orgProfile,jdbcType=VARCHAR}, #{orgWebsite,jdbcType=VARCHAR}, #{orgLogo,jdbcType=VARCHAR}, 
+      #{orgLeaderName,jdbcType=VARCHAR}, #{orgLeaderMobile,jdbcType=VARCHAR}, #{orgLeaderEmail,jdbcType=VARCHAR}, 
+      #{orgAccountName,jdbcType=VARCHAR}, #{orgAccountBank,jdbcType=VARCHAR}, #{orgAccountBanchBank,jdbcType=VARCHAR}, 
+      #{orgAccountNo,jdbcType=VARCHAR}, #{orgBusinessLicenseNo,jdbcType=VARCHAR}, #{orgState,jdbcType=VARCHAR}, 
+      #{registeredAddress,jdbcType=VARCHAR}, #{regProvinceNo,jdbcType=VARCHAR}, #{regCityNo,jdbcType=VARCHAR}, 
+      #{orgAddress,jdbcType=VARCHAR}, #{addProvinceNo,jdbcType=VARCHAR}, #{addCityNo,jdbcType=VARCHAR}, 
+      #{provinceNo,jdbcType=VARCHAR}, #{provinceName,jdbcType=VARCHAR}, #{cityNo,jdbcType=VARCHAR}, 
+      #{cityName,jdbcType=VARCHAR}, #{companyNature,jdbcType=VARCHAR}, #{foundTime,jdbcType=DATE}, 
+      #{companyMobile,jdbcType=VARCHAR}, #{employeeNum,jdbcType=INTEGER}, #{orgLegalSex,jdbcType=CHAR}, 
+      #{orgLegalMobile,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{customerSex,jdbcType=CHAR}, 
+      #{customerMobile,jdbcType=VARCHAR}, #{idNum,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, 
+      #{category,jdbcType=VARCHAR}, #{unionId,jdbcType=VARCHAR}, #{isCompany,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastUser,jdbcType=VARCHAR}, #{lastModifyTime,jdbcType=DATE}, #{field1,jdbcType=VARCHAR}, 
+      #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, #{field4,jdbcType=VARCHAR}, 
+      #{field5,jdbcType=VARCHAR}, #{businessScope,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanOrganization" useGeneratedKeys="true" keyProperty="orgId">
+    insert into loan_organization
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="orgUsername != null" >
+        org_username,
+      </if>
+      <if test="orgPassword != null" >
+        org_password,
+      </if>
+      <if test="orgName != null" >
+        org_name,
+      </if>
+      <if test="orgWholeName != null" >
+        org_whole_name,
+      </if>
+      <if test="orgCode != null" >
+        org_code,
+      </if>
+      <if test="orgAddTime != null" >
+        org_add_time,
+      </if>
+      <if test="orgCategories != null" >
+        org_categories,
+      </if>
+      <if test="orgBusinessType != null" >
+        org_business_type,
+      </if>
+      <if test="orgType != null" >
+        org_type,
+      </if>
+      <if test="orgOutfitFrom != null" >
+        org_outfit_from,
+      </if>
+      <if test="orgLegalRepresentative != null" >
+        org_legal_representative,
+      </if>
+      <if test="orgProfile != null" >
+        org_profile,
+      </if>
+      <if test="orgWebsite != null" >
+        org_website,
+      </if>
+      <if test="orgLogo != null" >
+        org_logo,
+      </if>
+      <if test="orgLeaderName != null" >
+        org_leader_name,
+      </if>
+      <if test="orgLeaderMobile != null" >
+        org_leader_mobile,
+      </if>
+      <if test="orgLeaderEmail != null" >
+        org_leader_email,
+      </if>
+      <if test="orgAccountName != null" >
+        org_account_name,
+      </if>
+      <if test="orgAccountBank != null" >
+        org_account_bank,
+      </if>
+      <if test="orgAccountBanchBank != null" >
+        org_account_banch_bank,
+      </if>
+      <if test="orgAccountNo != null" >
+        org_account_no,
+      </if>
+      <if test="orgBusinessLicenseNo != null" >
+        org_business_license_no,
+      </if>
+      <if test="orgState != null" >
+        org_state,
+      </if>
+      <if test="registeredAddress != null" >
+        registered_address,
+      </if>
+      <if test="regProvinceNo != null" >
+        reg_province_no,
+      </if>
+      <if test="regCityNo != null" >
+        reg_city_no,
+      </if>
+      <if test="orgAddress != null" >
+        org_address,
+      </if>
+      <if test="addProvinceNo != null" >
+        add_province_no,
+      </if>
+      <if test="addCityNo != null" >
+        add_city_no,
+      </if>
+      <if test="provinceNo != null" >
+        province_no,
+      </if>
+      <if test="provinceName != null" >
+        province_name,
+      </if>
+      <if test="cityNo != null" >
+        city_no,
+      </if>
+      <if test="cityName != null" >
+        city_name,
+      </if>
+      <if test="companyNature != null" >
+        company_nature,
+      </if>
+      <if test="foundTime != null" >
+        found_time,
+      </if>
+      <if test="companyMobile != null" >
+        company_mobile,
+      </if>
+      <if test="employeeNum != null" >
+        employee_num,
+      </if>
+      <if test="orgLegalSex != null" >
+        org_legal_sex,
+      </if>
+      <if test="orgLegalMobile != null" >
+        org_legal_mobile,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="customerSex != null" >
+        customer_sex,
+      </if>
+      <if test="customerMobile != null" >
+        customer_mobile,
+      </if>
+      <if test="idNum != null" >
+        id_num,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+      <if test="isCompany != null" >
+        is_company,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUser != null" >
+        last_user,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+      <if test="businessScope != null" >
+        business_scope,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orgId != null" >
+        #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="orgUsername != null" >
+        #{orgUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="orgPassword != null" >
+        #{orgPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgWholeName != null" >
+        #{orgWholeName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null" >
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgAddTime != null" >
+        #{orgAddTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orgCategories != null" >
+        #{orgCategories,jdbcType=TINYINT},
+      </if>
+      <if test="orgBusinessType != null" >
+        #{orgBusinessType,jdbcType=TINYINT},
+      </if>
+      <if test="orgType != null" >
+        #{orgType,jdbcType=TINYINT},
+      </if>
+      <if test="orgOutfitFrom != null" >
+        #{orgOutfitFrom,jdbcType=TINYINT},
+      </if>
+      <if test="orgLegalRepresentative != null" >
+        #{orgLegalRepresentative,jdbcType=VARCHAR},
+      </if>
+      <if test="orgProfile != null" >
+        #{orgProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="orgWebsite != null" >
+        #{orgWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="orgLogo != null" >
+        #{orgLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgLeaderName != null" >
+        #{orgLeaderName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgLeaderMobile != null" >
+        #{orgLeaderMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="orgLeaderEmail != null" >
+        #{orgLeaderEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="orgAccountName != null" >
+        #{orgAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgAccountBank != null" >
+        #{orgAccountBank,jdbcType=VARCHAR},
+      </if>
+      <if test="orgAccountBanchBank != null" >
+        #{orgAccountBanchBank,jdbcType=VARCHAR},
+      </if>
+      <if test="orgAccountNo != null" >
+        #{orgAccountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgBusinessLicenseNo != null" >
+        #{orgBusinessLicenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgState != null" >
+        #{orgState,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredAddress != null" >
+        #{registeredAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="regProvinceNo != null" >
+        #{regProvinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="regCityNo != null" >
+        #{regCityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgAddress != null" >
+        #{orgAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="addProvinceNo != null" >
+        #{addProvinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="addCityNo != null" >
+        #{addCityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceNo != null" >
+        #{provinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null" >
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNature != null" >
+        #{companyNature,jdbcType=VARCHAR},
+      </if>
+      <if test="foundTime != null" >
+        #{foundTime,jdbcType=DATE},
+      </if>
+      <if test="companyMobile != null" >
+        #{companyMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeNum != null" >
+        #{employeeNum,jdbcType=INTEGER},
+      </if>
+      <if test="orgLegalSex != null" >
+        #{orgLegalSex,jdbcType=CHAR},
+      </if>
+      <if test="orgLegalMobile != null" >
+        #{orgLegalMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerSex != null" >
+        #{customerSex,jdbcType=CHAR},
+      </if>
+      <if test="customerMobile != null" >
+        #{customerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="idNum != null" >
+        #{idNum,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="isCompany != null" >
+        #{isCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=DATE},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+      <if test="businessScope != null" >
+        #{businessScope,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanOrganization" >
+    update loan_organization
+    <set >
+      <if test="orgUsername != null" >
+        org_username = #{orgUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="orgPassword != null" >
+        org_password = #{orgPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgWholeName != null" >
+        org_whole_name = #{orgWholeName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null" >
+        org_code = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgAddTime != null" >
+        org_add_time = #{orgAddTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orgCategories != null" >
+        org_categories = #{orgCategories,jdbcType=TINYINT},
+      </if>
+      <if test="orgBusinessType != null" >
+        org_business_type = #{orgBusinessType,jdbcType=TINYINT},
+      </if>
+      <if test="orgType != null" >
+        org_type = #{orgType,jdbcType=TINYINT},
+      </if>
+      <if test="orgOutfitFrom != null" >
+        org_outfit_from = #{orgOutfitFrom,jdbcType=TINYINT},
+      </if>
+      <if test="orgLegalRepresentative != null" >
+        org_legal_representative = #{orgLegalRepresentative,jdbcType=VARCHAR},
+      </if>
+      <if test="orgProfile != null" >
+        org_profile = #{orgProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="orgWebsite != null" >
+        org_website = #{orgWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="orgLogo != null" >
+        org_logo = #{orgLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgLeaderName != null" >
+        org_leader_name = #{orgLeaderName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgLeaderMobile != null" >
+        org_leader_mobile = #{orgLeaderMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="orgLeaderEmail != null" >
+        org_leader_email = #{orgLeaderEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="orgAccountName != null" >
+        org_account_name = #{orgAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgAccountBank != null" >
+        org_account_bank = #{orgAccountBank,jdbcType=VARCHAR},
+      </if>
+      <if test="orgAccountBanchBank != null" >
+        org_account_banch_bank = #{orgAccountBanchBank,jdbcType=VARCHAR},
+      </if>
+      <if test="orgAccountNo != null" >
+        org_account_no = #{orgAccountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgBusinessLicenseNo != null" >
+        org_business_license_no = #{orgBusinessLicenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgState != null" >
+        org_state = #{orgState,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredAddress != null" >
+        registered_address = #{registeredAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="regProvinceNo != null" >
+        reg_province_no = #{regProvinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="regCityNo != null" >
+        reg_city_no = #{regCityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgAddress != null" >
+        org_address = #{orgAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="addProvinceNo != null" >
+        add_province_no = #{addProvinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="addCityNo != null" >
+        add_city_no = #{addCityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceNo != null" >
+        province_no = #{provinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null" >
+        province_name = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        city_no = #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNature != null" >
+        company_nature = #{companyNature,jdbcType=VARCHAR},
+      </if>
+      <if test="foundTime != null" >
+        found_time = #{foundTime,jdbcType=DATE},
+      </if>
+      <if test="companyMobile != null" >
+        company_mobile = #{companyMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeNum != null" >
+        employee_num = #{employeeNum,jdbcType=INTEGER},
+      </if>
+      <if test="orgLegalSex != null" >
+        org_legal_sex = #{orgLegalSex,jdbcType=CHAR},
+      </if>
+      <if test="orgLegalMobile != null" >
+        org_legal_mobile = #{orgLegalMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerSex != null" >
+        customer_sex = #{customerSex,jdbcType=CHAR},
+      </if>
+      <if test="customerMobile != null" >
+        customer_mobile = #{customerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="idNum != null" >
+        id_num = #{idNum,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="isCompany != null" >
+        is_company = #{isCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=DATE},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+      <if test="businessScope != null" >
+        business_scope = #{businessScope,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where org_id = #{orgId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lhhs.loan.dao.domain.LoanOrganization" >
+    update loan_organization
+    set org_username = #{orgUsername,jdbcType=VARCHAR},
+      org_password = #{orgPassword,jdbcType=VARCHAR},
+      org_name = #{orgName,jdbcType=VARCHAR},
+      org_whole_name = #{orgWholeName,jdbcType=VARCHAR},
+      org_code = #{orgCode,jdbcType=VARCHAR},
+      org_add_time = #{orgAddTime,jdbcType=TIMESTAMP},
+      org_categories = #{orgCategories,jdbcType=TINYINT},
+      org_business_type = #{orgBusinessType,jdbcType=TINYINT},
+      org_type = #{orgType,jdbcType=TINYINT},
+      org_outfit_from = #{orgOutfitFrom,jdbcType=TINYINT},
+      org_legal_representative = #{orgLegalRepresentative,jdbcType=VARCHAR},
+      org_profile = #{orgProfile,jdbcType=VARCHAR},
+      org_website = #{orgWebsite,jdbcType=VARCHAR},
+      org_logo = #{orgLogo,jdbcType=VARCHAR},
+      org_leader_name = #{orgLeaderName,jdbcType=VARCHAR},
+      org_leader_mobile = #{orgLeaderMobile,jdbcType=VARCHAR},
+      org_leader_email = #{orgLeaderEmail,jdbcType=VARCHAR},
+      org_account_name = #{orgAccountName,jdbcType=VARCHAR},
+      org_account_bank = #{orgAccountBank,jdbcType=VARCHAR},
+      org_account_banch_bank = #{orgAccountBanchBank,jdbcType=VARCHAR},
+      org_account_no = #{orgAccountNo,jdbcType=VARCHAR},
+      org_business_license_no = #{orgBusinessLicenseNo,jdbcType=VARCHAR},
+      org_state = #{orgState,jdbcType=VARCHAR},
+      registered_address = #{registeredAddress,jdbcType=VARCHAR},
+      reg_province_no = #{regProvinceNo,jdbcType=VARCHAR},
+      reg_city_no = #{regCityNo,jdbcType=VARCHAR},
+      org_address = #{orgAddress,jdbcType=VARCHAR},
+      add_province_no = #{addProvinceNo,jdbcType=VARCHAR},
+      add_city_no = #{addCityNo,jdbcType=VARCHAR},
+      province_no = #{provinceNo,jdbcType=VARCHAR},
+      province_name = #{provinceName,jdbcType=VARCHAR},
+      city_no = #{cityNo,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      company_nature = #{companyNature,jdbcType=VARCHAR},
+      found_time = #{foundTime,jdbcType=DATE},
+      company_mobile = #{companyMobile,jdbcType=VARCHAR},
+      employee_num = #{employeeNum,jdbcType=INTEGER},
+      org_legal_sex = #{orgLegalSex,jdbcType=CHAR},
+      org_legal_mobile = #{orgLegalMobile,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      customer_sex = #{customerSex,jdbcType=CHAR},
+      customer_mobile = #{customerMobile,jdbcType=VARCHAR},
+      id_num = #{idNum,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      is_company = #{isCompany,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=DATE},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR},
+      business_scope = #{businessScope,jdbcType=LONGVARCHAR}
+    where org_id = #{orgId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanOrganization" >
+    update loan_organization
+    set org_username = #{orgUsername,jdbcType=VARCHAR},
+      org_password = #{orgPassword,jdbcType=VARCHAR},
+      org_name = #{orgName,jdbcType=VARCHAR},
+      org_whole_name = #{orgWholeName,jdbcType=VARCHAR},
+      org_code = #{orgCode,jdbcType=VARCHAR},
+      org_add_time = #{orgAddTime,jdbcType=TIMESTAMP},
+      org_categories = #{orgCategories,jdbcType=TINYINT},
+      org_business_type = #{orgBusinessType,jdbcType=TINYINT},
+      org_type = #{orgType,jdbcType=TINYINT},
+      org_outfit_from = #{orgOutfitFrom,jdbcType=TINYINT},
+      org_legal_representative = #{orgLegalRepresentative,jdbcType=VARCHAR},
+      org_profile = #{orgProfile,jdbcType=VARCHAR},
+      org_website = #{orgWebsite,jdbcType=VARCHAR},
+      org_logo = #{orgLogo,jdbcType=VARCHAR},
+      org_leader_name = #{orgLeaderName,jdbcType=VARCHAR},
+      org_leader_mobile = #{orgLeaderMobile,jdbcType=VARCHAR},
+      org_leader_email = #{orgLeaderEmail,jdbcType=VARCHAR},
+      org_account_name = #{orgAccountName,jdbcType=VARCHAR},
+      org_account_bank = #{orgAccountBank,jdbcType=VARCHAR},
+      org_account_banch_bank = #{orgAccountBanchBank,jdbcType=VARCHAR},
+      org_account_no = #{orgAccountNo,jdbcType=VARCHAR},
+      org_business_license_no = #{orgBusinessLicenseNo,jdbcType=VARCHAR},
+      org_state = #{orgState,jdbcType=VARCHAR},
+      registered_address = #{registeredAddress,jdbcType=VARCHAR},
+      reg_province_no = #{regProvinceNo,jdbcType=VARCHAR},
+      reg_city_no = #{regCityNo,jdbcType=VARCHAR},
+      org_address = #{orgAddress,jdbcType=VARCHAR},
+      add_province_no = #{addProvinceNo,jdbcType=VARCHAR},
+      add_city_no = #{addCityNo,jdbcType=VARCHAR},
+      province_no = #{provinceNo,jdbcType=VARCHAR},
+      province_name = #{provinceName,jdbcType=VARCHAR},
+      city_no = #{cityNo,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      company_nature = #{companyNature,jdbcType=VARCHAR},
+      found_time = #{foundTime,jdbcType=DATE},
+      company_mobile = #{companyMobile,jdbcType=VARCHAR},
+      employee_num = #{employeeNum,jdbcType=INTEGER},
+      org_legal_sex = #{orgLegalSex,jdbcType=CHAR},
+      org_legal_mobile = #{orgLegalMobile,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      customer_sex = #{customerSex,jdbcType=CHAR},
+      customer_mobile = #{customerMobile,jdbcType=VARCHAR},
+      id_num = #{idNum,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      is_company = #{isCompany,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=DATE},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where org_id = #{orgId,jdbcType=BIGINT}
+  </update>
+<!-- ########################################### Li Jianjun Start ########################################### -->
+  <!-- 查询组织机构实体bean -->
+  <select id="selectLoanOrganizationList" resultMap="BaseResultMap">
+  	SELECT
+  		<include refid="Base_Column_List"/>
+  	FROM
+  		loan_organization
+  	WHERE
+  		(org_categories = 1 OR org_categories = 3)
+  </select>
+  
+  <select id="selectOrganizationAccountInfo" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	SELECT
+  		lo.*
+  	FROM
+  		loan_organization lo
+  	LEFT JOIN
+  		loan_order_info_detail loid ON loid.fund_owner = lo.org_id
+  	WHERE
+  		loid.order_no = #{orderNo}
+  </select>
+  <!-- ########################################### Li Jianjun End   ########################################### -->
+
+  <!-- 根据机构名称查询 -->
+  <select id="selectByOrgName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_organization
+    where org_name = #{orgName}  LIMIT 1
+  </select>
+  
+  <!-- 机构信息分页查询 -->
+  <select id="queryListPage" parameterType="com.lhhs.loan.dao.domain.LoanOrganization" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from loan_organization
+    where 1=1
+    <if test="orgName != null and '' != orgName">
+    	and org_name like concat(concat('%',#{orgName}),'%')
+    </if>
+    <if test="orgCategories != null">
+    	and org_categories = #{orgCategories}
+    </if>
+    <if test="orgType != null">
+    	and org_type = #{orgType}
+    </if>
+    <if test="category != null and category != ''">
+    	and category = #{category}
+    </if>
+    <if test="customerId != null and customerId != ''">
+  		and customer_id = #{customerId}
+  	</if>
+    <if test="status != null and status != ''">
+  		and status = #{status}
+  	</if>
+  	<if test="companyId != null and companyId != ''">
+  		and company_id = #{companyId}
+  	</if>
+  	<if test="unionId != null and unionId != ''">
+  		and union_id = #{unionId}
+  	</if>
+  	<if test="null!=orgBusinessType and ''!=orgBusinessType">
+  		and org_business_type = #{orgBusinessType}
+  	</if>
+  		order by org_add_time desc
+  	<if test="page != null">
+  		limit #{page.pageStartIndex},#{page.pageSize}
+  	</if>
+  </select>
+  <!-- 机构信息查询 -->
+  <select id="queryList" parameterType="com.lhhs.loan.dao.domain.LoanOrganization" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from loan_organization
+    where 1=1
+    <if test="orgName != null and '' != orgName">
+    	and org_name like concat(concat('%',#{orgName}),'%')
+    </if>
+    <if test="orgCategories != null">
+    	and org_categories = #{orgCategories}
+    </if>
+    <if test="orgType != null">
+    	and org_type = #{orgType}
+    </if>
+    <if test="category != null and category != ''">
+    	and category = #{category}
+    </if>
+    <if test="customerId != null and customerId != ''">
+  		and customer_id = #{customerId}
+  	</if>
+    <if test="status != null and status != ''">
+  		and status = #{status}
+  	</if>
+    <if test="orgState != null and orgState != ''">
+  		and org_state = #{orgState}
+  	</if>
+  	<if test="companyId != null and companyId != ''">
+  		and company_id = #{companyId}
+  	</if>
+  	<if test="unionId != null and unionId != ''">
+  		and union_id = #{unionId}
+  	</if>
+  	<if test="null!=orgBusinessType and ''!=orgBusinessType">
+  		and org_business_type = #{orgBusinessType}
+  	</if>
+  		order by org_add_time desc
+  </select>
+  
+  <!-- 机构信息总条数查询 -->
+  <select id="queryCount" parameterType="com.lhhs.loan.dao.domain.LoanOrganization" resultType="int">
+  	select count(1)
+  	from loan_organization
+    where 1=1
+    <if test="orgName != null and '' != orgName">
+    	and org_name like concat(concat('%',#{orgName}),'%')
+    </if>
+    <if test="orgCategories != null">
+    	and org_categories = #{orgCategories}
+    </if>
+    <if test="orgType != null">
+    	and org_type = #{orgType}
+    </if>
+    <if test="category != null and category != ''">
+    	and category = #{category}
+    </if>
+    <if test="customerId != null and customerId != ''">
+  		and customer_id = #{customerId}
+  	</if>
+    <if test="status != null and status != ''">
+  		and status = #{status}
+  	</if>
+  	<if test="companyId != null and companyId != ''">
+  		and company_id = #{companyId}
+  	</if>
+  	<if test="unionId != null and unionId != ''">
+  		and union_id = #{unionId}
+  	</if>
+  	<if test="null!=orgBusinessType and ''!=orgBusinessType">
+  		and org_business_type = #{orgBusinessType}
+  	</if>
+  </select>
+  
+  <!-- 根据实体参数查询实体 -->
+  <select id="getByEntity" resultMap="ResultMapWithBLOBs" parameterType="com.lhhs.loan.dao.domain.LoanOrganization" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from loan_organization
+    where 1 = 1
+    <if test="orgId != null">
+    	and org_id = #{orgId}
+    </if>
+    <if test="null!=orgUsername and ''!=orgUsername">
+    	and org_username = #{orgUsername}
+    </if>
+    <if test="customerId != null and customerId != ''">
+  		and customer_id = #{customerId}
+  	</if>
+    <if test="status != null and status != ''">
+  		and status = #{status}
+  	</if>
+  	<if test="companyId != null and companyId != ''">
+  		and company_id = #{companyId}
+  	</if>
+  	<if test="unionId != null and unionId != ''">
+  		and union_id = #{unionId}
+  	</if>
+  	<if test="null!=orgCode and ''!=orgCode">
+  		and org_code = #{orgCode}
+  	</if>
+  	limit 1
+  </select>
+</mapper>

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanDeptMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanDept" >
+    <id column="ld_dept_id" property="ldDeptId" jdbcType="INTEGER" />
+    <result column="ld_name" property="ldName" jdbcType="VARCHAR" />
+    <result column="ld_depict" property="ldDepict" jdbcType="VARCHAR" />
+    <result column="ld_remark" property="ldRemark" jdbcType="VARCHAR" />
+    <result column="ld_time" property="ldTime" jdbcType="TIMESTAMP" />
+    <result column="ld_status" property="ldStatus" jdbcType="VARCHAR" />
+    <result column="layer" property="layer" jdbcType="INTEGER" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="parent_ids" property="parentIds" jdbcType="VARCHAR" />
+    <result column="ld_company" property="ldCompany" jdbcType="VARCHAR" />
+    <result column="ld_union" property="ldUnion" jdbcType="VARCHAR" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+   <!-- 扩展字段 -->
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ld_dept_id, ld_name, ld_depict, ld_remark, ld_time, ld_status, layer, sort, parent_id, 
+    parent_ids, ld_company, ld_union, field1, field2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_dept
+    where ld_dept_id = #{ldDeptId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from loan_dept
+    where ld_dept_id = #{ldDeptId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanDept" >
+    insert into loan_dept (ld_dept_id, ld_name, ld_depict, 
+      ld_remark, ld_time, ld_status, 
+      layer, sort, parent_id, 
+      parent_ids, ld_company, ld_union, 
+      field1, field2)
+    values (#{ldDeptId,jdbcType=INTEGER}, #{ldName,jdbcType=VARCHAR}, #{ldDepict,jdbcType=VARCHAR}, 
+      #{ldRemark,jdbcType=VARCHAR}, #{ldTime,jdbcType=TIMESTAMP}, #{ldStatus,jdbcType=VARCHAR}, 
+      #{layer,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, 
+      #{parentIds,jdbcType=VARCHAR}, #{ldCompany,jdbcType=VARCHAR}, #{ldUnion,jdbcType=VARCHAR}, 
+      #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanDept" >
+    insert into loan_dept
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ldDeptId != null" >
+        ld_dept_id,
+      </if>
+      <if test="ldName != null" >
+        ld_name,
+      </if>
+      <if test="ldDepict != null" >
+        ld_depict,
+      </if>
+      <if test="ldRemark != null" >
+        ld_remark,
+      </if>
+      <if test="ldTime != null" >
+        ld_time,
+      </if>
+      <if test="ldStatus != null" >
+        ld_status,
+      </if>
+      <if test="layer != null" >
+        layer,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="parentIds != null" >
+        parent_ids,
+      </if>
+      <if test="ldCompany != null" >
+        ld_company,
+      </if>
+      <if test="ldUnion != null" >
+        ld_union,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ldDeptId != null" >
+        #{ldDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="ldName != null" >
+        #{ldName,jdbcType=VARCHAR},
+      </if>
+      <if test="ldDepict != null" >
+        #{ldDepict,jdbcType=VARCHAR},
+      </if>
+      <if test="ldRemark != null" >
+        #{ldRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="ldTime != null" >
+        #{ldTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ldStatus != null" >
+        #{ldStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="layer != null" >
+        #{layer,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="parentIds != null" >
+        #{parentIds,jdbcType=VARCHAR},
+      </if>
+      <if test="ldCompany != null" >
+        #{ldCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="ldUnion != null" >
+        #{ldUnion,jdbcType=VARCHAR},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanDept" >
+    update loan_dept
+    <set >
+      <if test="ldName != null" >
+        ld_name = #{ldName,jdbcType=VARCHAR},
+      </if>
+      <if test="ldDepict != null" >
+        ld_depict = #{ldDepict,jdbcType=VARCHAR},
+      </if>
+      <if test="ldRemark != null" >
+        ld_remark = #{ldRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="ldTime != null" >
+        ld_time = #{ldTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ldStatus != null" >
+        ld_status = #{ldStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="layer != null" >
+        layer = #{layer,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="parentIds != null" >
+        parent_ids = #{parentIds,jdbcType=VARCHAR},
+      </if>
+      <if test="ldCompany != null" >
+        ld_company = #{ldCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="ldUnion != null" >
+        ld_union = #{ldUnion,jdbcType=VARCHAR},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ld_dept_id = #{ldDeptId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanDept" >
+    update loan_dept
+    set ld_name = #{ldName,jdbcType=VARCHAR},
+      ld_depict = #{ldDepict,jdbcType=VARCHAR},
+      ld_remark = #{ldRemark,jdbcType=VARCHAR},
+      ld_time = #{ldTime,jdbcType=TIMESTAMP},
+      ld_status = #{ldStatus,jdbcType=VARCHAR},
+      layer = #{layer,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      parent_ids = #{parentIds,jdbcType=VARCHAR},
+      ld_company = #{ldCompany,jdbcType=VARCHAR},
+      ld_union = #{ldUnion,jdbcType=VARCHAR},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR}
+    where ld_dept_id = #{ldDeptId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 自定义方法区 -->
+  <sql id="Common_dept">
+  <if test="authgroupList != null">
+	 	and 
+         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+	         (1=1
+	             <if test="item.orgId != null and item.orgId != ''">
+				  		and ld.ld_company =  #{item.orgId}
+				 </if>
+				 <if test="item.deptId != null and item.deptId != ''">
+				  		and ld.ld_dept_id =  #{item.deptId}
+				 </if>
+			  )
+          </foreach>
+	</if>
+ 
+	<if test="unionId != null and unionId != ''">
+  		and ld.ld_union = #{unionId}
+  	</if>
+  	<if test="companyId!=null and companyId!=''" >
+        and ld.ld_company = #{companyId}
+    </if>
+    <if test="ldDeptId!=null and ldDeptId!=''" >
+        and (ld.ld_dept_id = #{ldDeptId} OR find_in_set(#{ldDeptId},ld.parent_ids)>0)
+    </if>
+  </sql>
+  
+     <!-- 按条件检索部门列表 -->
+  <select id="selectDeptList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select ld.*,luc.company_name
+    from loan_dept ld left join loan_union_company luc  on ld.ld_company = luc.company_id
+    where 1=1
+      <include refid="Common_dept"></include>
+      <if test="ldDeptId != null and '' != ldDeptId">
+  		and (ld.ld_dept_id = #{ldDeptId} OR find_in_set(#{ldDeptId},ld.parent_ids)>0)
+  	  </if>
+      <if test="ldName!=null and ldName!=''" >
+        and ld.ld_name like concat('%',#{ldName},'%') 
+      </if>
+      <if test="status!=null and status!=''" >
+        and ld.ld_status = #{status}
+      </if>
+        order by ld.ld_time desc
+       <if test="page!=null" >
+        limit #{page.pageStartIndex},#{page.pageSize}
+       </if>
+  </select>
+  
+  <!-- 条件检索组别列表  -->
+  <select id="selectDeptListCount" resultType="int" parameterType="java.util.Map" >
+    select count(1)
+    from loan_dept ld left join loan_union_company luc  on ld.ld_company = luc.company_id
+    where 1=1
+      <include refid="Common_dept"></include>
+      <if test="ldName!=null and ldName!=''" >
+        and ld.ld_name like concat('%',#{ldName},'%') 
+      </if>
+      <if test="status!=null and status!=''" >
+        and ld.ld_status = #{status}
+      </if>
+  </select>
+  <update id="updateDeptByStuts" parameterType="java.util.Map" >
+   update loan_dept set ld_status=#{ldStatus} where ld_dept_id=#{deptId}
+  </update>
+  <!-- 查询所有部门 -->
+  <select id="queryAllDept" resultType="map"  >
+     select distinct(ld_name),ld_dept_id from loan_dept where ld_status='1' order by ld_time 
+  </select>
+
+ <select id="queryDeptInfo" parameterType="map" resultMap="BaseResultMap">
+  select  <include refid="Base_Column_List"/> from loan_dept where ld_dept_id=#{deptId}
+ </select>
+ 
+ <select id="queryDept" parameterType="int" resultMap="BaseResultMap">
+   select <include refid="Base_Column_List"/> from loan_dept where ld_dept_id=#{ldDeptId}
+ </select>
+   <select id="queryDeptByName" parameterType="com.lhhs.loan.dao.domain.LoanDept" resultType="int">
+   select count(1) from loan_dept where ld_name=#{ldName} and ld_company=#{ldCompany}
+ </select>
+ 
+ <select id="queryDeptListByName" parameterType="com.lhhs.loan.dao.domain.LoanDept" resultMap="BaseResultMap">
+   select * 
+   from loan_dept 
+   where ld_name=#{ldName} and ld_company=#{ldCompany}
+ </select>
+ 
+ <!-- ************************ 小贷系统 II 期 LiJian jun Start ************************ -->
+ <!-- 根据部门名称为资金部查询部门id -->
+ <select id="selectLoanDeptByLdDeptId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+ 	SELECT
+		<include refid="Base_Column_List"/>
+	FROM
+		loan_dept
+	WHERE
+		ld_dept_id = #{ldDeptId}
+ </select>
+ 
+   <select id="queryDeptByCompanyId" parameterType="java.lang.String" resultType="com.lhhs.loan.dao.domain.LoanDept">
+	   select <include refid="Base_Column_List"/>
+	   from loan_dept 
+	   where ld_status='1' and ld_company = #{ldCompany}
+   </select>
+  
+   <select id="queryDeptName" parameterType="map" resultType="com.lhhs.loan.dao.domain.LoanDept">
+	   select  distinct ld.ld_name
+	   from loan_dept ld where 1=1
+	   <include refid="Common_dept"></include>
+   </select>
+   
+   <select id="queryDeptByUnionId" parameterType="map" resultType="com.lhhs.loan.dao.domain.LoanDept">
+	   select <include refid="Base_Column_List"/>
+	   from loan_dept  
+	   <where>
+	   		<if test="ldUnion != null and ldUnion !='' ">
+	   			and ld_union = #{ldUnion}
+	   		</if>
+	   		<if test="ldCompany != null and ldCompany !='' ">
+	   			and ld_company = #{ldCompany}
+	   		</if>
+	   </where>
+   </select>
+   
+   
+</mapper>

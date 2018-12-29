@@ -1,0 +1,37 @@
+ <input  name="statisticsName" type="hidden" value="2"/>
+       <ul class="seachform1">
+          <input  name="pageNumber" type="hidden" value="" id="currentPageNo"/>
+           <li>
+               <label>省市：</label>
+               <div class="vocation">
+                   <select class="select-common select3 provinceSelect" name="provienceName"></select>
+               </div>
+               <span>省</span>
+               <div class="vocation">
+                   <select class="select-common select3 citySelect" name="cityName"></select>
+               </div>
+               <span>市</span>
+           </li>
+          
+            <li>
+               <label>借款人：</label>
+               <input name="borrower" type="text" class="scinput1" />
+           </li>
+           <li>
+               <label>借款人手机号：</label>
+               <input name="customerMobile" type="text" class="scinput1" />
+           </li>
+           <li>
+               <label>放款时间：</label>
+               <input type="text" class="scinput1" name="beginTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd'})"/>
+               <span> 至 </span>
+               <input type="text" class="scinput1" name="endTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd'})"/>
+           </li>
+           <li>
+             
+               <input type="hidden" name="page.pageIndex" th:value="${page.pageIndex}"/>
+                <input type="hidden" name="page.pageSize" th:value="${page.pageSize}"/> 
+               <input type="button" class="scbtn searcher" value="查询" th:attr="data-id='22'"/>
+               <input type="button" value="导出" class="scbtn1" style="width: 65px;" id="export2"/>
+           </li>
+       </ul>

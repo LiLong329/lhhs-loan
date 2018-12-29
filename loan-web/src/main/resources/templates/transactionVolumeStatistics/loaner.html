@@ -1,0 +1,44 @@
+<input  name="statisticsName" type="hidden" value="3"/>
+                            <ul class="seachform1">
+                               <input  name="pageNumber" type="hidden" value="" id="currentPageNo"/>
+                                <li>
+                                    <label>省市：</label>
+                                    <div class="vocation">
+                                        <select class="select-common select3 provinceSelect" name="provienceName"></select>
+                                    </div>
+                                    <span>省</span>
+                                    <div class="vocation">
+                                        <select class="select-common select3 citySelect" name="cityName"></select>
+                                    </div>
+                                    <span>市</span>
+                                </li>
+                                 <li>
+                                    <label>放款方：</label>
+                                    <input name="lenderName" type="text" class="scinput1" />
+                                </li>
+                                 <li>
+                                      <label>放款类型</label>
+                                        <div class="vocation">
+                                            <select class="select-common select3" name="customerNature">
+                                                <option value="">请选择</option>
+                                                <option value="10,11,12,13,14,15">对接放款</option>
+                                                <option value="31">机构放款</option>
+                                                <option value="33">同行放款</option>
+                                                <option value="41">公司放款</option>
+                                               <!--  <option th:each="type : ${typeList}" th:text="${type.typeName}" th:attr="value=${type.typeId}"></option> -->
+                                            </select>
+                                        </div>
+                                 </li>
+                                <li>
+                                    <label>放款时间：</label>
+                                    <input type="text" class="scinput1" name="beginTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd'})"/>
+                                    <span> 至 </span>
+                                    <input type="text" class="scinput1" name="endTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd'})"/>
+                                </li>
+                                <li>
+                                    <input type="hidden" name="page.pageIndex" th:value="${page.pageIndex}"/>
+		                            <input type="hidden" name="page.pageSize" th:value="${page.pageSize}"/>
+                                    <input type="button" class="scbtn searcher" value="查询" th:attr="data-id='33'"/>
+                                    <input type="button" value="导出" class="scbtn1" style="width: 65px;" id="export3"/>
+                                </li>
+                            </ul>

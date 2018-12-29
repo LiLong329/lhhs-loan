@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanAccountInOutInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanAccountInOutInfo" >
+    <id column="trans_no" property="transNo" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="customer_type" property="customerType" jdbcType="VARCHAR" />
+    <result column="customer_nature" property="customerNature" jdbcType="VARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="certificate_no" property="certificateNo" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="co_account_id" property="coAccountId" jdbcType="VARCHAR" />
+    <result column="bank_card_no" property="bankCardNo" jdbcType="VARCHAR" />
+    <result column="account_holder" property="accountHolder" jdbcType="VARCHAR" />
+    <result column="bank_id" property="bankId" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="actual_pay_time" property="actualPayTime" jdbcType="TIMESTAMP" />
+    <result column="audit_id" property="auditId" jdbcType="VARCHAR" />
+    <result column="trans_type" property="transType" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    trans_no, customer_id, customer_type, customer_nature, customer_name, certificate_no, 
+    mobile, amount, account_id, co_account_id, bank_card_no, account_holder, bank_id, 
+    bank_name, actual_pay_time, audit_id, trans_type, company_id, union_id, status, create_user, 
+    create_time, last_user, last_modify_time, field1, field2, field3, field4, field5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_account_in_out_info
+    where trans_no = #{transNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_account_in_out_info
+    where trans_no = #{transNo,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanAccountInOutInfo" >
+    insert into loan_account_in_out_info (trans_no, customer_id, customer_type, 
+      customer_nature, customer_name, certificate_no, 
+      mobile, amount, account_id, 
+      co_account_id, bank_card_no, account_holder, 
+      bank_id, bank_name, actual_pay_time, 
+      audit_id, trans_type, company_id, 
+      union_id, status, create_user, 
+      create_time, last_user, last_modify_time, 
+      field1, field2, field3, 
+      field4, field5)
+    values (#{transNo,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, #{customerType,jdbcType=VARCHAR}, 
+      #{customerNature,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{certificateNo,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, #{accountId,jdbcType=VARCHAR}, 
+      #{coAccountId,jdbcType=VARCHAR}, #{bankCardNo,jdbcType=VARCHAR}, #{accountHolder,jdbcType=VARCHAR}, 
+      #{bankId,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, #{actualPayTime,jdbcType=TIMESTAMP}, 
+      #{auditId,jdbcType=VARCHAR}, #{transType,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, 
+      #{unionId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastUser,jdbcType=VARCHAR}, #{lastModifyTime,jdbcType=TIMESTAMP}, 
+      #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, 
+      #{field4,jdbcType=VARCHAR}, #{field5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanAccountInOutInfo" >
+    insert into loan_account_in_out_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="transNo != null" >
+        trans_no,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="customerType != null" >
+        customer_type,
+      </if>
+      <if test="customerNature != null" >
+        customer_nature,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="certificateNo != null" >
+        certificate_no,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="coAccountId != null" >
+        co_account_id,
+      </if>
+      <if test="bankCardNo != null" >
+        bank_card_no,
+      </if>
+      <if test="accountHolder != null" >
+        account_holder,
+      </if>
+      <if test="bankId != null" >
+        bank_id,
+      </if>
+      <if test="bankName != null" >
+        bank_name,
+      </if>
+      <if test="actualPayTime != null" >
+        actual_pay_time,
+      </if>
+      <if test="auditId != null" >
+        audit_id,
+      </if>
+      <if test="transType != null" >
+        trans_type,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUser != null" >
+        last_user,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="transNo != null" >
+        #{transNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerType != null" >
+        #{customerType,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNature != null" >
+        #{customerNature,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateNo != null" >
+        #{certificateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="coAccountId != null" >
+        #{coAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardNo != null" >
+        #{bankCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountHolder != null" >
+        #{accountHolder,jdbcType=VARCHAR},
+      </if>
+      <if test="bankId != null" >
+        #{bankId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="actualPayTime != null" >
+        #{actualPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditId != null" >
+        #{auditId,jdbcType=VARCHAR},
+      </if>
+      <if test="transType != null" >
+        #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanAccountInOutInfo" >
+    update loan_account_in_out_info
+    <set >
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerType != null" >
+        customer_type = #{customerType,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNature != null" >
+        customer_nature = #{customerNature,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateNo != null" >
+        certificate_no = #{certificateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="coAccountId != null" >
+        co_account_id = #{coAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardNo != null" >
+        bank_card_no = #{bankCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountHolder != null" >
+        account_holder = #{accountHolder,jdbcType=VARCHAR},
+      </if>
+      <if test="bankId != null" >
+        bank_id = #{bankId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="actualPayTime != null" >
+        actual_pay_time = #{actualPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditId != null" >
+        audit_id = #{auditId,jdbcType=VARCHAR},
+      </if>
+      <if test="transType != null" >
+        trans_type = #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where trans_no = #{transNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanAccountInOutInfo" >
+    update loan_account_in_out_info
+    set customer_id = #{customerId,jdbcType=VARCHAR},
+      customer_type = #{customerType,jdbcType=VARCHAR},
+      customer_nature = #{customerNature,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      certificate_no = #{certificateNo,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      account_id = #{accountId,jdbcType=VARCHAR},
+      co_account_id = #{coAccountId,jdbcType=VARCHAR},
+      bank_card_no = #{bankCardNo,jdbcType=VARCHAR},
+      account_holder = #{accountHolder,jdbcType=VARCHAR},
+      bank_id = #{bankId,jdbcType=VARCHAR},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      actual_pay_time = #{actualPayTime,jdbcType=TIMESTAMP},
+      audit_id = #{auditId,jdbcType=VARCHAR},
+      trans_type = #{transType,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where trans_no = #{transNo,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 自定义方法区 -->
+  <sql id="Where_Common">
+	  <if test="authgroupList != null">
+		 	and 
+		         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+			         (1=1
+			             <if test="item.orgId != null and item.orgId != ''">
+						  		and laioi.company_id =  #{item.orgId}
+						 </if>
+						 <if test="item.dataOwner != null and item.dataOwner != ''">
+						  		and laioi.create_user =  #{item.dataOwner}
+						 </if>
+					  )
+		          </foreach>
+		</if>
+  	
+	<if test="unionId != null and unionId != ''">
+  		and laioi.union_id = #{unionId}
+  	</if>
+  </sql>
+  <!-- 申请列表公共查询条件 -->
+  <sql id="Where_Common_accountInOut">
+	  <if test="transType!=null and ''!=transType">
+		   and  laioi.trans_type =#{transType}  
+		  </if>
+		  <if test="transNo!=null and ''!=transNo">
+		   and  laioi.trans_no=#{transNo}
+		  </if>
+		  <if test="status!=null and ''!=status">
+		   and  laioi.status=#{status}
+		  </if>
+		  <if test="orderNo!=null and ''!=orderNo">
+		   and  laioi.order_no=#{orderNo}
+		  </if>
+		  <if test="beginTime != null and ''!=beginTime" >
+          <![CDATA[and  laioi.create_time>=#{beginTime}]]>
+         </if>
+	     <if test="endTime != null and ''!=endTime" >
+	       <![CDATA[and  laioi.create_time<=#{endTime}]]>
+	     </if>
+	     <if test="customerNature!=null and ''!=customerNature">
+			and laioi.customer_nature=#{customerNature}
+		 </if>
+         <if test="mobile!=null and ''!=mobile">
+		   and laioi.mobile =#{mobile}
+		 </if>
+  </sql>
+  
+      <!-- 查询充值、提现、审核等记录列表 -->
+	   <select id="queryTransRecord" resultType="map" parameterType="map" >
+	    select laioi.trans_no,laioi.mobile,ld.type_name ,ld2.type_name as nature_name,laioi.account_holder,laioi.amount,
+	    laioi.bank_name,laioi.bank_card_no,laioi.create_time,laioi.create_user,ac.task_end_date,ac.assignee_name,ac.status
+		from  loan_account_in_out_info  laioi left join act_comment ac on laioi.trans_no = ac.business_id
+		left join loan_dictionary ld  on  laioi.customer_type =ld.type_id and ld.category='customer_type'
+		left join loan_dictionary ld2  on  laioi.customer_nature = ld2.type_id and ld2.category='loan_customer_nature' where 1=1 
+		and laioi.trans_type =#{transType}  
+		  <if test="transNo!=null and ''!=transNo">
+		   and  laioi.trans_no=#{transNo}
+		  </if>
+		  <if test="approveStatus!=null and ''!=approveStatus">
+		    and ac.status=#{approveStatus}
+		  </if>
+		  <if test="startTime != null and ''!=startTime" >
+          <![CDATA[and  laioi.create_time>=#{startTime}]]>
+         </if>
+	     <if test="endTime != null and ''!=endTime" >
+	       <![CDATA[and  laioi.create_time<=#{endTime}]]>
+	     </if>
+	     <if test="customerNature!=null and ''!=customerNature">
+			and laioi.customer_nature=#{customerNature}
+		 </if>
+         <if test="mobile!=null and ''!=mobile">
+		   and laioi.mobile =#{mobile}
+		 </if>
+         <if test="transStatus!=null and ''!=transStatus">
+		   and laioi.status =#{transStatus}
+		 </if>
+         <if test="customerName!=null and ''!=customerName">
+		    and laioi.customer_name like CONCAT('%', #{customerName}, '%')
+		 </if>
+         <if test="accountId!=null and ''!=accountId">
+		   and laioi.account_id =#{accountId}
+		 </if>
+         <if test="customerId!=null and ''!=customerId">
+		   and laioi.customer_id =#{customerId}
+		 </if>
+		 <include refid="Where_Common"/>
+		   order by  laioi.create_time desc
+	      <if test="page!=null ">
+		   limit #{page.pageStartIndex},#{page.pageSize}
+	      </if>
+     </select>
+     
+       <!-- 查询充值、提现、审核记录列表总数 -->
+	   <select id="queryTransRecordTotal" resultType="int" parameterType="map" >
+	    select count(1) from  loan_account_in_out_info  laioi 
+	    left join act_comment ac on laioi.trans_no = ac.business_id
+		left join loan_dictionary ld  on  laioi.customer_type =ld.type_id and ld.category='customer_type'
+		left join loan_dictionary ld2  on  laioi.customer_nature = ld2.type_id and ld2.category='invest_customer_nature'  where 1=1  
+		and laioi.trans_type =#{transType} 
+		  <if test="transNo!=null and ''!=transNo">
+		   and  laioi.trans_no=#{transNo}
+		  </if>
+		  <if test="approveStatus!=null and ''!=approveStatus">
+		    and ac.status=#{approveStatus}
+		  </if>
+		  <if test="startTime != null and startTime != ''" >
+          <![CDATA[and  laioi.create_time>=#{startTime}]]>
+         </if>
+	     <if test="endTime != null and endTime != ''" >
+	       <![CDATA[and  laioi.create_time<=#{endTime}]]>
+	     </if>
+	     <if test="customerNature!=null and ''!=customerNature">
+			and laioi.customer_nature=#{customerNature}
+		 </if>
+         <if test="mobile!=null and ''!=mobile">
+		   and laioi.mobile =#{mobile}
+		 </if>
+		  <if test="transStatus!=null and ''!=transStatus">
+		   and laioi.status =#{transStatus}
+		 </if>
+		  <if test="customerName!=null and ''!=customerName">
+           and laioi.customer_name like CONCAT('%', #{customerName}, '%')
+		  </if>
+		   <if test="accountId!=null and ''!=accountId">
+		   and laioi.account_id =#{accountId}
+		  </if>
+		   <if test="customerId!=null and ''!=customerId">
+		   and laioi.customer_id =#{customerId}
+		 </if>
+		  <include refid="Where_Common"/>
+     </select>
+     
+       <!-- 查询交易详情 -->
+	   <select id="queryDetailByTransNo" resultType="map" parameterType="string" >
+	    select laioi.trans_no,laioi.mobile,ld.type_name ,ld2.type_name as nature_name,laioi.customer_name,laioi.account_holder,laioi.amount,laioi.account_id,laioi.customer_id,
+	    laioi.bank_name,laioi.bank_card_no,laioi.create_time,laioi.create_user,ac.task_end_date,ac.assignee_name,ac.status,ac.msg,
+		laioi.certificate_no,lac.bank_name as bname,lac.bank_card_no as bcardno,lac.account_holder as aholder,laioi.company_id,laioi.union_id from  loan_account_in_out_info  laioi left join act_comment ac on laioi.trans_no = ac.business_id
+		left join loan_account_card  lac  on  laioi.bank_id = lac.id
+		left join loan_dictionary ld  on  laioi.customer_type =ld.type_id and ld.category='customer_type'
+		left join loan_dictionary ld2  on  laioi.customer_nature = ld2.type_id and ld2.category='invest_customer_nature'  where 1=1 
+		and  laioi.trans_no=#{transNo} limit 1
+       </select>
+       
+       <!--  查询总记录及总金额 -->
+	   <select id="queryTransTotal" resultType="map" parameterType="map" >
+	   select count(1) as totalCount ,IFNULL(sum(laioi.amount),0) as totalAmount from loan_account_in_out_info   laioi  
+	   left join act_comment ac on laioi.trans_no = ac.business_id
+	   left join loan_dictionary ld  on  laioi.customer_type =ld.type_id and ld.category='customer_type'
+	   left join loan_dictionary ld2  on  laioi.customer_nature = ld2.type_id and ld2.category='invest_customer_nature'  where 1=1  
+	   and laioi.trans_type =#{transType} 
+		  <if test="transNo!=null and ''!=transNo">
+		   and  laioi.trans_no=#{transNo}
+		  </if>
+		  <if test="approveStatus!=null and ''!=approveStatus">
+		    and ac.status=#{approveStatus}
+		  </if>
+		  <if test="startTime != null and startTime != ''" >
+          <![CDATA[and  laioi.create_time>=#{startTime}]]>
+         </if>
+	     <if test="endTime != null and endTime != ''" >
+	       <![CDATA[and  laioi.create_time<=#{endTime}]]>
+	     </if>
+	     <if test="customerNature!=null and ''!=customerNature">
+			and laioi.customer_nature=#{customerNature}
+		 </if>
+         <if test="mobile!=null and ''!=mobile">
+		   and laioi.mobile =#{mobile}
+		 </if>
+		  <if test="transStatus!=null and ''!=transStatus">
+		   and laioi.status =#{transStatus}
+		 </if>
+		  <if test="customerName!=null and ''!=customerName">
+		   and laioi.customer_name like CONCAT('%', #{customerName}, '%')
+		  </if>
+		   <if test="accountId!=null and ''!=accountId">
+		   and laioi.account_id =#{accountId}
+		  </if>
+		   <if test="customerId!=null and ''!=customerId">
+		   and laioi.customer_id =#{customerId}
+		 </if>
+		  <include refid="Where_Common"/>
+       </select>
+       
+       
+       <!-- 查询提现申请列表 -->
+	   <select id="queryDepositApplyList" resultType="com.lhhs.loan.dao.domain.LoanAccountInOutInfo" parameterType="com.lhhs.loan.dao.domain.LoanAccountInOutInfo" >
+	    select laioi.trans_no,laioi.customer_type,laioi.customer_nature,laioi.certificate_no,laioi.order_no,laioi.customer_name,laioi.mobile,ld.type_name ,ld2.type_name as nature_name,laioi.account_holder,laioi.amount,
+	    laioi.bank_name,laioi.bank_card_no,laioi.create_time,laioi.create_user,ac.task_end_date,ac.assignee_name,ac.status,lasi.subject_name,laioi.field1
+		from  loan_account_in_out_info  laioi left join act_comment ac on laioi.trans_no = ac.business_id
+		left join loan_dictionary ld  on  laioi.customer_type =ld.type_id and ld.category='customer_type'
+		left join loan_dictionary ld2  on  laioi.customer_nature = ld2.type_id and ld2.category='loan_customer_nature' 
+		left join loan_accounts_subject_info lasi on laioi.field1=lasi.subject_id
+		where 1=1 
+		 <include refid="Where_Common_accountInOut"/>
+		 <include refid="Where_Common"/>
+		   order by  laioi.create_time desc
+	      <if test="page!=null ">
+		   limit #{page.pageStartIndex},#{page.pageSize}
+	      </if>
+     </select>
+       <!-- 查询提现申请列表总额 -->
+	   <select id="queryTotalAmount" resultType="map"  parameterType="com.lhhs.loan.dao.domain.LoanAccountInOutInfo" >
+	    select sum(laioi.amount) totalAmount
+		from  loan_account_in_out_info  laioi left join act_comment ac on laioi.trans_no = ac.business_id
+		left join loan_dictionary ld  on  laioi.customer_type =ld.type_id and ld.category='customer_type'
+		left join loan_dictionary ld2  on  laioi.customer_nature = ld2.type_id and ld2.category='loan_customer_nature' 
+		left join loan_accounts_subject_info lasi on laioi.field1=lasi.subject_id
+		where 1=1 
+		 <include refid="Where_Common_accountInOut"/>
+		 <include refid="Where_Common"/>
+		   order by  laioi.create_time desc
+	      <if test="page!=null ">
+		   limit #{page.pageStartIndex},#{page.pageSize}
+	      </if>
+     </select>
+	   <select id="queryDepositApplyCount" resultType="int" parameterType="com.lhhs.loan.dao.domain.LoanAccountInOutInfo" >
+	    select count(1)	from  loan_account_in_out_info  laioi left join act_comment ac on laioi.trans_no = ac.business_id
+		left join loan_dictionary ld  on  laioi.customer_type =ld.type_id and ld.category='customer_type'
+		left join loan_dictionary ld2  on  laioi.customer_nature = ld2.type_id and ld2.category='loan_customer_nature' 
+		left join loan_accounts_subject_info lasi on laioi.field1=lasi.subject_id
+		where 1=1 
+		 <include refid="Where_Common_accountInOut"/>
+		 <include refid="Where_Common"/>
+		   order by  laioi.create_time desc
+     </select>
+     
+</mapper>

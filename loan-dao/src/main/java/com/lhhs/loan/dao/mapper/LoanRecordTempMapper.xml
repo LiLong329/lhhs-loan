@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanRecordTempMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanRecordTemp" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="trans_main_id" property="transMainId" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="lender_id" property="lenderId" jdbcType="VARCHAR" />
+    <result column="lender_name" property="lenderName" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+    <result column="customer_nature" property="customerNature" jdbcType="VARCHAR" />
+    <result column="loan_amount" property="loanAmount" jdbcType="DECIMAL" />
+    <result column="loan_term" property="loanTerm" jdbcType="VARCHAR" />
+    <result column="loan_rate" property="loanRate" jdbcType="DECIMAL" />
+    <result column="loan_rate_unit" property="loanRateUnit" jdbcType="VARCHAR" />
+    <result column="loan_time" property="loanTime" jdbcType="TIMESTAMP" />
+    <result column="anticipated_interest" property="anticipatedInterest" jdbcType="DECIMAL" />
+    <result column="interest_margin" property="interestMargin" jdbcType="DECIMAL" />
+    <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+    <result column="trans_type" property="transType" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, customer_id, account_id, trans_main_id, order_no, lender_id, lender_name, org_id, 
+    org_name, customer_nature, loan_amount, loan_term, loan_rate, loan_rate_unit, loan_time, 
+    anticipated_interest, interest_margin, apply_time, trans_type, company_id, union_id, 
+    status, create_user, create_time, last_user, last_modify_time, field1, field2, field3, 
+    field4, field5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_record_temp
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_record_temp
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanRecordTemp" >
+    insert into loan_record_temp (id, customer_id, account_id, 
+      trans_main_id, order_no, lender_id, 
+      lender_name, org_id, org_name, 
+      customer_nature, loan_amount, loan_term, 
+      loan_rate, loan_rate_unit, loan_time, 
+      anticipated_interest, interest_margin, apply_time, 
+      trans_type, company_id, union_id, 
+      status, create_user, create_time, 
+      last_user, last_modify_time, field1, 
+      field2, field3, field4, 
+      field5)
+    values (#{id,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, 
+      #{transMainId,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{lenderId,jdbcType=VARCHAR}, 
+      #{lenderName,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR}, 
+      #{customerNature,jdbcType=VARCHAR}, #{loanAmount,jdbcType=DECIMAL}, #{loanTerm,jdbcType=VARCHAR}, 
+      #{loanRate,jdbcType=DECIMAL}, #{loanRateUnit,jdbcType=VARCHAR}, #{loanTime,jdbcType=TIMESTAMP}, 
+      #{anticipatedInterest,jdbcType=DECIMAL}, #{interestMargin,jdbcType=DECIMAL}, #{applyTime,jdbcType=TIMESTAMP}, 
+      #{transType,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, #{unionId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastUser,jdbcType=VARCHAR}, #{lastModifyTime,jdbcType=TIMESTAMP}, #{field1,jdbcType=VARCHAR}, 
+      #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, #{field4,jdbcType=VARCHAR}, 
+      #{field5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanRecordTemp" >
+    insert into loan_record_temp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="transMainId != null" >
+        trans_main_id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="lenderId != null" >
+        lender_id,
+      </if>
+      <if test="lenderName != null" >
+        lender_name,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="orgName != null" >
+        org_name,
+      </if>
+      <if test="customerNature != null" >
+        customer_nature,
+      </if>
+      <if test="loanAmount != null" >
+        loan_amount,
+      </if>
+      <if test="loanTerm != null" >
+        loan_term,
+      </if>
+      <if test="loanRate != null" >
+        loan_rate,
+      </if>
+      <if test="loanRateUnit != null" >
+        loan_rate_unit,
+      </if>
+      <if test="loanTime != null" >
+        loan_time,
+      </if>
+      <if test="anticipatedInterest != null" >
+        anticipated_interest,
+      </if>
+      <if test="interestMargin != null" >
+        interest_margin,
+      </if>
+      <if test="applyTime != null" >
+        apply_time,
+      </if>
+      <if test="transType != null" >
+        trans_type,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUser != null" >
+        last_user,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="transMainId != null" >
+        #{transMainId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lenderId != null" >
+        #{lenderId,jdbcType=VARCHAR},
+      </if>
+      <if test="lenderName != null" >
+        #{lenderName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNature != null" >
+        #{customerNature,jdbcType=VARCHAR},
+      </if>
+      <if test="loanAmount != null" >
+        #{loanAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="loanTerm != null" >
+        #{loanTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="loanRate != null" >
+        #{loanRate,jdbcType=DECIMAL},
+      </if>
+      <if test="loanRateUnit != null" >
+        #{loanRateUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="loanTime != null" >
+        #{loanTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="anticipatedInterest != null" >
+        #{anticipatedInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="interestMargin != null" >
+        #{interestMargin,jdbcType=DECIMAL},
+      </if>
+      <if test="applyTime != null" >
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transType != null" >
+        #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanRecordTemp" >
+    update loan_record_temp
+    <set >
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="transMainId != null" >
+        trans_main_id = #{transMainId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lenderId != null" >
+        lender_id = #{lenderId,jdbcType=VARCHAR},
+      </if>
+      <if test="lenderName != null" >
+        lender_name = #{lenderName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNature != null" >
+        customer_nature = #{customerNature,jdbcType=VARCHAR},
+      </if>
+      <if test="loanAmount != null" >
+        loan_amount = #{loanAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="loanTerm != null" >
+        loan_term = #{loanTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="loanRate != null" >
+        loan_rate = #{loanRate,jdbcType=DECIMAL},
+      </if>
+      <if test="loanRateUnit != null" >
+        loan_rate_unit = #{loanRateUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="loanTime != null" >
+        loan_time = #{loanTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="anticipatedInterest != null" >
+        anticipated_interest = #{anticipatedInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="interestMargin != null" >
+        interest_margin = #{interestMargin,jdbcType=DECIMAL},
+      </if>
+      <if test="applyTime != null" >
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transType != null" >
+        trans_type = #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanRecordTemp" >
+    update loan_record_temp
+    set customer_id = #{customerId,jdbcType=VARCHAR},
+      account_id = #{accountId,jdbcType=VARCHAR},
+      trans_main_id = #{transMainId,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      lender_id = #{lenderId,jdbcType=VARCHAR},
+      lender_name = #{lenderName,jdbcType=VARCHAR},
+      org_id = #{orgId,jdbcType=VARCHAR},
+      org_name = #{orgName,jdbcType=VARCHAR},
+      customer_nature = #{customerNature,jdbcType=VARCHAR},
+      loan_amount = #{loanAmount,jdbcType=DECIMAL},
+      loan_term = #{loanTerm,jdbcType=VARCHAR},
+      loan_rate = #{loanRate,jdbcType=DECIMAL},
+      loan_rate_unit = #{loanRateUnit,jdbcType=VARCHAR},
+      loan_time = #{loanTime,jdbcType=TIMESTAMP},
+      anticipated_interest = #{anticipatedInterest,jdbcType=DECIMAL},
+      interest_margin = #{interestMargin,jdbcType=DECIMAL},
+      apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      trans_type = #{transType,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <delete id="deleteByOrderNo" parameterType="java.lang.String" >
+    delete from loan_record_temp
+    where order_no = #{orderNo,jdbcType=VARCHAR}
+  </delete>
+</mapper>

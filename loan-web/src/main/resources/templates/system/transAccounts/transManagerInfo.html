@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+             <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>资金管理</li>
+                        <li>转账管理</li>
+                        <li>转账记账记录详情</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                         <div class="formtitle"><span>转账记账详情</span></div>
+                        <div class="toolsli">
+                            <ul class="nbbdgl-Ui clearfix">
+                                <li>
+                                    <span class="tips">交易ID：</span>
+                                    <span th:text="${transAccountInfo.transId}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">申请时间：</span>
+                                    <span th:text="${transAccountInfo.createTime}?${#dates.format(transAccountInfo.createTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">转账金额：</span>
+                                    <span th:text="${#numbers.formatDecimal(transAccountInfo.inAccount,1,2)}"></span>
+                                    <span >元</span>
+                                </li>
+                                <li>
+                                    <span class="tips">转账时间：</span>
+                                    <span th:text="${transAccountInfo.transferTime}?${#dates.format(transAccountInfo.transferTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">备注：</span>
+                                    <span th:text="${transAccountInfo.remarks}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">审核时间：</span>
+                                    <span th:text="${transAccountInfo.taskEndDate}?${#dates.format(transAccountInfo.taskEndDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="toolsli">
+                            <strong style="padding-bottom:15px; display:inline-block;">转出账户信息：</strong>
+                            <ul class="nbbdgl-Ui clearfix">
+                                <li>
+                                    <span class="tips">客户类型：</span>
+                                    <span th:text="${transAccountInfo.outTypeName}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">客户性质：</span>
+                                    <span th:text="${transAccountInfo.outPropertyName}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">手机号：</span>
+                                    <span th:text="${transAccountInfo.outAccountMobile}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">姓名：</span>
+                                    <span th:text="${transAccountInfo.outAccountRealName}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">账户余额（转账前）：</span>
+                                    <span th:text="${transAccountInfo.outAccountPreBalance}?${#numbers.formatDecimal(transAccountInfo.outAccountPreBalance,1,2)}:0.00">元</span>
+                                    <span>元</span>
+                                </li>
+                                <li>
+                                    <span class="tips">账户余额（转账后）：</span>
+                                    <span th:text="${transAccountInfo.outAccountSufBalance}?${#numbers.formatDecimal(transAccountInfo.outAccountSufBalance,1,2)}:0.00"></span>
+                                	<span>元</span>
+                                </li>
+                            </ul>
+                            <div class="lines"></div>
+                            <strong style="padding-bottom:15px; display:inline-block;">收款账户信息：</strong>
+                            <ul class="nbbdgl-Ui clearfix">
+                                <li>
+                                    <span class="tips">客户类型：</span>
+                                    <span th:text="${transAccountInfo.inTypeName}">机构</span>
+                                </li>
+                                <li>
+                                    <span class="tips">客户性质：</span>
+                                    <span th:text="${transAccountInfo.inPropertyName}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">手机号：</span>
+                                    <span th:text="${transAccountInfo.inAccountMobile}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">姓名：</span>
+                                    <span th:text="${transAccountInfo.inAccountRealName}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">账户余额（转账前）：</span>
+                                    <span th:text="${transAccountInfo.inAccountPreBalance}?${#numbers.formatDecimal(transAccountInfo.inAccountPreBalance,1,2)}:0.00"></span>
+                                	 <span>元</span>
+                                </li>
+                                <li>
+                                    <span class="tips">账户余额（转账后）：</span>
+                                    <span th:text="${transAccountInfo.inAccountSufBalance}?${#numbers.formatDecimal(transAccountInfo.inAccountSufBalance,1,2)}:0.00"></span>
+                                    <span>元</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="formtitle pt20"><span>审核意见</span></div>
+                        <div class="toolsli">
+                            <ul class="nbbdgl-Ui clearfix">
+                                <li>
+                                    <span class="tips">审核人：</span>
+                                    <span th:text="${transAccountInfo.assigneeName}"></span>
+                                </li>
+                                <li>
+                                    <span class="tips">审核结果：</span>
+                                    <span>
+                                    	<th:block th:if="${transAccountInfo.status} eq 90">成功</th:block>
+                                        <th:block th:if="${transAccountInfo.status} eq 91">失败</th:block>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="tips">审核时间：</span>
+                                    <span th:text="${transAccountInfo.taskEndDate}?${#dates.format(transAccountInfo.taskEndDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                                </li>
+                                <li style="width:80%;">
+                                    <span class="tips">备注：</span>
+                                    <span th:text="${transAccountInfo.msg}"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+</body>
+</html>

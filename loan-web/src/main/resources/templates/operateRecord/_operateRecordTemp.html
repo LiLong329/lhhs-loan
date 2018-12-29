@@ -1,0 +1,49 @@
+<table class="tablelist">
+	<thead>
+		<tr>
+			<th>序号</th>
+			<th>用户</th>
+			<th>用户IP</th>
+			<th>时间</th>
+			<th>名称</th>
+			<th>参数</th>
+			<th>路径</th>
+		</tr>
+	</thead>
+	<tbody>
+		<th:block th:unless="${#lists.isEmpty(page.resultList)}">
+			<tr th:each="record,iter : ${page.resultList}">
+				<td th:text="(${page.pageIndex}-1)*${page.pageSize}+${iter.index}+1"></td>
+				<td th:text="${record.username}"></td>
+				<td th:text="${record.clientIp}"></td>
+				<td th:text="${record.requestTime}?${#dates.format(record.requestTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+				<td th:text="${record.title}"></td>
+				<td th:text="${record.paramData}"></td>
+				<td th:text="${record.uri}"></td>
+			</tr>
+		</th:block>
+		<th:block th:if="${#lists.isEmpty(page.resultList)}">
+			<tr>
+				<td colspan="7" class="textCt">暂无数据</td>
+			</tr>
+		</th:block>
+	</tbody>
+</table>
+<div class="pagin" th:unless="${#lists.isEmpty(page.resultList)}">
+	<div class="message">
+		共 <i class="blue" th:text="${page.totalCount}"></i> 
+		条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+	</div>
+	<ul class="paginList">
+		<li class="paginItem" th:if="${page.pageIndex} gt 1">
+			<a th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+		</li>
+		<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" 
+			th:classappend="(${page.pageIndex} eq ${x})?'current'">
+			<a th:attr="data-pagenum=${x}" th:text="${x}"></a>
+		</li>
+		<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+			<a th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+		</li> 
+	</ul>
+</div>

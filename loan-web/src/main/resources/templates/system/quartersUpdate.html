@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<body>
+<div class="father">
+    <header th:replace="common/top"></header>
+    <div class="common-content">
+        <div th:replace="common/left"></div>
+        <div class="common-right">
+            <div class="place" id="place">
+                <span>位置：</span>
+                <ul class="placeul">
+                    <li><a href="/index/index">首页</a></li>
+                    <li>系统管理</li>
+                    <li>权限设置</li>
+                    <li><a href="/systemManager/getQuarters">岗位管理</a></li>
+                    <li>修改</li>
+                </ul>
+            </div>
+            <div class="right-content">
+                <div class="formbody">
+                    <div class="formtitle"><span>修改岗位</span></div>
+                      <form id="quarters">
+                    <div class="toolsli">
+                        <ul class="nbbdgl-Ui">
+                            <li>
+                                <span class="tips">岗位编号：</span>
+                                <input type="text" class="txt"  readonly="readonly" th:value="${quarters.quartersId}"  name="quartersId"/>
+                            </li>
+                            <li>
+                                <span class="tips">岗位名称：</span>
+                                <input type="text" class="txt validate[required]"  th:value="${quarters.name}" name="name"/>
+                            </li>
+                            
+                             <li>
+                                <span class="tips">岗位英文名称：</span>
+                                <input type="text" class="txt validate[required,custom[onlyLetterSp]]" th:value="${quarters.englishName}" name="englishName"/>
+                            </li>
+                            
+                              <th:block th:if="${isAdmin} eq true">
+                             <th:block if="${not #lists.isEmpty(companyList)}">
+                             <li style="width: 80%;">
+	                                <span class="tips">所属集团：</span>
+	                                <div class="vocation">
+	                                    <select class="select-common select1" name="unionId">
+	                                        <option value="">请选择</option>
+	                                        <option class="leGroupId" th:each="company : ${companyList}" th:value="${company.companyId}" 
+	                                        th:text="${company.companyName}" th:attr="selected=(${quarters.unionId} eq ${company.companyId})?true:false"></option>
+	                                    </select>
+	                                </div>
+	                            </li>
+                            
+                            </th:block>
+                             </th:block>
+                             
+                               <li>
+	                           <span class="tips">是否限制组织机构：</span>
+	                            <cite>
+                               <input type="radio"  id="AuditPass1" value="1" name="limitFlag" th:attr="checked=(${quarters.limitFlag} eq '1'?true:false)"/>
+                                <label for="AuditPass1">限制</label>
+                               <input type="radio" id="AuditPass2" value="0" name="limitFlag" th:attr="checked=(${quarters.limitFlag} eq '0'?true:false)"/>
+                               <label for="AuditPass2">不限制</label>
+	                           </cite>
+	                           </li>
+                          
+                            <li style="width: 80%;">
+                                <span class="tips">描述：</span>
+                                <textarea class="area"  name="depict" th:text="${quarters.depict}"></textarea>
+                            </li>
+                            <li style="width: 80%;">
+                                <span class="tips">备注：</span>
+                                <textarea class="area" name="remark" th:text="${quarters.remark}"></textarea>
+                            </li>
+                            <li style="width: 80%;">
+                                <span class="tips">&nbsp;</span>
+                                <input type="button" class="scbtn mlt10" id="btn_save" value="保 存"/>
+                                <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);"/>
+                            </li>
+                        </ul>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="common/footer"></footer>
+</div>
+  <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+  <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+  <script> seajs.use("system/quartersUpdate");</script>
+</body>
+</html>

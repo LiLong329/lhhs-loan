@@ -1,0 +1,67 @@
+<table class="tablelist">
+    <thead>
+        <tr>
+			
+				<th>标题</th>
+				<th>任务名称</th>
+				<th>流程名称</th>
+				<th>流程版本</th>
+				<th>创建时间</th>
+				<th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        <th:block th:unless="${#lists.isEmpty(page.resultList)}">
+			<tr th:each="model : ${page.resultList}">
+				<td th:text="${model.title}"></td>
+				<td th:text="${model.taskName}"></td>
+				<td th:text="${model.procName}"></td>
+				<td th:text="${model.version}"></td>
+				<td th:text="${model.taskCreateDate}?${#dates.format(model.taskCreateDate,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+				
+				<td>
+				<a href="javascript:void(0);" class="tablelink tastDo" th:attr="data-taskId=${model.id},data-taskName=${model.name},data-taskDefKey=${model.taskDefinitionKey},data-procInsId=${model.processInstanceId},data-procDefId=${model.processDefinitionId},data-status=${model.status}">
+						任务办理
+				</a>
+				<a href="javascript:void(0);" class="tablelink tastDel" th:attr="data-taskId=${model.id},data-taskName=${model.name},data-taskDefKey=${model.taskDefinitionKey},data-procInsId=${model.processInstanceId},data-procDefId=${model.processDefinitionId},data-status=${model.status}">
+						删除任务
+				</a>
+				<a href="javascript:void(0);" class="tablelink tastDiagram" th:attr="data-taskId=${model.id},data-taskName=${model.name},data-taskDefKey=${model.taskDefinitionKey},data-procInsId=${model.processInstanceId},data-procDefId=${model.processDefinitionId},data-status=${model.status}">
+						跟踪
+				</a>
+				<a href="javascript:void(0);" class="tablelink tastPhoto" th:attr="data-taskId=${model.id},data-taskName=${model.name},data-taskDefKey=${model.taskDefinitionKey},data-procInsId=${model.processInstanceId},data-procDefId=${model.processDefinitionId},data-status=${model.status}">
+						跟踪2
+				</a>
+					
+				</td>
+			</tr>
+		</th:block>
+		<th:block th:if="${#lists.isEmpty(page.resultList)}">
+			<tr>
+				<td colspan="9" class="textCt">暂无数据</td>
+			</tr>
+		</th:block>
+    </tbody>
+</table>
+<th:block th:unless="${#lists.isEmpty(page.resultList)}">
+    
+    <div class="pagin" style="margin-top: 0px;">
+    	<div class="message">
+    		共 <i class="blue" th:text="${page.totalCount}"></i> 
+			条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+		</div>
+		<ul class="paginList">
+			<li class="paginItem" th:if="${page.pageIndex} gt 1">
+				<a th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+			</li>
+			<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" th:classappend="(${page.pageIndex} eq ${x})?'current'">
+				<a th:attr="data-pagenum=${x}" th:text="${x}"></a>
+			</li>
+			<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+				<a th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+			</li> 
+		</ul>
+    </div>
+</th:block>

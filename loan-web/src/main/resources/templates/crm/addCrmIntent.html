@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<script src="/js/public/area.js"></script>
+<style>
+	.nbbdgl-Ui li {width:33.3%;}
+	.nbbdgl-Ui li .tips{width:95px; margin-left:0;}
+</style>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>客户管理</li>
+                        <li>客户信息管理</li>
+                        <li><a href="/crmIntentLoanUser/crmIntentList">客户列表</a></li>
+                        <li>新增</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div class="formtitle"><span>新增意向客户</span></div>
+                        <div class="toolsli">
+                            <ul class="nbbdgl-Ui clearfix">
+                            	<form id="myForm">
+                            	     <input type="hidden" name="status" value="01" />
+                            	     <li style="width: 33%;">
+	                                    <span class="tips"><em class="red">*</em> 省市：</span>
+										<div class="clearfix fl">
+					                        <div class="vocation">
+									          	<select class="select-common select3 provinceSelect validate[required]" name="province" style="width: 95px;"></select>
+								            </div>
+								            <span>省</span>
+					                        <div class="vocation">
+									          	<select class="select-common select3 citySelect validate[required]" name="city" style="width: 95px;"></select>
+								            </div>
+							            </div>
+	                                </li>
+	                                
+	                                 <li style="width: 33%;">
+	                                  <span class="tips"><em class="red">*</em> 指向分公司：</span>
+	                            	  <div class="vocation">
+	                            	 <select class="select-common select1 validate[required]" name="appointCompanyId" id="appointCompanyId" style="width: 252px;">
+	                                       <option value="">请选择</option>
+	                                       <option th:each="company : ${companys}" th:value="${company.companyId}" th:text="${company.companyName}"></option>
+	                                 </select>
+	                                  </div>
+                                    </li>
+                            		
+	                                <li style="width: 33%;">
+	                                    <span class="tips"><em class="red">*</em> 客户姓名：</span>
+	                                    <input type="text" class="txt validate[required,custom[chineseName],minSize[2],maxSize[15]]" name="name" maxLength="15" />
+	                                </li>
+	                                <li>
+	                                    <span class="tips"><em class="red">*</em> 手机号：</span>
+	                                    <input type="text" class="txt validate[required,custom[mobile]]" name="mobile" maxLength="11"/>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">性别：</span>
+	                                     <div class="vocation">
+	                                    <select class="select-common select1" name="sex" style="width: 252px;">
+	                                            <option value="">请选择</option>
+	                                            <option value="1">男</option>
+	                                            <option value="0">女</option>
+	                                        </select>
+	                                      </div>
+	                                </li>
+	                                  <li>
+	                                    <span class="tips"><em class="red">*</em> 意向贷款金额：</span>
+	                                    <input type="text" class="txt validate[required,custom[numberTwo]]" maxlength="10" name="loanAmount" style="width: 205px;"/>
+	                                    <span>万元</span>
+	                                </li>
+	                                <li>
+	                                    <span class="tips"><em class="red">*</em> 借款期限：</span>
+	                                    <input type="text" class="txt validate[required,custom[integer]]" maxlength="4" name="duration" style="width: 160px;"/>
+	                                     <span>
+	                                      <div class="vocation">
+	                                        <select class="select-common select1" name="durationUnit" style="width: 60px;">
+	                                            <option value="年">年</option>
+	                                            <option value="个月">个月</option>
+	                                            <option value="天">天</option>
+	                                        </select>
+	                                    </div>
+	                                     </span>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">借款利率：</span>
+	                                    <div class="clearfix fl">
+		                                    <input type="text" class="txt validate[custom[numberThree]]" maxlength="6" name="interestRate" style="width: 140px;"/>
+		                                   	<span>%/</span>
+		                                    <div class="vocation">
+		                                        <select class="select-common select1" name="rateUnit" style="width: 60px;">
+		                                            <option value="年">年</option>
+		                                            <option value="月">月</option>
+		                                            <option value="天">天</option>
+		                                            <option value="次">次</option>
+		                                        </select>
+		                                    </div>
+	                                    </div>
+	                                </li>
+	                              <!--
+	                                <li>
+	                                    <span class="tips"><em class="red">*</em> 年龄：</span>
+	                                    <input type="text" class="txt validate[custom[integer]]" maxlength="3" name="age"/>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">身份证：</span>
+	                                    <input type="text" class="txt validate[custom[chinaIdLoose]]" name="idNumber" maxlength="18"/>
+	                                </li>
+	                     
+	                                <li>
+	                                    <span class="tips">房产地址：</span>
+	                                    <input type="text" class="txt" name="houseAddress" maxlength="200"/>
+	                                </li> -->
+	                                <li>
+	                                    <span class="tips">业务类型：</span>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1" name="businessType" style="width: 252px;">
+	                                            <option value="">请选择</option>
+	                                            <option th:each="pro : ${productList}" th:value="${pro.product_no}" th:text="${pro.product_type}"></option>
+<!-- 	                                            <option value="1">房产抵押贷</option>
+	                                            <option value="2">信用贷</option>
+	                                            <option value="3">车辆抵押贷</option>
+	                                            <option value="4">垫资过桥</option>
+	                                            <option value="5">解查封</option>
+	                                            <option value="6">其他</option> -->
+	                                        </select>
+	                                    </div>
+	                                </li>
+	                                
+	                                  <li>
+	                                    <span class="tips">客户状态：</span>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1" name="businessStatus" style="width: 252px;">
+	                                            <option value="">请选择</option>
+	                                            <option value="01">初步接触</option>
+	                                            <option value="02">意向客户</option>
+	                                            <option value="03">跟进客户</option>
+	                                            <option value="07">面谈客户</option>
+	                                            <option value="04">签约客户</option>
+	                                            <option value="05">放弃客户</option>
+	                                            <option value="06">黑名单</option>
+	                                        </select>
+	                                    </div>
+	                                </li>
+	                                
+	                                 <li>
+	                                    <span class="tips">客户来源：</span>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1" name="source" style="width: 252px;">
+	                                            <option value="">请选择</option>
+	                                            <option value="01">陌拜</option>
+	                                            <option value="02">电销</option>
+	                                            <option value="03">转介绍</option>
+	                                            <option value="04">网络</option>
+	                                            <option value="05">报刊</option>
+	                                            <option value="06">其他</option>
+	                                            <option value="07">中视天脉</option>
+	                                        </select>
+	                                    </div>
+	                                </li>
+	                                 <li>
+	                                    <span class="tips">客户等级：</span>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1" name="grade" style="width: 252px;">
+	                                            <option value="">请选择</option>
+	                                            <option value="01">普通客户</option>
+	                                            <option value="02">重要客户</option>
+	                                            <option value="03">重要紧急</option>
+	                                        </select>
+	                                    </div>
+	                                </li>
+                            		
+                                </form>
+                            </ul>
+                            <p class="textCt">
+                            	<input type="button" class="scbtn mlt10" value="保 存" id="save_btn"/>
+	                            <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);"/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	    <script src="/js/public/select.js"></script>
+	    <footer th:replace="common/footer"></footer>
+    </div>
+    <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+	<script th:inline="javascript">
+       	seajs.use("crm/addCrmIntent");
+	</script>
+</body>
+</html>

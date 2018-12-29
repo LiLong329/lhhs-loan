@@ -1,0 +1,168 @@
+<div class="previewBack"></div>
+<div class="preview">
+    <div class="formbody">
+        <div class="previewItab">
+            <ul>
+                <li><a data-show="#preview1">还款计划表</a></li>
+                <li><a data-show="#preview2">放款记录表</a></li>
+                <li><a data-show="#preview3">待付款计划表</a></li>
+            </ul>
+        </div>
+        <div id="preview1" class="previewson">
+            <div class="previewCon">
+                <div class="previewLeft">
+                    <div class="toolsli">
+                        <ul class="nbbdgl-Ui">
+                            <li style="width:100%;">
+                                <span class="tips">放款金额：</span>
+                                <span th:text="${loanTransMain.amount}?${#numbers.formatDecimal(loanTransMain.amount,1,2)}+'元'"></span>
+                            </li>
+                            <li style="width:100%;">
+                                <span class="tips">放款期数：</span>
+                                <span th:text="${loanTransMain.term}+${loanTransMain.termUnit}"></span>
+                            </li>
+                            <li style="width:100%;">
+                                <span class="tips">放款利率：</span>
+                                <span th:text="${loanTransMain.rate}?${#numbers.formatDecimal(loanTransMain.rate,1,3)}+'%/'+${loanTransMain.rateUnit}"></span>
+                            </li>
+                            <li style="width:100%;">
+                                <span class="tips">实际放款时间：</span>
+                                <span th:text="${loanTransMain.lendingTime}?${#dates.format(loanTransMain.lendingTime,'yyyy-MM-dd HH:mm:ss')}:''"></span>
+                            </li>
+                            <li style="width:100%;">
+                                <span class="tips">还款方式：</span>
+                                <span>
+                                	<th:block th:if="${loanTransMain.repaymentMethod} eq 0">每月还息,到期还本</th:block>
+                                	<th:block th:if="${loanTransMain.repaymentMethod} eq 1">等额本息</th:block>
+                                	<th:block th:if="${loanTransMain.repaymentMethod} eq 2">一次性还款</th:block>
+                                </span>
+                            </li>
+                            <li style="width:100%;">
+                                <span class="tips">结息方式：</span>
+                                <span>
+                                	<th:block th:if="${loanTransMain.interestWay} eq 0">放款日结息</th:block>
+                                	<th:block th:if="${loanTransMain.interestWay} eq 1">到期日结息</th:block>
+                                	<th:block th:if="${loanTransMain.interestWay} eq 2">固定日结息</th:block>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="previewRight">
+                    <table class="tablelist">
+                        <thead>
+	                        <tr>
+	                            <th>期数</th>
+	                            <th>应还本金</th>
+	                            <th>应还本时间</th>
+	                            <th>应还利息</th>
+	                            <th>应还息时间</th>
+	                            <th>应还总额</th>
+	                        </tr>
+                        </thead>
+                        <tbody th:unless="${#lists.isEmpty(loanTransMain.listLoanPayPlanTemp)}">
+	                        <tr th:each="singe:${loanTransMain.listLoanPayPlanTemp}">
+	                            <td th:text="${singe.period}"></td>
+	                            <td th:text="${singe.repaymentCapital}?${#numbers.formatDecimal(singe.repaymentCapital,1,2)}:0.00"></td>
+	                            <td th:text="${singe.repaymentCapitalTime}?${#dates.format(singe.repaymentCapitalTime,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+	                            <td th:text="${singe.repaymentInterest}?${#numbers.formatDecimal(singe.repaymentInterest,1,2)}:0.00"></td>
+	                            <td th:text="${singe.repaymentInterestTime}?${#dates.format(singe.repaymentInterestTime,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+	                            <td th:text="${singe.repaymentTotal}?${#numbers.formatDecimal(singe.repaymentTotal,1,2)}:0.00"></td>
+	                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="preview2" class="previewson">
+            <div class="table-title">
+                <p class="tab-font">放款记录表</p>
+            </div>
+            <table class="tablelist">
+                <thead>
+                    <tr>
+                        <th>省市</th>
+                        <th>出借人姓名</th>
+                        <th>客户性质</th>
+                        <th>放款金额（元）</th>
+                        <th>放款利率</th>
+                        <th>放款时间</th>
+                        <th>报单编号</th>
+                        <th>产品类型</th>
+                        <th>产品名称</th>
+                        <th>借款期限</th>
+                        <th>借款利率</th>
+                        <th>借款人姓名</th>
+                        <th>预期利息（元）</th>
+                        <th>申请时间</th>
+                    </tr>
+                </thead>
+                <tbody th:unless="${#lists.isEmpty(loanTransMain.listLoanRecordTemp)}">
+                    <tr th:each="singe:${loanTransMain.listLoanRecordTemp}">
+                        <td th:text="${loanTransMain.provienceName}+${loanTransMain.cityName}"></td>
+                        <td th:text="${singe.lenderName}"></td>
+                        <td th:text="${singe.customerNatureName}"></td>
+                        <td th:text="${singe.loanAmount}?${#numbers.formatDecimal(singe.loanAmount,1,2)}:0.00+'元'"></td>
+                        <td th:text="${singe.loanRate}?${#numbers.formatDecimal(singe.loanRate,1,3)}+'%/'+${singe.loanRateUnit}"></td>
+                        <td th:text="${singe.loanTime}?${#dates.format(singe.loanTime,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+                        <td th:text="${singe.orderNo}"></td>
+                        <td th:text="${loanTransMain.productType}"></td>
+                        <td th:text="${loanTransMain.productName}"></td>
+                        <td th:text="${singe.term}"></td>
+                        <td th:text="${singe.rate}"></td>
+                        <td th:text="${singe.customerName}"></td>
+                        <td th:text="${singe.anticipatedInterest}?${#numbers.formatDecimal(singe.anticipatedInterest,1,2)}"></td>
+                        <td th:text="${singe.applyTime}?${#dates.format(singe.applyTime,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="preview3" class="previewson">
+            <div class="previewCon">
+                <div class="previewLeft">
+                    <div class="toolsli">
+                        <ul class="nbbdgl-Ui">
+                            <li style="width:100%;">
+                                <span class="tips">待付款总额：</span>
+                                <span th:text="${loanTransMain.sumFeesTotalPay}?${#numbers.formatDecimal(loanTransMain.sumFeesTotalPay,1,2)}+'元'"></span>
+                            </li>
+                            <li style="width:100%;">
+                                <span class="tips">待付款期数：</span>
+                                <span th:text="${loanTransMain.sumTerm}+'期'"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="previewRight">
+                    <table class="tablelist">
+                        <thead>
+                            <tr>
+                                <th>期数</th>
+                                <th>应收本金(元)</th>
+                                <th>应收本金时间</th>
+                                <th>应收利息(元)</th>
+                                <th>应收利息时间</th>
+                                <th>应收总额(元)</th>
+                            </tr>
+                        </thead>
+                        <tbody th:unless="${#lists.isEmpty(loanTransMain.listLoanPayPlanCompanyTemp)}">
+                            <tr th:each="singe:${loanTransMain.listLoanPayPlanCompanyTemp}">
+                                <td th:text="${singe.period}"></td>
+                                <td th:text="${singe.repaymentCapital}?${#numbers.formatDecimal(singe.repaymentCapital,1,2)}:0.00"></td>
+                                <td th:text="${singe.repaymentCapitalTime}?${#dates.format(singe.repaymentCapitalTime,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+                                <td th:text="${singe.repaymentInterest}?${#numbers.formatDecimal(singe.repaymentInterest,1,2)}:0.00"></td>
+                                <td th:text="${singe.repaymentInterestTime}?${#dates.format(singe.repaymentInterestTime,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+                                <td th:text="${singe.repaymentTotal}?${#numbers.formatDecimal(singe.repaymentTotal,1,2)}:0.00"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <p class="textCt">
+            <input type="button" class="scbtn" value="提 交" id="previewSubmit"/>
+            <input type="button" class="scbtn2 mlt10" value="取 消" id="previewCancel"/>
+        </p>
+    </div>
+</div>
+<script src="/js/public/previewItab.js"></script>

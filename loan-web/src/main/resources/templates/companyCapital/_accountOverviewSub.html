@@ -1,0 +1,60 @@
+<table class="tablelist">
+    <thead>
+        <tr>
+        	<th>公司ID</th>
+            <th>账户ID</th>
+            <th>公司名称</th>
+            <th>账户余额(元)</th>
+            <th>账户可用余额(元)</th>
+            <th>冻结金额(元)</th>
+            <th>在途金额(元)</th>
+            <th>账户状态</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <th:block th:unless="${#lists.isEmpty(page.resultList)}">
+			<tr th:each="singe,iterStat : ${page.resultList}">
+				<td th:text="${singe.ownerId}"></td>
+				<td th:text="${singe.accountId}"></td>
+				<td th:text="${singe.ownerName}"></td>
+				<td th:text="${singe.amount}?${#numbers.formatDecimal(singe.amount,1,2)}:0.00"></td>
+                <td th:text="${singe.balance}?${#numbers.formatDecimal(singe.balance,1,2)}:0.00"></td>
+                <td th:text="${singe.freezeTotal}?${#numbers.formatDecimal(singe.freezeTotal,1,2)}:0.00"></td>
+                <td th:text="${singe.transitTotal}?${#numbers.formatDecimal(singe.transitTotal,1,2)}:0.00"></td>
+                <td>
+                	<th:block th:if="${singe.status} eq '03'">正常</th:block>
+                	<th:block th:if="${singe.status} eq '99'">禁用</th:block>
+                </td>
+                <td>
+                    <a th:href="@{/accountInOut/depositRecord(accountId=${singe.accountId})}" class="tablelink">充值记录</a>
+                    <a th:href="@{/accountInOut/withdrawRecord(accountId=${singe.accountId})}" class="tablelink mlt10">提现记录</a>
+                </td>
+			</tr>
+		</th:block>
+		<th:block th:if="${#lists.isEmpty(page.resultList)}">
+			<tr>
+				<td colspan="9" class="textCt">暂无数据</td>
+			</tr>
+		</th:block>
+    </tbody>
+</table>
+<th:block th:unless="${#lists.isEmpty(page.resultList)}">
+    <div class="pagin">
+    	<div class="message">
+			共 <i class="blue" th:text="${page.totalCount}"></i> 
+			条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+		</div>
+		<ul class="paginList">
+			<li class="paginItem" th:if="${page.pageIndex} gt 1">
+				<a th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+			</li>
+			<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" th:classappend="(${page.pageIndex} eq ${x})?'current'">
+				<a th:attr="data-pagenum=${x}" th:text="${x}"></a>
+			</li>
+			<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+				<a th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+			</li> 
+		</ul>
+    </div>
+</th:block>

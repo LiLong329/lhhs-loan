@@ -1,0 +1,147 @@
+<table class="tablelist">
+	<thead>
+		<tr>
+			<th>报单编号</th>
+			<th>借款人姓名</th>
+			<th>借款金额</th>
+			<th>借款利率</th>
+			<th>还款方式</th>
+			<th>当前期数/总期数</th>
+			<th>应还金额(元)</th>
+			<th>应还本时间</th>
+			<th>应还息时间</th>
+			<th>放款利率</th>
+			<th>出借人姓名</th>
+			<th>应收金额(元)</th>
+			<th>应收本时间</th>
+			<th>应收息时间</th>
+			<th>借款人客户经理</th>
+			<th>银主客户经理</th>
+			<th>平台收入</th>
+			<th>平台支出</th>
+			<th>放款时间</th>
+			<th>操作</th><!-- sec:authorize="hasRole('ROLE_task_START')" -->
+		</tr>
+	</thead>
+	<tbody>
+		<th:block th:unless="${#lists.isEmpty(page.resultList)}">
+			<tr th:each="task : ${page.resultList}">
+				<td th:text="${task.businessId}"></td>
+				<td th:text="${task.borrower}"></td>
+				<td th:text="${task.amount}?${#numbers.formatDecimal(task.amount,1,2)}"></td>
+				<td th:text="${task.rate}?${#numbers.formatDecimal(task.rate,1,3)}+'%/'+${task.rateUnit}"></td>
+				<td>
+					<th:block th:if="${task.repaymentMethod} eq 0">每月还息,到期还本</th:block>
+                   	<th:block th:if="${task.repaymentMethod} eq 1">等额本息</th:block>
+                   	<th:block th:if="${task.repaymentMethod} eq 2">一次性还款</th:block>
+				</td>
+				<td th:if="${task.period} gt 0" th:text="${task.period}+'/'+${task.periodTotal}"></td>
+				<td th:if="${task.period} lt 0"></td>
+				<td th:text="${task.repaymentTotal}"></td>
+				<td th:text="${task.repaymentCapitalTime}?${#dates.format(task.repaymentCapitalTime,'yyyy/MM/dd HH:mm:ss')}"></td>
+				<td th:text="${task.repaymentInterestTime}?${#dates.format(task.repaymentInterestTime,'yyyy/MM/dd HH:mm:ss')}"></td>
+				<td th:text="${task.field2}"></td>
+				 <td th:text="${task.customerName}"></td>
+				<td th:text="${task.repaymentTotal}"></td>
+				<td th:text="${task.companyRepaymentCapitalTime}?${#dates.format(task.companyRepaymentCapitalTime,'yyyy/MM/dd HH:mm:ss')}"></td>
+				<td th:text="${task.companyRepaymentInterestTime}?${#dates.format(task.companyRepaymentInterestTime,'yyyy/MM/dd HH:mm:ss')}"></td>
+				<td th:text="${task.accountManager}"></td>
+				<td th:text="${task.userName}"></td>
+				<td th:text="${task.feesPlanPaidAmount}?${#numbers.formatDecimal(task.feesPlanPaidAmount,1,2)}"></td>
+				<td th:text="${task.feesAmount}?${#numbers.formatDecimal(task.feesAmount,1,2)}"></td>
+				<td th:text="${task.lendingTime}?${#dates.format(task.lendingTime,'yyyy/MM/dd HH:mm:ss')}"></td>
+				<td>
+					<a th:href="@{/payPlan/list(orderNo=${task.businessId})}">
+						还款|
+					</a>
+					<a th:href="@{/customerManager/loanPaymentList(orderno=${task.businessId})}">
+						付款|
+					</a>
+				    <a th:if="${task.feesPlanPaidAmount}" th:href="@{/feesPlan/earn(orderNo=${task.businessId})}">
+						收费|
+					</a>
+					<a th:if="${task.feesAmount}" th:href="@{/feesPlan/expend(orderNo=${task.businessId})}">
+						返费|
+					</a>
+					<a  th:if="${task.field5}" href="javascript:void(0);" th:href="@{/accountInOut/list(orderNo=${task.businessId})}">
+						确认
+					</a>
+				</td> 
+<!-- 				<td th:text="${task.businessId}"></td>
+				<td th:text="${task.borrower}"></td>
+				<td th:text="${task.borrowerAmount}?${#numbers.formatDecimal(task.borrowerAmount,1,2)}"></td>
+				<td th:text="${task.rate}?${#numbers.formatDecimal(task.rate,1,3)}+'%/'+${task.rateUnit}"></td>
+				<td>
+					<th:block th:if="${task.repaymentMethod} eq 0">每月还息,到期还本</th:block>
+                   	<th:block th:if="${task.repaymentMethod} eq 1">等额本息</th:block>
+                   	<th:block th:if="${task.repaymentMethod} eq 2">一次性还款</th:block>
+				</td>
+				<td th:text="${task.planPeriod}+'/'+${task.periodTotal}"></td>
+				<td th:if="${task.field6} eq 1002" th:text="${task.repaymentTotal}"></td>
+				<td th:if="${task.field6} eq 1002" th:text="${task.repaymentCapitalTime}?${#dates.format(task.repaymentCapitalTime,'yyyy/MM/dd HH:mm:ss')}"></td>
+				<td th:if="${task.field6} eq 1002" th:text="${task.repaymentInterestTime}?${#dates.format(task.repaymentInterestTime,'yyyy/MM/dd HH:mm:ss')}"></td>
+				<td th:if="${task.field6} neq 1002"></td>
+				<td th:if="${task.field6} neq 1002"></td>
+				<td th:if="${task.field6} neq 1002"></td>
+				<td th:text="${task.amountRate}"></td>
+				<td th:if="${task.field6} neq 1003"></td>
+				<td th:if="${task.field6} neq 1003"></td>
+				<td th:if="${task.field6} neq 1003"></td>
+				<td th:text="${task.customerName}"></td>
+				<td th:if="${task.field6} eq 1003" th:text="${task.repaymentTotal}"></td>
+				<td th:if="${task.field6} eq 1003" th:text="${task.repaymentCapitalTime}?${#dates.format(task.repaymentCapitalTime,'yyyy/MM/dd HH:mm:ss')}"></td>
+				<td th:if="${task.field6} eq 1003" th:text="${task.repaymentInterestTime}?${#dates.format(task.repaymentInterestTime,'yyyy/MM/dd HH:mm:ss')}"></td>
+				<td th:text="${task.companyRepaymentCapitalTime}?${#dates.format(task.companyRepaymentCapitalTime,'yyyy/MM/dd HH:mm:ss')}"></td>
+				<td th:text="${task.companyRepaymentInterestTime}?${#dates.format(task.companyRepaymentInterestTime,'yyyy/MM/dd HH:mm:ss')}"></td>
+				<td th:text="${task.accountManager}"></td>
+				<td th:text="${task.userName}"></td>
+				<td th:if="${task.transType} eq 01" th:text="${task.feesAmount}"></td>
+				<td th:if="${task.transType} neq 01"></td>
+				<td th:if="${task.transType} neq 02"></td>
+				<td th:if="${task.transType} eq 02" th:text="${task.feesAmount}"></td>
+				<td th:text="${task.lendingTime}?${#dates.format(task.lendingTime,'yyyy/MM/dd HH:mm:ss')}"></td>
+				<td>
+					<a th:if="${task.field6} eq 1002" th:href="@{/payPlan/list(orderNo=${task.businessId})}">
+						还款|
+					</a>
+					<a th:if="${task.field6} eq 1003" th:href="@{/customerManager/loanPaymentList(orderno=${task.businessId})}">
+						付款|
+					</a>
+					<a th:if="${task.transType} eq 01" th:href="@{/feesPlan/earn(orderNo=${task.businessId})}">
+						收费|
+					</a>
+					<a th:if="${task.transType} eq 02" th:href="@{/feesPlan/expend(orderNo=${task.businessId})}">
+						返费|
+					</a>
+					<a href="javascript:void(0);">
+						确认
+					</a>
+				</td> -->
+			</tr>
+		</th:block>
+
+		<th:block th:if="${#lists.isEmpty(page.resultList)}">
+			<tr>
+				<td colspan="20" class="textCt">暂无数据</td>
+			</tr>
+		</th:block>
+	</tbody>
+</table>
+<div class="pagin" style="margin-top: 0px;" th:unless="${#lists.isEmpty(page.resultList)}">
+	<div class="message">
+		共 <i class="blue" th:text="${page.totalCount}"></i> 
+		条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+	</div>
+	<ul class="paginList">
+		<li class="paginItem" th:if="${page.pageIndex} gt 1">
+			<a th:attr="data-pagenum=(${page.pageIndex}-1),data-pagesize=${page.pageSize}" class="pagepre"></a>
+		</li>
+		<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" 
+		th:classappend="(${page.pageIndex} eq ${x})?'current'">
+			<a th:attr="data-pagenum=${x},data-pagesize=(${page.pageSize})" th:text="${x}"></a>
+		</li>
+		<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+			<a th:attr="data-pagenum=(${page.pageIndex}+1),data-pagesize=(${page.pageSize})" class="pagenxt"></a>
+		</li> 
+	</ul>
+</div>

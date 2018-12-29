@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<body class="hold-transition">
+
+  <div class="hide">
+    
+    <form th:action="${ssoUrl}" method="get" id="form">
+    		  <input  name="myId"  type="hidden"    th:value="${myId}"/>
+    		  <input  name="peerId"  type="hidden"  th:value="${peerId}"/>
+    		  <input  name="ticket"  type="hidden"    th:value="${ticket}"/>
+    		  <input  name="userName"  type="hidden"    th:value="${userName}"/>
+    		  <input  name="orgId"  type="hidden"    th:value="${orgId}"/>
+    		  <button type="submit" id="submitBtn" ></button>
+    </form>
+  </div>
+  <div th:replace="common/src"></div>
+  
+<script type="text/javascript">
+	$("#submitBtn").click();
+</script>
+</body>
+</html>
+

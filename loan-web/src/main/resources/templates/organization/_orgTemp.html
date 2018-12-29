@@ -1,0 +1,71 @@
+<table class="tablelist">
+	<thead>
+		<tr>
+			<th>机构ID</th>
+			<th>机构类别</th>
+			<th>机构类型</th>
+			<th>业务类型</th>
+			<th>机构名称</th>
+			<th>机构全称</th>
+			<th>机构代码</th>
+			<th>添加时间</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		<th:block th:unless="${#lists.isEmpty(page.resultList)}">
+			<tr th:each="org,iter : ${page.resultList}">
+				<td th:text="${org.customerId}"></td>
+				<td th:switch="${org.orgCategories}">
+					<th:block th:case="1">资金方</th:block>
+					<th:block th:case="2">借款方</th:block>
+					<th:block th:case="3">借款方&amp;资金方</th:block>
+				</td>
+				<td th:switch="${org.orgType}">
+					<th:block th:case="1">银行</th:block>
+					<th:block th:case="2">典当行</th:block>
+					<th:block th:case="3">小贷公司</th:block>
+					<th:block th:case="4">催收机构</th:block>
+					<th:block th:case="5">律所</th:block>
+					<th:block th:case="6">其他</th:block>
+				</td>
+				<td th:switch="${org.orgBusinessType}">
+					<th:block th:case="1">资金批发</th:block>
+					<th:block th:case="2">非资金批发</th:block>
+				</td>
+				<td th:text="${org.orgName}"></td>
+				<td th:text="${org.orgWholeName}"></td>
+				<td th:text="${org.orgCode}"></td>
+				<td th:text="${org.orgAddTime}?${#dates.format(org.orgAddTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+				<td>
+					<a sec:authorize="hasRole('ROLE_ORG_DETAILS')" th:href="@{/org/orgDetails(orgId=${org.orgId})}" class="tablelink">查看</a>
+					<a sec:authorize="hasRole('ROLE_ORG_MODIFY')" th:href="@{/org/orgModify(orgId=${org.orgId})}" class="tablelink mlt10">修改</a>
+				</td>
+			</tr>
+		</th:block>
+		<th:block th:if="${#lists.isEmpty(page.resultList)}">
+			<tr>
+				<td colspan="9" class="textCt">暂无数据</td>
+			</tr>
+		</th:block>
+	</tbody>
+</table>
+
+<div class="pagin" th:unless="${#lists.isEmpty(page.resultList)}">
+	<div class="message">
+		共 <i class="blue" th:text="${page.totalCount}"></i> 
+		条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+	</div>
+	<ul class="paginList">
+		<li class="paginItem" th:if="${page.pageIndex} gt 1">
+			<a th:attr="data-pagenum=(${page.pageIndex}-1),data-pagesize=${page.pageSize}" class="pagepre"></a>
+		</li>
+		<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" 
+		th:classappend="(${page.pageIndex} eq ${x})?'current'">
+			<a th:attr="data-pagenum=${x},data-pagesize=(${page.pageSize})" th:text="${x}"></a>
+		</li>
+		<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+			<a th:attr="data-pagenum=(${page.pageIndex}+1),data-pagesize=(${page.pageSize})" class="pagenxt"></a>
+		</li> 
+	</ul>
+</div>

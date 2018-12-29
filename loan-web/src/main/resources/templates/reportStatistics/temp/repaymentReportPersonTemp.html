@@ -1,0 +1,49 @@
+<table class="tablelist">
+         <thead>
+             <tr>
+                  <th>省市</th>
+                  <th>借款人</th>
+                  <th>借款人手机号</th>
+                  <th>待还款金额(元)</th>
+                  <!-- <th>应还款时间</th> -->
+             </tr>
+         </thead>
+         <tbody>
+			<th:block th:unless="${#lists.isEmpty(personPage.resultList)}">
+             <tr th:each="emp : ${personPage.resultList}" >
+                 <td th:text="${emp.provienceName}+'-'+${emp.cityName}"></td>
+                 <td th:text="${emp.customerName}"></td>
+                 <td th:text="${emp.customerMobile}" ></td>
+                 <td th:text="${#numbers.formatDecimal(emp.repaymentTotal,1,2)}"></td>
+             </tr>
+		</th:block>
+        <th:block th:if="${#lists.isEmpty(personPage.resultList)}">
+	    	<tr>
+			  <td colspan="4" class="textCt">暂无数据</td>
+		     </tr>
+	    </th:block>
+    </tbody>
+</table>  
+<div class="pagin" style="margin-top: 0px;" th:unless="${#lists.isEmpty(personPage.resultList)}">
+	<div class="message">
+ 		待还款总额：<b th:text="${#numbers.formatDecimal(personTotal/10000,1,'COMMA',2,'POINT')}"></b>万元&nbsp;&nbsp;&nbsp;
+	 </div>
+</div>
+<div class="pagin" style="margin-top: 0px;" th:unless="${#lists.isEmpty(personPage.resultList)}">
+	<div class="message">
+		共 <i class="blue" th:text="${personPage.totalCount}"></i> 
+		条记录，当前显示第 <i class="blue" th:text="${personPage.pageIndex}"></i> 页
+	</div>
+	<ul class="paginList">
+		<li class="paginItem" th:if="${personPage.pageIndex} gt 1">
+			<a th:attr="data-pagenum=(${personPage.pageIndex}-1),data-pagesize=${personPage.pageSize}" class="pagepre"></a>
+		</li>
+		<li class="paginItem" th:each="x:${#numbers.sequence(personPage.startNum, personPage.endNum)}" 
+		th:classappend="(${personPage.pageIndex} eq ${x})?'current'">
+			<a th:attr="data-pagenum=${x},data-pagesize=(${personPage.pageSize})" th:text="${x}"></a>
+		</li>
+		<li class="paginItem" th:if="${personPage.pageIndex} lt ${personPage.pageCount}">
+			<a th:attr="data-pagenum=(${personPage.pageIndex}+1),data-pagesize=(${personPage.pageSize})" class="pagenxt"></a>
+		</li> 
+	</ul>
+</div>

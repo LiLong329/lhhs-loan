@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common-wf/src"></head>
+<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li>模型管理</li>
+                        <li>模型列表</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                    
+                        
+                        <form id="inputForm" action="/workflow/url/actmodel/create" target="_blank" method="post" class="form-horizontal">
+		
+                    <div class="formtitle"><span>基本信息</span></div>
+                    <div class="toolsli">
+                        <ul class="nbbdgl-Ui">
+                           
+                            <li style="width: 80%;">
+                                <span class="tips">模块名称：</span>
+                                <input type="text" name="name"  class="txt validate[custom[chinaIdLoose]]"/>
+                            </li>
+                            <li style="width: 80%;">
+                                <span class="tips">模块标识：</span>
+                                <input type="text" name="key"  class="txt"/>
+                            </li>
+                            <li style="width: 80%;">
+                                <span class="tips">模块描述：</span>
+                                <input type="text" name="description"  class="txt validate[custom[chinese]]"/>
+                            </li>
+                           
+                            <li style="width: 80%;">
+                                <span class="tips">&nbsp;</span>
+                                <input type="submit" class="scbtn mlt10" id="btn_save"  value="保 存"/>
+                                <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);"/>
+                            </li>
+                        </ul>
+                    </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+
+</body>
+</html>

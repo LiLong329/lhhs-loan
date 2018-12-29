@@ -1,0 +1,105 @@
+<div class="previewBack"></div>
+<div class="preview">
+<div class="formbody">
+	<div class="table-title">
+		<p class="tab-font">全部还款</p>
+	</div>
+	<table class="tablelist">
+		<thead>
+			<tr>
+				<th>选择</th>
+				<th>当期还本日</th>
+				<th>应还本金</th>
+				<th>当期还息日</th>
+				<th>应还利息</th>
+				<th>应还总金额</th>
+				<th>已还本金</th>
+				<th>已还利息</th>
+			</tr>
+		</thead>
+		<tbody th:if="${not #lists.isEmpty(list)}">
+			<tr th:each="payPlan : ${list}">
+				<td><input type="checkbox" checked="checked" disabled="disabled"/></td>
+				<td th:text="${payPlan.repaymentCapitalTime}?${#dates.format(payPlan.repaymentCapitalTime,'yyyy/MM/dd HH:mm:ss')}"></td>
+				<td th:text="${payPlan.repaymentCapital}?${#numbers.formatDecimal(payPlan.repaymentCapital-payPlan.paidCapital,1,2)}"></td>
+				<td th:text="${payPlan.repaymentInterestTime}?${#dates.format(payPlan.repaymentInterestTime,'yyyy/MM/dd HH:mm:ss')}"></td>
+				<td th:text="${payPlan.repaymentInterest}?${#numbers.formatDecimal(payPlan.repaymentInterest-payPlan.paidInterest,1,2)}"></td>
+				<td th:text="${payPlan.repaymentTotal}?${#numbers.formatDecimal(payPlan.repaymentTotal-payPlan.paidCapital-payPlan.paidInterest,1,2)}"></td>
+				<td th:text="${payPlan.paidCapital}?${#numbers.formatDecimal(payPlan.paidCapital,1,2)}"></td>
+				<td th:text="${payPlan.paidInterest}?${#numbers.formatDecimal(payPlan.paidInterest,1,2)}"></td>
+			</tr>
+		</tbody>
+	</table>
+	<th:block th:if="${transMain}">
+		<div class="toolsli pt10">
+		<form id="payTempForm">
+			<input type="hidden" name="payFlag" value="1"/>
+			<input type="hidden" name="transMainId" th:value="${transMain.transMainId}"/>
+			<ul class="nbbdgl-Ui">
+				<li style="width: 80%;">
+					<span class="tips">当前期数：</span> 
+					<span th:text="${(transMain.paidPeriod+1)+'/'+transMain.periodTotal}"></span>
+				</li>
+				<li style="width: 80%;">
+					<span class="tips">剩余本金：</span> 
+					<span th:text="${#numbers.formatDecimal(prePay.repaymentCapital,1,4)}"></span> 
+				</li>
+				<li style="width: 80%;">
+					<span class="tips">使用天数：</span> 
+					<span th:text="${prePay.useDays}" id="useDaysId"></span>
+				</li>
+				<li style="width: 80%;">
+					<span class="tips">违约天数：</span> 
+					<span th:text="${prePay.compensateDays}" style="color:red;" id="compensateDaysId"></span> 
+				</li>
+				<li style="width: 80%;">
+					<span class="tips">还款时间：</span> 
+					<input type="hidden" th:value="${#dates.format(prePay.interestStart,'yyyy-MM-dd HH:mm:ss')}" id="minDay"/>
+					<input type="hidden" th:value="${#dates.format(prePay.interestEnd,'yyyy-MM-dd HH:mm:ss')}" id="maxDay"/>
+					<input type="text" name="actualTransTime" class="txt validate[required]" th:value="${#dates.format(prePay.actualTransTime,'yyyy-MM-dd HH:mm:ss')}" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'minDay\')}',maxDate:'#F{$dp.$D(\'maxDay\')}'})"/>
+					<span id="warningId" style="margin-left:5px;color:red;">
+						<th:block th:if="${prePay.overdueDays > 0}">
+							* 当前还款时间产生了逾期，无法提前还款
+						</th:block>
+					</span> 
+				</li>
+				<li style="width: 80%;">
+					<span class="tips">利息：</span> 
+					<input type="text" name="paidInterest" th:attr="data-paidInterest=${#numbers.formatDecimal(prePay.repaymentInterest,1,4)}" class="txt validate[required,custom[number]]" th:value="${#numbers.formatDecimal(prePay.repaymentInterest,1,4)}" th:readonly="${prePay.repaymentInterest >= 0}?true:false"/>
+				</li>
+				<li style="width: 80%;">
+					<span class="tips">逾期利息：</span> 
+					<input type="hidden" id="paidOverdueTempId" th:value="${#numbers.formatDecimal(prePay.overdueInterestTotal,1,4)}"/>
+					<input type="text" class="txt validate[required,custom[numberFour],min[0]]" name="paidOverdue" th:value="${#numbers.formatDecimal(prePay.overdueInterestTotal,1,4)}"/>
+				</li>
+				<li style="width: 80%;">
+					<span class="tips">还款违约赔偿金：</span> 
+					<input type="hidden" id="paidCompensateTempId" th:value="${#numbers.formatDecimal(prePay.compensate,1,4)}"/>
+					<input type="text" class="txt validate[required,custom[numberFour],min[0]]" name="paidCompensate" th:value="${#numbers.formatDecimal(prePay.compensate,1,4)}"/>
+				</li>
+				<li style="width: 80%;">
+					<span class="tips">还款总额：</span> 
+					<span th:text="${#numbers.formatDecimal(prePay.repaymentTotal,1,4)}" id="showPaidTotal"></span>
+					<input type="hidden" class="txt validate[required,custom[numberFour],min[0]]" name="paidTotal" th:value="${#numbers.formatDecimal(prePay.repaymentTotal,1,4)}"/>
+				</li>
+				<li style="width: 80%;">
+	                <span  class="tips">备注：</span>
+	                <textarea class="area" id="transRemarkId" name="transRemark" maxLength="200" placeholder="最多输入200个字符"></textarea>
+	            </li>
+			</ul>
+		</form>
+		</div>
+		<script th:inline="javascript">
+			//绑定验证
+	    	$('#previewId #payTempForm').validationEngine('attach');
+	    	//用于自动计算
+	    	var capital = [[${prePay.repaymentCapital}]];
+	    	var total = parseFloat(capital); 
+		</script>
+	</th:block>
+	<p class="textCt pb20">
+		<input type="button" class="scbtn" value="确定还款" style="width: 70px;" id="paySubmit"/>
+		<input type="button" class="scbtn2 mlt10" value="取 消" id="goBackId"/>
+	</p>
+</div>
+</div>

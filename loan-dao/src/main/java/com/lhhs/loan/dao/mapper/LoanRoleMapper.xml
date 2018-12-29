@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanRole" >
+    <id column="lr_role_id" property="lrRoleId" jdbcType="INTEGER" />
+    <result column="lr_name" property="lrName" jdbcType="VARCHAR" />
+    <result column="lr_time" property="lrTime" jdbcType="TIMESTAMP" />
+    <result column="lr_status" property="lrStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lr_role_id, lr_name, lr_time, lr_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_role
+    where lr_role_id = #{lrRoleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from loan_role
+    where lr_role_id = #{lrRoleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanRole" >
+    insert into loan_role (lr_role_id, lr_name, lr_time, 
+      lr_status)
+    values (#{lrRoleId,jdbcType=INTEGER}, #{lrName,jdbcType=VARCHAR}, #{lrTime,jdbcType=TIMESTAMP}, 
+      #{lrStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanRole" >
+    <selectKey keyProperty="lrRoleId" resultType="java.lang.Integer" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>  
+    insert into loan_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lrRoleId != null" >
+        lr_role_id,
+      </if>
+      <if test="lrName != null" >
+        lr_name,
+      </if>
+      <if test="lrTime != null" >
+        lr_time,
+      </if>
+      <if test="lrStatus != null" >
+        lr_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lrRoleId != null" >
+        #{lrRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="lrName != null" >
+        #{lrName,jdbcType=VARCHAR},
+      </if>
+      <if test="lrTime != null" >
+        #{lrTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lrStatus != null" >
+        #{lrStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanRole" >
+    update loan_role
+    <set >
+      <if test="lrName != null" >
+        lr_name = #{lrName,jdbcType=VARCHAR},
+      </if>
+      <if test="lrTime != null" >
+        lr_time = #{lrTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lrStatus != null" >
+        lr_status = #{lrStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lr_role_id = #{lrRoleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanRole" >
+    update loan_role
+    set lr_name = #{lrName,jdbcType=VARCHAR},
+      lr_time = #{lrTime,jdbcType=TIMESTAMP},
+      lr_status = #{lrStatus,jdbcType=VARCHAR}
+    where lr_role_id = #{lrRoleId,jdbcType=INTEGER}
+  </update>
+  
+    <!-- 查询所有角色 -->
+  <select id="getRoles" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	SELECT lr.lr_role_id,lr.lr_name,lr.lr_time,lr.lr_status
+  	FROM loan_role lr where 1=1 and lr.lr_role_id !=1
+	<if test="roleName!=null and roleName!=''">
+		 and lr.lr_name = #{roleName}
+	</if>
+	<if test="status!=null and status!=''">
+		 and lr.lr_status = #{status}
+	</if>
+	ORDER BY lr.lr_time DESC
+	<if test="page!= null">
+			limit #{page.pageStartIndex},#{page.pageSize}
+	</if>
+	
+  </select>
+  
+  <!-- 查询所有角色 COUNT-->
+  <select id="getRolesCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	SELECT count(1)
+  	FROM loan_role lr
+  	where 1=1 and lr.lr_role_id !=1
+	<if test="roleName!=null and roleName!=''">
+		 and lr.lr_name = #{roleName}
+	</if>
+	<if test="status!=null and status!=''">
+		 and lr.lr_status = #{status}
+	</if>
+  </select>
+   <!-- 查询所有角色名称-->
+  <select id="getRoleNames" resultType="java.lang.String" parameterType="java.lang.Integer">
+  	select lr_name from loan_role where 1=1 and lr_name !='系统管理员'
+  </select>
+  <!-- 检索所有角色 --> 
+   <select id="getAllRole" resultType="map">
+  	  select <include refid="Base_Column_List" /> from loan_role where lr_role_id!=1 and lr_status='1'
+  </select>
+  <!-- 根据角色名称查询角色 --> 
+   <select id="selectByRoleName" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	  select <include refid="Base_Column_List" /> from loan_role where 1=1  and   lr_name=#{roleName} limit 1;
+  </select>
+  
+</mapper>

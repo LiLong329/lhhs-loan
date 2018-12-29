@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script src="/js/public/area.js"></script>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<style>
+	.reportForm {padding: 12px;}
+	.tab-font span{ display: inline-block; padding-right: 20px;}
+</style>
+<script type="text/javascript">
+    $(document).ready(function (e) {
+        $(".select3").uedSelect({
+            width: 152
+        });
+    });
+</script>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>报表统计</li>
+                        <li>意向客户统计报表</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                    	<div class="reportForm">
+							<ul class="seachform1">
+								<li><label>按时间统计：</label>
+									<div class="vocation">
+										<select class="select3" id="echartsSelect">
+											<option>月</option>
+											<option>周</option>
+											<option>日</option>
+										</select>
+									</div>
+								</li>
+							</ul>
+							<!-- <div id='showChart' style="height:500px; border:1px solid #ccc; width:100%;"></div> -->
+							 <div id='showChart' style="height:500px;border:1px solid #ccc;padding:10px;"></div>
+						</div>
+                        <div id="usual1" class="usual">
+                            <ul class="seachform1">
+                                <form id="myForm">
+                                 <input  name="pageIndex" type="hidden" value="" id="currentPageNo"/>
+                                 <li>
+                                   	<span class="tips">省市：</span>
+                                    <span th:value="${entity.appEmpProvince}" ></span>
+			                        <div class="vocation">
+							          	<select class="select-common select3 provinceSelect" name="appEmpProvince"  th:attr="data-val=(${entity.appEmpProvince})" style="width:100px;"></select>
+						            </div>
+			                        <div class="vocation" style="margin-left:10px;">
+							          	<select class="select-common select3 citySelect" name="appEmpCity" th:attr="data-val=(${entity.appEmpCity})" style="width:100px;"  id="cityName"></select>
+						            </div>
+	                            </li>
+                                <li>
+                                   <label>分公司：</label>
+                                    <div class="vocation">
+		                            	 <select class="select-common select3 common-company" name="appointCompanyId" id="appointCompanyId" >
+		                                       <option value="">请选择</option>
+		                                       <option th:each="company : ${companys}" th:value="${company.companyId}" th:text="${company.companyName}"  th:attr="selected=(${company.companyId} eq ${entity.appointCompanyId})?true:false"></option>
+		                                 </select>
+                                 	</div>
+                                </li>
+                                <li>
+                                    <label>事业部：</label>
+                                    <div class="vocation">
+                                        <select class="select-common select3 common-dept" name="appointDepId" id="appointDepId" th:attr="data-val=${entity.appointDepId}">
+                                        	    <option value="" >请选择</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                
+                                 <li>
+                                     <label>客户经理：</label>
+		                              <input type="text" class="scinput1" id="appointEmpName" name="appointEmpName" th:value="${entity.appointEmpName}"/>
+                                </li>
+                                
+                                 <li>
+                                     <label>添加时间：</label>
+                                    
+		                             <input type="text" class="scinput1" name="appBeginingTime" id="appBeginingTime"  th:value="${entity.appBeginingTime}?${#dates.format(entity.appBeginingTime, 'yyyy-MM-dd')}"  onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd '})" readonly="readonly"/>
+	                                 <span> 至 </span>
+	                                
+	                                 <input type="text" class="scinput1" name="appEndingTime" id="appEndingTime"  th:value="${entity.appEndingTime}?${#dates.format(entity.appEndingTime, 'yyyy-MM-dd')}"  onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd '})" readonly="readonly"/>
+                                </li>
+                                
+                                <li>
+                                    <input type="button" class="scbtn searcher"  id="crmCountSearch"  value="查询"/>
+                                    <input type="button" value="导出" class="scbtn1" style="width: 49px;" id="export"/>
+                                </li>
+                                </form>
+                            </ul>
+                            <div class="table-title">
+                               <p class="tab-font">
+                                <span>客户总量：   <th:block th:text="${totalCountMap}?(${totalCountMap.intentTotalCount}?${totalCountMap.intentTotalCount}:0):0">人   </th:block></span>
+                                	<span>约见总量：  <th:block th:text="${totalCountMap}?(${totalCountMap.mianshenTotalCount}?${totalCountMap.mianshenTotalCount}:0):0"> </th:block>  </span>
+                                	<span>签约总量： <th:block th:text="${totalCountMap}?(${totalCountMap.dealTotalCount}?${totalCountMap.dealTotalCount}:0):0"> </th:block></span>
+                                
+                                </p>
+                            </div>
+                            <table class="tablelist">
+                                <thead>
+                                    <tr>
+                                        <th>省市</th>
+                                        <th>分公司</th>
+                                        <th>部门</th>
+                                        <th>组别</th>
+                                        <th>客户经理</th>
+                                        <th>客户量</th>
+                                        <th>约见量</th>
+                                        <th>签约量</th>
+                                        <!-- <th>添加时间</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+	                               <th:block th:unless="${#lists.isEmpty(page.resultList)}">
+										<tr th:each="crmIntent,iterStat : ${page.resultList}">
+											<td th:text="${crmIntent.appEmpCity}"></td>
+											<td th:text="${crmIntent.appointCompanyName}"></td>
+											<td th:text="${crmIntent.appointDeptName}"></td>
+											<td th:text="${crmIntent.appointGroupName}"></td>
+											<td th:text="${crmIntent.appointEmpName}"></td>
+											<td th:text="${crmIntent.intentCount}? ${crmIntent.intentCount}:0"></td>
+											<td th:text="${crmIntent.mianshenCount}? ${crmIntent.mianshenCount}:0"></td>
+											<td th:text="${crmIntent.dealCount}? ${crmIntent.dealCount}:0"></td>
+											<!-- <td th:text="${crmIntent.appointCreateTime}?${#dates.format(crmIntent.appointCreateTime,'yyyy-MM-dd HH:mm:ss')}:''"></td> -->
+	                               		</tr>
+	                               </th:block>
+                                <th:block th:if="${#lists.isEmpty(page.resultList)}">
+									<tr>
+										<td colspan="8" class="textCt">暂无数据</td>
+									</tr>
+								</th:block>
+                                </tbody>
+                            </table>
+                            <div class="pagin" th:unless="${#lists.isEmpty(page.resultList)}">
+								<div class="message">
+									&nbsp;&nbsp;&nbsp;共 <i class="blue" th:text="${page.totalCount}"></i> 条记录，当前显示第 <i
+										class="blue" th:text="${page.pageIndex}"></i> 页
+								</div>
+								<ul class="paginList">
+									<li class="paginItem" th:if="${page.pageIndex} gt 1"><a
+										th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+									</li>
+									<li class="paginItem"
+										th:each="x:${#numbers.sequence(page.startNum, page.endNum)}"
+										th:classappend="(${page.pageIndex} eq ${x})?'current'"><a
+										th:attr="data-pagenum=${x}" th:text="${x}"></a></li>
+									<li class="paginItem"
+										th:if="${page.pageIndex} lt ${page.pageCount}"><a
+										th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+									</li>
+								</ul>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <script src="/js/public/select.js"></script>
+         <footer th:replace="common/footer"></footer>
+       </div>
+    <script src="/js/public/echarts/echarts.min.js"></script>
+	<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+	<script>seajs.use("crmCount/crmCount");</script>
+</body>
+</html>

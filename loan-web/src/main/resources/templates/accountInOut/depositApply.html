@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<style>
+    .nbbdgl-Ui li{ width:100%;}
+    .imglistSub span{width: 151px; height: 114px; padding: 8px; margin:0 20px 20px 0; position: relative; border:solid 1px #d7e4ea;}
+    .imglistSub span img{width: 150px; height: 113px;}
+    .imglistSub span a{cursor:pointer; position: absolute; top:-8px; right: -12px; display: inline-block; width: 21px; height:21px; background: url(../img/close1.png) no-repeat;}
+</style>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+          <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>资金管理</li>
+                        <li>充值管理</li>
+                        <li>线下充值记账申请</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <form id="transApply" >
+                          <input  name="transType" type="hidden" th:attr="value=${transType}"/>
+                          <input  name="companyId" type="hidden" th:attr="value=${companyId}"/>
+                          <input  name="accountId" type="hidden" id="accountId"/>
+                          <input  name="customerId" type="hidden" id="customerId"/>
+                        <div>
+                            <div class="formtitle"><span>1、客户基本信息</span></div>
+                            <div class="toolsli">
+                                <ul class="nbbdgl-Ui clearfix">
+                                    <li>
+                                        <span class="tips">客户类型：</span>
+                                        <div class="vocation">
+                                            <select class="select-common select1 validate[required]" name="customerType">
+                                                <option value="">请选择</option>
+                                                <option th:each="type : ${typeList}" th:text="${type.typeName}" th:attr="value=${type.typeId}"></option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="tips">客户性质：</span>
+                                        <div class="vocation">
+                                            <select class="select-common select1 validate[required]" name="customerNature">
+                                                <option value="">请选择</option>
+                                                <option th:each="nature : ${natureList}" th:text="${nature.typeName}" th:attr="value=${nature.typeId}"></option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="tips">手机号(机构ID)：</span>
+                                        <input type="text" class="txt" name="mobile"/>
+                                        <input id="searchCustInfo" type="button" class="scbtn2 mlt10 validate[required]" value="检索"/>
+                                    </li>
+                                    <li>
+                                        <span class="tips">姓名(开户名称)：</span>
+                                        <input id="customerName" type="text" class="txt validate[required]" name="customerName" />
+                                    </li>
+                                    <li>
+                                        <span class="tips">身份证号(营业执照ID)：</span>
+                                        <input id="certificateNo" type="text" class="txt validate[required]"  name="certificateNo"/>
+                                    </li>
+                                </ul>
+                              <!--   <p class="err">注意：通过输入用户手机（机构ID），默认可以检索出用户姓名（结构名称）、身份证号（营业执照）以及该用户（机构）默认的银行卡信息</p> -->
+                            </div>
+                            <div class="formtitle"><span>2、填写充值金额</span></div>
+                            <div class="toolsli">
+                                <ul class="nbbdgl-Ui">
+                                    <li>
+                                        <span class="tips">充值金额：</span>
+                                        <input type="text" class="txt validate[required,custom[numberTwo]]" name="amount"/><span>元</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="formtitle"><span>3、选择公司收款账户</span></div>
+                            <div class="toolsli">
+                                <ul class="nbbdgl-Ui">
+                                
+                                <th:block th:unless="${#lists.isEmpty(cardList)}">
+                                 <li th:each="card:${cardList}">
+                                        <input type="radio"  th:value="${card.id}" class="bankRdo validate[required]" name="bankId"/>
+                                        <img  th:src="@{/img/banks/{bank}(bank=${card.bankAb})}+.jpg" class="bankImg"/>
+                                        <span class="mrt20" th:text="${card.bankCardNo}"></span>
+                                        <span class="mrt20" th:text="${card.bankName}"></span>
+                                        <span class="mrt20" th:text="${card.accountHolder}"></span>
+                                    </li>
+                                </th:block>
+                                </ul>
+                            </div>
+                            <div class="formtitle"><span>4、填写客户支付账户</span></div>
+                            <div class="toolsli">
+                                <ul class="nbbdgl-Ui">
+                                    <li>
+                                        <span class="tips">支付银行：</span>
+                                        <div class="vocation">
+                                            <select class="select-common select1 validate[required]" name="bankName" id="bankName">
+                                                 <option value="">请选择</option>
+                                                 <option th:each="bank : ${bankList}" th:text="${bank.bankName}" th:attr="value=${bank.bankName}"></option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="tips">支付银行卡号：</span>
+                                        <input type="text" class="txt validate[required]" name="bankCardNo" id="bankCardNo"/>
+                                    </li>
+                                    <li>
+                                        <span class="tips">持卡人姓名：</span>
+                                        <input type="text" class="txt validate[required]" name="accountHolder" id="accountHolder"/>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="formtitle"><span>5、上传收款凭证</span></div>
+                            <div class="toolsli">
+                                <ul class="nbbdgl-Ui">
+                                    <li>
+                                        <span class="tips">实际打款时间：</span>
+                                        <input type="text" class="txt validate[required]" name="actualPayTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+                                    </li>
+                                    <li>
+                                        <span class="tips">转账凭证：</span>
+                                        <div style="margin:10px; float:left;">
+                                        	<p id="imglist" class="imglistSub"></p>
+                                        	<input type="file" id="uploadImgs" name="file" value="上传文件"/>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <p class="textCt pt20 pb20">
+                                <input type="button" class="scbtn" id="btn_save" value="确认提交" style="width:120px;"/>
+                            </p>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+<script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">seajs.use("accountInOut/transApply");</script>
+</body>
+</html>
+

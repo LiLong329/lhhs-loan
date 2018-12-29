@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script src="/js/public/area.js"></script>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>系统管理</li>
+                        <li>公司账户管理</li>
+                        <li><a th:href="@{/systemManager/companyAccount?type=01}">公司收款账户设置</a></li>
+                        <li>修改</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div class="formtitle"><span>修改</span></div>
+                        <div class="toolsli">
+                        	<form id="myForm">
+	                            <ul class="nbbdgl-Ui">
+	                                <input type="hidden" th:value="${account.accountId}" class='txt accountId'/>
+	                                <li style="width: 80%;">
+		                                    <span class="tips">省市：</span>
+					                        <div class="vocation">
+									          	<select class="select-common select3 provinceSelect  validate[required]" name="provienceName" th:attr="data-val=${account.provienceName}"></select>
+								            </div>
+								            <span>省</span>
+					                        <div class="vocation">
+									          	<select class="select-common select3 citySelect  validate[required]" name="cityName" th:attr="data-val=${account.cityName}"></select>
+								            </div>
+					                        <span>市</span>
+		                                </li>
+	                                <li style="width: 80%;">
+	                                    <span class="tips">所属公司：</span>
+	                                   	<div class="vocation">
+		                                   	<select class="select-common select1 validate[required]" name="ownerId" >
+		                                        <option value="">请选择</option>
+		                                       	<option th:each="company : ${companys}" th:value="${company.companyId}" th:text="${company.companyName}" 
+		                                       		th:attr="selected=(${company.companyId} eq ${account.ownerId})?true:false"></option>
+		                                    </select>
+	                                    </div>
+	                                </li>
+	                                <li style="width: 80%;">
+	                                    <span class="tips">持卡人：</span>
+	                                    <input type="text" th:value="${account.accountHolder}" name="accountHolder" class="txt accountHolder validate[required]"/>
+	                                </li>
+	                                <li style="width: 80%;">
+	                                    <span class="tips">手机号：</span>
+	                                    <input type="text" th:value="${account.mobile}" name="mobile" class="txt validate[required,custom[mobile]]"/>
+	                                </li>
+	                                <input type="hidden" class="type"  value="01" name="kind"/>
+	                                <input type="hidden" th:value="${account.accountId}" name="accountId"/>
+	                            </ul>
+                            </form>
+                        </div>
+                        <div class="formtitle"><span>银行账户</span><img src="/img/add_red.png" class="add-zz" id="addCardInfo"/></div>
+                        <form id="cardForm">
+	                        <table class="tablelist" id="cardInfo">
+	                            <thead>
+	                                <tr>
+	                                    <th>开户银行</th>
+	                                    <th>开户支行</th>
+	                                    <th>银行卡号</th>
+	                                    <th>操作</th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                <th:block th:unless="${#lists.isEmpty(accountcard)}">
+		                                <tr th:each="card : ${accountcard}" class="radiobox" th:attr="data-value=${card.id}">
+		                                    <td>
+								                <div class="vocation">
+								                    <select class="select-common select1 validate[required]" width="100%" name="bankId">
+								                        <option value="">请选择</option>
+								                        <option th:each="bank:${banks}" th:value="${bank.bankId}" th:text="${bank.bankName}"
+			                                            	th:attr="selected=(${bank.bankId} eq ${card.bankId})?true:false"></option>
+								                    </select>
+								                </div>
+		                                    </td>
+		                                    <td>
+		                                        <input type="text" th:value="${card.branchName}" name="branchName"  class="table-txt validate[required]"/>
+		                                    </td>
+		                                    <td>
+		                                        <input type="text" th:value="${card.bankCardNo}" name="bankCardNo" class="table-txt validate[required,custom[number],maxSize[19],minSize[16]]"/>
+		                                    </td>
+		                                   	<input type="hidden" th:value="${card.id}" name="id" class="table-txt"/>
+		                                    <td>
+		                                        <a href="javascript:void(0);" class="tablelink delTr">删除</a>
+		                                    </td>
+		                                </tr>
+	                                </th:block>
+	                                <th:block th:if="${#lists.isEmpty(accountcard)}">
+	                                <tr>
+	                                <td>
+                                        <select class="select-common select1 validate[required]" name="bankId" >
+                                           <option value="">请选择</option>
+                                           <option th:each="bank : ${banks}" th:value="${bank.bankId}" th:text="${bank.bankName}"></option>
+                                        </select>
+                                    </td>
+                                     <td>
+                                        <input type="text" class="table-txt" name="branchName"/>
+                                     </td>
+                                     <td>
+                                        <input type="text" class="table-txt" name="bankCardNo"/>
+                                     </td>
+                                     <td>
+                                        <span></span>
+                                     </td>
+                                     </tr>
+	                                </th:block>
+	                            </tbody>
+	                        </table>
+                        </form>
+                        <p class="textCt pt15 pb20">
+                            <input type="button" class="scbtn mlt10 accountSubmit" value="保 存"/>
+                            <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);"/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/js/public/select.js"></script>
+        <footer th:replace="common/footer"></footer>
+    </div>
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+    	seajs.use("custManagment/companyaccount");
+   	</script>
+</body>
+</html>

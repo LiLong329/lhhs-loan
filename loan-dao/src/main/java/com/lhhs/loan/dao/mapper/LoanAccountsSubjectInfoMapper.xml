@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanAccountsSubjectInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanAccountsSubjectInfo" >
+    <id column="subject_id" property="subjectId" jdbcType="VARCHAR" />
+    <result column="subject_name" property="subjectName" jdbcType="VARCHAR" />
+    <result column="subject_type" property="subjectType" jdbcType="VARCHAR" />
+    <result column="subject_type_name" property="subjectTypeName" jdbcType="VARCHAR" />
+    <result column="direction" property="direction" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="parent_name" property="parentName" jdbcType="CHAR" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    subject_id, subject_name, subject_type, subject_type_name, direction, parent_id, 
+    parent_name, level, status, create_user, create_time, last_user, last_modify_time, 
+    field1, field2, field3, field4, field5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_accounts_subject_info
+    where subject_id = #{subjectId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_accounts_subject_info
+    where subject_id = #{subjectId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanAccountsSubjectInfo" >
+    insert into loan_accounts_subject_info (subject_id, subject_name, subject_type, 
+      subject_type_name, direction, parent_id, 
+      parent_name, level, status, 
+      create_user, create_time, last_user, 
+      last_modify_time, field1, field2, 
+      field3, field4, field5
+      )
+    values (#{subjectId,jdbcType=VARCHAR}, #{subjectName,jdbcType=VARCHAR}, #{subjectType,jdbcType=VARCHAR}, 
+      #{subjectTypeName,jdbcType=VARCHAR}, #{direction,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, 
+      #{parentName,jdbcType=CHAR}, #{level,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastUser,jdbcType=VARCHAR}, 
+      #{lastModifyTime,jdbcType=TIMESTAMP}, #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, 
+      #{field3,jdbcType=VARCHAR}, #{field4,jdbcType=VARCHAR}, #{field5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanAccountsSubjectInfo" >
+    insert into loan_accounts_subject_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="subjectId != null" >
+        subject_id,
+      </if>
+      <if test="subjectName != null" >
+        subject_name,
+      </if>
+      <if test="subjectType != null" >
+        subject_type,
+      </if>
+      <if test="subjectTypeName != null" >
+        subject_type_name,
+      </if>
+      <if test="direction != null" >
+        direction,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="parentName != null" >
+        parent_name,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUser != null" >
+        last_user,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="subjectId != null" >
+        #{subjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectName != null" >
+        #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectType != null" >
+        #{subjectType,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectTypeName != null" >
+        #{subjectTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="direction != null" >
+        #{direction,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentName != null" >
+        #{parentName,jdbcType=CHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanAccountsSubjectInfo" >
+    update loan_accounts_subject_info
+    <set >
+      <if test="subjectName != null" >
+        subject_name = #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectType != null" >
+        subject_type = #{subjectType,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectTypeName != null" >
+        subject_type_name = #{subjectTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="direction != null" >
+        direction = #{direction,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentName != null" >
+        parent_name = #{parentName,jdbcType=CHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where subject_id = #{subjectId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanAccountsSubjectInfo" >
+    update loan_accounts_subject_info
+    set subject_name = #{subjectName,jdbcType=VARCHAR},
+      subject_type = #{subjectType,jdbcType=VARCHAR},
+      subject_type_name = #{subjectTypeName,jdbcType=VARCHAR},
+      direction = #{direction,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=VARCHAR},
+      parent_name = #{parentName,jdbcType=CHAR},
+      level = #{level,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where subject_id = #{subjectId,jdbcType=VARCHAR}
+  </update>
+  <!-- 自定义实现方法 -->
+  <sql id="Where_Clause" >
+    <where >
+       <if test="subjectId != null" >
+        and subject_id = #{subjectId}
+      </if>
+       <if test="subjectName != null" >
+        and subject_name LIKE CONCAT('%', #{subject_name}, '%')
+      </if>
+      <if test="subjectType != null" >
+        and subject_type = #{subjectType,jdbcType=VARCHAR}
+      </if>
+      <if test="subjectTypeName != null" >
+       and subject_type_name LIKE CONCAT('%', #{subjectTypeName}, '%')
+      </if>
+      <if test="direction != null" >
+        and direction = #{direction}
+      </if>
+      <if test="parentId != null" >
+        and parent_id = #{parentId}
+      </if>
+      <if test="parentName != null" >
+        and parent_name = #{parentName}
+      </if>
+      <if test="level != null" >
+        and level = #{level}
+      </if>
+      <if test="listSubjectId != null"> 
+         and subject_id in
+         <foreach item="item" index="index" collection="listSubjectId" open="(" separator="," close=")">
+             #{item}
+          </foreach>
+       </if>
+       <if test="listSubjectType != null"> 
+         and subject_type in
+         <foreach item="item" index="index" collection="listSubjectType" open="(" separator="," close=")">
+             #{item}
+          </foreach>
+       </if>
+        <if test="subjectIds != null and subjectIds!=''"> 
+         and subject_id in (${subjectIds})
+       </if>
+       <if test="subjectTypes != null and subjectTypes!=''"> 
+         and subject_type in (${subjectTypes})
+       </if>
+       <if test="field1 != null" >
+        and field1 = #{field1}
+      </if>
+      <if test="field2 != null" >
+        and field2 = #{field2}
+      </if>
+      <if test="field3 != null" >
+        and field3 = #{field3}
+      </if>
+
+    </where>
+  </sql>
+  <select id="queryList" resultType="com.lhhs.loan.dao.domain.LoanAccountsSubjectInfo" parameterType="com.lhhs.loan.dao.domain.LoanAccountsSubjectInfo" >
+    select
+    <include refid="Base_Column_List" />
+    from loan_accounts_subject_info
+    <include refid="Where_Clause" />
+    order by direction desc,subject_type asc,subject_id asc
+  </select>
+   <select id="queryCount" resultType="int" parameterType="com.lhhs.loan.dao.domain.LoanAccountsSubjectInfo" >
+    select  count(*)   from loan_accounts_subject_info
+    <include refid="Where_Clause" />
+  </select>
+
+  <!-- 自定义实现方法 -->
+  <select id="selectSubjectByDirection" resultType="com.lhhs.loan.dao.domain.LoanAccountsSubjectInfo" parameterType="java.lang.String" >
+    select subject_id,subject_name,subject_type
+    from loan_accounts_subject_info
+    where direction = #{direction}
+  </select>
+  
+  <!-- 自定义实现方法 -->
+  <select id="selectSubjectByDirectionSubArray" resultType="com.lhhs.loan.dao.domain.LoanAccountsSubjectInfo"  >
+    select subject_id,subject_name,subject_type
+    from loan_accounts_subject_info
+    where direction = #{direction} 
+    <if test="subjectTypeArraySql != null and subjectTypeArraySql != '' ">
+      and  subject_type in  (${subjectTypeArraySql})
+    </if>
+    
+  </select>
+  
+</mapper>

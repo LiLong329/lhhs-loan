@@ -1,0 +1,791 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanPayRecordCompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanPayRecordCompany" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="plan_id" property="planId" jdbcType="BIGINT" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="trans_main_id" property="transMainId" jdbcType="VARCHAR" />
+    <result column="repayment_method" property="repaymentMethod" jdbcType="VARCHAR" />
+    <result column="repayment_total" property="repaymentTotal" jdbcType="DECIMAL" />
+    <result column="repayment_capital" property="repaymentCapital" jdbcType="DECIMAL" />
+    <result column="repayment_capital_time" property="repaymentCapitalTime" jdbcType="TIMESTAMP" />
+    <result column="repayment_interest" property="repaymentInterest" jdbcType="DECIMAL" />
+    <result column="repayment_interest_time" property="repaymentInterestTime" jdbcType="TIMESTAMP" />
+    <result column="overdue_days" property="overdueDays" jdbcType="INTEGER" />
+    <result column="period" property="period" jdbcType="SMALLINT" />
+    <result column="overdue_interest_total" property="overdueInterestTotal" jdbcType="DECIMAL" />
+    <result column="overdue_capital" property="overdueCapital" jdbcType="DECIMAL" />
+    <result column="overdue_interest" property="overdueInterest" jdbcType="DECIMAL" />
+    <result column="paid_fees" property="paidFees" jdbcType="DECIMAL" />
+    <result column="sevice_fee" property="seviceFee" jdbcType="DECIMAL" />
+    <result column="advance_total" property="advanceTotal" jdbcType="DECIMAL" />
+    <result column="advance_capital" property="advanceCapital" jdbcType="DECIMAL" />
+    <result column="advance_interest" property="advanceInterest" jdbcType="DECIMAL" />
+    <result column="repayment_actual_time" property="repaymentActualTime" jdbcType="TIMESTAMP" />
+    <result column="repaymented_time" property="repaymentedTime" jdbcType="TIMESTAMP" />
+    <result column="capital_time" property="capitalTime" jdbcType="TIMESTAMP" />
+    <result column="interest_time" property="interestTime" jdbcType="TIMESTAMP" />
+    <result column="trans_type" property="transType" jdbcType="VARCHAR" />
+    <result column="paid_total" property="paidTotal" jdbcType="DECIMAL" />
+    <result column="paid_capital" property="paidCapital" jdbcType="DECIMAL" />
+    <result column="paid_interest" property="paidInterest" jdbcType="DECIMAL" />
+    <result column="paid_overdue" property="paidOverdue" jdbcType="DECIMAL" />
+    <result column="paid_compensate" property="paidCompensate" jdbcType="DECIMAL" />
+    <result column="account_manager" property="accountManager" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="interest_start" property="interestStart" jdbcType="VARCHAR" />
+    <result column="interest_end" property="interestEnd" jdbcType="VARCHAR" />
+    <result column="interest_spread" property="interestSpread" jdbcType="DECIMAL" />
+    <result column="actual_trans_time" property="actualTransTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+      <result column="product_type" property="productType" jdbcType="VARCHAR" />
+      <result column="product_name" property="productName" jdbcType="VARCHAR" />
+      <result column="provience_name" property="provienceName" jdbcType="VARCHAR" />
+      <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+      <result column="period_total" property="periodTotal" jdbcType="SMALLINT" />
+      <result column="total_Amount" property="totalAmount" jdbcType="DECIMAL" />
+      <result column="period_total_all" property="periodTotalAll" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, plan_id, order_no, customer_id, customer_name, account_id, trans_main_id, repayment_method, 
+    repayment_total, repayment_capital, repayment_capital_time, repayment_interest, repayment_interest_time, 
+    overdue_days, period, overdue_interest_total, overdue_capital, overdue_interest, 
+    paid_fees, sevice_fee, advance_total, advance_capital, advance_interest, repayment_actual_time, 
+    repaymented_time, capital_time, interest_time, trans_type, paid_total, paid_capital, 
+    paid_interest, paid_overdue, paid_compensate, account_manager, department, company_id, 
+    union_id, interest_start, interest_end, interest_spread, actual_trans_time, status, 
+    create_user, create_time, last_user, last_modify_time, field1, field2, field3, field4, 
+    field5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_pay_record_company
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_pay_record_company
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanPayRecordCompany" >
+    insert into loan_pay_record_company (id, plan_id, order_no, 
+      customer_id, customer_name, account_id, 
+      trans_main_id, repayment_method, repayment_total, 
+      repayment_capital, repayment_capital_time, 
+      repayment_interest, repayment_interest_time, 
+      overdue_days, period, overdue_interest_total, 
+      overdue_capital, overdue_interest, paid_fees, 
+      sevice_fee, advance_total, advance_capital, 
+      advance_interest, repayment_actual_time, 
+      repaymented_time, capital_time, interest_time, 
+      trans_type, paid_total, paid_capital, 
+      paid_interest, paid_overdue, paid_compensate, 
+      account_manager, department, company_id, 
+      union_id, interest_start, interest_end, 
+      interest_spread, actual_trans_time, status, 
+      create_user, create_time, last_user, 
+      last_modify_time, field1, field2, 
+      field3, field4, field5
+      )
+    values (#{id,jdbcType=VARCHAR}, #{planId,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, 
+      #{customerId,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, 
+      #{transMainId,jdbcType=VARCHAR}, #{repaymentMethod,jdbcType=VARCHAR}, #{repaymentTotal,jdbcType=DECIMAL}, 
+      #{repaymentCapital,jdbcType=DECIMAL}, #{repaymentCapitalTime,jdbcType=TIMESTAMP}, 
+      #{repaymentInterest,jdbcType=DECIMAL}, #{repaymentInterestTime,jdbcType=TIMESTAMP}, 
+      #{overdueDays,jdbcType=INTEGER}, #{period,jdbcType=SMALLINT}, #{overdueInterestTotal,jdbcType=DECIMAL}, 
+      #{overdueCapital,jdbcType=DECIMAL}, #{overdueInterest,jdbcType=DECIMAL}, #{paidFees,jdbcType=DECIMAL}, 
+      #{seviceFee,jdbcType=DECIMAL}, #{advanceTotal,jdbcType=DECIMAL}, #{advanceCapital,jdbcType=DECIMAL}, 
+      #{advanceInterest,jdbcType=DECIMAL}, #{repaymentActualTime,jdbcType=TIMESTAMP}, 
+      #{repaymentedTime,jdbcType=TIMESTAMP}, #{capitalTime,jdbcType=TIMESTAMP}, #{interestTime,jdbcType=TIMESTAMP}, 
+      #{transType,jdbcType=VARCHAR}, #{paidTotal,jdbcType=DECIMAL}, #{paidCapital,jdbcType=DECIMAL}, 
+      #{paidInterest,jdbcType=DECIMAL}, #{paidOverdue,jdbcType=DECIMAL}, #{paidCompensate,jdbcType=DECIMAL}, 
+      #{accountManager,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, 
+      #{unionId,jdbcType=VARCHAR}, #{interestStart,jdbcType=VARCHAR}, #{interestEnd,jdbcType=VARCHAR}, 
+      #{interestSpread,jdbcType=DECIMAL}, #{actualTransTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastUser,jdbcType=VARCHAR}, 
+      #{lastModifyTime,jdbcType=TIMESTAMP}, #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, 
+      #{field3,jdbcType=VARCHAR}, #{field4,jdbcType=VARCHAR}, #{field5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanPayRecordCompany" >
+    insert into loan_pay_record_company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="planId != null" >
+        plan_id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="transMainId != null" >
+        trans_main_id,
+      </if>
+      <if test="repaymentMethod != null" >
+        repayment_method,
+      </if>
+      <if test="repaymentTotal != null" >
+        repayment_total,
+      </if>
+      <if test="repaymentCapital != null" >
+        repayment_capital,
+      </if>
+      <if test="repaymentCapitalTime != null" >
+        repayment_capital_time,
+      </if>
+      <if test="repaymentInterest != null" >
+        repayment_interest,
+      </if>
+      <if test="repaymentInterestTime != null" >
+        repayment_interest_time,
+      </if>
+      <if test="overdueDays != null" >
+        overdue_days,
+      </if>
+      <if test="period != null" >
+        period,
+      </if>
+      <if test="overdueInterestTotal != null" >
+        overdue_interest_total,
+      </if>
+      <if test="overdueCapital != null" >
+        overdue_capital,
+      </if>
+      <if test="overdueInterest != null" >
+        overdue_interest,
+      </if>
+      <if test="paidFees != null" >
+        paid_fees,
+      </if>
+      <if test="seviceFee != null" >
+        sevice_fee,
+      </if>
+      <if test="advanceTotal != null" >
+        advance_total,
+      </if>
+      <if test="advanceCapital != null" >
+        advance_capital,
+      </if>
+      <if test="advanceInterest != null" >
+        advance_interest,
+      </if>
+      <if test="repaymentActualTime != null" >
+        repayment_actual_time,
+      </if>
+      <if test="repaymentedTime != null" >
+        repaymented_time,
+      </if>
+      <if test="capitalTime != null" >
+        capital_time,
+      </if>
+      <if test="interestTime != null" >
+        interest_time,
+      </if>
+      <if test="transType != null" >
+        trans_type,
+      </if>
+      <if test="paidTotal != null" >
+        paid_total,
+      </if>
+      <if test="paidCapital != null" >
+        paid_capital,
+      </if>
+      <if test="paidInterest != null" >
+        paid_interest,
+      </if>
+      <if test="paidOverdue != null" >
+        paid_overdue,
+      </if>
+      <if test="paidCompensate != null" >
+        paid_compensate,
+      </if>
+      <if test="accountManager != null" >
+        account_manager,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+      <if test="interestStart != null" >
+        interest_start,
+      </if>
+      <if test="interestEnd != null" >
+        interest_end,
+      </if>
+      <if test="interestSpread != null" >
+        interest_spread,
+      </if>
+      <if test="actualTransTime != null" >
+        actual_trans_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUser != null" >
+        last_user,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="planId != null" >
+        #{planId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="transMainId != null" >
+        #{transMainId,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentMethod != null" >
+        #{repaymentMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentTotal != null" >
+        #{repaymentTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentCapital != null" >
+        #{repaymentCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentCapitalTime != null" >
+        #{repaymentCapitalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repaymentInterest != null" >
+        #{repaymentInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentInterestTime != null" >
+        #{repaymentInterestTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overdueDays != null" >
+        #{overdueDays,jdbcType=INTEGER},
+      </if>
+      <if test="period != null" >
+        #{period,jdbcType=SMALLINT},
+      </if>
+      <if test="overdueInterestTotal != null" >
+        #{overdueInterestTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueCapital != null" >
+        #{overdueCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueInterest != null" >
+        #{overdueInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="paidFees != null" >
+        #{paidFees,jdbcType=DECIMAL},
+      </if>
+      <if test="seviceFee != null" >
+        #{seviceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="advanceTotal != null" >
+        #{advanceTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="advanceCapital != null" >
+        #{advanceCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="advanceInterest != null" >
+        #{advanceInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentActualTime != null" >
+        #{repaymentActualTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repaymentedTime != null" >
+        #{repaymentedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="capitalTime != null" >
+        #{capitalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="interestTime != null" >
+        #{interestTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transType != null" >
+        #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="paidTotal != null" >
+        #{paidTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="paidCapital != null" >
+        #{paidCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="paidInterest != null" >
+        #{paidInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="paidOverdue != null" >
+        #{paidOverdue,jdbcType=DECIMAL},
+      </if>
+      <if test="paidCompensate != null" >
+        #{paidCompensate,jdbcType=DECIMAL},
+      </if>
+      <if test="accountManager != null" >
+        #{accountManager,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="interestStart != null" >
+        #{interestStart,jdbcType=VARCHAR},
+      </if>
+      <if test="interestEnd != null" >
+        #{interestEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="interestSpread != null" >
+        #{interestSpread,jdbcType=DECIMAL},
+      </if>
+      <if test="actualTransTime != null" >
+        #{actualTransTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanPayRecordCompany" >
+    update loan_pay_record_company
+    <set >
+      <if test="planId != null" >
+        plan_id = #{planId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="transMainId != null" >
+        trans_main_id = #{transMainId,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentMethod != null" >
+        repayment_method = #{repaymentMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentTotal != null" >
+        repayment_total = #{repaymentTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentCapital != null" >
+        repayment_capital = #{repaymentCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentCapitalTime != null" >
+        repayment_capital_time = #{repaymentCapitalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repaymentInterest != null" >
+        repayment_interest = #{repaymentInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentInterestTime != null" >
+        repayment_interest_time = #{repaymentInterestTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overdueDays != null" >
+        overdue_days = #{overdueDays,jdbcType=INTEGER},
+      </if>
+      <if test="period != null" >
+        period = #{period,jdbcType=SMALLINT},
+      </if>
+      <if test="overdueInterestTotal != null" >
+        overdue_interest_total = #{overdueInterestTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueCapital != null" >
+        overdue_capital = #{overdueCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueInterest != null" >
+        overdue_interest = #{overdueInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="paidFees != null" >
+        paid_fees = #{paidFees,jdbcType=DECIMAL},
+      </if>
+      <if test="seviceFee != null" >
+        sevice_fee = #{seviceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="advanceTotal != null" >
+        advance_total = #{advanceTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="advanceCapital != null" >
+        advance_capital = #{advanceCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="advanceInterest != null" >
+        advance_interest = #{advanceInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentActualTime != null" >
+        repayment_actual_time = #{repaymentActualTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repaymentedTime != null" >
+        repaymented_time = #{repaymentedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="capitalTime != null" >
+        capital_time = #{capitalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="interestTime != null" >
+        interest_time = #{interestTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transType != null" >
+        trans_type = #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="paidTotal != null" >
+        paid_total = #{paidTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="paidCapital != null" >
+        paid_capital = #{paidCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="paidInterest != null" >
+        paid_interest = #{paidInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="paidOverdue != null" >
+        paid_overdue = #{paidOverdue,jdbcType=DECIMAL},
+      </if>
+      <if test="paidCompensate != null" >
+        paid_compensate = #{paidCompensate,jdbcType=DECIMAL},
+      </if>
+      <if test="accountManager != null" >
+        account_manager = #{accountManager,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="interestStart != null" >
+        interest_start = #{interestStart,jdbcType=VARCHAR},
+      </if>
+      <if test="interestEnd != null" >
+        interest_end = #{interestEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="interestSpread != null" >
+        interest_spread = #{interestSpread,jdbcType=DECIMAL},
+      </if>
+      <if test="actualTransTime != null" >
+        actual_trans_time = #{actualTransTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanPayRecordCompany" >
+    update loan_pay_record_company
+    set plan_id = #{planId,jdbcType=BIGINT},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      account_id = #{accountId,jdbcType=VARCHAR},
+      trans_main_id = #{transMainId,jdbcType=VARCHAR},
+      repayment_method = #{repaymentMethod,jdbcType=VARCHAR},
+      repayment_total = #{repaymentTotal,jdbcType=DECIMAL},
+      repayment_capital = #{repaymentCapital,jdbcType=DECIMAL},
+      repayment_capital_time = #{repaymentCapitalTime,jdbcType=TIMESTAMP},
+      repayment_interest = #{repaymentInterest,jdbcType=DECIMAL},
+      repayment_interest_time = #{repaymentInterestTime,jdbcType=TIMESTAMP},
+      overdue_days = #{overdueDays,jdbcType=INTEGER},
+      period = #{period,jdbcType=SMALLINT},
+      overdue_interest_total = #{overdueInterestTotal,jdbcType=DECIMAL},
+      overdue_capital = #{overdueCapital,jdbcType=DECIMAL},
+      overdue_interest = #{overdueInterest,jdbcType=DECIMAL},
+      paid_fees = #{paidFees,jdbcType=DECIMAL},
+      sevice_fee = #{seviceFee,jdbcType=DECIMAL},
+      advance_total = #{advanceTotal,jdbcType=DECIMAL},
+      advance_capital = #{advanceCapital,jdbcType=DECIMAL},
+      advance_interest = #{advanceInterest,jdbcType=DECIMAL},
+      repayment_actual_time = #{repaymentActualTime,jdbcType=TIMESTAMP},
+      repaymented_time = #{repaymentedTime,jdbcType=TIMESTAMP},
+      capital_time = #{capitalTime,jdbcType=TIMESTAMP},
+      interest_time = #{interestTime,jdbcType=TIMESTAMP},
+      trans_type = #{transType,jdbcType=VARCHAR},
+      paid_total = #{paidTotal,jdbcType=DECIMAL},
+      paid_capital = #{paidCapital,jdbcType=DECIMAL},
+      paid_interest = #{paidInterest,jdbcType=DECIMAL},
+      paid_overdue = #{paidOverdue,jdbcType=DECIMAL},
+      paid_compensate = #{paidCompensate,jdbcType=DECIMAL},
+      account_manager = #{accountManager,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      interest_start = #{interestStart,jdbcType=VARCHAR},
+      interest_end = #{interestEnd,jdbcType=VARCHAR},
+      interest_spread = #{interestSpread,jdbcType=DECIMAL},
+      actual_trans_time = #{actualTransTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+   <sql id="Where_Clause" >
+    <where >
+     
+	 <if test="planId != null" >
+        and lppc.plan_id = #{planId}
+      </if>
+      <if test="transMainId != null  and transMainId!=''" >
+        and lppc.trans_main_id = #{transMainId}
+      </if>
+      <if test="period != null" >
+        and lppc.period = #{period}
+      </if>
+      <if test="accountId != null  and accountId!=''" >
+        and lppc.account_id = #{accountId}
+      </if>
+      <if test="customerId != null  and customerId!=''" >
+        and lppc.customer_id = #{customerId}
+      </if>
+      <if test="city != null and ''!=city" >
+        and ltm.city_name = #{city,jdbcType=VARCHAR}
+      </if>
+
+      <if test="orderNo != null and ''!=orderNo" >
+        and lprc.order_no = #{orderNo,jdbcType=VARCHAR}
+      </if>
+      <if test="customerName != null and ''!=customerName" >
+        and lprc.customer_name like concat(concat('%',#{customerName}),'%')
+      </if> 
+      <if test="null!=capitalminTime and capitalminTime!=''">
+		AND <![CDATA[date_format(lprc.capital_time,'%Y-%m-%d %H:%i:%S') >= #{capitalminTime}]]>
+	  </if>
+	  <if test="null!=capitalmaxTime and capitalmaxTime!=''">
+		AND <![CDATA[date_format(lprc.capital_time,'%Y-%m-%d %H:%i:%S') <= #{capitalmaxTime}]]>
+	  </if>
+	
+	  <if test="null!=interestminTime and interestminTime!=''">
+		AND <![CDATA[date_format(lprc.interest_time,'%Y-%m-%d %H:%i:%S') >= #{interestminTime}]]>
+	  </if>
+	  <if test="null!=interestmaxTime and interestmaxTime!=''">
+		AND <![CDATA[date_format(lprc.interest_time,'%Y-%m-%d %H:%i:%S') <= #{interestmaxTime}]]>
+	</if>
+  	<if test="unionId != null and unionId != ''">
+  		and ltm.union_id = #{unionId}
+  	</if>
+  	<if test="status != null and status != ''">
+	  	and lppc.status = #{status}
+	 </if>
+	 <if test="authgroupList != null">
+		 	and 
+	         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+		         (1=1
+		             <if test="item.orgId != null and item.orgId != ''">
+					  		and ltm.company_id =  #{item.orgId}
+					 </if>
+					 <if test="item.deptId != null and item.deptId != ''">
+					  		and ltm.field1 =  #{item.deptId}
+					 </if>
+					 <if test="item.dataOwner != null and item.dataOwner != ''">
+					  		and ltm.field4 =  #{item.dataOwner}
+					 </if>
+				  )
+	          </foreach>
+		</if>
+      
+    </where>
+  </sql>
+    <!-- 已付款列表 -->
+  <select id="querypayRecordCompany" parameterType="map" resultMap="BaseResultMap">
+    select 
+    lprc.id, lprc.plan_id, lprc.order_no, lprc.customer_id,lprc.customer_name, lprc.account_id, lprc.trans_main_id, lprc.repayment_method, 
+    lprc.repayment_total, lprc.repayment_capital, lprc.repayment_capital_time, lprc.repayment_interest, lprc.repayment_interest_time, 
+    lprc.overdue_days, lprc.period, lprc.overdue_interest, lprc.paid_fees, lprc.sevice_fee, lprc.advance_total, lprc.advance_capital, 
+    lprc.advance_interest, lprc.repayment_actual_time, lprc.repaymented_time, lprc.capital_time, lprc.interest_time, 
+    lprc.paid_total, lprc.paid_capital, lprc.paid_interest, lprc.paid_overdue, lprc.paid_compensate, 
+    lprc.account_manager, lprc.department, lprc.company_id, lprc.union_id, lprc.interest_start, lprc.interest_end, 
+    lprc.status,ltm.product_type,ltm.product_name,ltm.trans_type,ltm.provience_name,ltm.city_name,ltm.period_total
+    from loan_pay_record_company lprc
+    inner join loan_trans_main ltm on ltm.trans_main_id=lprc.trans_main_id
+     <include refid="Where_Clause" />
+	 order by lprc.create_time desc
+	 limit #{page.pageStartIndex},#{page.pageSize}
+  </select>
+  
+  <select id="querypayRecordCompanyCount" parameterType="map" resultType="int">
+    select 
+    count(1)
+    from loan_pay_record_company lprc
+    inner join loan_trans_main ltm on ltm.trans_main_id=lprc.trans_main_id
+    <include refid="Where_Clause" />
+  </select>
+  
+  <select id="queryPaidTotal" parameterType="map" resultType="map">
+    select sum(lprc.paid_capital+lprc.paid_interest+lprc.paid_overdue+lprc.paid_compensate) paidTotal
+  	from loan_pay_record_company lprc
+  	inner join loan_trans_main ltm on lprc.trans_main_id = ltm.trans_main_id
+  	<include refid="Where_Clause" />
+  </select>
+  
+  <!--导出 -->
+  <select id="querypayRecordCompanyExport" parameterType="map" resultMap="BaseResultMap">
+    select 
+    lprc.order_no,ltm.city_name,ltm.product_type,ltm.product_name,lprc.customer_name,lprc.period,ltm.period_total,
+    lprc.repayment_total,lprc.repayment_capital,lprc.paid_capital,lprc.repayment_capital_time,lprc.capital_time,
+    lprc.repayment_interest,lprc.paid_interest,lprc.repayment_interest_time,lprc.interest_time,lprc.overdue_days,
+    lprc.paid_overdue,lprc.paid_compensate,
+    CONCAT(lprc.period,'/',ltm.period_total) period_total_all
+    from loan_pay_record_company lprc
+    inner join loan_trans_main ltm on ltm.trans_main_id=lprc.trans_main_id
+    <include refid="Where_Clause" />
+  </select>
+      <!-- 汇总已还款本金、利息总额 -->
+  <select id="queryPaysum" parameterType="com.lhhs.loan.dao.domain.LoanPayRecordCompany" resultType="com.lhhs.loan.dao.domain.LoanPayRecordCompany">
+    select sum(paid_capital+paid_interest+paid_overdue+paid_compensate) paid_all_total ,sum(paid_capital+paid_interest) paid_total,sum(paid_capital) paid_capital,
+    sum(paid_interest) paid_interest,sum(paid_overdue) paid_overdue,
+    sum(paid_compensate) paid_compensate,sum(interest_spread) interest_spread
+    from loan_pay_record_company 
+    where trans_main_id=#{transMainId} 
+    
+    <if test="period != null">
+  		and period=#{period} 
+  	</if>
+  	<if test="accountId != null">
+  		and account_id = #{accountId}
+  	</if>
+  	<if test="customerId != null  and customerId!=''" >
+        and customer_id = #{customerId}
+      </if>
+  	 and  status ='03'
+  </select>
+  
+  <!-- 已結清明細 -->
+  <select id="querySettleDetail" parameterType="String" resultMap="BaseResultMap">
+    select lprc.period,ltm.period_total,
+    (select sum((l.paid_capital+l.paid_interest+l.paid_overdue+l.paid_compensate)) from loan_pay_record_company l where lprc.id=l.id ) total_Amount,
+    lprc.paid_capital,lprc.capital_time,
+    lprc.paid_interest,lprc.interest_time,lprc.paid_overdue,lprc.paid_compensate
+    from loan_pay_record_company lprc
+    left join loan_trans_main ltm on ltm.trans_main_id=lprc.trans_main_id
+    where lprc.order_no=#{orderNo}
+  </select>
+  
+  
+</mapper>

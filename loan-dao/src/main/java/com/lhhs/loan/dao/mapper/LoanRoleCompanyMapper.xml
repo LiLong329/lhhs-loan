@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanRoleCompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanRoleCompany" >
+    <id column="lrc_id" property="lrcId" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lrc_id, role_id, company_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_role_company
+    where lrc_id = #{lrcId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from loan_role_company
+    where lrc_id = #{lrcId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanRoleCompany" >
+    insert into loan_role_company (lrc_id, role_id, company_id
+      )
+    values (#{lrcId,jdbcType=INTEGER}, #{roleId,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanRoleCompany" >
+    insert into loan_role_company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lrcId != null" >
+        lrc_id,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lrcId != null" >
+        #{lrcId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanRoleCompany" >
+    update loan_role_company
+    <set >
+      <if test="roleId != null" >
+        role_id = #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lrc_id = #{lrcId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanRoleCompany" >
+    update loan_role_company
+    set role_id = #{roleId,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR}
+    where lrc_id = #{lrcId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 根据角色查询列表 -->
+   <select id="queryRoleCompany" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_role_company
+    where role_id = #{roleId,jdbcType=VARCHAR}
+  </select>
+  
+   <!-- 根据角色删除 -->
+   <delete id="deleteByRoleId" parameterType="java.lang.String" >
+    delete from loan_role_company
+    where role_id = #{roleId,jdbcType=VARCHAR}
+  </delete>
+  
+    <!-- 根据角色列表查询所有公司-->
+  <select id="queryCompanyByListRoleId" resultType="java.lang.String" parameterType="java.util.List">
+         select distinct company_id from loan_role_company where  role_id in 
+          <foreach collection="list" index="index" item="item" open="(" separator="," close=")">  
+            #{item}  
+         </foreach>
+  </select>
+</mapper>

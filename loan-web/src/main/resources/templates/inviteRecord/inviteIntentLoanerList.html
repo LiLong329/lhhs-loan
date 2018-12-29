@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet"
+	href="/js/public/jqueryValidation/css/validationEngine.jquery.css"
+	type="text/css" />
+<script type="text/javascript"
+	src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/js/public/area.js"></script>
+<body>
+	<div class="father">
+		<header th:replace="common/top"></header>
+		<div class="common-content">
+			<div th:replace="common/left"></div>
+			<div class="common-right">
+				<div class="place" id="place">
+					<span>位置：</span>
+					<ul class="placeul">
+						<li><a href="/index/index">首页</a></li>
+						<li>客户管理</li>
+						<li>回访客户记录表</li>
+					</ul>
+				</div>
+				<div class="right-content">
+					<div class="formbody">
+						<div id="usual1" class="usual">
+							<form id="myForm">
+								<ul class="seachform1">
+									<input name="pageNumber" type="hidden" value="" id="currentPageNo" />
+									<li>
+	                                   <label>分公司：</label>
+	                                    <div class="vocation">
+			                            	 <select class="select-common select3 common-company" name="appointCompanyId" id="appointCompanyId" >
+			                                       <option value="">请选择</option>
+			                                       <option th:each="company : ${companys}" th:value="${company.companyId}" th:text="${company.companyName}"  th:attr="selected=(${company.companyId} eq ${entity.appointCompanyId})?true:false"></option>
+			                                 </select>
+	                                 	</div>
+	                                </li>
+									<li>
+	                                    <label>事业部：</label>
+	                                    <div class="vocation">
+	                                        <select class="select-common select3 common-dept" name="appointDepId" id="appointDepId" th:attr="data-val=${entity.appointDepId}">
+	                                        	    <option value="" >请选择</option>
+	                                        </select>
+	                                    </div>
+	                                </li>
+									<li>
+										<label>客户经理：</label> 
+										<input name="appointEmpName" type="text" class="scinput1"  th:value="${entity.appointEmpName}" />
+									</li>
+									<li>
+										<label>回访时间：</label> 
+										<input type="text" class="scinput1" name="beginingTime" th:value="${entity.beginingTime}?${#dates.format(entity.beginingTime, 'yyyy-MM-dd')}"    onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd '})" />
+										<span>至</span>
+										<input type="text" class="scinput1" name="endingTime" th:value="${entity.endingTime}?${#dates.format(entity.endingTime, 'yyyy-MM-dd')}"  onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd '})" />
+									</li>
+									<li>
+	                                    <input type="hidden" name="page.pageIndex" th:value="${page.pageIndex}"/>
+			                            <input type="hidden" name="page.pageSize" th:value="${page.pageSize}"/>
+										<input id="search" type="button" class="scbtn searcher" value="查询" /> 
+										<input id="export" type="button" class="scbtn2 mlt10 searcher" value="导出" />
+									</li>
+								</ul>
+							</form>
+							<div id="searcherId" th:include="inviteRecord/temp/InviteTemp"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="/js/public/select.js"></script>
+		<footer th:replace="common/footer"></footer>
+	</div>
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+	<script th:inline="javascript">
+    	/*<![CDATA[*/
+	    	seajs.use("crm/crmIntentLoanUseRecord");
+    	/*]]>*/
+    </script>
+</body>
+</html>

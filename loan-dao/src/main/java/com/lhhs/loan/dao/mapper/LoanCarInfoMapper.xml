@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanCarInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanCarInfo" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="cust_id" property="custId" jdbcType="VARCHAR" />
+    <result column="vehicle_num" property="vehicleNum" jdbcType="VARCHAR" />
+    <result column="drive_card_num" property="driveCardNum" jdbcType="VARCHAR" />
+    <result column="license_plate" property="licensePlate" jdbcType="VARCHAR" />
+    <result column="brand_model" property="brandModel" jdbcType="VARCHAR" />
+    <result column="car_age" property="carAge" jdbcType="VARCHAR" />
+    <result column="displacement" property="displacement" jdbcType="VARCHAR" />
+    <result column="kilometers" property="kilometers" jdbcType="VARCHAR" />
+    <result column="purchase_year" property="purchaseYear" jdbcType="VARCHAR" />
+    <result column="colour" property="colour" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lhhs.loan.dao.domain.LoanCarInfo" extends="BaseResultMap" >
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, cust_id, vehicle_num, drive_card_num, license_plate, brand_model, car_age, displacement, 
+    kilometers, purchase_year, colour, update_time, customer_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from loan_car_info
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from loan_car_info
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanCarInfo" >
+    insert into loan_car_info (ID, cust_id, vehicle_num, 
+      drive_card_num, license_plate, brand_model, 
+      car_age, displacement, kilometers, 
+      purchase_year, colour, update_time, 
+      remark,customer_id)
+    values (#{id,jdbcType=BIGINT}, #{custId,jdbcType=VARCHAR}, #{vehicleNum,jdbcType=VARCHAR}, 
+      #{driveCardNum,jdbcType=VARCHAR}, #{licensePlate,jdbcType=VARCHAR}, #{brandModel,jdbcType=VARCHAR}, 
+      #{carAge,jdbcType=VARCHAR}, #{displacement,jdbcType=VARCHAR}, #{kilometers,jdbcType=VARCHAR}, 
+      #{purchaseYear,jdbcType=VARCHAR}, #{colour,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=LONGVARCHAR}, #{customerId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanCarInfo" >
+    insert into loan_car_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="custId != null" >
+        cust_id,
+      </if>
+      <if test="vehicleNum != null" >
+        vehicle_num,
+      </if>
+      <if test="driveCardNum != null" >
+        drive_card_num,
+      </if>
+      <if test="licensePlate != null" >
+        license_plate,
+      </if>
+      <if test="brandModel != null" >
+        brand_model,
+      </if>
+      <if test="carAge != null" >
+        car_age,
+      </if>
+      <if test="displacement != null" >
+        displacement,
+      </if>
+      <if test="kilometers != null" >
+        kilometers,
+      </if>
+      <if test="purchaseYear != null" >
+        purchase_year,
+      </if>
+      <if test="colour != null" >
+        colour,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleNum != null" >
+        #{vehicleNum,jdbcType=VARCHAR},
+      </if>
+      <if test="driveCardNum != null" >
+        #{driveCardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="licensePlate != null" >
+        #{licensePlate,jdbcType=VARCHAR},
+      </if>
+      <if test="brandModel != null" >
+        #{brandModel,jdbcType=VARCHAR},
+      </if>
+      <if test="carAge != null" >
+        #{carAge,jdbcType=VARCHAR},
+      </if>
+      <if test="displacement != null" >
+        #{displacement,jdbcType=VARCHAR},
+      </if>
+      <if test="kilometers != null" >
+        #{kilometers,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseYear != null" >
+        #{purchaseYear,jdbcType=VARCHAR},
+      </if>
+      <if test="colour != null" >
+        #{colour,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanCarInfo" >
+    update loan_car_info
+    <set >
+      <if test="custId != null" >
+        cust_id = #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleNum != null" >
+        vehicle_num = #{vehicleNum,jdbcType=VARCHAR},
+      </if>
+      <if test="driveCardNum != null" >
+        drive_card_num = #{driveCardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="licensePlate != null" >
+        license_plate = #{licensePlate,jdbcType=VARCHAR},
+      </if>
+      <if test="brandModel != null" >
+        brand_model = #{brandModel,jdbcType=VARCHAR},
+      </if>
+      <if test="carAge != null" >
+        car_age = #{carAge,jdbcType=VARCHAR},
+      </if>
+      <if test="displacement != null" >
+        displacement = #{displacement,jdbcType=VARCHAR},
+      </if>
+      <if test="kilometers != null" >
+        kilometers = #{kilometers,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseYear != null" >
+        purchase_year = #{purchaseYear,jdbcType=VARCHAR},
+      </if>
+      <if test="colour != null" >
+        colour = #{colour,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lhhs.loan.dao.domain.LoanCarInfo" >
+    update loan_car_info
+    set cust_id = #{custId,jdbcType=VARCHAR},
+      vehicle_num = #{vehicleNum,jdbcType=VARCHAR},
+      drive_card_num = #{driveCardNum,jdbcType=VARCHAR},
+      license_plate = #{licensePlate,jdbcType=VARCHAR},
+      brand_model = #{brandModel,jdbcType=VARCHAR},
+      car_age = #{carAge,jdbcType=VARCHAR},
+      displacement = #{displacement,jdbcType=VARCHAR},
+      kilometers = #{kilometers,jdbcType=VARCHAR},
+      purchase_year = #{purchaseYear,jdbcType=VARCHAR},
+      colour = #{colour,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=LONGVARCHAR},
+      customer_id = #{customerId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanCarInfo" >
+    update loan_car_info
+    set cust_id = #{custId,jdbcType=VARCHAR},
+      vehicle_num = #{vehicleNum,jdbcType=VARCHAR},
+      drive_card_num = #{driveCardNum,jdbcType=VARCHAR},
+      license_plate = #{licensePlate,jdbcType=VARCHAR},
+      brand_model = #{brandModel,jdbcType=VARCHAR},
+      car_age = #{carAge,jdbcType=VARCHAR},
+      displacement = #{displacement,jdbcType=VARCHAR},
+      kilometers = #{kilometers,jdbcType=VARCHAR},
+      purchase_year = #{purchaseYear,jdbcType=VARCHAR},
+      colour = #{colour,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      customer_id = #{customerId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 根据custId删除车抵押信息 -->
+  <delete id="deleteByCustId">
+  	delete from loan_car_info where cust_id = #{custId}
+  </delete>
+  
+  <!-- ************************** 贷前系统 II 期 Li Jianjun START **************************-->
+  <!-- 根据customerId查询当前客户的车产信息 -->
+  <select id="selectCarInfoList" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+  	SELECT
+	    <include refid="Base_Column_List" />,
+	    <include refid="Blob_Column_List" />
+    FROM 
+    	loan_car_info
+  	WHERE
+  		customer_id = #{customerId, jdbcType=VARCHAR}
+  </select>
+  <!-- 删除客户编号为customerId的借款人车产信息 -->
+   <delete id="deleteCarInfoByCustomerId" parameterType="java.lang.String">
+  	DELETE FROM 
+  		loan_car_info 
+  	WHERE 
+  		customer_id = #{customerId, jdbcType=VARCHAR}
+  </delete>
+  <!-- *************************** 贷前系统 II 期 Li Jianjun END ***************************-->
+</mapper>

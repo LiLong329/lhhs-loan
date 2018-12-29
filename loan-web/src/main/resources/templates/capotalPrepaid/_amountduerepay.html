@@ -1,0 +1,68 @@
+<table class="tablelist">
+	<thead>
+		<tr>
+		    <th>债务ID</th>
+			<th>报单编号</th>
+			<th>省市</th>
+			<th>产品类型</th>
+			<th>产品名称</th>
+			<th>借款人姓名</th>
+			<th>期数/总期数</th>
+			<th>还款总额</th>
+			<th>还款垫付金额</th>
+			<th>还款债务利息</th>
+			<th>还款时间</th>
+		</tr>
+	</thead>
+	<tbody> 
+		<th:block th:unless="${#lists.isEmpty(page.resultList)}">
+			    <tr th:each="payPlan : ${page.resultList}">
+			    <td th:text="${payPlan.id}"></td>
+				<td>
+				<a th:href="@{/orderInfo/get(orderNo=${payPlan.orderNo})}" class="tablelink" th:text="${payPlan.orderNo}"></a>
+				</td>
+				<td th:text="${payPlan.cityName}"></td>
+				<td th:text="${payPlan.productType}"></td>
+				<td th:text="${payPlan.productName}"></td>
+				<td th:text="${payPlan.borrower}"></td>
+				<td th:text="${payPlan.period}+'/'+${payPlan.periodTotal}"></td>
+				<td th:text="${payPlan.paidTotal}?${#numbers.formatDecimal(payPlan.paidTotal,1,2)}"></td>
+				<td th:text="${payPlan.paidCapital}?${#numbers.formatDecimal(payPlan.paidCapital,1,2)}"></td>
+				<td th:text="${payPlan.paidInterest}?${#numbers.formatDecimal(payPlan.paidInterest,1,2)}:0.00"></td>
+				<td th:text="${payPlan.paidAdvanceTime}?${#dates.format(payPlan.paidAdvanceTime,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+			</tr>
+		</th:block>
+		<th:block th:if="${#lists.isEmpty(page.resultList)}">
+			<tr>
+				<td colspan="12" class="textCt">暂无数据</td>
+			</tr>
+		</th:block>
+	</tbody>
+</table>
+
+<div class="pagin" style="margin-top: 0px;" th:unless="${#lists.isEmpty(page.resultList)}">
+	<div class="message">
+		统计数据(<b th:text="${page.totalCount}"></b>条);&nbsp;&nbsp;&nbsp;
+		还款总额：<b th:text="${#numbers.formatDecimal(map.paidTotal,1,2)}"></b>元&nbsp;&nbsp;&nbsp;
+    </div>	
+</div>
+
+<div class="pagin" style="margin-top: 0px;" th:unless="${#lists.isEmpty(page.resultList)}">
+	<div class="message">
+		<!-- <input type="button" value="导出" class="scbtn1" style="width: 65px;" id="export"/>&nbsp;&nbsp;&nbsp; -->
+		共 <i class="blue" th:text="${page.totalCount}"></i> 
+		条记录，当前显示第 <i class="blue" th:text="${page.pageIndex}"></i> 页
+	</div>
+	<ul class="paginList">
+		<li class="paginItem" th:if="${page.pageIndex} gt 1">
+			<a th:attr="data-pagenum=(${page.pageIndex}-1),data-pagesize=${page.pageSize}" class="pagepre"></a>
+		</li>
+		<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" 
+		th:classappend="(${page.pageIndex} eq ${x})?'current'">
+			<a th:attr="data-pagenum=${x},data-pagesize=(${page.pageSize})" th:text="${x}"></a>
+		</li>
+		<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+			<a th:attr="data-pagenum=(${page.pageIndex}+1),data-pagesize=(${page.pageSize})" class="pagenxt"></a>
+		</li> 
+	</ul>
+</div>

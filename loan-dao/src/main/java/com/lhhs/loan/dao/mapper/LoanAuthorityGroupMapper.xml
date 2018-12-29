@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanAuthorityGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanAuthorityGroup" >
+    <id column="authority_group_id" property="authorityGroupId" jdbcType="INTEGER" />
+    <result column="authority_id" property="authorityId" jdbcType="VARCHAR" />
+    <result column="group_id" property="groupId" jdbcType="INTEGER" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="dept_id" property="deptId" jdbcType="VARCHAR" />
+    <result column="data_owner" property="dataOwner" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    authority_group_id, authority_id, group_id, org_id, dept_id, data_owner, status, creat_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_authority_group
+    where authority_group_id = #{authorityGroupId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from loan_authority_group
+    where authority_group_id = #{authorityGroupId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanAuthorityGroup" >
+    insert into loan_authority_group (authority_group_id, authority_id, group_id, 
+      org_id, dept_id, data_owner, 
+      status, creat_time)
+    values (#{authorityGroupId,jdbcType=INTEGER}, #{authorityId,jdbcType=VARCHAR}, #{groupId,jdbcType=INTEGER}, 
+      #{orgId,jdbcType=VARCHAR}, #{deptId,jdbcType=VARCHAR}, #{dataOwner,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanAuthorityGroup" >
+    insert into loan_authority_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="authorityGroupId != null" >
+        authorityGroupId,
+      </if>
+      <if test="authorityId != null" >
+        authority_id,
+      </if>
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="deptId != null" >
+        dept_id,
+      </if>
+      <if test="dataOwner != null" >
+        data_owner,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="authorityGroupId != null" >
+        #{authorityGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="authorityId != null" >
+        #{authorityId,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null" >
+        #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="dataOwner != null" >
+        #{dataOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanAuthorityGroup" >
+    update loan_authority_group
+    <set >
+      <if test="authorityId != null" >
+        authority_id = #{authorityId,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null" >
+        group_id = #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        dept_id = #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="dataOwner != null" >
+        data_owner = #{dataOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where authority_group_id = #{authorityGroupId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanAuthorityGroup" >
+    update loan_authority_group
+    set authority_id = #{authorityId,jdbcType=VARCHAR},
+      group_id = #{groupId,jdbcType=INTEGER},
+      org_id = #{orgId,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=VARCHAR},
+      data_owner = #{dataOwner,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP}
+    where authority_group_id = #{authorityGroupId,jdbcType=INTEGER}
+  </update>
+   
+  <!-- 批量新增 -->
+  <insert id="insertList" parameterType="ArrayList">
+  	insert loan_authority_group(authority_group_id, authority_id, group_id, org_id, dept_id, status, creat_time)
+  	values  
+    <foreach collection="list" item="obj" index="index" separator="," >  
+       (#{obj.authorityGroupId },#{obj.authorityId},#{obj.groupId},#{obj.orgId},#{obj.deptId},#{obj.status},#{obj.creatTime}) 
+    </foreach>  
+ </insert>
+ 
+ <delete id="delByGroupId" parameterType="java.lang.Integer">
+ 	delete from loan_authority_group where group_id = #{groupId}
+ </delete>
+ 
+ <select id="getSelectAutGupByGupId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	 select 
+    <include refid="Base_Column_List" />
+    from loan_authority_group
+    where group_id = #{groupId}
+  </select>
+  
+  
+</mapper>

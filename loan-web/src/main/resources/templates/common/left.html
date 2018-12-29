@@ -1,0 +1,106 @@
+<div class="siderbar" id="siderbar">
+    <div id="barbg">
+        <div class="lefttop"><span></span>菜 单</div>
+        <dl class="leftmenu">
+        </dl>
+    </div>
+</div>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	    var currentUrl=$.trim(location.href);
+	    	currentUrl=currentUrl.substring(currentUrl.indexOf("//")+2);
+	    	currentUrl=currentUrl.substring(currentUrl.indexOf("/"));
+	    if(currentUrl.indexOf("?")>0){
+	    	currentUrl=currentUrl.substring(0, currentUrl.indexOf("?"));
+	    }
+		var	ifIndex=(currentUrl.indexOf("/index/index")>=0)?true:false,
+			isLeftHas=false;
+		$.get("/index/menu", function (data){
+			var menuLeft_l = "<dd><div class='title'><span class='lefticon lefticon0",
+				menuLeft_nosub_l = "<dd><div class='title'><a href='",
+				menuLeft_nosub_span = "<span class='lefticon lefticon0",
+				menuLeft_r = "'></span>",
+				menuRight = "</div><ul class='menuson'>",
+				ulRight = "</ul>",
+				sub_menu_left = "<li><cite></cite>", //二级菜单（无三级菜单）引用
+				sub_menu_right = "<i></i></li>",
+				sub_menu_hasChildLeft = "<li><div class='header'><cite></cite>", //含有三级菜单的2级菜单
+				sub_menu_hasChildRight = "<i></i></div><ul class='sub-menus'>",
+				sub_li_left = "<li>", //三级菜单
+				sub_li_right = "</li>",
+				html = "",
+				menuEnd = "</dd>";
+				
+			for(var key in data){
+				var menuName=data[key],h2="";
+				if(menuName.authorityList===null||menuName.authorityList.length==0){
+					html += menuLeft_nosub_l +  menuName.url + "'>" + menuLeft_nosub_span + "2" + menuLeft_r + menuName.name + "</a>" + menuRight; //只有一级菜单
+				} else {
+					html += menuLeft_l + "2" + menuLeft_r + menuName.name + menuRight; //一级菜单
+					for(var i=0;i<menuName.authorityList.length;i++){
+						var subList = menuName.authorityList[i];
+						if(subList.authorityList!==null&&subList.authorityList.length > 0){ //有三级菜单
+							html += sub_menu_hasChildLeft + "<a>" + subList.name + "</a>" + sub_menu_hasChildRight;//有三级菜单的2级菜单
+							for(var j=0;j<subList.authorityList.length;j++){
+								html += sub_li_left + "<a href='"+ (subList.authorityList[j].url?(subList.authorityList[j].url):"javascript:void(0);") +"'>" + subList.authorityList[j].name + "</a>" + sub_menu_right; //三级菜单
+							}
+							html = html + ulRight;
+						} else if(subList.authorityList.authorityList===null||subList.authorityList.length === 0){ //没有有三级菜单
+							html += sub_menu_left + "<a href='"+ ((subList.url)?(subList.url):"javascript:void(0);") +"'>" + subList.name + "</a>" + sub_menu_right; //无三级菜单的2级菜单
+						}
+					}
+				}
+				html += menuEnd;
+			}
+			$(".leftmenu").html(html);
+			if(ifIndex){
+				$($("#barbg .menuson").get(0)).css("display","block");
+			}else{
+				$("#barbg a").each(function(i,n){
+					var temp=$.trim($(n).attr("href"));
+					if(temp.indexOf("?")>0){
+						temp=temp.substring(0, temp.indexOf("?"));
+					}
+					if(temp==currentUrl){
+						if($(n).closest(".sub-menus").length>0){
+							$(n).closest("li").addClass("active");
+							$(n).closest("ul").css("display","block");
+							$(n).closest("ul").closest("li").closest("ul.menuson").css("display","block");
+							$(n).closest("ul").closest("li").addClass("active").addClass("open");
+						}else{
+							$(n).addClass("current");
+							$(n).closest(".menuson").css("display","block");
+						}
+						isLeftHas=true;
+						cookie.set("currentUrl",currentUrl);
+						return false;
+					}
+				});
+				if(!isLeftHas){
+					currentUrl=cookie.get("currentUrl");
+					if(currentUrl){
+						$("#barbg a").each(function(i,n){
+							var temp=$.trim($(n).attr("href"));
+							if(temp.indexOf("?")>0){
+								temp=temp.substring(0, temp.indexOf("?"));
+							}
+							if(temp==currentUrl){
+								if($(n).closest(".sub-menus").length>0){
+									$(n).closest("li").addClass("active");
+									$(n).closest("ul").css("display","block");
+									$(n).closest("ul").closest("li").closest("ul.menuson").css("display","block");
+									$(n).closest("ul").closest("li").addClass("active").addClass("open");
+								}else{
+									$(n).addClass("current");
+									$(n).closest(".menuson").css("display","block");
+								}
+								return false;
+							}
+						});
+					}
+				}
+			}
+		});
+	/*]]>*/
+</script>
+<script type="text/javascript" src="/js/public/siderbar.js"></script>

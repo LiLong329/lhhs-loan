@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.NoticeModelMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.NoticeModel" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="english_name" property="englishName" jdbcType="VARCHAR" />
+    <result column="model_type" property="modelType" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="receiver" property="receiver" jdbcType="VARCHAR" />
+    <result column="notice_type" property="noticeType" jdbcType="VARCHAR" />
+    <result column="model_status" property="modelStatus" jdbcType="VARCHAR" />
+    <result column="sequence" property="sequence" jdbcType="INTEGER" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, english_name, model_type, content, receiver, notice_type, model_status, 
+    sequence, field1, field2, field3, field4, field5
+  </sql>
+  <sql id="Where_Common">
+  	  <if test="id != null" >
+	    and id = #{id}
+	  </if>
+  	  <if test="name != null and name !=''" >
+        and name = #{name}
+      </if>
+      <if test="englishName != null and englishName !=''" >
+        and english_name = #{englishName}
+      </if>
+      <if test="modelType != null and modelType !=''" >
+        and model_type = #{modelType}
+      </if>
+      <if test="content != null and content !=''" >
+        and content = #{content}
+      </if>
+      <if test="receiver != null and receiver !=''" >
+        and receiver = #{receiver}
+      </if>
+      <if test="noticeType != null and noticeType !=''" >
+        and notice_type = #{noticeType}
+      </if>
+      <if test="modelStatus != null and modelStatus !=''" >
+        and model_status = #{modelStatus}
+      </if>
+      <if test="sequence != null" >
+        and sequence = #{sequence}
+      </if>
+      <if test="field1 != null and field1 !=''" >
+        and field1 = #{field1}
+      </if>
+      <if test="field2 != null and field2 !=''" >
+        and field2 = #{field2}
+      </if>
+      <if test="field3 != null and field3 !=''" >
+        and field3 = #{field3}
+      </if>
+      <if test="field4 != null and field4 !=''" >
+        and field4 = #{field4}
+      </if>
+      <if test="field5 != null and field5 !=''" >
+        and field5 = #{field5}
+      </if>
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_notice_model
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="queryList" resultType="com.lhhs.loan.dao.domain.NoticeModel" parameterType="com.lhhs.loan.dao.domain.NoticeModel" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_notice_model
+    <where>
+   		 <include refid="Where_Common"/>
+	</where>
+	and content is NOT null
+	ORDER BY model_type,sequence,notice_type
+  </select>
+  <select id="getByType" resultType="com.lhhs.loan.dao.domain.NoticeModel" parameterType="com.lhhs.loan.dao.domain.NoticeModel" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_notice_model
+    where 1=1
+      <if test="modelType != null and modelType !=''" >
+        and model_type = #{modelType}
+      </if>
+    group by english_name
+    ORDER BY sequence
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from loan_notice_model
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.NoticeModel" >
+    insert into loan_notice_model (id, name, english_name, 
+      model_type, content, receiver, 
+      notice_type, model_status, sequence, 
+      field1, field2, field3, 
+      field4, field5)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{englishName,jdbcType=VARCHAR}, 
+      #{modelType,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{receiver,jdbcType=VARCHAR}, 
+      #{noticeType,jdbcType=VARCHAR}, #{modelStatus,jdbcType=VARCHAR}, #{sequence,jdbcType=INTEGER}, 
+      #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, 
+      #{field4,jdbcType=VARCHAR}, #{field5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.NoticeModel" >
+    insert into loan_notice_model
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="englishName != null" >
+        english_name,
+      </if>
+      <if test="modelType != null" >
+        model_type,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="receiver != null" >
+        receiver,
+      </if>
+      <if test="noticeType != null" >
+        notice_type,
+      </if>
+      <if test="modelStatus != null" >
+        model_status,
+      </if>
+      <if test="sequence != null" >
+        sequence,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="englishName != null" >
+        #{englishName,jdbcType=VARCHAR},
+      </if>
+      <if test="modelType != null" >
+        #{modelType,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver != null" >
+        #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeType != null" >
+        #{noticeType,jdbcType=VARCHAR},
+      </if>
+      <if test="modelStatus != null" >
+        #{modelStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="sequence != null" >
+        #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.NoticeModel" >
+    update loan_notice_model
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="englishName != null" >
+        english_name = #{englishName,jdbcType=VARCHAR},
+      </if>
+      <if test="modelType != null" >
+        model_type = #{modelType,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver != null" >
+        receiver = #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeType != null" >
+        notice_type = #{noticeType,jdbcType=VARCHAR},
+      </if>
+      <if test="modelStatus != null" >
+        model_status = #{modelStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="sequence != null" >
+        sequence = #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateModelStatus" parameterType="com.lhhs.loan.dao.domain.NoticeModel" >
+    update loan_notice_model set model_status = #{modelStatus}
+    <if test="receiver != null">
+    	,receiver = #{receiver}
+    </if>
+    where 
+	    model_type = #{modelType}
+	   	and english_name = #{englishName}
+    <if test="idsArray != null">
+    	and  id in 
+	    <foreach item="item" index="index" collection="idsArray" open="(" separator="," close=")">
+	    	 #{item}
+	    </foreach>
+    </if>
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.NoticeModel" >
+    update loan_notice_model
+    set name = #{name,jdbcType=VARCHAR},
+      english_name = #{englishName,jdbcType=VARCHAR},
+      model_type = #{modelType,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      receiver = #{receiver,jdbcType=VARCHAR},
+      notice_type = #{noticeType,jdbcType=VARCHAR},
+      model_status = #{modelStatus,jdbcType=VARCHAR},
+      sequence = #{sequence,jdbcType=INTEGER},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

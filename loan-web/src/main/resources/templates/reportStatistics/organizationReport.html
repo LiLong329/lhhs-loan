@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/js/public/area.js"></script>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>报表统计</li>
+                        <li>机构放款统计</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual">
+                           <form id="myForm">
+                            <ul class="seachform1">
+                               <input  name="pageNumber" type="hidden" value="" id="currentPageNo"/>
+                                <li>
+                                    <label>省市：</label>
+                                    <div class="vocation">
+                                        <select class="select-common select3 provinceSelect"></select>
+                                    </div>
+                                    <span>省</span>
+                                    <div class="vocation">
+                                        <select class="select-common select3 citySelect" name="cityNo"></select>
+                                    </div>
+                                    <span>市</span>
+                                </li>
+                                <li>
+                                    <label>报单编号：</label>
+                                    <input name="orderNo" type="text" class="scinput1" th:value="${orderNo}"/>
+                                </li>
+                                  <li>
+                                    <label>出借人姓名：</label>
+                                    <input name="customerName" type="text" class="scinput1" th:value="${customerName}"/>
+                                </li>
+                                 <li>
+                                    <label>借款人姓名：</label>
+                                    <input name="borrower" type="text" class="scinput1" th:value="${borrower}"/>
+                                </li>
+                                 <li>
+                                    <label>应收息时间：</label>
+                                    <input type="text" class="scinput1" name="beginTimeTwo" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+                                    <span> 至 </span>
+                                    <input type="text" class="scinput1" name="endTimeTwo" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+                                </li>
+                                <li>
+                                    <label>应收本时间：</label>
+                                    <input type="text" class="scinput1" name="beginTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+                                    <span> 至 </span>
+                                    <input type="text" class="scinput1" name="endTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+                                </li>
+                                <li>
+                                    <input type="hidden" name="searcherId" value="organizationReportId"/>
+                                    <input type="hidden" name="page.pageIndex" th:value="${page.pageIndex}"/>
+		                            <input type="hidden" name="page.pageSize" th:value="${page.pageSize}"/>
+                                    <input type="button" class="scbtn searcher" value="查询"/>
+                                </li>
+                            </ul>
+                            </form>
+                            <div class="table-title">
+                                <p class="tab-font">机构放款统计表</p>
+                            </div>
+                            <div id="organizationReportId" th:include="reportStatistics/temp/organizationReportTemp">
+	                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+        <script src="/js/public/select.js"></script>
+        <footer th:replace="common/footer"></footer>
+        <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	    <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+      <script th:inline="javascript">
+    	/*<![CDATA[*/
+	    	seajs.use("reportStatistics/reportStatistics");
+    	/*]]>*/
+    </script>
+    </div>
+</body>
+</html>

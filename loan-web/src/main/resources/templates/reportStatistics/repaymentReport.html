@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="common/src"></head>
+	<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+	<style>
+		.reportForm {padding: 12px;}
+	</style>
+	<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="/js/public/area.js"></script>
+	<body>
+		<div class="father">
+			<header th:replace="common/top"></header>
+			<div class="common-content">
+				<div th:replace="common/left"></div>
+				<div class="common-right">
+					<div class="place" id="place">
+	                    <span>位置：</span>
+	                    <ul class="placeul">
+	                        <li><a href="/index/index">首页</a></li>
+	                        <li>报表统计</li>
+	                        <li>还款统计报表</li>
+	                    </ul>
+	                </div>
+					<div class="right-content">
+						<div class="formbody">
+							<div id="usual1" class="usual">
+	                            <div class="itab">
+	                                <ul>
+	                                    <li><a data-show="#tab1">事业部</a></li>
+	                                    <li><a data-show="#tab2">借款人</a></li>
+	                                </ul>
+	                            </div>
+	                        </div>
+							<div id="tab1" class="tabson">
+							    <form id="deptMentForm">
+								<ul class="seachform1">
+									<li>
+										 <label>省市：</label>
+		                                    <div class="vocation">
+		                                        <select class="select-common select3 provinceSelect" name="provienceNo"></select>
+		                                    </div>
+		                                    <span>省</span>
+		                                    <div class="vocation">
+		                                        <select class="select-common select3 citySelect" name="cityNo"></select>
+		                                    </div>
+                                    	    <span>市</span>
+									</li>
+									<li><label>分公司：</label>
+										<div class="vocation">
+											 <select class="select-common select3 common-company" name="companyId" id="companyId" >
+				                                       <option value="">请选择</option>
+				                                       <option th:each="company : ${companys}" th:value="${company.companyId}" th:text="${company.companyName}"></option>
+				                              </select>
+										</div>
+									</li>
+									<li><label>事业部：</label>
+										<div class="vocation">
+											<select class="select-common select3 common-dept" name="depId" id="depId">
+	                                        	 <option value="" >请选择</option>
+	                                        </select>
+										</div>
+									</li>
+									<li>
+										 <label>客户经理：</label>
+										 <input type="text" class="scinput1" id="accountManager" name="accountManager"/>
+									</li>
+									<li>
+										<label>应还款时间：</label>
+										 <input type="text" class="scinput1" name="beginTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+	                                    <span> 至 </span>
+	                                    <input type="text" class="scinput1" name="endTime" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+									</li>
+									<li class="sarchbtn">
+									    <input type="hidden" name="page.pageIndex" th:value="${page.pageIndex}"/>
+		                                <input type="hidden" name="page.pageSize" th:value="${page.pageSize}"/>
+										<input id="deptSearcherId" type="button" class="scbtn" value="查询" /> 
+										<input id="deptExport" type="button" class="scbtn2 mlt10" value="导出" />
+									</li>
+								</ul>
+								 </form>
+								 <!-- <div class="table-title">
+									<p class="tab-font"><span th:text="${total}?${#numbers.formatDecimal(total,1,2)}:0.00"></span> </p>
+								</div> -->
+								 <div id="repaymentReportId" th:include="reportStatistics/temp/repaymentReportTemp"></div>
+							</div>
+							<div id="tab2" class="tabson">
+							    <form id="personForm">
+								   <ul class="seachform1">
+									<li><label>省市：</label>
+										  <div class="vocation">
+		                                        <select class="select-common select3 provinceSelect" name="provienceNo"></select>
+		                                    </div>
+		                                    <span>省</span>
+		                                    <div class="vocation">
+		                                        <select class="select-common select3 citySelect" name="cityNo"></select>
+		                                    </div>
+                                    	    <span>市</span>
+									</li>
+									<li><label>借款人：</label><input name="customerName" type="text" class="scinput1" /></li>
+									<li><label>借款人手机号：</label><input name="customerMobile" type="text" class="scinput1" /></li>
+									<li><label>应还款时间：</label>
+									 <input type="text" class="scinput1" name="beginTimeTwo" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+                                    <span> 至 </span>
+                                    <input type="text" class="scinput1" name="endTimeTwo" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+									</li>
+									<li class="sarchbtn">
+									    <input type="hidden" name="page.pageIndex" th:value="${personPage.pageIndex}"/>
+		                                <input type="hidden" name="page.pageSize" th:value="${personPage.pageSize}"/>
+										<input id="personSearcherId" type="button" class="scbtn" value="查询" /> 
+										<input id="personExport" type="button" class="scbtn2 mlt10" value="导出" />
+									</li>
+								</ul>
+								 </form>
+								<div id="repaymentPersonId" th:include="reportStatistics/temp/repaymentReportPersonTemp"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<script src="/js/public/select.js"></script>
+			<footer th:replace="common/footer"></footer>
+		</div>
+		<script th:inline="javascript">
+    		/*<![CDATA[*/
+	    		seajs.use("reportStatistics/reportStatistics");
+    		/*]]>*/
+       	</script>
+	</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                    	<li>客户管理</li>
+                        <li>客户信息管理</li>
+                        <th:block th:if=" 'zhipai' eq ${customerStatus} ">
+				        	<li>待分配客户</li>
+				        </th:block>	
+                        <th:block th:if=" 'zhuanyi' eq ${customerStatus} ">
+				        	<li>已分配客户</li>
+				        </th:block>	
+                        <li>查看</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                    	<div class="itab">
+	                        <ul>
+	                            <li><a data-show="#tab1">客户信息</a></li>
+	                            <li><a data-show="#tab2">回访记录</a></li>
+	                        </ul>
+	                    </div>
+		                <div id="tab1" class="tabson">
+		                	<form id="inputForm">
+			                    <input type="hidden" name="id" th:attr="value=${crmUser.id}"/>
+			                    <input type="hidden" name="parentId" th:attr="value=${crmUser.id}"/>
+			                    <div class="formtitle"><span>客户信息</span></div>
+			                    <div class="toolsli">
+			                        <ul class="nbbdgl-Ui">
+			                           <li >
+			                                <span class="tips">客户编号：</span>
+											<span  th:text="${crmUser.id}"></span>
+			                            </li>
+			                             <li >
+			                                <span class="tips">客户姓名：</span>
+											<span  th:text="${crmUser.name}"></span>
+			                            </li>
+			                              <li>
+			                                <span class="tips">手机号：</span>
+											<span  th:text="${crmUser.mobile}"></span>
+			                            </li>
+			                            <li >
+			                                <span class="tips">省市：</span>
+											<span th:text="${crmUser.province}"></span><span th:text="${crmUser.city}"></span>
+			                            </li>
+			                              <li >
+			                                <span class="tips">客户录入公司：</span>
+											<span  th:text="${crmUser.createrCompanyName}"></span> <!-- 客户录入公司 -->
+			                            </li>
+			                            <li >
+			                                <span class="tips">最新跟进时间：</span>
+											<span  th:text="${crmUser.visitTime}?${#dates.format(crmUser.visitTime, 'yyyy-MM-dd')}"></span>
+			                            </li>
+			                            <li >
+			                                <span class="tips">客户状态：</span>
+											 <span th:if="${crmUser.businessStatus} eq 01">初步接触</span>
+											 <span th:if="${crmUser.businessStatus} eq 02">意向客户</span>
+											 <span th:if="${crmUser.businessStatus} eq 03">跟进客户</span>
+											 <span th:if="${crmUser.businessStatus} eq 04">签约客户</span>
+											 <span th:if="${crmUser.businessStatus} eq 05">放弃客户</span>
+											 <span th:if="${crmUser.businessStatus} eq 06">黑名单</span>
+											 <span th:if="${crmUser.businessStatus} eq 07">面谈客户</span>
+											 <span th:if="${crmUser.businessStatus} eq 90">已拒贷</span>
+											 <span th:if="${crmUser.businessStatus} eq 99">无效</span>
+											 <span th:if="${crmUser.businessStatus} eq 08">已报单</span>
+			                            </li>
+			                            <li th:if="${customerStatus} eq zhuanyi"><!-- th:if="${not #lists.isEmpty(crmUser.appointEmpName)}" -->
+								            <span class="tips">客户经理：</span>
+								            <span  th:text="${crmUser.appointEmpName}"></span>
+								        </li>
+			                            <li >
+			                                <span class="tips">指向分公司：</span>
+											<span  th:text="${crmUser.appointCompanyName}"></span>
+			                            </li>
+			                            <li th:if="${customerStatus} eq zhuanyi">
+			                                <span class="tips">事业部：</span>
+								            <span  th:text="${crmUser.appointDeptName}"></span>
+			                            </li>
+			                            <li th:if="${customerStatus} eq zhuanyi">
+			                                <span class="tips">组别：</span>
+											<span  th:text="${crmUser.appointGroupName}"></span>
+			                            </li>
+										<li>
+								            <span class="tips">意向贷款金额：</span>
+								       		 <span  th:text="${crmUser.loanAmount}"></span>
+								       		<span>万</span>
+								        </li>
+								        <li>
+								            <span class="tips">借款期限：</span>
+								       	    <span th:text="${crmUser.duration}"></span>
+								       	    <span th:text="${crmUser.durationUnit}"></span>
+								        </li>
+								        <li>
+								            <span class="tips">借款利率：</span>
+								            <span th:text="${crmUser.interestRate}"></span>
+								            <span th:text="${crmUser.rateUnit}?('%/'+${crmUser.rateUnit}):''"></span>
+								            
+								        </li>
+								         <li >
+			                                <span class="tips">业务类型：</span>
+											 <span th:text="${crmUser.productType}"></span>
+											 <!-- <span th:text="${crmUser.businessTypeName}"></span> -->
+			                            </li>
+			                            <li>
+											<span class="tips">客户来源：</span>
+											<span th:text="${crmUser.customerSource}"></span>
+			                            </li>
+			                            <li>
+								            <span class="tips">创建人所属公司：</span>
+								            <span th:text="${crmUser.createrCompanyName}"></span>
+								        </li>
+								        <li>
+								            <span class="tips">创建人归属事业部：</span>
+								            <span th:text="${crmUser.createrDeptName}"></span>
+								        </li>
+								        <li>
+								            <span class="tips">创建人归属组别：</span>
+								            <span th:text="${crmUser.createrGroupName}"></span>
+								        </li>
+								      
+			                        </ul>
+			                    </div>
+								<p class="textCt pt20">
+			                        <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);"/>
+								</p>
+		                    </form>
+		                </div>
+		                <div id="tab2" class="tabson">
+		                	<div class="formtitle"><span>回访记录</span></div>
+						    <div id="histoicFlow" th:include="crm/_checkHistoicFlow"></div>
+		                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+    <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+    <script th:inline="javascript">
+    	/*<![CDATA[*/
+	    	seajs.use("crm/crmIntentLoanUser");
+    	/*]]>*/
+    </script>
+</body>
+</html>

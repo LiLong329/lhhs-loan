@@ -1,0 +1,120 @@
+<div class="formtitle">
+    <span>关联企业信息</span>
+    <img src="/img/add_red.png" class="add-zz" id="addEnterpriseInfo"/>
+</div>
+<div class="toolsli" id="enterpriseInfos">
+	<th:block th:unless="${#lists.isEmpty(enterpriseInfoList)}">
+		<th:block th:each="single, iter : ${enterpriseInfoList}">
+			<ul class="nbbdgl-Ui clearfix">
+		    	<form>
+			        <li>
+			            <span class="tips">公司名称：</span>
+			            <input type="text" class="txt" name="companyName" maxlength="50" th:value="${single.companyName}"/>
+			        </li>
+			        <li>
+			            <span class="tips">姓名：</span>
+			            <input type="text" class="txt validate[minSize[2],maxSize[15],custom[chineseName]]" name="name" maxlength="15" th:value="${single.name}"/>
+			        </li>
+			        <li>
+			            <span class="tips">职务：</span>
+			            <input type="text" class="txt" name="position" maxlength="20" th:value="${single.position}"/>
+			        </li>
+			        <li style="width: 80%;" th:with="addr=(${single.companyAddress})?(${#strings.arraySplit(single.companyAddress,'-')}):(${#strings.arraySplit('','-')})">
+			            <span class="tips">公司地址：</span>
+			            <div class="vocation">
+			                <select class="select-common select3 provinceSelect" name="companyAddress_sub_1"
+			                	th:attr="data-val=(${#arrays.length(addr)} ge 1)?${addr[0]}:''">
+			                </select>
+			            </div>
+			            <span>省</span>
+			            <div class="vocation">
+			                <select class="select-common select3 citySelect" name="companyAddress_sub_2"
+			                	th:attr="data-val=(${#arrays.length(addr)} ge 2)?${addr[1]}:''">
+			                </select>
+			            </div>
+			            <span>市</span>
+			            <input type="text" class="txt" name="companyAddress_sub_3" maxlength="50"
+			            	th:value="(${#arrays.length(addr)} ge 3)?${addr[2]}:''"/>
+			        </li>
+			        <li style="width: 80%;">
+			            <span class="tips">公司说明：</span>
+			            <textarea class="area" name="companyExplain" maxlength="200" th:text="${single.companyExplain}" placeholder="最多输入200个字符"></textarea>
+			        </li>
+			        <li style="width: 80%;">
+			            <h5>【上传调查资料】</h5>
+			        </li>
+			        <li style="width: 90%;">
+			            <ul class="imglist">
+			            	<th:block th:unless="${#lists.isEmpty(single.urlList)}">
+			            		<li th:each="url : ${single.urlList}" th:attr="data-id=${url.id}">
+		                            <span>
+		                                <a class="removeFile" th:attr="data-id=${url.id}"></a>
+	                           			<img th:src="${url.pathUrl}"/>
+		                            </span>
+		                        </li>
+			            	</th:block>
+	                    </ul>
+	                    <p style="margin-left: 82px; margin-top: 10px; position:relative;">
+	                    	<input type="button" class="scbtn1" value="上传文件" style="cursor:pointer;"/>
+	                        <input type="file" class="uploadImgs" name="file"/>
+	                    </p>
+			        </li>
+		        </form>
+		    </ul>
+			<div class="lines" th:if="${not iter.last}"><img class="del-zz" src="/img/loan_reduce.png"/></div>
+		</th:block>
+	</th:block>
+	<th:block th:if="${#lists.isEmpty(enterpriseInfoList)}">
+	    <ul class="nbbdgl-Ui clearfix" style="display:none;">
+	    	<form>
+		        <li>
+		            <span class="tips">公司名称：</span>
+		            <input type="text" class="txt" name="companyName" maxlength="50"/>
+		        </li>
+		        <li>
+		            <span class="tips">姓名：</span>
+		            <input type="text" class="txt validate[minSize[2],maxSize[15],custom[chineseName]]" name="name" maxlength="15"/>
+		        </li>
+		        <li>
+		            <span class="tips">职务：</span>
+		            <input type="text" class="txt" name="position" maxlength="20"/>
+		        </li>
+		        <li style="width: 80%;">
+		            <span class="tips">公司地址：</span>
+		            <div class="vocation">
+		                <select class="select-common select3 provinceSelect" name="companyAddress_sub_1">
+		                </select>
+		            </div>
+		            <span>省</span>
+		            <div class="vocation">
+		                <select class="select-common select3 citySelect" name="companyAddress_sub_2">
+		                </select>
+		            </div>
+		            <span>市</span>
+		            <input type="text" class="txt" name="companyAddress_sub_3" maxlength="50"/>
+		        </li>
+		        <li style="width: 80%;">
+		            <span class="tips">公司说明：</span>
+		            <textarea class="area" name="companyExplain" maxlength="200" placeholder="最多输入200个字符"></textarea>
+		        </li>
+		        <li style="width: 80%;">
+		            <h5>【上传调查资料】</h5>
+		        </li>
+		        <li style="width: 90%;">
+		            <ul class="imglist"></ul>
+                    <p style="margin-left: 82px; margin-top: 10px; position:relative;">
+                    	<input type="button" class="scbtn1" value="上传文件" style="cursor:pointer;"/>
+                        <input type="file" class="uploadImgs" name="file"/>
+                    </p>
+		        </li>
+		    </form>
+	    </ul>
+	</th:block>
+</div>
+<p class="textCt">
+    <input type="button" class="scbtn" value="保 存" id="enterpriseInfoSave"/>
+    <input type="button" class="scbtn2 mlt10" value="取 消" onclick="javascript:history.go(-1);"/>
+</p>
+<script type="text/javascript">
+  	seajs.use("auditing/affiliatedEnterprise");
+</script>

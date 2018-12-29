@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<body>
+	<div class="father">
+		<header th:replace="common/top"></header>
+		<div class="common-content">
+			<div th:replace="common/left"></div>
+			<div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>机构管理</li>
+                        <li>机构信息管理</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                    <form  id="myForm">
+                        <div id="usual1" class="usual">
+                            <ul class="seachform1">
+                                <li>
+                                    <label>机构名称：</label>
+                                    <input type="text" class="scinput1" name="orgName"/>
+                                </li>
+                                <li>
+                                    <label>机构类别：</label>
+                                    <div class="vocation">
+                                        <select class="select-common select3" name="orgCategories">
+                                            <option value="">请选择</option>
+                                            <option value="1">资金方</option>
+                                            <option value="2">借款方</option>
+                                            <option value="3">借款方&amp;资金方</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label>机构类型：</label>
+                                    <div class="vocation">
+                                        <select class="select-common select3" name="orgType">
+                                            <option value="">请选择</option>
+                                            <option value="1">银行</option>
+                                            <option value="2">典当行</option>
+                                            <option value="3">小贷公司</option>
+                                            <option value="4">催收机构</option>
+                                            <option value="5">律所</option>
+                                            <option value="6">其他</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label>业务类型：</label>
+                                    <div class="vocation">
+                                        <select class="select-common select3" name="orgBusinessType">
+                                            <option value="">请选择</option>
+                                            <option value="1">资金批发</option>
+                                            <option value="2">非资金批发</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <input type="button" class="scbtn" value="查询" id="queryId"/>
+                                </li>
+                                <li class="sarchbtn" style="float: right;" sec:authorize="hasRole('ROLE_ORG_ADD')">
+                                    <input type="button" class="scbtn1" value="新增" onclick="window.location.href='/org/orgAdd'"/>
+                                </li>
+                            </ul>
+                            <div class="table-title">
+                                <p class="tab-font">机构信息管理</p>
+                            </div>
+                            <div id="orgTempId" th:include="organization/_orgTemp">
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+		</div>
+		<footer th:replace="common/footer"></footer>
+	</div>
+	<script th:inline="javascript">
+    	/*<![CDATA[*/
+	    	seajs.use("organization/orgList");
+    	/*]]>*/
+    </script>
+</body>
+</html>

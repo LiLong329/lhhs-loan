@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<script src="/js/public/area.js"></script>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>客户管理</li>
+                        <li>客户信息管理</li>
+                        <li><a href="/crmIntentLoanUser/crmIntentFollowList">已分配客户</a></li>
+                        <li>创建报单</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div class="formtitle"><span>新增报单</span></div>
+                        <div class="toolsli">
+                            <ul class="nbbdgl-Ui">
+                            	<form id="myForm">
+                            	    <input type="hidden" id="type" value="1"/>
+                            	    <input type="hidden" name="intentUserId" th:value="${id}"/>
+                            	    <input type="hidden" name="custId" th:value="${crmUser.id}"/>
+                            	    <input type="hidden" name="createrCompanyId" th:value="${crmUser.createrCompanyId}"/>
+                            	    <input type="hidden" name="appointCompanyId" th:value="${crmUser.appointCompanyId}"/>
+                            	    <li>
+	                                    <span class="tips">报单人：</span>
+	                                    <span th:text="${providerName}" ></span>
+	                                    <input type="hidden" name="providerNo" th:value="${providerNo}"/>
+	                                </li>
+                            		<li>
+	                                    <input type="hidden" name="unionId" id="unionId" th:value="${unionid}"/>
+	                                    <input type="hidden" name="companyId" id="companyId" th:value="${companyid}"/>
+	                                    <input type="hidden" name="depId" id="depId" th:value="${deptid}"/>
+	                                    <input type="hidden" name="groupId" id="groupId" th:value="${groupid}"/>
+	                                    <input type="hidden" name="province" id="province" th:value="${province}"/>
+	                                    <input type="hidden" name="city" id="city" th:value="${city}"/>
+	                                    <span class="tips">客户经理：</span>
+	                                    <span th:text="${crmUser.appointEmpName}"></span>
+	                                    <input type="hidden" name="customerManager" th:value="${crmUser.appointEmpId}"/>
+	                                </li>
+	                                <li>
+	                                     <span class="tips">借款人手机号：</span>
+	                                     <th:block th:if="(${crmUser.businessStatus}) and (${crmUser.businessStatus} eq '08')">
+	                                     	<span th:text="${crmUser.mobile}"></span>
+	                                     </th:block>
+	                                     <th:block th:unless="(${crmUser.businessStatus}) and (${crmUser.businessStatus} eq '08')">
+	                                     	<span th:text="${#strings.substring(crmUser.mobile,0,3)}+'****'+${#strings.substring(crmUser.mobile,7,11)}"></span>
+	                                     </th:block>
+	                                     <input type="hidden" name="mobile" th:value="${crmUser.mobile}"/>
+	                                </li>
+                            		<li>
+	                                    <span class="tips">资金方：</span>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1 validate[required]" name="fundOwner" id="fundOwner">
+	                                            <option value="">请选择</option>
+	                                            <th:block th:unless="${#lists.isEmpty(loanOrgSupportAreas)}">
+					                        		<option th:each="loanOrganization:${loanOrgSupportAreas}" 
+						                        		th:value="${loanOrganization.orgId}" 
+						                        		th:text="${loanOrganization.orgName}"></option>
+						                        </th:block>
+	                                        </select>
+	                                    </div>
+	                                </li>
+                            		<li>
+	                                    <span class="tips">产品名称：</span>
+	                                    <input type="hidden" name="productNo" id="productNo"/>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1 validate[required]" name="childProductNo" id="productName">
+	                                            <option value="">请选择</option>
+	                                        </select>
+	                                    </div>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">借款人姓名：</span>
+	                                    <input type="text" class="txt validate[required,custom[chineseName],minSize[2],maxSize[15]]" name="bname" th:value="${crmUser.name}" maxLength="15"/>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">借款人身份证：</span>
+	                                    <input type="text" class="txt validate[required,custom[chinaIdLoose]]" name="idNum" th:value="${crmUser.idNumber}" maxLength="18"/>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">借款金额：</span>
+	                                    <input type="text" class="txt validate[required,custom[numberTwo]]" name="loanAmount" id="loanAmount"  th:value="${crmUser.loanAmount}"/>
+	                                    <span>万元</span>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">借款期限：</span>
+	                                    <div class="clearfix fl">
+	                                    <input type="text" class="txt validate[required,custom[number],max[60]]" name="loanTerm" id="loanTerm"  th:value="${crmUser.duration}" style="width: 160px;"/>
+		                                    <div class="vocation">
+		                                        <select class="select-common select1" name="loanTermUnit" style="width: 80px;">
+		                                            <option value="个月">个月</option>
+		                                            <option value="天">天</option>
+		                                        </select>
+		                                    </div>
+	                                    </div>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">借款利率：</span>
+	                                    <div class="clearfix fl">
+		                                    <input type="text" class="txt validate[required,custom[numberThreeSed]]" name="loanRate" th:value="${crmUser.interestRate}" style="width: 135px;"/>
+		                                    <span>%/</span>
+		                                    <div class="vocation">
+		                                        <select class="select-common select1" name="loanRateUnit" style="width: 80px;">
+		                                            <option value="年">年</option>
+		                                            <option value="月">月</option>
+		                                            <option value="天">天</option>
+		                                            <option value="次">次</option>
+		                                        </select>
+		                                    </div>
+	                                    </div>
+	                                </li>
+	                                <li>
+	                                    <span class="tips">业务类型：</span>
+	                                    <div class="vocation">
+	                                        <select class="select-common select1 validate[required]" name="businessType">
+	                                            <option value="">请选择</option>
+					                        	<option value="0">自主或三方放款</option>
+					                        	<option value="1">三方放款</option>
+<!-- 					                        	<option value="1">居间</option>
+					                        	<option value="">非居间</option> -->
+	                                        </select>
+	                                    </div>
+	                                </li>
+                            		<li style="width: 80%;">
+	                                    <span class="tips">&nbsp;</span>
+	                                    <input type="button" class="scbtn mlt10" value="保 存" id="save_btn"/>
+	                                    <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);"/>
+	                                </li>
+                                </form>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	    <script src="/js/public/select.js"></script>
+	    <footer th:replace="common/footer"></footer>
+    </div>
+    <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+	<script th:inline="javascript">
+       	seajs.use("orderInfo/addOrderInfo");
+	</script>
+</body>
+</html>

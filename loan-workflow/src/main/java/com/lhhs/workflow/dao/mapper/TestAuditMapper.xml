@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lhhs.wftest.dao.inf.TestAuditDao">
+    
+    <sql id="testAuditColumns">
+		a.id, 
+		a.post, 
+		a.age, 
+		a.edu, 
+		a.content, 
+		a.olda, 
+		a.oldb, 
+		a.oldc, 
+		a.newa, 
+		a.newb, 
+		a.newc, 
+		a.add_num, 
+		a.exe_date,
+		a.hr_text,
+		a.lead_text,
+		a.main_lead_text,
+		a.proc_ins_id, 
+		a.create_by AS "createBy.id", 
+		a.create_date, 
+		a.update_by AS "updateBy.id", 
+		a.update_date, 
+		a.remarks, 
+		a.del_flag
+	</sql>
+	
+	<sql id="testAuditJoins">
+		JOIN sys_user u ON u.id=a.user_id
+		JOIN sys_office o ON o.id=a.office_id
+    </sql>
+    
+    <select id="get" resultType="com.lhhs.wftest.model.TestAudit" >
+		SELECT 
+			<include refid="testAuditColumns"/>
+		FROM WF_TEST_AUDIT a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="getAll" resultType="com.lhhs.wftest.model.SysTestAudit">
+		SELECT 
+			<include refid="testAuditColumns"/>
+		FROM WF_TEST_AUDIT a
+	</select>
+	
+    <select id="getByProcInsId" resultType="com.lhhs.wftest.model.TestAudit">
+		SELECT 
+			<include refid="testAuditColumns"/>
+		FROM WF_TEST_AUDIT a
+		WHERE a.proc_ins_id = #{procInsId}
+	</select>
+	
+	<select id="findList" resultType="com.lhhs.wftest.model.TestAudit">
+		SELECT 
+			<include refid="testAuditColumns"/>
+		FROM WF_TEST_AUDIT a
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL} 
+		<if test="user != null and user.id != null and user.id != ''">
+			AND u.id LIKE 
+					<if test="dbName == 'oracle'">'%'||#{user.id}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{user.id}+'%'</if>
+					<if test="dbName == 'mysql'">CONCAT('%', #{user.id}, '%')</if>
+		</if>
+		ORDER BY a.update_date DESC
+	</select>
+	
+	<select id="findAllList" resultType="com.lhhs.wftest.model.TestAudit">
+		SELECT 
+			<include refid="testAuditColumns"/>
+		FROM WF_TEST_AUDIT a
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL} 
+		ORDER BY a.update_date DESC
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO WF_TEST_AUDIT(
+			id, 
+			user_id, 
+			office_id, 
+			post, 
+			age, 
+			edu, 
+			content, 
+			olda, 
+			oldb, 
+			oldc, 
+			newa, 
+			newb, 
+			newc, 
+			add_num, 
+			exe_date,
+			create_by, 
+			create_date, 
+			update_by, 
+			update_date, 
+			remarks, 
+			del_flag
+		) VALUES (
+			#{id}, 
+			#{user.id}, 
+			#{officeId}, 
+			#{post}, 
+			#{age}, 
+			#{edu}, 
+			#{content}, 
+			#{olda}, 
+			#{oldb}, 
+			#{oldc}, 
+			#{newa}, 
+			#{newb}, 
+			#{newc}, 
+			#{addNum}, 
+			#{exeDate},
+			#{createBy.id}, 
+			#{createDate}, 
+			#{updateBy.id}, 
+			#{updateDate}, 
+			#{remarks}, 
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE WF_TEST_AUDIT SET 
+			user_id = #{user.id}, 
+			office_id = #{officeId}, 
+			post = #{post}, 
+			age = #{age}, 
+			edu = #{edu}, 
+			content = #{content}, 
+			olda = #{olda}, 
+			oldb = #{oldb}, 
+			oldc = #{oldc}, 
+			newa = #{newa}, 
+			newb = #{newb}, 
+			newc = #{newc}, 
+			add_num = #{addNum}, 
+			exe_date = #{exeDate},
+			update_by = #{updateBy.id}, 
+			update_date = #{updateDate}, 
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateInsId">
+		UPDATE WF_TEST_AUDIT SET 
+			proc_ins_id = #{procInsId},
+			update_by = #{updateBy.id}, 
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateHrText">
+		UPDATE WF_TEST_AUDIT SET 
+			hr_text = #{hrText},
+			update_by = #{updateBy.id}, 
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateLeadText">
+		UPDATE WF_TEST_AUDIT SET 
+			lead_text = #{leadText},
+			update_by = #{updateBy.id}, 
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateMainLeadText">
+		UPDATE WF_TEST_AUDIT SET 
+			main_lead_text = #{mainLeadText},
+			update_by = #{updateBy.id}, 
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE WF_TEST_AUDIT SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+		<!-- 查询用户officeId-->
+	<select id="getOfficeId" parameterType="string" resultType="string">
+		select office_id from sys_user where id = #{id}
+	</select>
+</mapper>

@@ -1,0 +1,1631 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanOrderInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanOrderInfo" >
+    <id column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="product_no" property="productNo" jdbcType="VARCHAR" />
+    <result column="provider_no" property="providerNo" jdbcType="VARCHAR" />
+    <result column="contract_no" property="contractNo" jdbcType="VARCHAR" />
+    <result column="archives_no" property="archivesNo" jdbcType="VARCHAR" />
+    <result column="child_product_no" property="childProductNo" jdbcType="VARCHAR" />
+    <result column="customer_manager" property="customerManager" jdbcType="INTEGER" />
+    <result column="customer_origin" property="customerOrigin" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+    <result column="fund_flow_node" property="fundFlowNode" jdbcType="INTEGER" />
+    <result column="apply_date" property="applyDate" jdbcType="TIMESTAMP" />
+    <result column="operator_date" property="operatorDate" jdbcType="TIMESTAMP" />
+    <result column="approval_node" property="approvalNode" jdbcType="INTEGER" />
+    <result column="approval_node_status" property="approvalNodeStatus" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="auditor" property="auditor" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="report_name" property="reportName" jdbcType="VARCHAR" />
+    <result column="abutment_name" property="abutmentName" jdbcType="VARCHAR" />
+    <result column="audit_status" property="auditStatus" jdbcType="INTEGER" />
+    <result column="loan_apply_date" property="loanApplyDate" jdbcType="TIMESTAMP" />
+    <result column="loan_method" property="loanMethod" jdbcType="VARCHAR" />
+    <result column="dep_id" property="depId" jdbcType="VARCHAR" />
+    <result column="proc_ins_id" property="procInsId" jdbcType="VARCHAR" />
+    <result column="next_task_def_key" property="nextTaskDefKey" jdbcType="VARCHAR" />
+    <result column="next_task_name" property="nextTaskName" jdbcType="VARCHAR" />
+    <result column="next_assignee" property="nextAssignee" jdbcType="VARCHAR" />
+    <result column="next_assignee_name" property="nextAssigneeName" jdbcType="VARCHAR" />
+    <result column="is_loan_add" property="isLoanAdd" jdbcType="VARCHAR" />
+    <result column="customer_source" property="customerSource" jdbcType="VARCHAR" />
+    <result column="business_type" property="businessType" jdbcType="VARCHAR" />
+    <result column="fk_apply_user" property="fkApplyUser" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_no, product_no, provider_no, contract_no, archives_no, child_product_no, customer_manager, 
+    customer_origin, store_id, province, city, order_status, fund_flow_node, apply_date, 
+    operator_date, approval_node, approval_node_status, company_id, union_id, auditor, 
+    customer_id, report_name, abutment_name, audit_status, loan_apply_date, loan_method, 
+    dep_id, proc_ins_id, next_task_def_key, next_task_name, next_assignee, next_assignee_name, 
+    is_loan_add, customer_source, business_type, fk_apply_user,field3
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_order_info
+    where order_no = #{orderNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_order_info
+    where order_no = #{orderNo,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanOrderInfo" >
+    insert into loan_order_info (order_no, product_no, provider_no, 
+      contract_no, archives_no, child_product_no, 
+      customer_manager, customer_origin, store_id, 
+      province, city, order_status, 
+      fund_flow_node, apply_date, operator_date, 
+      approval_node, approval_node_status, company_id, 
+      union_id, auditor, customer_id, 
+      report_name, abutment_name, audit_status, 
+      loan_apply_date, loan_method, dep_id, 
+      proc_ins_id, next_task_def_key, next_task_name, 
+      next_assignee, next_assignee_name, is_loan_add, 
+      customer_source, business_type, fk_apply_user
+      )
+    values (#{orderNo,jdbcType=VARCHAR}, #{productNo,jdbcType=VARCHAR}, #{providerNo,jdbcType=VARCHAR}, 
+      #{contractNo,jdbcType=VARCHAR}, #{archivesNo,jdbcType=VARCHAR}, #{childProductNo,jdbcType=VARCHAR}, 
+      #{customerManager,jdbcType=INTEGER}, #{customerOrigin,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{orderStatus,jdbcType=INTEGER}, 
+      #{fundFlowNode,jdbcType=INTEGER}, #{applyDate,jdbcType=TIMESTAMP}, #{operatorDate,jdbcType=TIMESTAMP}, 
+      #{approvalNode,jdbcType=INTEGER}, #{approvalNodeStatus,jdbcType=INTEGER}, #{companyId,jdbcType=VARCHAR}, 
+      #{unionId,jdbcType=VARCHAR}, #{auditor,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, 
+      #{reportName,jdbcType=VARCHAR}, #{abutmentName,jdbcType=VARCHAR}, #{auditStatus,jdbcType=INTEGER}, 
+      #{loanApplyDate,jdbcType=TIMESTAMP}, #{loanMethod,jdbcType=VARCHAR}, #{depId,jdbcType=VARCHAR}, 
+      #{procInsId,jdbcType=VARCHAR}, #{nextTaskDefKey,jdbcType=VARCHAR}, #{nextTaskName,jdbcType=VARCHAR}, 
+      #{nextAssignee,jdbcType=VARCHAR}, #{nextAssigneeName,jdbcType=VARCHAR}, #{isLoanAdd,jdbcType=VARCHAR}, 
+      #{customerSource,jdbcType=VARCHAR}, #{businessType,jdbcType=VARCHAR}, #{fkApplyUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanOrderInfo" >
+    insert into loan_order_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="productNo != null" >
+        product_no,
+      </if>
+      <if test="providerNo != null" >
+        provider_no,
+      </if>
+      <if test="contractNo != null" >
+        contract_no,
+      </if>
+      <if test="archivesNo != null" >
+        archives_no,
+      </if>
+      <if test="childProductNo != null" >
+        child_product_no,
+      </if>
+      <if test="customerManager != null" >
+        customer_manager,
+      </if>
+      <if test="customerOrigin != null" >
+        customer_origin,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="orderStatus != null" >
+        order_status,
+      </if>
+      <if test="fundFlowNode != null" >
+        fund_flow_node,
+      </if>
+      <if test="applyDate != null" >
+        apply_date,
+      </if>
+      <if test="operatorDate != null" >
+        operator_date,
+      </if>
+      <if test="approvalNode != null" >
+        approval_node,
+      </if>
+      <if test="approvalNodeStatus != null" >
+        approval_node_status,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+      <if test="auditor != null" >
+        auditor,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="reportName != null" >
+        report_name,
+      </if>
+      <if test="abutmentName != null" >
+        abutment_name,
+      </if>
+      <if test="auditStatus != null" >
+        audit_status,
+      </if>
+      <if test="loanApplyDate != null" >
+        loan_apply_date,
+      </if>
+      <if test="loanMethod != null" >
+        loan_method,
+      </if>
+      <if test="depId != null" >
+        dep_id,
+      </if>
+      <if test="procInsId != null" >
+        proc_ins_id,
+      </if>
+      <if test="nextTaskDefKey != null" >
+        next_task_def_key,
+      </if>
+      <if test="nextTaskName != null" >
+        next_task_name,
+      </if>
+      <if test="nextAssignee != null" >
+        next_assignee,
+      </if>
+      <if test="nextAssigneeName != null" >
+        next_assignee_name,
+      </if>
+      <if test="isLoanAdd != null" >
+        is_loan_add,
+      </if>
+      <if test="customerSource != null" >
+        customer_source,
+      </if>
+      <if test="businessType != null" >
+        business_type,
+      </if>
+      <if test="fkApplyUser != null" >
+        fk_apply_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="productNo != null" >
+        #{productNo,jdbcType=VARCHAR},
+      </if>
+      <if test="providerNo != null" >
+        #{providerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null" >
+        #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="archivesNo != null" >
+        #{archivesNo,jdbcType=VARCHAR},
+      </if>
+      <if test="childProductNo != null" >
+        #{childProductNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerManager != null" >
+        #{customerManager,jdbcType=INTEGER},
+      </if>
+      <if test="customerOrigin != null" >
+        #{customerOrigin,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="fundFlowNode != null" >
+        #{fundFlowNode,jdbcType=INTEGER},
+      </if>
+      <if test="applyDate != null" >
+        #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operatorDate != null" >
+        #{operatorDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvalNode != null" >
+        #{approvalNode,jdbcType=INTEGER},
+      </if>
+      <if test="approvalNodeStatus != null" >
+        #{approvalNodeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditor != null" >
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="reportName != null" >
+        #{reportName,jdbcType=VARCHAR},
+      </if>
+      <if test="abutmentName != null" >
+        #{abutmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null" >
+        #{auditStatus,jdbcType=INTEGER},
+      </if>
+      <if test="loanApplyDate != null" >
+        #{loanApplyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loanMethod != null" >
+        #{loanMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="depId != null" >
+        #{depId,jdbcType=VARCHAR},
+      </if>
+      <if test="procInsId != null" >
+        #{procInsId,jdbcType=VARCHAR},
+      </if>
+      <if test="nextTaskDefKey != null" >
+        #{nextTaskDefKey,jdbcType=VARCHAR},
+      </if>
+      <if test="nextTaskName != null" >
+        #{nextTaskName,jdbcType=VARCHAR},
+      </if>
+      <if test="nextAssignee != null" >
+        #{nextAssignee,jdbcType=VARCHAR},
+      </if>
+      <if test="nextAssigneeName != null" >
+        #{nextAssigneeName,jdbcType=VARCHAR},
+      </if>
+      <if test="isLoanAdd != null" >
+        #{isLoanAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="customerSource != null" >
+        #{customerSource,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null" >
+        #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="fkApplyUser != null" >
+        #{fkApplyUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanOrderInfo" >
+    update loan_order_info
+    <set >
+      <if test="productNo != null" >
+        product_no = #{productNo,jdbcType=VARCHAR},
+      </if>
+      <if test="providerNo != null" >
+        provider_no = #{providerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null" >
+        contract_no = #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="archivesNo != null" >
+        archives_no = #{archivesNo,jdbcType=VARCHAR},
+      </if>
+      <if test="childProductNo != null" >
+        child_product_no = #{childProductNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerManager != null" >
+        customer_manager = #{customerManager,jdbcType=INTEGER},
+      </if>
+      <if test="customerOrigin != null" >
+        customer_origin = #{customerOrigin,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        order_status = #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="fundFlowNode != null" >
+        fund_flow_node = #{fundFlowNode,jdbcType=INTEGER},
+      </if>
+      <if test="applyDate != null" >
+        apply_date = #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operatorDate != null" >
+        operator_date = #{operatorDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvalNode != null" >
+        approval_node = #{approvalNode,jdbcType=INTEGER},
+      </if>
+      <if test="approvalNodeStatus != null" >
+        approval_node_status = #{approvalNodeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditor != null" >
+        auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="reportName != null" >
+        report_name = #{reportName,jdbcType=VARCHAR},
+      </if>
+      <if test="abutmentName != null" >
+        abutment_name = #{abutmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null" >
+        audit_status = #{auditStatus,jdbcType=INTEGER},
+      </if>
+      <if test="loanApplyDate != null" >
+        loan_apply_date = #{loanApplyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loanMethod != null and loanMethod != ''" >
+        loan_method = #{loanMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="depId != null" >
+        dep_id = #{depId,jdbcType=VARCHAR},
+      </if>
+      <if test="procInsId != null" >
+        proc_ins_id = #{procInsId,jdbcType=VARCHAR},
+      </if>
+      <if test="nextTaskDefKey != null" >
+        next_task_def_key = #{nextTaskDefKey,jdbcType=VARCHAR},
+      </if>
+      <if test="nextTaskName != null" >
+        next_task_name = #{nextTaskName,jdbcType=VARCHAR},
+      </if>
+      <if test="nextAssignee != null" >
+        next_assignee = #{nextAssignee,jdbcType=VARCHAR},
+      </if>
+      <if test="nextAssigneeName != null" >
+        next_assignee_name = #{nextAssigneeName,jdbcType=VARCHAR},
+      </if>
+      <if test="isLoanAdd != null" >
+        is_loan_add = #{isLoanAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="customerSource != null" >
+        customer_source = #{customerSource,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null" >
+        business_type = #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="fkApplyUser != null" >
+        fk_apply_user = #{fkApplyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_no = #{orderNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanOrderInfo" >
+    update loan_order_info
+    set product_no = #{productNo,jdbcType=VARCHAR},
+      provider_no = #{providerNo,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      archives_no = #{archivesNo,jdbcType=VARCHAR},
+      child_product_no = #{childProductNo,jdbcType=VARCHAR},
+      customer_manager = #{customerManager,jdbcType=INTEGER},
+      customer_origin = #{customerOrigin,jdbcType=INTEGER},
+      store_id = #{storeId,jdbcType=INTEGER},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=INTEGER},
+      fund_flow_node = #{fundFlowNode,jdbcType=INTEGER},
+      apply_date = #{applyDate,jdbcType=TIMESTAMP},
+      operator_date = #{operatorDate,jdbcType=TIMESTAMP},
+      approval_node = #{approvalNode,jdbcType=INTEGER},
+      approval_node_status = #{approvalNodeStatus,jdbcType=INTEGER},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      auditor = #{auditor,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=VARCHAR},
+      report_name = #{reportName,jdbcType=VARCHAR},
+      abutment_name = #{abutmentName,jdbcType=VARCHAR},
+      audit_status = #{auditStatus,jdbcType=INTEGER},
+      loan_apply_date = #{loanApplyDate,jdbcType=TIMESTAMP},
+      loan_method = #{loanMethod,jdbcType=VARCHAR},
+      dep_id = #{depId,jdbcType=VARCHAR},
+      proc_ins_id = #{procInsId,jdbcType=VARCHAR},
+      next_task_def_key = #{nextTaskDefKey,jdbcType=VARCHAR},
+      next_task_name = #{nextTaskName,jdbcType=VARCHAR},
+      next_assignee = #{nextAssignee,jdbcType=VARCHAR},
+      next_assignee_name = #{nextAssigneeName,jdbcType=VARCHAR},
+      is_loan_add = #{isLoanAdd,jdbcType=VARCHAR},
+      customer_source = #{customerSource,jdbcType=VARCHAR},
+      business_type = #{businessType,jdbcType=VARCHAR},
+      fk_apply_user = #{fkApplyUser,jdbcType=VARCHAR}
+    where order_no = #{orderNo,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <!-- ########################################### Li Jianjun Start ########################################### -->
+  <!-- 查询我的待办任务列表  已作废-->
+  <select id="selectMyNewTaskList" parameterType="java.util.Map" resultType="java.util.Map">
+  	SELECT
+		loi.order_no, lo.org_business_type, lpi.provider_name,lobe.bname,lpi.mobile_no,le.staff_name as le_staff_name,lo.org_name,
+		lcp.product_name,loi.apply_date,loi.order_status
+	FROM 
+		loan_order_info loi
+	LEFT JOIN
+		bump_user le ON le.user_id = loi.customer_manager	
+	INNER JOIN
+		loan_order_info_detail loid ON loid.order_no = loi.order_no
+	LEFT JOIN
+		loan_organization lo ON lo.org_id = loid.fund_owner
+	LEFT JOIN
+		loan_provider_info lpi ON lpi.provider_no = loi.provider_no
+	INNER JOIN
+		loan_order_borrower_extend lobe ON lobe.order_no = loi.order_no
+	INNER JOIN
+		loan_child_product lcp ON lcp.product_id = loi.child_product_no
+  	WHERE 
+  		1 = 1
+  	<if test="approvalNode != null">
+  		and loi.approval_node = #{approvalNode}
+  	</if>
+  	 <choose>
+			<when test="companyIdList != null">
+				and loi.company_id in
+		         <foreach item="item" index="index" collection="companyIdList" open="(" separator="," close=")">
+		             #{item}
+		          </foreach>
+			</when>
+			<when test="companyId != null and companyId !=''">
+				and loi.company_id = #{companyId}
+			</when>
+
+		</choose>
+  	ORDER BY
+  		loi.apply_date desc
+	<if test="page != null">
+		limit #{page.pageStartIndex},#{page.pageSize}
+	</if>
+  </select>
+  <!-- 查询我的待办任务列表的总记录数 已作废 -->
+  <select id="selectMyNewTaskListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	SELECT
+		COUNT(1)
+	FROM 
+		loan_order_info loi
+	LEFT JOIN
+		bump_user le ON le.user_id = loi.customer_manager
+	INNER JOIN
+		loan_order_info_detail loid ON loid.order_no = loi.order_no
+	LEFT JOIN
+		loan_organization lo ON lo.org_id = loid.fund_owner
+	LEFT JOIN
+		loan_provider_info lpi ON lpi.provider_no = loi.provider_no
+	INNER JOIN
+		loan_order_borrower_extend lobe ON lobe.order_no = loi.order_no
+	INNER JOIN
+		loan_child_product lcp ON lcp.product_id = loi.child_product_no
+  	WHERE 
+  		1 = 1
+  	<if test="approvalNode != null">
+  		and loi.approval_node = #{approvalNode}
+  	</if>
+  	<choose>
+			<when test="companyIdList != null">
+				and loi.company_id in
+		         <foreach item="item" index="index" collection="companyIdList" open="(" separator="," close=")">
+		             #{item}
+		          </foreach>
+			</when>
+			<when test="companyId != null and companyId !=''">
+				and loi.company_id = #{companyId}
+			</when>
+
+		</choose>
+  </select>
+  
+  <!-- 查询基本信息(报单基本信息) -->
+  <!-- 查询报单基本信息列表 -->
+  <select id="selectBasicInfo" parameterType="java.util.Map" resultType="java.util.Map">
+  	SELECT
+  		lpi.provider_name, lpi.provider_no, lpi.mobile_no, lo.org_business_type,loi.customer_manager,loi.order_status,
+  		loi.customer_origin, loi.order_no, loi.approval_node_status, le.user_id as le_emp_id, le.username as le_account,le.staff_name as le_staff_name, lo.org_name,
+  		lpp.product_type, lcp.product_name, lcp.product_id, loid.loan_amount,loid.fund_owner, loi.fund_flow_node,
+  		loid.loan_term, loid.loan_term_unit, loid.loan_rate, loid.loan_rate_unit,
+  		loid.repayment,loid.actual_term, loid.actual_term_unit, loid.actual_loan_date, loi.approval_node, loi.loan_method,
+  		loi.proc_ins_id,loi.next_task_def_key,loi.next_task_name,loi.next_assignee,loi.next_assignee_name,loi.apply_date,
+  		loi.contract_no,loi.archives_no,loi.report_name,loi.abutment_name,loi.company_id,loi.is_loan_add,loi.dep_id,loi.customer_source,
+  		loi.business_type,loi.child_product_no,loi.field3
+  	FROM
+  		loan_order_info loi
+  	INNER JOIN
+  		loan_order_info_detail loid ON loi.order_no = loid.order_no
+  	LEFT JOIN
+  		loan_provider_info lpi ON lpi.provider_no = loi.provider_no
+  	LEFT JOIN
+  		loan_organization lo ON lo.org_id = loid.fund_owner
+  	LEFT JOIN
+  		bump_user le ON le.user_id = loi.customer_manager
+  	LEFT JOIN
+  		loan_child_product lcp ON loi.child_product_no = lcp.product_id
+  	LEFT JOIN
+  		loan_parent_product lpp ON lpp.product_no = lcp.product_parent_no
+  	WHERE
+  		loi.order_no = #{orderNo}
+  </select>
+  
+  <update id="updateOrderInfoByOrderNo" parameterType="com.lhhs.loan.dao.domain.LoanOrderInfo" >
+    UPDATE loan_order_info
+    <set >
+      <if test="productNo != null" >
+        product_no = #{productNo,jdbcType=VARCHAR},
+      </if>
+      <if test="providerNo != null" >
+        provider_no = #{providerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null" >
+        contract_no = #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="archivesNo != null" >
+        archives_no = #{archivesNo,jdbcType=VARCHAR},
+      </if>
+      <if test="childProductNo != null" >
+        child_product_no = #{childProductNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerManager != null" >
+        customer_manager = #{customerManager,jdbcType=INTEGER},
+      </if>
+      <if test="customerOrigin != null" >
+        customer_origin = #{customerOrigin,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        order_status = #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="applyDate != null" >
+        apply_date = #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operatorDate != null" >
+        operator_date = #{operatorDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvalNode != null" >
+        approval_node = #{approvalNode,jdbcType=INTEGER},
+      </if>
+      <if test="approvalNodeStatus != null" >
+        approval_node_status = #{approvalNodeStatus,jdbcType=INTEGER},
+      </if>
+       <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditor != null" >
+        auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="reportName != null and reportName != '' " >
+        report_name = #{reportName,jdbcType=VARCHAR},
+      </if>
+      <if test="abutmentName != null and abutmentName != '' " >
+        abutment_name = #{abutmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="fundFlowNode != null" >
+        fund_flow_node = #{fundFlowNode,jdbcType=INTEGER},
+      </if>
+      <if test="auditStatus != null" >
+        audit_status = #{auditStatus},
+      </if>
+      <if test="loanApplyDate != null" >
+        loan_apply_date = #{loanApplyDate},
+      </if>
+      <if test="loanMethod != null" >
+        loan_method = #{loanMethod},
+      </if>
+    </set>
+    WHERE order_no = #{orderNo,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- ********************** 小贷系统 II 期 Start ******************************** -->
+  <!-- 财务管理放款申请列表显示 已 作废 -->
+  <select id="selectLoanApplyList" parameterType="com.lhhs.loan.dao.domain.vo.LoanOrderInfoVo" 
+  								   resultType="com.lhhs.loan.dao.domain.vo.LoanOrderInfoVo">
+  	SELECT
+		loi.province, loi.city, loi.order_no, lobe.bname, lobe.mobile, le.staff_name as le_staff_name,lpi.provider_name, lcp.product_name, 
+		loi.apply_date, loi.approval_node, loi.loan_apply_date
+	FROM
+		loan_order_info loi  
+	LEFT JOIN
+		bump_user le ON le.user_id = loi.customer_manager
+	LEFT JOIN
+		loan_order_borrower_extend lobe ON lobe.order_no = loi.order_no
+	LEFT JOIN
+		loan_provider_info lpi ON lpi.provider_no = loi.provider_no
+	LEFT JOIN
+		loan_child_product lcp ON lcp.product_id = loi.child_product_no
+	WHERE 
+  		1 = 1
+  	<!-- <if test="leAccount != null and leAccount != ''">
+  		and loi.city = #{leCity}
+  	</if> -->
+  	<trim>
+  	
+	  	<if test="province != null and province != ''">
+	  		and loi.province = #{province}
+	  	</if>
+	  	<if test="city != null and city != ''">
+	  		and loi.city = #{city}
+	  	</if>
+	  	<if test="bname != null and bname != ''">
+	  		and lobe.bname like concat(concat('%',#{bname}),'%')
+	  	</if>
+	  	<if test="orderNo != null and orderNo != ''">
+	  		and loi.order_no = #{orderNo}
+	  	</if>
+	  	<if test="leStaffName != null and leStaffName != ''">
+	  		and le.staff_name like concat(concat('%', #{leStaffName}), '%') 
+	  	</if>
+	  	<if test="approvalNode != null">
+	  		and loi.approval_node = #{approvalNode}
+	  	</if>
+	  	
+	  	<choose>
+			<when test="companyIdList != null">
+				and loi.company_id in
+		         <foreach item="item" index="index" collection="companyIdList" open="(" separator="," close=")">
+		             #{item}
+		          </foreach>
+			</when>
+			<when test="companyId != null and companyId !=''">
+				and loi.company_id = #{companyId}
+			</when>
+		</choose>
+  	
+  	</trim>
+  	ORDER BY
+  		loi.apply_date desc
+	<if test="page != null">
+		limit #{page.pageStartIndex},#{page.pageSize}
+	</if>
+  </select>
+  <!-- 财务管理放款申请列表显示记录数据统计 已 作废-->
+  <select id="selectLoanApplyListCount" parameterType="com.lhhs.loan.dao.domain.vo.LoanOrderInfoVo" resultType="java.lang.Integer">
+  	SELECT
+		COUNT(1)
+	FROM
+		loan_order_info loi  
+	LEFT JOIN
+		bump_user le ON le.user_id = loi.customer_manager
+	LEFT JOIN
+		loan_order_borrower_extend lobe ON lobe.order_no = loi.order_no
+	LEFT JOIN
+		loan_provider_info lpi ON lpi.provider_no = loi.provider_no
+	LEFT JOIN
+		loan_child_product lcp ON lcp.product_id = loi.child_product_no
+	WHERE 
+  		1 = 1
+  	<!-- <if test="leAccount != null and leAccount != ''">
+  		and loi.city = #{leCity}
+  	</if> -->
+  	<if test="province != null and province != ''">
+  		and loi.province = #{province}
+  	</if>
+  	<if test="city != null and city != ''">
+  		and loi.city = #{city}
+  	</if>
+  	<if test="bname != null and bname != ''">
+  		and lobe.bname like concat(concat('%',#{bname}),'%')
+  	</if>
+  	<if test="orderNo != null and orderNo != ''">
+  		and loi.order_no = #{orderNo}
+  	</if>
+  	<if test="leStaffName != null and leStaffName != ''">
+  		and le.staff_name like concat(concat('%', #{leStaffName}), '%') 
+  	</if>
+  	<if test="approvalNode != null">
+  		and loi.approval_node = #{approvalNode}
+  	</if>
+  	<choose>
+	<when test="companyIdList != null">
+		and loi.company_id in
+         <foreach item="item" index="index" collection="companyIdList" open="(" separator="," close=")">
+             #{item}
+          </foreach>
+	</when>
+	<when test="companyId != null and companyId !=''">
+		and loi.company_id = #{companyId}
+	</when>
+  </choose>
+  </select>
+  
+  <!-- 查询放款申请,报单基本信息 -->
+  <select id="selectOrderBasicInfo" parameterType="com.lhhs.loan.dao.domain.vo.LoanOrderInfoVo" resultType="com.lhhs.loan.dao.domain.vo.LoanOrderInfoVo">
+	SELECT
+		loi.order_no, loi.apply_date, loi.contract_no, loi.archives_no, lcp.product_name, loi.customer_manager, loi.approval_node, loi.approval_node_status,
+		loi.fund_flow_node, loid.loan_amount, loid.loan_rate, loid.loan_rate_unit, loid.loan_term, loid.loan_term_unit, loid.repayment,
+		loi.report_name, loi.abutment_name, loi.audit_status, ld.name, le.staff_name as le_staff_name, le.dept_id as le_dept_id
+	FROM
+		loan_order_info loi
+	LEFT JOIN
+		loan_order_info_detail loid ON loid.order_no = loi.order_no
+	LEFT JOIN
+		loan_child_product lcp ON lcp.product_id = loi.child_product_no
+	LEFT JOIN
+		bump_user le ON le.user_id = loi.customer_manager
+	LEFT JOIN
+		bump_dept ld ON ld.dept_id = le.dept_id
+	WHERE
+		1 = 1
+		<if test="orderNo != null and orderNo != ''">
+			and loi.order_no = #{orderNo, jdbcType=VARCHAR}
+		</if>
+  
+  </select>
+  <!-- ********************** 小贷系统 II 期 End   ******************************** -->
+  <!-- ########################################### Li Jianjun End ########################################### -->
+
+  <!-- ########################################### Li chao start ########################################### -->
+  	<select id="findGroupById" resultType="java.lang.String">
+  			select  emp.group_id as le_group_id from  bump_user emp
+			join bump_quarters qua on emp.quarters_id = qua.quarters_id
+			where qua.lq_grade=2 and emp.user_id= #{leEmpId }
+  	</select>
+  	
+  	<select id="findDeptById" resultType="java.lang.String">
+  			select  emp.dept_id from  bump_user emp
+			join bump_quarters qua on emp.quarters_id = qua.quarters_id
+			where qua.lq_grade=1 and emp.user_id= #{leEmpId }
+  	</select>
+  	  <!-- 自定义方法区 -->
+  <sql id="Where_Common">
+  <if test="authgroupList != null">
+		 	and 
+	         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+		         (1=1
+		             <if test="item.orgId != null and item.orgId != ''">
+					  		and oi.company_id =  #{item.orgId}
+					 </if>
+					 <if test="item.deptId != null and item.deptId != ''">
+					  		and oi.dep_id =  #{item.deptId}
+					 </if>
+					 <if test="item.dataOwner != null and item.dataOwner != ''">
+					  		and oi.customer_manager =  #{item.dataOwner}
+					 </if>
+				  )
+	          </foreach>
+		</if>
+
+	<if test="unionId != null and unionId != ''">
+  		and oi.union_id = #{unionId}
+  	</if>
+  	
+  </sql>
+    <sql id="Where_Common_orderInfor">
+  	<if test="orderNo != null and orderNo != '' ">
+   	   	  and  order_no LIKE CONCAT('%',#{orderNo },'%')
+   	   </if>
+   	   <if test="leStaffName != null and leStaffName != '' ">
+   	   	  and  le_staff_name LIKE CONCAT('%',#{leStaffName },'%')
+   	   </if>
+   	   <if test="bname != null and bname != '' ">
+   	   	  and  bname LIKE CONCAT('%',#{bname },'%')
+   	   </if>
+   	   <if test="orderStatus != null and orderStatus != '' ">
+   	   	  and  order_status = #{orderStatus }
+   	   </if>
+   	   <if test="orderStatus==0 ">
+   	   	  and  order_status = #{orderStatus }
+   	   </if>
+   	    <if test="orgName != null and orgName != '' ">
+   	   	  and  org_name LIKE CONCAT('%',#{orgName },'%')
+   	   </if>
+   	   <!-- if test="province  != null and province != '' ">
+   	   	  and  province LIKE CONCAT('%',#{province },'%')
+   	   </if -->
+   	    <if test="city != null and city != '' ">
+   	   	  and  city LIKE CONCAT('%',#{city },'%')
+   	   </if>
+   	    <if test="startDate != null ">
+   	   	  <![CDATA[ and apply_date  >=  #{startDate}  ]]>
+   	    </if>
+   	    <if test="endDate != null ">
+   	   	  <![CDATA[ and apply_date  <=  #{endDate}  ]]>
+   	    </if>
+   	    <if test="orderStatusCondition != null and orderStatusCondition != '' ">
+   	   	  and  order_status in ( ${orderStatusCondition })
+   	    </if>
+   	   
+  </sql>
+  
+   <sql id="Where_Common_orderInfor01">
+   	    <if test="customerManagerCity != null and customerManagerCity != '' ">
+   	   	  and  le.city_name = #{customerManagerCity }
+   	    </if>
+   	    <if test="customerManagerComponyId != null  ">
+   	   	  and f.company_id = #{customerManagerComponyId }
+   	    </if>
+   	    <if test="customerManagerDeptId != null ">
+   	   	  and  e.dept_id  = #{customerManagerDeptId }
+   	    </if>
+   	    <if test="customerManagerGroupId != null ">
+   	   	  and  g.lg_group_id = #{customerManagerGroupId }
+   	    </if>
+   	    <if test="customerManagerName != null and customerManagerName != '' ">
+   	   	  and  le.staff_name  like concat('%',#{customerManagerName},'%')
+   	    </if>
+   	    <!-- 客户经理的创建时间-->
+		<if test="customerManagerBeginingTime != null">
+			AND DATE_FORMAT(b.apply_date,'%Y-%m-%d') &gt;=   DATE_FORMAT(#{customerManagerBeginingTime},'%Y-%m-%d')
+		</if>
+		<if test="customerManagerEndingTime != null">
+		 	AND DATE_FORMAT(b.apply_date,'%Y-%m-%d') &lt;=   DATE_FORMAT(#{customerManagerEndingTime},'%Y-%m-%d')
+		</if>
+  </sql>
+  
+   <sql id="Where_Common_orderInfor02">
+		<if test="customerManagerBeginingTime != null">
+			 AND DATE_FORMAT(ac.task_end_date,'%Y-%m-%d') &gt;=   DATE_FORMAT(#{customerManagerBeginingTime},'%Y-%m-%d')
+		</if>
+		<if test="customerManagerEndingTime != null">
+		 	AND DATE_FORMAT(ac.task_end_date,'%Y-%m-%d') &lt;=   DATE_FORMAT(#{customerManagerEndingTime},'%Y-%m-%d')
+		</if>
+  </sql>
+  
+  
+     <select id="findListByEntity" parameterType="com.lhhs.loan.dao.domain.OrderInfo"  resultType="com.lhhs.loan.dao.domain.OrderInfo">
+	   SELECT * FROM (
+					SELECT DISTINCT
+						oi.order_no ,
+						oi.customer_manager,
+						oi.province,
+						oi.city ,
+						oi.apply_date ,
+						oi.order_status ,
+						oi.next_assignee_name ,
+						org.org_business_type ,
+						obe.bname ,
+						pi.mobile_no ,
+						pi.provider_name ,
+						emp.staff_name as le_staff_name,
+						emp.user_id as le_emp_id,
+						org.org_name ,
+						cp.product_name
+					FROM
+						loan_order_info oi
+					LEFT JOIN loan_order_info_detail oid ON oi.order_no = oid.order_no
+					LEFT JOIN loan_organization org ON org.org_id = oid.fund_owner
+					LEFT JOIN loan_order_borrower_extend obe ON obe.order_no = oi.order_no
+					LEFT JOIN loan_provider_info pi ON pi.provider_no = oi.provider_no
+					LEFT JOIN bump_user emp ON emp.user_id = oi.customer_manager
+					LEFT JOIN loan_child_product cp ON oi.child_product_no = cp.product_id
+					LEFT JOIN loan_order_house_extend lohe on oi.order_no=lohe.order_no
+				    WHERE 1=1
+				    <if test="idNum != null and '' !=idNum">
+				   	   and obe.id_num = #{idNum}
+				    </if>
+				    <if test="propertyNum != null and '' !=propertyNum">
+				   	   and lohe.property_num = #{propertyNum}
+				    </if> 
+				    <if test="propertyName != null and '' !=propertyName">
+				   	   and lohe.property_name = #{propertyName}
+				    </if> 
+				    <include refid="Where_Common"/>
+					GROUP BY oi.order_no
+					ORDER BY oi.apply_date desc,oi.operator_date desc
+				)info	WHERE 1=1 
+				    <include refid="Where_Common_orderInfor"/>
+			    	   <!-- 分页 -->
+				   <if test="page != null">
+				   	   limit #{page.pageStartIndex},#{page.pageSize}
+				   </if> 
+
+	  </select>
+	  
+	   <select id="countListByEntity" resultType="java.lang.Integer">
+	   SELECT count(*) FROM (
+					SELECT DISTINCT
+						oi.order_no ,
+						oi.city ,
+						oi.province,
+						oi.apply_date ,
+						oi.order_status ,
+						org.org_business_type ,
+						obe.bname ,
+						pi.mobile_no ,
+						pi.provider_name ,
+						emp.staff_name as le_staff_name,
+						org.org_name ,
+						cp.product_name
+					FROM
+						loan_order_info oi
+					LEFT JOIN loan_order_info_detail oid ON oi.order_no = oid.order_no
+					LEFT JOIN loan_organization org ON org.org_id = oid.fund_owner
+					LEFT JOIN loan_order_borrower_extend obe ON obe.order_no = oi.order_no
+					LEFT JOIN loan_provider_info pi ON pi.provider_no = oi.provider_no
+					LEFT JOIN bump_user emp ON emp.user_id = oi.customer_manager
+					LEFT JOIN loan_child_product cp ON oi.child_product_no = cp.product_id
+					LEFT JOIN loan_order_house_extend lohe on oi.order_no=lohe.order_no
+					WHERE 1=1
+					 <if test="idNum != null and '' !=idNum">
+				   	   and obe.id_num = #{idNum}
+				    </if>
+				     <if test="propertyNum != null and '' !=propertyNum">
+				   	   and lohe.property_num = #{propertyNum}
+				    </if> 
+				    <if test="propertyName != null and '' !=propertyName">
+				   	   and lohe.property_name = #{propertyName}
+				    </if> 
+				    <include refid="Where_Common"/>
+					GROUP BY oi.order_no
+				)info	WHERE 1=1 
+				    <include refid="Where_Common_orderInfor"/>
+			    	   <!-- 分页 -->
+	  </select>
+	  
+	  
+	  <select id="findEmpCountById" resultType="java.lang.Integer">
+	  		SELECT COUNT(emp.user_id) from bump_user emp where emp.company_id in (
+				SELECT DISTINCT rc.company_id
+				from bump_user emp
+				inner join bump_user_role er on emp.user_id= er.ler_emp_id
+				inner join loan_role_company rc on rc.role_id = er.ler_role_id
+				where emp.user_id= #{empId}
+				)
+	  </select>
+	  <select id="getEntityById" resultType="com.lhhs.loan.dao.domain.vo.OrderInfoDetailVo">
+	  			SELECT
+					loi.order_no ,
+					loi.company_id ,
+					loi.union_id ,
+					loi.proc_ins_id ,
+					lo.org_business_type ,
+					loi.apply_date ,
+					loi.customer_origin ,
+					le.staff_name as le_staff_name,
+					lpi.provider_name ,
+					lpi.mobile_no ,
+					lo.org_name ,
+					lpp.product_type ,
+					lcp.product_name ,
+					loid.loan_amount ,
+					loid.loan_term ,
+					loid.loan_term_unit ,
+					loid.loan_rate ,
+					loid.loan_rate_unit ,
+					loid.repayment ,
+					loi.order_status,
+					loi.child_product_no,
+					loi.customer_manager
+				FROM
+					loan_order_info loi
+				LEFT JOIN bump_user le ON le.user_id = loi.customer_manager
+				INNER JOIN loan_order_info_detail loid ON loid.order_no = loi.order_no
+				LEFT JOIN loan_organization lo ON lo.org_id = loid.fund_owner
+				LEFT JOIN loan_provider_info lpi ON lpi.provider_no = loi.provider_no
+				LEFT JOIN loan_child_product lcp ON lcp.product_id = loi.child_product_no
+				LEFT JOIN loan_parent_product lpp ON lpp.product_no = loi.product_no
+				WHERE loi.order_no = #{orderNo }
+	  
+	  </select>
+  
+  <!-- ########################################### Li chao End ########################################### -->
+  
+    <!-- 首页查询我的待办列表 -->
+  <select id="selectIndexMyNewTaskList" parameterType="java.util.Map" resultType="java.util.Map">
+  	SELECT
+		loi.order_no, lo.org_business_type, lpi.provider_name,lobe.bname,lpi.mobile_no,le.staff_name as le_staff_name,lo.org_name,
+		lcp.product_name,loi.apply_date,loi.order_status
+	FROM 
+		loan_order_info loi
+	LEFT JOIN
+		bump_user le ON le.user_id = loi.customer_manager	
+	INNER JOIN
+		loan_order_info_detail loid ON loid.order_no = loi.order_no
+	LEFT JOIN
+		loan_organization lo ON lo.org_id = loid.fund_owner
+	LEFT JOIN
+		loan_provider_info lpi ON lpi.provider_no = loi.provider_no
+	INNER JOIN
+		loan_order_borrower_extend lobe ON lobe.order_no = loi.order_no
+	INNER JOIN
+		loan_child_product lcp ON lcp.product_id = loi.child_product_no
+  	WHERE 
+  		1 = 1
+  	<if test="leAccount != null and leAccount != ''">
+  		and loi.city = #{city}
+  	</if>
+  	<if test="approvalNodeList != null and approvalNodeList.size > 0 ">
+  		and loi.approval_node in
+  		 <foreach collection="approvalNodeList" index="index" item="item" open="(" separator="," close=")">  
+            #{item}  
+         </foreach>
+  	</if>
+  	ORDER BY
+  		loi.apply_date desc
+	<if test="page != null">
+		limit #{page.pageStartIndex},#{page.pageSize}
+	</if>
+  </select>
+  <!-- 查询我的待办任务列表的总记录数 -->
+  <select id="selectIndexMyNewTaskListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	SELECT
+		COUNT(1)
+	FROM 
+		loan_order_info loi
+	LEFT JOIN
+		bump_user le ON le.user_id = loi.customer_manager
+	INNER JOIN
+		loan_order_info_detail loid ON loid.order_no = loi.order_no
+	LEFT JOIN
+		loan_organization lo ON lo.org_id = loid.fund_owner
+	LEFT JOIN
+		loan_provider_info lpi ON lpi.provider_no = loi.provider_no
+	INNER JOIN
+		loan_order_borrower_extend lobe ON lobe.order_no = loi.order_no
+	INNER JOIN
+		loan_child_product lcp ON lcp.product_id = loi.child_product_no
+  	WHERE 
+  		1 = 1
+  	<if test="leAccount != null and leAccount != ''">
+  		and loi.city = #{city}
+  	</if>
+  	<if test="approvalNodeList != null  and approvalNodeList.size > 0 ">
+  		and loi.approval_node in
+  		 <foreach collection="approvalNodeList" index="index" item="item" open="(" separator="," close=")">  
+            #{item}  
+         </foreach>
+  	</if>
+  </select>
+  <select id="getOrderSumInfo" parameterType="java.util.Map" resultType="java.util.Map">
+	   SELECT
+		(
+			SELECT
+				count(1)
+			FROM
+				loan_order_info oi
+			WHERE
+				substr(oi.apply_date, 1, 10) = curdate()
+				<include refid="Where_Common"/>
+		) AS totalCount,
+		(
+			SELECT
+				ifnull(
+					sum(loid.actual_amount) / 10000,
+					0
+				)
+			FROM
+				loan_order_info loi
+			LEFT JOIN loan_order_info_detail loid ON loi.order_no = loid.order_no
+			WHERE
+				loi.order_status IN (12, 13, 14, 15)
+		) AS sumAmountPaid
+  </select>
+  
+  <select  id="getFengKongEmp" resultType="com.lhhs.loan.dao.domain.LoanEmp" >
+	SELECT
+		user_id le_emp_id,
+		username le_account,
+		PASSWORD le_password,
+		staff_name le_staff_name,
+		mobile le_mobile,
+		sex le_sex,
+		create_time le_time,
+		STATUS le_status,
+		dept_id le_dept_id,
+		remark le_remark,
+		city_name le_city,
+		grade le_grade,
+		union_id company_id,
+		company_id branch_company_id,
+		field1,
+		field2
+	FROM
+		bump_user
+	WHERE
+		(
+			dept_id,
+			company_id,
+			union_id
+		) IN (
+			SELECT
+				dept_id,
+				company_id,
+				union_id
+			FROM
+				bump_user
+			WHERE
+				user_id IN (
+					SELECT
+						e.let_employeeno
+					FROM
+						loan_ex_task e
+					WHERE
+						e.let_declarationformid = #{orderNo }
+					AND e.let_node_status = 1
+					AND e.let_result = 0
+				)
+		)
+  </select>
+  
+  <!-- 更新订单状态为已结清-->
+	<update id="updateLoanOrderInfoStatusCleanUp">
+	<![CDATA[
+		UPDATE loan_order_info loi
+			set loi.order_status = '15' where 
+			loi.order_no in
+			(
+				SELECT
+					a.business_id
+				FROM
+					loan_trans_main a
+				WHERE
+					a.field3='0' and a.clean_up_status IN ('88', '89', '90')  and a.status in('88', '89', '90')
+				AND a.business_id NOT IN (
+					SELECT
+						b.order_no
+					FROM
+						loan_pay_plan b
+					WHERE
+						b. STATUS = '03' 
+					UNION 
+					SELECT
+						c.order_no
+					FROM
+						loan_pay_plan_company c
+					WHERE
+						c. STATUS = '03'
+				)
+				
+			) 
+		]]>
+	</update>
+  <!-- 更新订单状态为已还款-->
+	<update id="updateLoanOrderInfoStatusPaid">
+		<![CDATA[
+			update loan_order_info loi SET loi.order_status = '13' where loi.order_no in (
+				SELECT
+						a.business_id
+					FROM
+						loan_trans_main a
+					WHERE
+						a.clean_up_status ='03' 
+					AND DATE_FORMAT(a.last_modify_time,	'%Y-%m-%d') >= DATE_FORMAT(NOW(), '%Y-%m-%d')
+				    and (a.paid_capital_amount+a.paid_interest_amount)>0
+			) 
+		]]>
+	</update>
+	  <!-- 更新订单状态为已逾期-->
+	<update id="updateLoanOrderInfoStatusOver">
+		<![CDATA[
+			UPDATE loan_order_info loi
+				SET loi.order_status = '14' where 
+				loi.order_no in (
+					SELECT
+						 lpp.order_no
+					FROM
+						loan_pay_plan lpp
+					WHERE
+						lpp.`status` = '03'
+					AND (
+					(
+					(lpp.repayment_capital - lpp.paid_capital)>0 and 	DATE_FORMAT(lpp.repayment_capital_time,'%y%m%d') < DATE_FORMAT(now(), '%y%m%d'))
+						OR
+					((lpp.repayment_interest - lpp.paid_interest)>0 and DATE_FORMAT(lpp.repayment_interest_time,'%y%m%d') < DATE_FORMAT(now(), '%y%m%d'))
+					)
+					UNION
+					SELECT
+						 lppc.order_no
+					FROM
+						loan_pay_plan_company lppc
+					WHERE
+						lppc.`status` = '03'
+					AND (
+					(
+					(lppc.repayment_capital - lppc.paid_capital)>0 and 	DATE_FORMAT(lppc.repayment_capital_time,'%y%m%d') < DATE_FORMAT(now(), '%y%m%d'))
+						OR
+					((lppc.repayment_interest - lppc.paid_interest)>0 and DATE_FORMAT(lppc.repayment_interest_time,'%y%m%d') < DATE_FORMAT(now(), '%y%m%d'))
+					)
+				)
+		]]>
+	</update>
+	  <!-- 更新订单状态为已结清-->
+	<update id="updateLoanTransMainCleanUp">
+	<![CDATA[
+		UPDATE loan_trans_main a
+		SET a.field3 = '1' 
+				WHERE
+					a.field3='0' and a.clean_up_status IN ('88', '89', '90')  and a.status in('88', '89', '90')
+				AND a.business_id NOT IN (
+					SELECT
+						b.order_no
+					FROM
+						loan_pay_plan b
+					WHERE
+						b. STATUS = '03' 
+					UNION 
+					SELECT
+						c.order_no
+					FROM
+						loan_pay_plan_company c
+					WHERE
+						c. STATUS = '03'
+				)
+		]]>
+	</update>
+
+  <select  id="queryOrderInfoNoProcList" resultType="com.lhhs.loan.dao.domain.LoanOrderInfo" parameterType="com.lhhs.loan.dao.domain.LoanOrderInfo">
+  	select loi.*,lcp.product_name
+    from loan_order_info  loi
+    LEFT JOIN
+		loan_child_product lcp ON lcp.product_id = loi.child_product_no
+   where  loi.order_status = '-1' order by loi.apply_date asc
+   <if test="page != null">
+		limit #{page.pageStartIndex},#{page.pageSize}
+	</if>
+  </select>
+    <update id="updateByProcInsId" parameterType="com.lhhs.loan.dao.domain.LoanOrderInfo" >
+    update loan_order_info
+    <set >
+		<if test="orderStatus != null" >
+		    order_status = #{orderStatus},
+		  </if>
+		 <if test="procInsId != null" >
+		    proc_ins_id = #{procInsId},
+		  </if>
+		  <if test="nextTaskDefKey != null" >
+		    next_task_def_key = #{nextTaskDefKey},
+		  </if>
+		  <if test="nextTaskName != null" >
+		    next_task_name = #{nextTaskName},
+		  </if>
+		  <if test="nextAssignee != null" >
+		    next_assignee = #{nextAssignee},
+		  </if>
+		  <if test="nextAssigneeName != null" >
+		    next_assignee_name = #{nextAssigneeName},
+		  </if>
+		  </set>
+    where order_no = #{orderNo} and order_status=#{orderStatusOld}
+  </update>
+  
+  <!-- 报单量统计报表查询条件 -->
+  <sql id="where_common_query">
+  <if test="authgroupList != null">
+		 	and 
+	         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+		         (1=1
+		             <if test="item.orgId != null and item.orgId != ''">
+					  		and b.company_id =  #{item.orgId}
+					 </if>
+					 <if test="item.deptId != null and item.deptId != ''">
+					  		and b.dep_id =  #{item.deptId}
+					 </if>
+					 <if test="item.dataOwner != null and item.dataOwner != ''">
+					  		and b.customer_manager =  #{item.dataOwner}
+					 </if>
+				  )
+	          </foreach>
+		</if>
+  </sql>
+  <!-- 报单统计 -->
+  <select id="getOrderCountList" parameterType="com.lhhs.loan.dao.domain.LoanOrderInfo" resultType="com.lhhs.loan.dao.domain.LoanOrderInfo">
+	SELECT
+		b.orderCount,c.dealAmount,le.city_name AS customerManagerCity,le.create_time AS customerManagerCreateTime,le.staff_name AS customerManagerName,
+		e.parentDepeName AS customerManagerDeptName,f.company_name AS customerManagerComponyName,e.name AS customerManagerGroupName
+	FROM
+	(
+		SELECT
+			count(distinct b.order_no) AS orderCount,
+			b.*
+		FROM
+			loan_order_info b
+		WHERE
+			b.customer_manager IS NOT NULL
+		<include refid="where_common_query"></include>
+		GROUP BY
+			b.customer_manager
+	) b
+	LEFT JOIN (
+		SELECT
+			count(distinct b.order_no)  AS dealAmount,
+			b.customer_manager
+		FROM loan_order_info b
+		LEFT JOIN act_comment ac ON b.order_no = ac.business_id
+		WHERE b.customer_manager IS NOT NULL
+		and	ac.task_def_key = "fangkuan_zx"
+		AND (
+			ac. STATUS = "90"
+			OR ac. STATUS = "03"
+		)
+		<include refid="where_common_query"></include>
+		<include refid="Where_Common_orderInfor02"></include>
+		GROUP BY
+			b.customer_manager	
+	) c ON b.customer_manager = c.customer_manager
+	LEFT JOIN bump_user le ON b.customer_manager = le.user_id
+	LEFT JOIN
+	(
+		SELECT
+			e.*, IFNULL(de.name, e.name) AS parentDepeName
+		FROM
+			bump_dept e
+		LEFT JOIN bump_dept de ON e.parent_id = de.dept_id
+	)e ON le.dept_id = e.dept_id
+	LEFT JOIN bump_union_company f ON le.company_id = f.company_id
+	WHERE 1=1 
+	<include refid="where_common_query"></include>
+    <include refid="Where_Common_orderInfor01"/>
+   	   <!-- 分页 -->
+   	   order by dealAmount desc,orderCount desc
+   <if test="page != null">
+   	   limit #{page.pageStartIndex},#{page.pageSize}
+   </if> 
+  </select>
+  
+  <!-- 报单统计总条数 -->
+  <select id="getOrderCountListCount" parameterType="com.lhhs.loan.dao.domain.LoanOrderInfo" resultType="int">
+	SELECT count(*) FROM(
+		SELECT
+			b.orderCount,c.dealAmount,le.city_name AS customerManagerCity,le.create_time AS customerManagerCreateTime,le.staff_name AS customerManagerName,
+			e.parentDepeName AS customerManagerDeptName,f.company_name AS customerManagerComponyName,e.name AS customerManagerGroupName
+		FROM
+		(
+			SELECT
+				count(distinct b.order_no) AS orderCount,
+				b.*
+			FROM
+				loan_order_info b
+			WHERE
+				b.customer_manager IS NOT NULL
+		<include refid="where_common_query"></include>
+			GROUP BY
+				b.customer_manager
+		) b
+		LEFT JOIN (
+			SELECT
+				count(distinct b.order_no)  AS dealAmount,
+				b.customer_manager
+			FROM loan_order_info b
+			LEFT JOIN act_comment ac ON b.order_no = ac.business_id
+			WHERE b.customer_manager IS NOT NULL
+			and	ac.task_def_key = "fangkuan_zx"
+			AND (
+				ac. STATUS = "90"
+				OR ac. STATUS = "03"
+			)
+			<include refid="where_common_query"></include>
+			<include refid="Where_Common_orderInfor02"></include>
+			GROUP BY
+				b.customer_manager	
+		) c ON b.customer_manager = c.customer_manager
+		LEFT JOIN bump_user le ON b.customer_manager = le.user_id
+		LEFT JOIN 
+		(
+			SELECT
+				e.*, IFNULL(de.name, e.name) AS parentDepeName
+			FROM
+				bump_dept e
+			LEFT JOIN bump_dept de ON e.parent_id = de.dept_id
+		
+		) e ON le.dept_id = e.dept_id
+		LEFT JOIN bump_union_company f ON le.company_id = f.company_id
+		WHERE 1=1 
+		<include refid="where_common_query"></include>
+	    <include refid="Where_Common_orderInfor01"/>
+	    order by dealAmount desc,orderCount desc
+	)ee
+  </select>
+  
+  <!-- 报单统计 放款总金额 -->
+  <select id="getVariousTotalCount" parameterType="com.lhhs.loan.dao.domain.LoanOrderInfo" resultType="map">
+	SELECT
+		sum(c.dealAmount) as totalDealAmount
+	FROM
+	(
+		SELECT
+			count(distinct b.order_no) AS orderCount,
+			b.*
+		FROM
+			loan_order_info b
+		WHERE
+			b.customer_manager IS NOT NULL
+		<include refid="where_common_query"></include>
+		GROUP BY
+			b.customer_manager
+	) b
+	LEFT JOIN (
+		SELECT
+			b.customer_manager,
+			sum(a.dealAmount) as dealAmount
+		FROM
+			loan_order_info b
+		LEFT JOIN (
+			SELECT
+				ifnull(sum(lr.loan_amount), 0.0000) AS dealAmount,
+				lr.order_no AS orderNo
+			FROM
+				loan_order_info loi
+			INNER JOIN loan_record lr ON lr.order_no = loi.order_no
+			<where>
+				<if test="customerManagerBeginingTime != null">
+					 AND DATE_FORMAT(lr.create_time,'%Y-%m-%d') &gt;=   DATE_FORMAT(#{customerManagerBeginingTime},'%Y-%m-%d')
+				</if>
+				<if test="customerManagerEndingTime != null">
+				 	AND DATE_FORMAT(lr.create_time,'%Y-%m-%d') &lt;=   DATE_FORMAT(#{customerManagerEndingTime},'%Y-%m-%d')
+				</if>
+			</where>
+			GROUP BY
+				lr.order_no
+		) a ON b.order_no = a.orderNo
+		WHERE
+			b.customer_manager IS NOT NULL
+		<include refid="where_common_query"></include>
+		
+		GROUP BY
+			b.customer_manager
+	) c ON b.customer_manager = c.customer_manager
+	LEFT JOIN bump_user le ON b.customer_manager = le.user_id
+	LEFT JOIN bump_dept e ON le.dept_id = e.dept_id
+	LEFT JOIN bump_union_company f ON le.company_id = f.company_id
+	WHERE 1=1 
+	<include refid="where_common_query"></include>
+    <include refid="Where_Common_orderInfor01"/>
+  </select>
+  
+  
+ <!-- 报单图表根据时间统计报单量  -->
+  <select id="getOrderCountByTime" resultType="map" parameterType="com.lhhs.loan.dao.domain.LoanOrderInfo">
+	SELECT
+		count(distinct b.order_no) AS totalOrderCount,
+		(case 
+			when #{timeUnit}="月" then DATE_FORMAT(b.apply_date, '%Y-%m') 
+			else DATE_FORMAT(b.apply_date, '%Y-%m-%d') 
+		 end)  createTime
+		 <if test='weekNum !=null and weekNum !="" '>
+			,(case 
+				when #{timeUnit}="周" and #{weekNum}="01"  then "第一周"
+				when #{timeUnit}="周" and #{weekNum}="02"  then "第二周"
+				when #{timeUnit}="周" and #{weekNum}="03"  then "第三周"
+				when #{timeUnit}="周" and #{weekNum}="04"  then "第四周"
+			end)  time
+		</if>
+	FROM loan_order_info b
+	WHERE 1=1 
+	<include refid="where_common_query"></include>
+	<if test='timeUnit != null  and timeUnit != "" and timeUnit == "月"'>
+		 AND DATE_FORMAT(b.apply_date,'%Y-%m') &gt;=   DATE_FORMAT(#{customerManagerBeginingTime},'%Y-%m')
+		 AND DATE_FORMAT(b.apply_date,'%Y-%m') &lt;=   DATE_FORMAT(#{customerManagerEndingTime},'%Y-%m')
+		 GROUP BY DATE_FORMAT(b.apply_date, '%Y-%m')
+	</if>
+	<if test='timeUnit == "周"  and weekNum=="01" '>
+		AND (WEEK(date_format(b.apply_date,'%Y-%m-%d'),1) = WEEK(date_format(now(),'%Y-%m-%d'),1)-3)  
+		GROUP BY  WEEK(date_format(b.apply_date,'%Y-%m-%d'),1)      
+	</if>
+	<!-- 第二周 -->
+	<if test='timeUnit == "周"  and weekNum=="02"'>
+		AND (WEEK(date_format(b.apply_date,'%Y-%m-%d'),1) = WEEK(date_format(now(),'%Y-%m-%d'),1)-2)  
+		GROUP BY  WEEK(date_format(b.apply_date,'%Y-%m-%d'),1)   
+	</if>
+	<!-- 第三周 -->
+	<if test='timeUnit == "周"  and weekNum=="03"'>
+		AND (WEEK(date_format(b.apply_date,'%Y-%m-%d'),1) = WEEK(date_format(now(),'%Y-%m-%d'),1)-1)  
+		GROUP BY  WEEK(date_format(b.apply_date,'%Y-%m-%d'),1)   
+	</if>
+	<!-- 第四周 -->
+	<if test='timeUnit == "周"  and weekNum=="04"'>
+		AND (WEEK(date_format(b.apply_date,'%Y-%m-%d'),1) = WEEK(date_format(now(),'%Y-%m-%d'),1))  
+		GROUP BY  WEEK(date_format(b.apply_date,'%Y-%m-%d'),1)   
+	</if>
+	<if test='timeUnit != null  and timeUnit != "" and timeUnit == "日"'>
+		 AND DATE_FORMAT(b.apply_date,'%Y-%m-%d') &gt;=   DATE_FORMAT(#{customerManagerBeginingTime},'%Y-%m-%d')
+	     AND DATE_FORMAT(b.apply_date,'%Y-%m-%d') &lt;=   DATE_FORMAT(#{customerManagerEndingTime},'%Y-%m-%d')
+	     GROUP BY DATE_FORMAT(b.apply_date, '%Y-%m-%d')
+	</if>
+	order by b.apply_date asc
+  </select>
+  
+  
+  
+  <!-- 报单图表根据时间统计成交量 -->
+  <select id="getDealCountByTime" resultType="map" parameterType="com.lhhs.loan.dao.domain.LoanOrderInfo">
+	 select sum(totalDealCount) as totalDealCount,createTime <if test='weekNum !=null and weekNum !="" '>,time</if>
+	 from(
+		    SELECT
+				count(distinct b.order_no)  AS totalDealCount,
+				(case 
+					when #{timeUnit}="月" then DATE_FORMAT(ac.task_end_date, '%Y-%m') 
+					else DATE_FORMAT(ac.task_end_date, '%Y-%m-%d') 
+				end)  createTime
+				<if test='weekNum !=null and weekNum !="" '>
+					,(case 
+						when #{timeUnit}="周" and #{weekNum}="01"  then "第一周"
+						when #{timeUnit}="周" and #{weekNum}="02"  then "第二周"
+						when #{timeUnit}="周" and #{weekNum}="03"  then "第三周"
+						when #{timeUnit}="周" and #{weekNum}="04"  then "第四周"
+					end)  time
+				</if>
+			FROM loan_order_info b
+			LEFT JOIN act_comment ac ON b.order_no = ac.business_id
+			WHERE b.customer_manager IS NOT NULL
+			and	ac.task_def_key = "fangkuan_zx"
+			AND (
+				ac. STATUS = "90"
+				OR ac. STATUS = "03"
+			)
+			<include refid="where_common_query"></include>
+			<if test='timeUnit != null  and timeUnit != "" and timeUnit == "月"'>
+				 AND DATE_FORMAT(ac.task_end_date,'%Y-%m') &gt;=   DATE_FORMAT(#{customerManagerBeginingTime},'%Y-%m')
+				 AND DATE_FORMAT(ac.task_end_date,'%Y-%m') &lt;=   DATE_FORMAT(#{customerManagerEndingTime},'%Y-%m')
+			</if>
+			<!-- 第一周 -->
+			<if test='timeUnit == "周"  and weekNum=="01" '>
+				AND (WEEK(date_format(ac.task_end_date,'%Y-%m-%d'),1) = WEEK(date_format(now(),'%Y-%m-%d'),1)-3)  
+			</if>
+			<!-- 第二周 -->
+			<if test='timeUnit == "周"  and weekNum=="02"'>
+				AND (WEEK(date_format(ac.task_end_date,'%Y-%m-%d'),1) = WEEK(date_format(now(),'%Y-%m-%d'),1)-2)  
+			</if>
+			<!-- 第三周 -->
+			<if test='timeUnit == "周"  and weekNum=="03"'>
+				AND (WEEK(date_format(ac.task_end_date,'%Y-%m-%d'),1) = WEEK(date_format(now(),'%Y-%m-%d'),1)-1)  
+			</if>
+			<!-- 第四周 -->
+			<if test='timeUnit == "周"  and weekNum=="04"'>
+				AND (WEEK(date_format(ac.task_end_date,'%Y-%m-%d'),1) = WEEK(date_format(now(),'%Y-%m-%d'),1))  
+			</if>
+			<if test='timeUnit != null  and timeUnit != "" and timeUnit == "日"'>
+				 AND DATE_FORMAT(ac.task_end_date,'%Y-%m-%d') &gt;=   DATE_FORMAT(#{customerManagerBeginingTime},'%Y-%m-%d')
+			     AND DATE_FORMAT(ac.task_end_date,'%Y-%m-%d') &lt;=   DATE_FORMAT(#{customerManagerEndingTime},'%Y-%m-%d')
+			</if>
+			group by b.order_no
+		)e
+		GROUP BY
+ 			<if test='weekNum !=null and weekNum !="" '>time</if>
+  		    <if test='weekNum ==null or weekNum =="" '>e.createTime</if>
+		order by e.createTime asc
+  </select>
+  <!-- 根据报单编号查询借款人银行卡号信息 -->
+  <select id="getAccountCardList" resultType="com.lhhs.loan.dao.domain.LoanAccountCard" parameterType="com.lhhs.loan.dao.domain.LoanOrderInfo">
+  		SELECT lac.id,lac.bank_card_no,lac.branch_name,lac.bank_id,lb.bank_name
+		FROM
+			loan_order_info loi
+		LEFT JOIN loan_customer_info lci ON loi.customer_id = lci.customer_id
+		LEFT JOIN loan_account_card lac ON lci.account_id = lac.account_id
+		LEFT JOIN loan_bank lb on lac.bank_id=lb.bank_id
+		where 1=1
+		<if test="orderNo != null  and ''!=orderNo">
+			 and loi.order_no=  #{orderNo}
+		</if>
+  </select>
+  
+</mapper>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanGroup" >
+    <id column="lg_group_id" property="lgGroupId" jdbcType="INTEGER" />
+    <result column="lg_dept_id" property="lgDeptId" jdbcType="INTEGER" />
+    <result column="lg_name" property="lgName" jdbcType="VARCHAR" />
+    <result column="lg_depict" property="lgDepict" jdbcType="VARCHAR" />
+    <result column="lg_time" property="lgTime" jdbcType="TIMESTAMP" />
+    <result column="lg_status" property="lgStatus" jdbcType="VARCHAR" />
+    <result column="lg_remark" property="lgRemark" jdbcType="VARCHAR" />
+    <result column="ld_name" property="ldName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lg_group_id, lg_dept_id, lg_name, lg_depict, lg_time, lg_status, lg_remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_group
+    where lg_group_id = #{lgGroupId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from loan_group
+    where lg_group_id = #{lgGroupId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanGroup" >
+    insert into loan_group (lg_group_id, lg_dept_id, lg_name, 
+      lg_depict, lg_time, lg_status, 
+      lg_remark)
+    values (#{lgGroupId,jdbcType=INTEGER}, #{lgDeptId,jdbcType=INTEGER}, #{lgName,jdbcType=VARCHAR}, 
+      #{lgDepict,jdbcType=VARCHAR}, #{lgTime,jdbcType=TIMESTAMP}, #{lgStatus,jdbcType=VARCHAR}, 
+      #{lgRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanGroup" >
+    insert into loan_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lgGroupId != null" >
+        lg_group_id,
+      </if>
+      <if test="lgDeptId != null" >
+        lg_dept_id,
+      </if>
+      <if test="lgName != null" >
+        lg_name,
+      </if>
+      <if test="lgDepict != null" >
+        lg_depict,
+      </if>
+      <if test="lgTime != null" >
+        lg_time,
+      </if>
+      <if test="lgStatus != null" >
+        lg_status,
+      </if>
+      <if test="lgRemark != null" >
+        lg_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lgGroupId != null" >
+        #{lgGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="lgDeptId != null" >
+        #{lgDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="lgName != null" >
+        #{lgName,jdbcType=VARCHAR},
+      </if>
+      <if test="lgDepict != null" >
+        #{lgDepict,jdbcType=VARCHAR},
+      </if>
+      <if test="lgTime != null" >
+        #{lgTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lgStatus != null" >
+        #{lgStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="lgRemark != null" >
+        #{lgRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanGroup" >
+    update loan_group
+    <set >
+      <if test="lgDeptId != null and lgDeptId !=''" >
+        lg_dept_id = #{lgDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="lgName != null and lgName!=''" >
+        lg_name = #{lgName,jdbcType=VARCHAR},
+      </if>
+      <if test="lgDepict != null and lgDepict!=''" >
+        lg_depict = #{lgDepict,jdbcType=VARCHAR},
+      </if>
+      <if test="lgTime != null and lgTime!=''" >
+        lg_time = #{lgTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lgStatus != null and lgStatus!=''" >
+        lg_status = #{lgStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="lgRemark != null and lgRemark!=''" >
+        lg_remark = #{lgRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lg_group_id = #{lgGroupId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanGroup" >
+    update loan_group
+    set lg_dept_id = #{lgDeptId,jdbcType=INTEGER},
+      lg_name = #{lgName,jdbcType=VARCHAR},
+      lg_depict = #{lgDepict,jdbcType=VARCHAR},
+      lg_time = #{lgTime,jdbcType=TIMESTAMP},
+      lg_status = #{lgStatus,jdbcType=VARCHAR},
+      lg_remark = #{lgRemark,jdbcType=VARCHAR}
+    where lg_group_id = #{lgGroupId,jdbcType=INTEGER}
+  </update>
+  <!-- 按条件检索组别列表 -->
+  <select id="selectGroupList" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />,bump_dept.name ld_name
+    from loan_group
+    left join bump_dept on loan_group.lg_dept_id=bump_dept.dept_id
+    where 1=1
+      <if test="deptId != null and deptId!=''" >
+       and lg_dept_id = #{deptId,jdbcType=INTEGER}
+      </if>
+      <if test="lgGroupId != null and lgGroupId != ''" >
+       and lg_group_id = #{lgGroupId,jdbcType=VARCHAR}
+      </if> 
+      <if test="status != null and status!=''" >
+       and lg_status = #{status,jdbcType=VARCHAR}
+      </if>
+     order by lg_time desc
+     <if test="page != null " >
+       limit #{page.pageStartIndex},#{page.pageSize}
+      </if>
+ 	
+  </select>
+  <!-- 按条件检索组别列表 统计总条数 -->
+  <select id="selectGroupListCount" parameterType="map" resultType="int" >
+    select count(1)
+    from loan_group
+    left join bump_dept on loan_group.lg_dept_id=bump_dept.dept_id
+     where 1=1
+      <if test="deptId != null and deptId!=''" >
+       and lg_dept_id = #{deptId,jdbcType=INTEGER}
+      </if>
+      <if test="lgGroupId != null and lgGroupId != ''" >
+       and lg_group_id = #{lgGroupId,jdbcType=VARCHAR}
+      </if> 
+      <if test="status != null and status!=''" >
+       and lg_status = #{status,jdbcType=VARCHAR}
+      </if>
+  </select>
+  <!-- 组别启用禁用 -->
+  <update id="updateGroupByStuts" parameterType="com.lhhs.loan.dao.domain.LoanGroup">
+   update loan_group set lg_status = #{lgStatus,jdbcType=VARCHAR} where lg_group_id = #{lgGroupId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="queryGroupCount" parameterType="map" resultMap="BaseResultMap">
+   select <include refid="Base_Column_List" /> from loan_group where lg_dept_id=#{lgDeptId} and lg_group_id=#{lgGroupId}
+  </select>
+  <select id="queryGroupbyName" parameterType="map" resultType="Integer">
+   select count(1) from loan_group where lg_dept_id=#{lgDeptId} and lg_name=#{lgName}
+  </select>
+  <select id="allGroup" resultMap="BaseResultMap">
+   select <include refid="Base_Column_List" /> from loan_group 
+  </select>
+  <select id="queryGroupIdByDept" resultType="string">
+   select lg_group_id  from loan_group where lg_dept_id=#{lgDeptId,jdbcType=INTEGER}
+  </select>
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
+    	 <dubbo:application  name="${dubbo.application.name}"  />
+	
+     <dubbo:consumer    timeout="${dubbo.run.timeout}"  />
+	 <dubbo:annotation /> 
+     <dubbo:registry id="saas"      protocol="zookeeper"   address="${dubbo.saas.registryAddress}"  /> 
+     <dubbo:registry id="tk_server" protocol="zookeeper"   address="${dubbo.tk.registryAddress}" />
+     <dubbo:reference timeout="${dubbo.run.timeout}"  interface="com.lhhs.server.api.UserTicketApi" id="userTicketApi" check="${dubbo.check}"  registry="tk_server"  /> 
+     <dubbo:reference timeout="${dubbo.run.timeout}"  interface="com.lhhs.server.api.UserBaseApi"   id="userBaseApi"   check="${dubbo.check}"  registry="tk_server"  /> 
+     <dubbo:reference timeout="${dubbo.run.timeout}"  interface="com.lhhs.bump.api.SecurityUserApi"   id="securityUserApi"   check="${dubbo.check}"  registry="saas"  /> 
+     <dubbo:reference timeout="${dubbo.run.timeout}"  interface="com.lhhs.bump.api.UnionCompanyApi"   id="unionCompanyApi"   check="${dubbo.check}"  registry="saas"  /> 
+     <dubbo:reference timeout="${dubbo.run.timeout}"  interface="com.lhhs.bump.api.DeptApi"   id="deptApi"   check="${dubbo.check}"  registry="saas"  /> 
+	 <dubbo:reference timeout="${dubbo.run.timeout}"  interface="com.lhhs.bump.api.UserApi"   id="userApi"   check="${dubbo.check}"  registry="saas"  /> 
+	 <dubbo:reference timeout="${dubbo.run.timeout}"  interface="com.lhhs.bump.api.QuartersApi"   id="quartersApi"   check="${dubbo.check}"  registry="saas"  /> 
+</beans>

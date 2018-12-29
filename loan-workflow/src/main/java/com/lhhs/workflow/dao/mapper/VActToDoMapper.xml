@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.workflow.dao.VActToDoMapper" >
+  
+  <resultMap id="BaseResultMap" type="com.lhhs.workflow.dao.domain.VActToDoVO" >
+    <result column="USER_ID_" property="userId" jdbcType="OTHER" />
+    <result column="TASK_ID_" property="taskId" jdbcType="OTHER" />
+    <result column="TASK_DEF_KEY_" property="taskDefKey" jdbcType="OTHER" />
+    <result column="NAME_" property="name" jdbcType="OTHER" />
+    <result column="FORM_KEY_" property="formKey" jdbcType="OTHER" />
+    <result column="PROC_DEF_ID_" property="procDefId" jdbcType="OTHER" />
+    <result column="CREATE_TIME_" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="OID" property="oid" jdbcType="DECIMAL" />
+    <result column="PROC_INS_ID" property="procInsId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_DPT" property="productDpt" jdbcType="VARCHAR" />
+    <result column="PRODUCT_LINE" property="productLine" jdbcType="VARCHAR" />
+    <result column="BRANCH_COM" property="branchCom" jdbcType="VARCHAR" />
+    <result column="PARTNER" property="partner" jdbcType="VARCHAR" />
+    <result column="ACT_NAME" property="actName" jdbcType="VARCHAR" />
+    <result column="BRANCH_OFFIC" property="branchOffic" jdbcType="VARCHAR" />
+    <result column="ORGANISER_NAME" property="organiserName" jdbcType="VARCHAR" />
+    <result column="OPERATOR_NAME" property="operatorName" jdbcType="VARCHAR" />
+    <result column="ORGANISER" property="organiser" jdbcType="VARCHAR" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="PROCDEFKEY" property="procdefkey" jdbcType="VARCHAR" />
+    <result column="ACT_DESC" property="actDesc" jdbcType="VARCHAR" />
+    <result column="PRODUCT_DPT_ID" property="productDptId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_LINE_ID" property="productLineId" jdbcType="VARCHAR" />
+    <result column="BRANCH_COM_ID" property="branchComId" jdbcType="VARCHAR" />
+    <result column="BRANCH_OFFIC_ID" property="branchOfficeId" jdbcType="VARCHAR" />
+    <result column="SYS_TYPE" property="sysType" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="ACT_STATUS" property="actStatus" jdbcType="VARCHAR" />
+    <result column="BUSINESSID" property="businessid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USER_ID_, TASK_ID_, TASK_DEF_KEY_, NAME_, FORM_KEY_, PROC_DEF_ID_, CREATE_TIME_, OID, PROC_INS_ID, PRODUCT_DPT, PRODUCT_LINE, 
+    BRANCH_COM, PARTNER, ACT_NAME, BRANCH_OFFIC, ORGANISER_NAME, OPERATOR_NAME, ORGANISER, OPERATOR, PROCDEFKEY, ACT_DESC, 
+    PRODUCT_DPT_ID, PRODUCT_LINE_ID,BRANCH_OFFIC_ID, BRANCH_COM_ID, SYS_TYPE, CREATE_DATE, ACT_STATUS,BUSINESSID
+  </sql>
+  
+  
+  <select id="findPage" resultMap="BaseResultMap" parameterType="com.lhhs.workflow.dao.domain.VActToDoVO">
+    <if test="pageVo != null" >
+      	 ${pageVo.sqlPageStart}
+    </if>
+    select 
+    <include refid="Base_Column_List" />
+    from V_ACT_TODO
+    <where>
+    	USER_ID_ = #{userId,jdbcType=VARCHAR}
+      <if test="sysType != null and sysType !=''" >
+        AND SYS_TYPE = #{sysType}
+      </if>
+      <if test="actName != null and actName !=''" >
+        AND ACT_NAME = #{actName}
+      </if>
+      <if test="name != null and name !=''" >
+        AND NAME_= #{name}
+      </if>
+        <!--  判断时间间隔   -->
+      <if test="createTime != null ">
+        AND CREATE_TIME_ <![CDATA[ >=  ]]> #{createTime}
+      </if>
+      <if test="createTime2 != null ">
+        AND CREATE_TIME_ <![CDATA[ <=  ]]> #{createTime2}
+      </if>
+      
+      <if test="productLineId != null and productLineId !=''" >
+        AND PRODUCT_LINE_ID = #{productLineId}
+      </if>
+      <if test="productDptId != null and productDptId !=''" >
+        AND PRODUCT_DPT_ID = #{productDptId}
+      </if>
+      <if test="branchComId != null and branchComId !=''" >
+        AND BRANCH_COM_ID = #{branchComId}
+      </if>
+      <if test="branchOfficId != null and branchOfficId !=''" >
+        AND BRANCH_OFFIC_ID = #{branchOfficId}
+      </if>
+      <if test="partner != null and partner !=''" >
+        AND PARTNER = #{partner}
+      </if>
+      
+      <if test="operatorName != null and operatorName !=''" >
+        AND OPERATOR_NAME = #{operatorName}
+      </if>
+      <if test="organiserName != null and organiserName !=''" >
+        AND ORGANISER_NAME = #{organiserName}
+      </if>
+      <if test="procdefkey != null and procdefkey !=''" >
+        AND PROCDEFKEY = #{procdefkey}
+      </if>
+    </where>
+    <if test="pageVo != null" >
+	   	${pageVo.sqlPageEnd}
+     </if>
+     order by CREATE_TIME_ desc
+  </select>
+  
+  
+  
+  
+  <select id="list" resultMap="BaseResultMap" parameterType="com.lhhs.workflow.dao.domain.VActToDoVO">
+    <if test="pageVo != null" >
+      	 ${pageVo.sqlPageStart}
+    </if>
+    select 
+    <include refid="Base_Column_List" />
+    from V_ACT_TODO
+    <where>
+    	USER_ID_ = #{userId,jdbcType=VARCHAR}
+      <if test="sysType != null and sysType !=''" >
+        AND SYS_TYPE = #{sysType}
+      </if>
+      <if test="actName != null and actName !=''" >
+        AND ACT_NAME = #{actName}
+      </if>
+      <if test="name != null and name !=''" >
+        AND NAME_= #{name}
+      </if>
+      <!--  判断时间间隔   -->
+      <if test="createTime != null" >
+        AND CREATE_TIME_ <![CDATA[ >=  ]]> #{createTime}
+      </if>
+      <if test="createTime2 != null" >
+        AND CREATE_TIME_ <![CDATA[ <=  ]]> #{createTime2}
+      </if>
+      <if test="productLineId != null and productLineId !=''" >
+        AND PRODUCT_LINE_ID = #{productLineId}
+      </if>
+      <if test="productDptId != null and productDptId !=''" >
+        AND PRODUCT_DPT_ID = #{productDptId}
+      </if>
+      <if test="branchComId != null and branchComId !=''" >
+        AND BRANCH_COM_ID = #{branchComId}
+      </if>
+      <if test="branchOfficId != null and branchOfficId !=''" >
+        AND BRANCH_OFFIC_ID = #{branchOfficId}
+      </if>
+      <if test="partner != null and partner !=''" >
+        AND PARTNER = #{partner}
+      </if>
+      
+      <if test="operatorName != null and operatorName !=''" >
+        AND OPERATOR_NAME = #{operatorName}
+      </if>
+      <if test="organiserName != null and organiserName !=''" >
+        AND ORGANISER_NAME = #{organiserName}
+      </if> 
+      <if test="procdefkey != null and procdefkey !=''" >
+        AND PROCDEFKEY = #{procdefkey}
+      </if>
+    </where>
+    <if test="pageVo != null" >
+	   	${pageVo.sqlPageEnd}
+     </if>
+      order by CREATE_TIME_ desc
+  </select>
+  
+  
+  
+  <select id="count" parameterType="com.lhhs.workflow.dao.domain.VActHaddoVO" resultType="int">
+		SELECT COUNT(*) FROM V_ACT_TODO
+		<where>
+		   	USER_ID_ = #{userId,jdbcType=VARCHAR}
+	      <if test="sysType != null and sysType !=''" >
+	        AND SYS_TYPE = #{sysType}
+	      </if>
+	      <if test="actName != null and actName !=''" >
+	        AND ACT_NAME = #{actName}
+	      </if>
+	      <if test="name != null and name !=''" >
+	        AND NAME_= #{name}
+	      </if>
+	      <!--  判断时间间隔   -->
+	      <if test="createTime != null" >
+	        AND CREATE_TIME_ <![CDATA[ >=  ]]> #{createTime}
+	      </if>
+	      <if test="createTime2 != null" >
+	        AND CREATE_TIME_ <![CDATA[ <=  ]]> #{createTime2}
+	      </if>
+	      <if test="productLineId != null and productLineId !=''" >
+	        AND PRODUCT_LINE_ID = #{productLineId}
+	      </if>
+	      <if test="productDptId != null and productDptId !=''" >
+	        AND PRODUCT_DPT_ID = #{productDptId}
+	      </if>
+	      <if test="branchComId != null and branchComId !=''" >
+	        AND BRANCH_COM_ID = #{branchComId}
+	      </if>
+	      <if test="branchOfficId != null and branchOfficId !=''" >
+	        AND BRANCH_OFFIC_ID = #{branchOfficId}
+	      </if>
+	      <if test="partner != null and partner !=''" >
+	        AND PARTNER = #{partner}
+	      </if>
+	      
+	      <if test="operatorName != null and operatorName !=''" >
+	        AND OPERATOR_NAME = #{operatorName}
+	      </if>
+	      <if test="organiserName != null and organiserName !=''" >
+	        AND ORGANISER_NAME = #{organiserName}
+	      </if>
+	      <if test="procdefkey != null and procdefkey !=''" >
+	        AND PROCDEFKEY = #{procdefkey}
+	      </if>
+		</where>
+	</select>
+	 
+	
+	<select id="findOnlyCom" resultMap="BaseResultMap" parameterType="java.lang.String"> 
+    select 
+      BRANCH_COM_ID,BRANCH_COM,USER_ID_
+    from 
+    (SELECT BRANCH_COM_ID  ,  BRANCH_COM ,USER_ID_,ROW_NUMBER() OVER( PARTITION BY BRANCH_COM_ID  ,  BRANCH_COM  ORDER BY OID DESC)RN 
+       FROM V_ACT_TODO WHERE BRANCH_COM_ID IS NOT NULL AND USER_ID_ = #{userId,jdbcType=VARCHAR} )
+    WHERE
+    RN=1 
+  </select>
+	
+	<select id="findOnlyLine" resultMap="BaseResultMap" parameterType="java.lang.String"> 
+    select 
+      PRODUCT_LINE_ID,PRODUCT_LINE,USER_ID_
+    from 
+    (SELECT PRODUCT_LINE_ID  ,  PRODUCT_LINE ,USER_ID_,ROW_NUMBER() OVER( PARTITION BY PRODUCT_LINE_ID  ,  PRODUCT_LINE  ORDER BY OID DESC)RN 
+       FROM V_ACT_TODO WHERE PRODUCT_LINE_ID IS NOT NULL AND USER_ID_ = #{userId,jdbcType=VARCHAR})
+	WHERE
+    RN=1
+ 
+  </select>
+	
+	
+	<select id="findOnlyOffice" resultMap="BaseResultMap" parameterType="java.lang.String"> 
+    select 
+      BRANCH_OFFIC_ID,BRANCH_OFFIC,USER_ID_
+    from 
+    (SELECT BRANCH_OFFIC_ID  ,  BRANCH_OFFIC ，USER_ID_,ROW_NUMBER() OVER( PARTITION BY BRANCH_OFFIC_ID  ,  BRANCH_OFFIC  ORDER BY OID DESC)RN 
+       FROM V_ACT_TODO WHERE BRANCH_OFFIC_ID IS NOT NULL AND USER_ID_ = #{userId,jdbcType=VARCHAR} )
+    WHERE
+    RN=1
+  </select>
+	
+	
+	<select id="findOnlyDpt" resultMap="BaseResultMap" parameterType="java.lang.String"> 
+    select 
+      PRODUCT_DPT_ID,PRODUCT_DPT,USER_ID_
+    from 
+    (SELECT PRODUCT_DPT_ID  ,  PRODUCT_DPT ,USER_ID_,ROW_NUMBER() OVER( PARTITION BY PRODUCT_DPT_ID  ,  PRODUCT_DPT  ORDER BY OID DESC)RN 
+       FROM V_ACT_TODO WHERE  PRODUCT_DPT_ID IS NOT NULL AND USER_ID_ = #{userId,jdbcType=VARCHAR} )
+	WHERE
+    RN=1
+  </select>
+	
+</mapper>

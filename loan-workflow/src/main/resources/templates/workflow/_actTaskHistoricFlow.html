@@ -1,0 +1,31 @@
+<table class="tablelist">
+    <thead>
+        <tr>
+			<th>审批人</th>
+			<th>审批意见</th>
+			<th>审批节点</th>
+			<th>是否通过</th>
+			<th>任务开始时间</th>
+			<th>审批时间</th>
+			<th>下一审批人</th>
+        </tr>
+    </thead>
+    <tbody>
+        <th:block th:unless="${#lists.isEmpty(resultList)}">
+			<tr th:each="model : ${resultList}">
+				<td th:text="${model.assigneeName}"></td>
+				<td th:text="${model.msg}"></td>
+				<td th:text="${model.taskName}"></td>
+				<td th:text="${model.passName}"></td>
+				<td th:text="${model.taskCreateDate}?${#dates.format(model.taskCreateDate,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+				<td th:text="${model.taskEndDate}?${#dates.format(model.taskEndDate,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+				<td th:text="${model.nextAssigneeName}"></td>
+			</tr>
+		</th:block>
+		<th:block th:if="${#lists.isEmpty(resultList)}">
+			<tr>
+				<td colspan="7" class="textCt">暂无审批</td>
+			</tr>
+		</th:block>
+    </tbody>
+</table>

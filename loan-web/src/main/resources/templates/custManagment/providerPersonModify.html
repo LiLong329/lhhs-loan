@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script src="/js/public/area.js"></script>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                <span>位置：</span>
+                <ul class="placeul">
+                    <li><a href="/index/index">首页</a></li>
+                    <li>客户管理</li>
+                    <li><a th:href="@{/customerManager/providerPerson}">经纪人信息（个人）</a></li>
+                    <li>修改</li>
+                </ul>
+            </div>
+            <div class="right-content">
+                <div class="formbody">
+                    <form id="myForm">
+                    <div class="formtitle"><span>经纪人基本信息</span></div>
+                    <div class="toolsli">
+                        <ul class="nbbdgl-Ui">
+                                       <li style="width: 80%;">
+	                                    <span class="tips">省市：</span>
+				                        <div class="vocation">
+								          	<select class="select-common select3 provinceSelect validate[required]" name="provinceName" th:attr="data-val=${providerInfo.provinceName}"></select>
+							            </div>
+							            <span>省</span>
+				                        <div class="vocation">
+								          	<select class="select-common select3 citySelect validate[required]" name="cityName" th:attr="data-val=${providerInfo.cityName}"></select>
+							            </div>
+				                        <span>市</span>
+	                                    </li>
+                             <li>
+                                <span class="tips">客户编号：</span>
+                                 <input  name="providerNo" type="hidden" th:value="${providerInfo.providerNo}" id="currentPageNo"/>
+                                 <span  th:text="${providerInfo.providerNo}" ></span>
+                            </li>
+                            <li>
+                                <span class="tips">经纪人姓名：</span>
+                                <input name="providerName" th:value="${providerInfo.providerName}" type="text" class="txt validate[required]"/>
+                            </li>
+                            <li>
+                                <span class="tips">联系方式：</span>
+                                <span th:text="${providerInfo.mobileNo}"></span>
+                            </li>
+                            <li>
+                                <span class="tips">身份证号：</span>
+                                <input name="idNo" th:value="${providerInfo.idNo}" type="text" class="txt validate[required,custom[number],maxSize[18],minSize[18]]"/>
+                            </li>
+                            <li>
+                                <span class="tips">注册时间：</span>
+                                <span th:text="${providerInfo.registerTime}?${#dates.format(providerInfo.registerTime,'yyyy-MM-dd HH:mm:ss')}:''"></span>
+                            </li>
+                            <li>
+                                <span class="tips">公司名称：</span>
+                                <input name="companyName" th:value="${providerInfo.companyName}" type="text" class="txt"/>
+                            </li>
+                            <li>
+                                <span class="tips">户口性质：</span>
+                                <div class="vocation">
+                                    <select class="select-common select1 validate[required]" name="householdType">
+                                        <option value="">请选择</option>
+                                        <option value="1" th:attr="selected=('1' eq ${providerInfo.householdType})?true:false">城镇</option>
+                                        <option value="0" th:attr="selected=('0' eq ${providerInfo.householdType})?true:false">农村</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="tips">健康状况：</span>
+                                <div class="vocation">
+                                    <select class="select-common select1 validate[required]" name="healthCondition">
+                                        <option value="" >请选择</option>
+                                        <option  value="0" th:attr="selected=('0' eq ${providerInfo.healthCondition})?true:false">良好</option>
+                                        <option  value="1" th:attr="selected=('1' eq ${providerInfo.healthCondition})?true:false">一般</option>
+                                        <option  value="2" th:attr="selected=('2' eq ${providerInfo.healthCondition})?true:false">差</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="tips">驾龄：</span>
+                                <div class="vocation">
+                                    <select class="select-common select1 validate[required]" name="drivingYears" >
+                                        <option value="">请选择</option>
+                                        <option value="0" th:attr="selected=('0' eq ${providerInfo.drivingYears})?true:false">一年以下</option>
+                                        <option value="1" th:attr="selected=('1' eq ${providerInfo.drivingYears})?true:false">1-3年</option>
+                                        <option value="2" th:attr="selected=('2' eq ${providerInfo.drivingYears})?true:false">3-5年</option>
+                                        <option value="3" th:attr="selected=('3' eq ${providerInfo.drivingYears})?true:false">5年以上</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="tips">教育程度：</span>
+                                <div class="vocation">
+                                    <select class="select-common select1 validate[required]" name="eduStatus">
+                                        <option value="">请选择</option>
+                                        <option  value="0" th:attr="selected=('0' eq ${providerInfo.eduStatus})?true:false">小学</option>
+                                        <option  value="1" th:attr="selected=('1' eq ${providerInfo.eduStatus})?true:false">中学</option>
+                                        <option  value="2" th:attr="selected=('2' eq ${providerInfo.eduStatus})?true:false">高中</option>
+                                        <option  value="3" th:attr="selected=('3' eq ${providerInfo.eduStatus})?true:false">中专</option>
+                                        <option  value="4" th:attr="selected=('4' eq ${providerInfo.eduStatus})?true:false">大专</option>
+                                        <option  value="5" th:attr="selected=('5' eq ${providerInfo.eduStatus})?true:false">本科</option>
+                                        <option  value="6" th:attr="selected=('6' eq ${providerInfo.eduStatus})?true:false">研究生</option>
+                                        <option  value="7" th:attr="selected=('7' eq ${providerInfo.eduStatus})?true:false">博士</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="tips">邮箱：</span>
+                                <input name="email" th:value="${providerInfo.email}" type="text" class="txt validate[required]"/>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="formtitle"><span>银行卡账号信息</span></div>
+                    <div class="toolsli">
+                        <ul class="nbbdgl-Ui">
+                            <li style="width: 80%;">
+                                <span class="tips">姓名：</span>
+                                <input  th:value="${providerInfo.providerName}" type="text" class="txt validate[required]"/>
+                            </li>
+                            <li style="width: 80%;">
+                                <span class="tips">银行卡号：</span>
+                                <input name="creditNo" th:value="${providerInfo.creditNo}" type="text" class="txt validate[required,custom[number],maxSize[19],minSize[16]]"/>
+                            </li>
+                            <li style="width: 80%;">
+                                <span class="tips">开户行：</span>
+                                <input name="openingBank" th:value="${providerInfo.openingBank}" type="text" class="txt validate[required]"/>
+                            </li>
+                           
+                            <li style="width: 80%;">
+                                <span class="tips">&nbsp;</span>
+                                <input type="button" class="scbtn mlt10 infoModify" value="保 存"/>
+                                <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);"/>
+                            </li>
+                        </ul>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+     <script src="/js/public/select.js"></script>
+        <footer th:replace="common/footer"></footer>
+         <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	    <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+         <script>seajs.use("custManagment/providerPerson");</script>
+</div>
+</body>
+</html>

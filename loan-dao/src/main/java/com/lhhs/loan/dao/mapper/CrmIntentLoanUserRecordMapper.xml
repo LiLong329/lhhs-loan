@@ -1,0 +1,1105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.CrmIntentLoanUserRecordMapper">
+	<resultMap id="BaseResultMap"
+		type="com.lhhs.loan.dao.domain.CrmIntentLoanUserRecord">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="cust_id" property="custId" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="INTEGER" />
+		<result column="age" property="age" jdbcType="INTEGER" />
+		<result column="province" property="province" jdbcType="VARCHAR" />
+		<result column="city" property="city" jdbcType="VARCHAR" />
+		<result column="house_address" property="houseAddress"
+			jdbcType="VARCHAR" />
+		<result column="loan_amount" property="loanAmount" jdbcType="VARCHAR" />
+		<result column="interest_rate" property="interestRate"
+			jdbcType="VARCHAR" />
+		<result column="rate_unit" property="rateUnit" jdbcType="VARCHAR" />
+		<result column="duration" property="duration" jdbcType="VARCHAR" />
+		<result column="duration_unit" property="durationUnit"
+			jdbcType="VARCHAR" />
+		<result column="id_number" property="idNumber" jdbcType="VARCHAR" />
+		<result column="business_type" property="businessType"
+			jdbcType="VARCHAR" />
+		<result column="seat_number" property="seatNumber" jdbcType="VARCHAR" />
+		<result column="extend_param" property="extendParam" jdbcType="VARCHAR" />
+		<result column="creater_emp_id" property="createrEmpId"
+			jdbcType="VARCHAR" />
+		<result column="creater_emp_name" property="createrEmpName"
+			jdbcType="VARCHAR" />
+		<result column="creater_union_id" property="createrUnionId"
+			jdbcType="VARCHAR" />
+		<result column="creater_company_id" property="createrCompanyId"
+			jdbcType="VARCHAR" />
+		<result column="creater_dep_id" property="createrDepId"
+			jdbcType="VARCHAR" />
+		<result column="creater_group_id" property="createrGroupId"
+			jdbcType="VARCHAR" />
+		<result column="creater_org" property="createrOrg" jdbcType="VARCHAR" />
+		<result column="appoint_emp_id" property="appointEmpId"
+			jdbcType="VARCHAR" />
+		<result column="appoint_emp_name" property="appointEmpName"
+			jdbcType="VARCHAR" />
+		<result column="appoint_union_id" property="appointUnionId"
+			jdbcType="VARCHAR" />
+		<result column="appoint_company_id" property="appointCompanyId"
+			jdbcType="VARCHAR" />
+		<result column="appoint_dep_id" property="appointDepId"
+			jdbcType="VARCHAR" />
+		<result column="appoint_group_id" property="appointGroupId"
+			jdbcType="VARCHAR" />
+		<result column="appoint_org" property="appointOrg" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="business_status" property="businessStatus"
+			jdbcType="VARCHAR" />
+		<result column="visit_count" property="visitCount" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="visit_time" property="visitTime" jdbcType="TIMESTAMP" />
+		<result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+		<result column="last_modify_time" property="lastModifyTime"
+			jdbcType="TIMESTAMP" />
+		<result column="source" property="source" jdbcType="VARCHAR" />
+		<result column="source_org" property="sourceOrg" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="grade" property="grade" jdbcType="VARCHAR" />
+		<result column="field1" property="field1" jdbcType="VARCHAR" />
+		<result column="field2" property="field2" jdbcType="VARCHAR" />
+		<result column="field3" property="field3" jdbcType="VARCHAR" />
+		<result column="field4" property="field4" jdbcType="VARCHAR" />
+		<result column="field5" property="field5" jdbcType="VARCHAR" />
+		<result column="field6" property="field6" jdbcType="VARCHAR" />
+		<result column="field7" property="field7" jdbcType="VARCHAR" />
+		<result column="field8" property="field8" jdbcType="VARCHAR" />
+		<result column="field9" property="field9" jdbcType="VARCHAR" />
+		<result column="field10" property="field10" jdbcType="VARCHAR" />
+		<result column="follow_type" property="followType" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, mobile, cust_id, name, sex, age, province, city,
+		house_address,
+		loan_amount,
+		interest_rate, rate_unit, duration,
+		duration_unit, id_number, business_type,
+		seat_number,
+		extend_param,
+		creater_emp_id, creater_emp_name, creater_union_id,
+		creater_company_id,
+		creater_dep_id, creater_group_id, creater_org,
+		appoint_emp_id, appoint_emp_name,
+		appoint_union_id, appoint_company_id,
+		appoint_dep_id,
+		appoint_group_id, appoint_org,
+		status, business_status,
+		visit_count, create_time, visit_time, last_user,
+		last_modify_time,
+		source, source_org, remark, grade, field1, field2, field3, field4,
+		field5,
+		field6,
+		field7, field8, field9, field10, parent_id,follow_type
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from crm_intent_loan_user_record
+		where id = #{id}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		crm_intent_loan_user_record
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.lhhs.loan.dao.domain.CrmIntentLoanUserRecord">
+		insert into
+		crm_intent_loan_user_record (id, mobile, cust_id,
+		name, sex, age,
+		province,
+		city, house_address, loan_amount,
+		interest_rate, rate_unit,
+		duration,
+		duration_unit, id_number, business_type,
+		seat_number,
+		extend_param, creater_emp_id,
+		creater_emp_name, creater_union_id,
+		creater_company_id,
+		creater_dep_id, creater_group_id, creater_org,
+		appoint_emp_id, appoint_emp_name, appoint_union_id,
+		appoint_company_id, appoint_dep_id, appoint_group_id,
+		appoint_org,
+		status, business_status,
+		visit_count, create_time, visit_time,
+		last_user, last_modify_time, source,
+		source_org, remark, grade,
+		field1,
+		field2, field3,
+		field4, field5, field6,
+		field7, field8, field9,
+		field10,
+		parent_id)
+		values (#{id,jdbcType=INTEGER}, #{mobile,jdbcType=VARCHAR},
+		#{custId,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{sex,jdbcType=INTEGER}, #{age,jdbcType=INTEGER},
+		#{province,jdbcType=VARCHAR},
+		#{city,jdbcType=VARCHAR},
+		#{houseAddress,jdbcType=VARCHAR}, #{loanAmount,jdbcType=VARCHAR},
+		#{interestRate,jdbcType=VARCHAR}, #{rateUnit,jdbcType=VARCHAR},
+		#{duration,jdbcType=VARCHAR},
+		#{durationUnit,jdbcType=VARCHAR},
+		#{idNumber,jdbcType=VARCHAR}, #{businessType,jdbcType=INTEGER},
+		#{seatNumber,jdbcType=VARCHAR}, #{extendParam,jdbcType=VARCHAR},
+		#{createrEmpId,jdbcType=VARCHAR},
+		#{createrEmpName,jdbcType=VARCHAR},
+		#{createrUnionId,jdbcType=VARCHAR},
+		#{createrCompanyId,jdbcType=VARCHAR},
+		#{createrDepId,jdbcType=VARCHAR}, #{createrGroupId,jdbcType=VARCHAR},
+		#{createrOrg,jdbcType=VARCHAR},
+		#{appointEmpId,jdbcType=VARCHAR},
+		#{appointEmpName,jdbcType=VARCHAR},
+		#{appointUnionId,jdbcType=VARCHAR},
+		#{appointCompanyId,jdbcType=VARCHAR},
+		#{appointDepId,jdbcType=VARCHAR}, #{appointGroupId,jdbcType=VARCHAR},
+		#{appointOrg,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
+		#{businessStatus,jdbcType=VARCHAR},
+		#{visitCount,jdbcType=INTEGER},
+		#{createTime,jdbcType=TIMESTAMP}, #{visitTime,jdbcType=TIMESTAMP},
+		#{lastUser,jdbcType=VARCHAR}, #{lastModifyTime,jdbcType=TIMESTAMP},
+		#{source,jdbcType=VARCHAR},
+		#{sourceOrg,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR},
+		#{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR},
+		#{field3,jdbcType=VARCHAR},
+		#{field4,jdbcType=VARCHAR},
+		#{field5,jdbcType=VARCHAR}, #{field6,jdbcType=VARCHAR},
+		#{field7,jdbcType=VARCHAR}, #{field8,jdbcType=VARCHAR},
+		#{field9,jdbcType=VARCHAR},
+		#{field10,jdbcType=VARCHAR},
+		#{parentId,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.CrmIntentLoanUserRecord">
+		insert into crm_intent_loan_user_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="mobile != null">
+				mobile,
+			</if>
+			<if test="custId != null">
+				cust_id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="age != null">
+				age,
+			</if>
+			<if test="province != null">
+				province,
+			</if>
+			<if test="city != null">
+				city,
+			</if>
+			<if test="houseAddress != null">
+				house_address,
+			</if>
+			<if test="loanAmount != null">
+				loan_amount,
+			</if>
+			<if test="interestRate != null">
+				interest_rate,
+			</if>
+			<if test="rateUnit != null">
+				rate_unit,
+			</if>
+			<if test="duration != null">
+				duration,
+			</if>
+			<if test="durationUnit != null">
+				duration_unit,
+			</if>
+			<if test="idNumber != null">
+				id_number,
+			</if>
+			<if test="businessType != null">
+				business_type,
+			</if>
+			<if test="seatNumber != null">
+				seat_number,
+			</if>
+			<if test="extendParam != null">
+				extend_param,
+			</if>
+			<if test="createrEmpId != null">
+				creater_emp_id,
+			</if>
+			<if test="createrEmpName != null">
+				creater_emp_name,
+			</if>
+			<if test="createrUnionId != null">
+				creater_union_id,
+			</if>
+			<if test="createrCompanyId != null">
+				creater_company_id,
+			</if>
+			<if test="createrDepId != null">
+				creater_dep_id,
+			</if>
+			<if test="createrGroupId != null">
+				creater_group_id,
+			</if>
+			<if test="createrOrg != null">
+				creater_org,
+			</if>
+			<if test="appointEmpId != null">
+				appoint_emp_id,
+			</if>
+			<if test="appointEmpName != null">
+				appoint_emp_name,
+			</if>
+			<if test="appointUnionId != null">
+				appoint_union_id,
+			</if>
+			<if test="appointCompanyId != null">
+				appoint_company_id,
+			</if>
+			<if test="appointDepId != null">
+				appoint_dep_id,
+			</if>
+			<if test="appointGroupId != null">
+				appoint_group_id,
+			</if>
+			<if test="appointOrg != null">
+				appoint_org,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="businessStatus != null">
+				business_status,
+			</if>
+			<if test="visitCount != null">
+				visit_count,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="visitTime != null">
+				visit_time,
+			</if>
+			<if test="lastUser != null">
+				last_user,
+			</if>
+			<if test="lastModifyTime != null">
+				last_modify_time,
+			</if>
+			<if test="source != null">
+				source,
+			</if>
+			<if test="sourceOrg != null">
+				source_org,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="grade != null">
+				grade,
+			</if>
+			<if test="field1 != null">
+				field1,
+			</if>
+			<if test="field2 != null">
+				field2,
+			</if>
+			<if test="field3 != null">
+				field3,
+			</if>
+			<if test="field4 != null">
+				field4,
+			</if>
+			<if test="field5 != null">
+				field5,
+			</if>
+			<if test="field6 != null">
+				field6,
+			</if>
+			<if test="field7 != null">
+				field7,
+			</if>
+			<if test="field8 != null">
+				field8,
+			</if>
+			<if test="field9 != null">
+				field9,
+			</if>
+			<if test="field10 != null">
+				field10,
+			</if>
+			<if test="parentId != null">
+				parent_id,
+			</if>
+			<if test="followType != null">
+				follow_type,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="custId != null">
+				#{custId,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=INTEGER},
+			</if>
+			<if test="age != null">
+				#{age,jdbcType=INTEGER},
+			</if>
+			<if test="province != null">
+				#{province,jdbcType=VARCHAR},
+			</if>
+			<if test="city != null">
+				#{city,jdbcType=VARCHAR},
+			</if>
+			<if test="houseAddress != null">
+				#{houseAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="loanAmount != null">
+				#{loanAmount,jdbcType=VARCHAR},
+			</if>
+			<if test="interestRate != null">
+				#{interestRate,jdbcType=VARCHAR},
+			</if>
+			<if test="rateUnit != null">
+				#{rateUnit,jdbcType=VARCHAR},
+			</if>
+			<if test="duration != null">
+				#{duration,jdbcType=VARCHAR},
+			</if>
+			<if test="durationUnit != null">
+				#{durationUnit,jdbcType=VARCHAR},
+			</if>
+			<if test="idNumber != null">
+				#{idNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="businessType != null">
+				#{businessType,jdbcType=VARCHAR},
+			</if>
+			<if test="seatNumber != null">
+				#{seatNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="extendParam != null">
+				#{extendParam,jdbcType=VARCHAR},
+			</if>
+			<if test="createrEmpId != null">
+				#{createrEmpId,jdbcType=VARCHAR},
+			</if>
+			<if test="createrEmpName != null">
+				#{createrEmpName,jdbcType=VARCHAR},
+			</if>
+			<if test="createrUnionId != null">
+				#{createrUnionId,jdbcType=VARCHAR},
+			</if>
+			<if test="createrCompanyId != null">
+				#{createrCompanyId,jdbcType=VARCHAR},
+			</if>
+			<if test="createrDepId != null">
+				#{createrDepId,jdbcType=VARCHAR},
+			</if>
+			<if test="createrGroupId != null">
+				#{createrGroupId,jdbcType=VARCHAR},
+			</if>
+			<if test="createrOrg != null">
+				#{createrOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="appointEmpId != null">
+				#{appointEmpId,jdbcType=VARCHAR},
+			</if>
+			<if test="appointEmpName != null">
+				#{appointEmpName,jdbcType=VARCHAR},
+			</if>
+			<if test="appointUnionId != null">
+				#{appointUnionId,jdbcType=VARCHAR},
+			</if>
+			<if test="appointCompanyId != null">
+				#{appointCompanyId,jdbcType=VARCHAR},
+			</if>
+			<if test="appointDepId != null">
+				#{appointDepId,jdbcType=VARCHAR},
+			</if>
+			<if test="appointGroupId != null">
+				#{appointGroupId,jdbcType=VARCHAR},
+			</if>
+			<if test="appointOrg != null">
+				#{appointOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="businessStatus != null">
+				#{businessStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="visitCount != null">
+				#{visitCount,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="visitTime != null">
+				#{visitTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastUser != null">
+				#{lastUser,jdbcType=VARCHAR},
+			</if>
+			<if test="lastModifyTime != null">
+				#{lastModifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="source != null">
+				#{source,jdbcType=VARCHAR},
+			</if>
+			<if test="sourceOrg != null">
+				#{sourceOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="grade != null">
+				#{grade,jdbcType=VARCHAR},
+			</if>
+			<if test="field1 != null">
+				#{field1,jdbcType=VARCHAR},
+			</if>
+			<if test="field2 != null">
+				#{field2,jdbcType=VARCHAR},
+			</if>
+			<if test="field3 != null">
+				#{field3,jdbcType=VARCHAR},
+			</if>
+			<if test="field4 != null">
+				#{field4,jdbcType=VARCHAR},
+			</if>
+			<if test="field5 != null">
+				#{field5,jdbcType=VARCHAR},
+			</if>
+			<if test="field6 != null">
+				#{field6,jdbcType=VARCHAR},
+			</if>
+			<if test="field7 != null">
+				#{field7,jdbcType=VARCHAR},
+			</if>
+			<if test="field8 != null">
+				#{field8,jdbcType=VARCHAR},
+			</if>
+			<if test="field9 != null">
+				#{field9,jdbcType=VARCHAR},
+			</if>
+			<if test="field10 != null">
+				#{field10,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=INTEGER},
+			</if>
+			<if test="followType != null">
+				#{followType,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.CrmIntentLoanUserRecord">
+		update crm_intent_loan_user_record
+		<set>
+			<if test="mobile != null">
+				mobile = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="custId != null">
+				cust_id = #{custId,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=INTEGER},
+			</if>
+			<if test="age != null">
+				age = #{age,jdbcType=INTEGER},
+			</if>
+			<if test="province != null">
+				province = #{province,jdbcType=VARCHAR},
+			</if>
+			<if test="city != null">
+				city = #{city,jdbcType=VARCHAR},
+			</if>
+			<if test="houseAddress != null">
+				house_address = #{houseAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="loanAmount != null">
+				loan_amount = #{loanAmount,jdbcType=VARCHAR},
+			</if>
+			<if test="interestRate != null">
+				interest_rate = #{interestRate,jdbcType=VARCHAR},
+			</if>
+			<if test="rateUnit != null">
+				rate_unit = #{rateUnit,jdbcType=VARCHAR},
+			</if>
+			<if test="duration != null">
+				duration = #{duration,jdbcType=VARCHAR},
+			</if>
+			<if test="durationUnit != null">
+				duration_unit = #{durationUnit,jdbcType=VARCHAR},
+			</if>
+			<if test="idNumber != null">
+				id_number = #{idNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="businessType != null">
+				business_type = #{businessType,jdbcType=VARCHAR},
+			</if>
+			<if test="seatNumber != null">
+				seat_number = #{seatNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="extendParam != null">
+				extend_param = #{extendParam,jdbcType=VARCHAR},
+			</if>
+			<if test="createrEmpId != null">
+				creater_emp_id = #{createrEmpId,jdbcType=VARCHAR},
+			</if>
+			<if test="createrEmpName != null">
+				creater_emp_name = #{createrEmpName,jdbcType=VARCHAR},
+			</if>
+			<if test="createrUnionId != null">
+				creater_union_id = #{createrUnionId,jdbcType=VARCHAR},
+			</if>
+			<if test="createrCompanyId != null">
+				creater_company_id =
+				#{createrCompanyId,jdbcType=VARCHAR},
+			</if>
+			<if test="createrDepId != null">
+				creater_dep_id = #{createrDepId,jdbcType=VARCHAR},
+			</if>
+			<if test="createrGroupId != null">
+				creater_group_id = #{createrGroupId,jdbcType=VARCHAR},
+			</if>
+			<if test="createrOrg != null">
+				creater_org = #{createrOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="appointEmpId != null">
+				appoint_emp_id = #{appointEmpId,jdbcType=VARCHAR},
+			</if>
+			<if test="appointEmpName != null">
+				appoint_emp_name = #{appointEmpName,jdbcType=VARCHAR},
+			</if>
+			<if test="appointUnionId != null">
+				appoint_union_id = #{appointUnionId,jdbcType=VARCHAR},
+			</if>
+			<if test="appointCompanyId != null">
+				appoint_company_id =
+				#{appointCompanyId,jdbcType=VARCHAR},
+			</if>
+			<if test="appointDepId != null">
+				appoint_dep_id = #{appointDepId,jdbcType=VARCHAR},
+			</if>
+			<if test="appointGroupId != null">
+				appoint_group_id = #{appointGroupId,jdbcType=VARCHAR},
+			</if>
+			<if test="appointOrg != null">
+				appoint_org = #{appointOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="businessStatus != null">
+				business_status = #{businessStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="visitCount != null">
+				visit_count = #{visitCount,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="visitTime != null">
+				visit_time = #{visitTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastUser != null">
+				last_user = #{lastUser,jdbcType=VARCHAR},
+			</if>
+			<if test="lastModifyTime != null">
+				last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="source != null">
+				source = #{source,jdbcType=VARCHAR},
+			</if>
+			<if test="sourceOrg != null">
+				source_org = #{sourceOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="grade != null">
+				grade = #{grade,jdbcType=VARCHAR},
+			</if>
+			<if test="field1 != null">
+				field1 = #{field1,jdbcType=VARCHAR},
+			</if>
+			<if test="field2 != null">
+				field2 = #{field2,jdbcType=VARCHAR},
+			</if>
+			<if test="field3 != null">
+				field3 = #{field3,jdbcType=VARCHAR},
+			</if>
+			<if test="field4 != null">
+				field4 = #{field4,jdbcType=VARCHAR},
+			</if>
+			<if test="field5 != null">
+				field5 = #{field5,jdbcType=VARCHAR},
+			</if>
+			<if test="field6 != null">
+				field6 = #{field6,jdbcType=VARCHAR},
+			</if>
+			<if test="field7 != null">
+				field7 = #{field7,jdbcType=VARCHAR},
+			</if>
+			<if test="field8 != null">
+				field8 = #{field8,jdbcType=VARCHAR},
+			</if>
+			<if test="field9 != null">
+				field9 = #{field9,jdbcType=VARCHAR},
+			</if>
+			<if test="field10 != null">
+				field10 = #{field10,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				parent_id = #{parentId,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.CrmIntentLoanUserRecord">
+		update
+		crm_intent_loan_user_record
+		set mobile = #{mobile,jdbcType=VARCHAR},
+		cust_id = #{custId,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		sex = #{sex,jdbcType=INTEGER},
+		age = #{age,jdbcType=INTEGER},
+		province =
+		#{province,jdbcType=VARCHAR},
+		city = #{city,jdbcType=VARCHAR},
+		house_address = #{houseAddress,jdbcType=VARCHAR},
+		loan_amount =
+		#{loanAmount,jdbcType=VARCHAR},
+		interest_rate =
+		#{interestRate,jdbcType=VARCHAR},
+		rate_unit =
+		#{rateUnit,jdbcType=VARCHAR},
+		duration = #{duration,jdbcType=VARCHAR},
+		duration_unit = #{durationUnit,jdbcType=VARCHAR},
+		id_number =
+		#{idNumber,jdbcType=VARCHAR},
+		business_type =
+		#{businessType,jdbcType=INTEGER},
+		seat_number =
+		#{seatNumber,jdbcType=VARCHAR},
+		extend_param =
+		#{extendParam,jdbcType=VARCHAR},
+		creater_emp_id =
+		#{createrEmpId,jdbcType=VARCHAR},
+		creater_emp_name =
+		#{createrEmpName,jdbcType=VARCHAR},
+		creater_union_id =
+		#{createrUnionId,jdbcType=VARCHAR},
+		creater_company_id =
+		#{createrCompanyId,jdbcType=VARCHAR},
+		creater_dep_id =
+		#{createrDepId,jdbcType=VARCHAR},
+		creater_group_id =
+		#{createrGroupId,jdbcType=VARCHAR},
+		creater_org =
+		#{createrOrg,jdbcType=VARCHAR},
+		appoint_emp_id =
+		#{appointEmpId,jdbcType=VARCHAR},
+		appoint_emp_name =
+		#{appointEmpName,jdbcType=VARCHAR},
+		appoint_union_id =
+		#{appointUnionId,jdbcType=VARCHAR},
+		appoint_company_id =
+		#{appointCompanyId,jdbcType=VARCHAR},
+		appoint_dep_id =
+		#{appointDepId,jdbcType=VARCHAR},
+		appoint_group_id =
+		#{appointGroupId,jdbcType=VARCHAR},
+		appoint_org =
+		#{appointOrg,jdbcType=VARCHAR},
+		status = #{status,jdbcType=VARCHAR},
+		business_status = #{businessStatus,jdbcType=VARCHAR},
+		visit_count =
+		#{visitCount,jdbcType=INTEGER},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP},
+		visit_time =
+		#{visitTime,jdbcType=TIMESTAMP},
+		last_user =
+		#{lastUser,jdbcType=VARCHAR},
+		last_modify_time =
+		#{lastModifyTime,jdbcType=TIMESTAMP},
+		source =
+		#{source,jdbcType=VARCHAR},
+		source_org = #{sourceOrg,jdbcType=VARCHAR},
+		remark = #{remark,jdbcType=VARCHAR},
+		grade = #{grade,jdbcType=VARCHAR},
+		field1 = #{field1,jdbcType=VARCHAR},
+		field2 =
+		#{field2,jdbcType=VARCHAR},
+		field3 = #{field3,jdbcType=VARCHAR},
+		field4
+		= #{field4,jdbcType=VARCHAR},
+		field5 = #{field5,jdbcType=VARCHAR},
+		field6 = #{field6,jdbcType=VARCHAR},
+		field7 =
+		#{field7,jdbcType=VARCHAR},
+		field8 = #{field8,jdbcType=VARCHAR},
+		field9
+		= #{field9,jdbcType=VARCHAR},
+		field10 = #{field10,jdbcType=VARCHAR},
+		parent_id = #{parentId,jdbcType=INTEGER}
+		where id =
+		#{id,jdbcType=INTEGER}
+	</update>
+
+
+	<!-- 自定义方法实现 -->
+	<sql id="Where_Clause">
+		<where>
+			<if test="mobile != null">
+				and r.mobile = #{mobile}
+			</if>
+			<if test="custId != null">
+				and r.cust_id = #{custId}
+			</if>
+			<if test="name != null">
+				and r.name like concat(concat('%',#{name}),'%')
+			</if>
+			<if test="sex != null">
+				and r.sex = #{sex}
+			</if>
+			<if test="age != null">
+				and r.age = #{age}
+			</if>
+			<if test="province != null">
+				and r.province = #{province}
+			</if>
+			<if test="city != null">
+				and r.city = #{city}
+			</if>
+			<if test="houseAddress != null">
+				and r.house_address = #{houseAddress}
+			</if>
+			<if test="loanAmount != null">
+				and r.loan_amount = #{loanAmount}
+			</if>
+			<if test="interestRate != null">
+				and r.interest_rate = #{interestRate}
+			</if>
+			<if test="duration != null">
+				and r.duration = #{duration}
+			</if>
+			<if test="idNumber != null">
+				and r.id_number = #{idNumber}
+			</if>
+			<if test="businessType != null">
+				and r.business_type = #{businessType}
+			</if>
+			<if test="seatNumber != null">
+				and r.seat_number = #{seatNumber}
+			</if>
+			<if test="extendParam != null">
+				and r.extend_param = #{extendParam}
+			</if>
+			<if test="createrEmpId != null">
+				and r.creater_emp_id = #{createrEmpId}
+			</if>
+			<if test="createrEmpName != null">
+				and r.creater_emp_name like
+				concat(concat('%',#{createrEmpName}),'%')
+			</if>
+			<if test="createrUnionId != null">
+				and r.creater_union_id = #{createrUnionId}
+			</if>
+			<if test="createrCompanyId != null">
+				and r.creater_company_id = #{createrCompanyId}
+			</if>
+			<if test="createrOrg != null">
+				and r.creater_org = #{createrOrg}
+			</if>
+			<if test="appointEmpId != null">
+				and r.appoint_emp_id = #{appointEmpId}
+			</if>
+			<if test="appointEmpName != null">
+				and r.appoint_emp_name like
+				concat(concat('%',#{appointEmpName}),'%')
+			</if>
+			<if test="appointOrg != null">
+				and r.appoint_org = #{appointOrg}
+			</if>
+			<if test="status != null">
+				and r.status = #{status}
+			</if>
+			<if test="businessStatus != null">
+				and r.business_status = #{businessStatus}
+			</if>
+			<if test="visitCount != null">
+				and r.visit_count = #{visitCount,jdbcType=INTEGER}
+			</if>
+			<if test="createTime != null">
+				and r.create_time = #{createTime}
+			</if>
+			<if test="visitTime != null">
+				and r.visit_time = #{visitTime}
+			</if>
+			<if test="lastUser != null">
+				and r.last_user = #{lastUser}
+			</if>
+			<if test="lastModifyTime != null">
+				and r.last_modify_time = #{lastModifyTime}
+			</if>
+			<if test="source != null">
+				and r.source = #{source}
+			</if>
+			<if test="sourceOrg != null">
+				and r.source_org = #{sourceOrg}
+			</if>
+			<if test="parentId != null">
+				and r.parent_id = #{parentId}
+			</if>
+			and r.field9="2"
+			and r.follow_type is not null and r.business_status
+			is not null
+		</where>
+	</sql>
+	<select id="queryList" resultType="com.lhhs.loan.dao.domain.CrmIntentLoanUserRecord"
+		parameterType="com.lhhs.loan.dao.domain.CrmIntentLoanUserRecord">
+		select
+		r.*,le.staff_name as lastUser
+		from crm_intent_loan_user_record r LEFT
+		JOIN bump_user le on
+		r.last_user=le.user_id
+		<include refid="Where_Clause" />
+		order by id desc
+		<if
+			test="page!=null and page.pageStartIndex != null and page.pageSize != null">
+			Limit #{page.pageStartIndex},#{page.pageSize}
+		</if>
+	</select>
+	<select id="queryCount" resultType="int"
+		parameterType="com.lhhs.loan.dao.domain.CrmIntentLoanUserRecord">
+		select count(id) from crm_intent_loan_user_record
+		<include refid="Where_Clause" />
+	</select>
+	<!-- 自定义方法区 -->
+	<sql id="Where_Common">
+		<if test="authgroupList != null">
+		 	and 
+		         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+			         (1=1
+			             <if test="item.orgId != null and item.orgId != ''">
+						  		and r.appoint_company_id =  #{item.orgId}
+						 </if>
+						 <if test="item.deptId != null and item.deptId != ''">
+						  		and r.appoint_org =  #{item.deptId}
+						 </if>
+						 <if test="item.dataOwner != null and item.dataOwner != ''">
+						  		and r.appoint_emp_id =  #{item.dataOwner}
+						 </if>
+					  )
+		          </foreach>
+	
+		</if>
+		
+		<if test="appointCompanyId != null and appointCompanyId !=''">
+			and r.appoint_company_id = #{appointCompanyId}
+		</if>
+		<!-- <if test="appointDepId != null and appointDepId != ''">
+			and r.appoint_dep_id = #{appointDepId}
+		</if> -->
+		<if test="appointDepId != null and '' != appointDepId">
+	  		and (r.appoint_dep_id = #{appointDepId} or r.appoint_org= #{appointDepId}  OR find_in_set(#{appointDepId},b.parent_ids)>0)
+	  	</if>
+		<if test="appointGroupId != null and appointGroupId != ''">
+			and r.appoint_group_id = #{appointGroupId}
+		</if>
+		<if test="parentId != null and parentId != ''">
+			and r.cust_id = #{parentId}
+		</if>
+		<if test="appointEmpName != null and appointEmpName != ''">
+			 and r.appoint_emp_name like  CONCAT('%',#{appointEmpName},'%')
+			 
+		</if>
+		<if test="beginingTime != null">
+			AND DATE_FORMAT(r.last_modify_time,'%Y-%m-%d') &gt;= DATE_FORMAT(#{beginingTime},'%Y-%m-%d')
+		</if>
+		<if test="endingTime != null">
+			AND DATE_FORMAT(r.last_modify_time,'%Y-%m-%d') &lt;=DATE_FORMAT(#{endingTime},'%Y-%m-%d')
+		</if>
+	</sql>
+	
+	   
+	<sql id="Where_Common_basic">
+		and r.appoint_emp_id is not null and  r.appoint_emp_id !=''
+		and r.appoint_company_id is not null and r.appoint_company_id !=''
+		and r.business_status is not null and r.business_status !=''
+		and r.status=03
+	</sql>
+	
+
+
+	<!-- 回访记录查询 -->
+	<select id="queryInviteRecord" resultType="com.lhhs.loan.dao.domain.CrmIntentLoanUserRecord" parameterType="com.lhhs.loan.dao.domain.CrmIntentLoanUserRecord">
+		SELECT
+			c.company_name AS managerCompanyName,
+			b.parentDepeName AS managerDepName,
+			b.name AS managerGroupName,
+			r.appoint_emp_name AS managerName,
+			le.mobile AS managerMobile,
+			IFNULL(rr.inViteCount,0) AS inViteCount,
+			count(DISTINCT r.id) AS customerCount,
+			r.appoint_emp_id
+		FROM
+			crm_intent_loan_user r
+		LEFT JOIN (
+			SELECT
+				count( r.parent_id) AS inViteCount,
+				r.appoint_emp_id
+			FROM
+				crm_intent_loan_user_record r
+			WHERE
+				1 = 1
+			AND r.parent_id IS NOT NULL 
+			AND r.appoint_emp_id IS NOT NULL and r.appoint_emp_id !=''
+			<if test="beginingTime != null">
+				AND DATE_FORMAT(r.last_modify_time,'%Y-%m-%d') &gt;= DATE_FORMAT(#{beginingTime},'%Y-%m-%d')
+			</if>
+			<if test="endingTime != null">
+				AND DATE_FORMAT(r.last_modify_time,'%Y-%m-%d') &lt;=DATE_FORMAT(#{endingTime},'%Y-%m-%d')
+			</if>
+			GROUP BY
+		    r.appoint_emp_id
+		) rr ON rr.appoint_emp_id = r.appoint_emp_id
+		LEFT JOIN bump_user le ON r.appoint_emp_id = le.user_id
+		LEFT JOIN (
+			SELECT
+				e.*, IFNULL(de.name, e.name) AS parentDepeName
+			FROM
+				bump_dept e
+			LEFT JOIN bump_dept de ON e.parent_id = de.dept_id
+		) b ON r.appoint_org = b.dept_id
+		LEFT JOIN bump_union_company c ON r.appoint_company_id = c.company_id
+		where 1=1
+		and r.appoint_emp_id is not null and r.appoint_emp_id !=''
+		<include refid="Where_Common" />
+		GROUP BY r.appoint_emp_id
+		ORDER BY r.last_modify_time
+		<if test="page!=null and page.pageStartIndex != null and page.pageSize != null">
+			Limit #{page.pageStartIndex},#{page.pageSize}
+		</if>
+	</select>
+	
+	<!-- 回访记录数量 -->
+	<select id="queryInviteRecordCount" resultType="int" parameterType="com.lhhs.loan.dao.domain.CrmIntentLoanUserRecord">
+		select count(1) from 
+		( 
+			SELECT
+				c.company_name AS managerCompanyName,
+				b.parentDepeName AS managerDepName,
+				b.name AS managerGroupName,
+				le.staff_name AS managerName,
+				le.mobile AS managerMobile,
+				IFNULL(rr.inViteCount,0) AS inViteCount,
+				count(DISTINCT r.id) AS customerCount,
+				r.appoint_emp_id
+			FROM
+				crm_intent_loan_user r
+			LEFT JOIN (
+				SELECT
+					count( r.parent_id) AS inViteCount,
+					r.appoint_emp_id
+				FROM
+					crm_intent_loan_user_record r
+				WHERE
+					1 = 1
+				AND r.parent_id IS NOT NULL 
+				AND r.appoint_emp_id IS NOT NULL and r.appoint_emp_id !=''
+				<if test="beginingTime != null">
+					AND DATE_FORMAT(r.last_modify_time,'%Y-%m-%d') &gt;= DATE_FORMAT(#{beginingTime},'%Y-%m-%d')
+				</if>
+				<if test="endingTime != null">
+					AND DATE_FORMAT(r.last_modify_time,'%Y-%m-%d') &lt;=DATE_FORMAT(#{endingTime},'%Y-%m-%d')
+				</if>
+				GROUP BY
+			    r.appoint_emp_id
+			) rr ON rr.appoint_emp_id = r.appoint_emp_id
+			LEFT JOIN bump_user le ON r.appoint_emp_id = le.user_id
+			LEFT JOIN (
+				SELECT
+					e.*, IFNULL(de.name, e.name) AS parentDepeName
+				FROM
+					bump_dept e
+				LEFT JOIN bump_dept de ON e.parent_id = de.dept_id
+			) b ON r.appoint_org = b.dept_id
+			LEFT JOIN bump_union_company c ON r.appoint_company_id  = c.company_id
+			where 1=1
+			and r.appoint_emp_id is not null and r.appoint_emp_id !=''
+			<include refid="Where_Common" />
+			GROUP BY r.appoint_emp_id
+			ORDER BY r.last_modify_time
+		) t 
+	</select>
+	
+	<!-- 回访记录详情 -->
+	<select id="queryRecordInfo" resultType="com.lhhs.loan.dao.domain.CrmIntentLoanUserRecord" parameterType="com.lhhs.loan.dao.domain.CrmIntentLoanUserRecord">
+		select t.*  from ( select cilu.name,cilu.mobile,r.visit_count,r.business_type,r.source,r.business_status,r.visit_time,r.follow_type,
+			   r.remark,luc.company_name as managerCompanyName,ld.name as managerGroupName,b.name as managerDepName ,
+			   le.staff_name as managerName,le.mobile as managerMobile,r.parent_id
+		from crm_intent_loan_user_record r
+		LEFT JOIN crm_intent_loan_user cilu on r.parent_id=cilu.id
+		LEFT JOIN bump_user le on r.appoint_emp_id=le.user_id
+	    LEFT JOIN bump_union_company luc on  r.appoint_company_id=luc.company_id
+	    LEFT JOIN bump_dept ld on cilu.appoint_org=ld.dept_id
+		LEFT JOIN bump_dept b on ld.parent_id=b.dept_id
+	    where  1=1 and r.parent_id IS NOT NULL 
+		<include refid="Where_Common" />
+		<if test="appointEmpId != null and appointEmpId != ''">
+			and r.appoint_emp_id = #{appointEmpId}
+		</if>
+	    ORDER BY r.visit_time desc ) t 
+		order by  t.parent_id desc,t.visit_time desc 
+	    <if test="page!=null and page.pageStartIndex != null and page.pageSize != null">
+			Limit #{page.pageStartIndex},#{page.pageSize}
+		</if>
+	</select>
+	
+	<!-- 回访记录详情数量 -->
+	<select id="queryRecordInfoCount" resultType="int" parameterType="com.lhhs.loan.dao.domain.CrmIntentLoanUserRecord">
+	    select count(1) from (
+	    	select r.*
+			from crm_intent_loan_user_record r
+		    LEFT JOIN crm_intent_loan_user cilu on r.parent_id=cilu.id
+		    LEFT JOIN bump_user le on r.appoint_emp_id=le.user_id
+		    LEFT JOIN bump_union_company luc on  r.appoint_company_id=luc.company_id
+		    LEFT JOIN bump_dept ld on r.appoint_org=ld.dept_id
+			LEFT JOIN bump_dept ldt on ld.parent_id=ldt.dept_id
+		    where  1=1 and r.parent_id IS NOT NULL 
+				<include refid="Where_Common" />
+			<if test="appointEmpId != null and appointEmpId != ''">
+				and r.appoint_emp_id = #{appointEmpId}
+			</if>
+	    )e
+	</select>
+</mapper>

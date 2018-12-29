@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.workflow.dao.VActHaddoMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.workflow.dao.domain.VActHaddoVO" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TASK_ID" property="taskId" jdbcType="VARCHAR" />
+    <result column="TASK_NAME" property="taskName" jdbcType="VARCHAR" />
+    <result column="TASK_DEF_KEY" property="taskDefKey" jdbcType="VARCHAR" />
+    <result column="PASS" property="pass" jdbcType="VARCHAR" />
+    <result column="PASS_NAME" property="passName" jdbcType="VARCHAR" />
+    <result column="TASK_CREATE_DATE" property="taskCreateDate" jdbcType="TIMESTAMP" />
+    <result column="TASK_END_DATE" property="taskEndDate" jdbcType="TIMESTAMP" />
+    <result column="PROC_INS_ID" property="procInsId" jdbcType="VARCHAR" />
+    <result column="ASSIGNEE" property="assignee" jdbcType="VARCHAR" />
+    <result column="ASSIGNEE_NAME" property="assigneeName" jdbcType="VARCHAR" />
+    <result column="NEXT_ASSIGNEE" property="nextAssignee" jdbcType="VARCHAR" />
+    <result column="NEXT_ASSIGNEE_NAME" property="nextAssigneeName" jdbcType="VARCHAR" />
+    <result column="MSG" property="msg" jdbcType="VARCHAR" />
+    <result column="PROC_DEF_KEY" property="procDefKey" jdbcType="VARCHAR" />
+    <result column="PROC_NAME" property="procName" jdbcType="VARCHAR" />
+    <result column="ORGANISER" property="organiser" jdbcType="VARCHAR" />
+    <result column="ORGANISER_NAME" property="organiserName" jdbcType="VARCHAR" />
+    <result column="BUSINESS_ID" property="businessId" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="CHANNEL" property="channel" jdbcType="VARCHAR" />
+    <result column="FIELD1" property="field1" jdbcType="VARCHAR" />
+    <result column="FIELD2" property="field2" jdbcType="VARCHAR" />
+    <result column="FIELD3" property="field3" jdbcType="VARCHAR" />
+    <result column="FIELD4" property="field4" jdbcType="VARCHAR" />
+    <result column="OFFICID" property="officid" jdbcType="VARCHAR" />
+    <result column="SALESORGID" property="salesorgid" jdbcType="VARCHAR" />
+    <result column="OAORGID" property="oaorgid" jdbcType="VARCHAR" />
+    <result column="PRODUCTIINEID" property="productiineid" jdbcType="VARCHAR" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="OPERATOR_NAME" property="operatorName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_DPT" property="productDpt" jdbcType="VARCHAR" />
+    <result column="PRODUCT_LINE" property="productLine" jdbcType="VARCHAR" />
+    <result column="BRANCH_COM" property="branchCom" jdbcType="VARCHAR" />
+    <result column="PARTNER" property="partner" jdbcType="VARCHAR" />
+    <result column="ACT_NAME" property="actName" jdbcType="VARCHAR" />
+    <result column="BRANCH_OFFIC" property="branchOffic" jdbcType="VARCHAR" />
+    <result column="PROCDEFKEY" property="procdefkey" jdbcType="VARCHAR" />
+    <result column="ACT_DESC" property="actDesc" jdbcType="VARCHAR" />
+    <result column="PRODUCT_DPT_ID" property="productDptId" jdbcType="VARCHAR" />
+    <result column="PRODUCT_LINE_ID" property="productLineId" jdbcType="VARCHAR" />
+    <result column="BRANCH_COM_ID" property="branchComId" jdbcType="VARCHAR" />
+    <result column="SYS_TYPE" property="sysType" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="ACT_STATUS" property="actStatus" jdbcType="VARCHAR" />
+    <result column="BUSINESSID" property="businessid" jdbcType="VARCHAR" />
+  </resultMap>
+ <sql id="Base_Column_List" >
+    ID, TASK_ID, TASK_NAME, TASK_DEF_KEY, PASS, PASS_NAME, TASK_CREATE_DATE, TASK_END_DATE, PROC_INS_ID, ASSIGNEE,
+     ASSIGNEE_NAME, NEXT_ASSIGNEE, NEXT_ASSIGNEE_NAME, MSG, PROC_DEF_KEY, PROC_NAME, ORGANISER, ORGANISER_NAME, 
+     BUSINESS_ID, STATUS, IP, CHANNEL, FIELD1, FIELD2, FIELD3, FIELD4, OFFICID, SALESORGID, OAORGID, PRODUCTIINEID, 
+     OPERATOR, OPERATOR_NAME, PRODUCT_DPT, PRODUCT_LINE, BRANCH_COM, PARTNER, ACT_NAME, BRANCH_OFFIC,BRANCH_OFFIC_ID, PROCDEFKEY, 
+     ACT_DESC, PRODUCT_DPT_ID, PRODUCT_LINE_ID, BRANCH_COM_ID, SYS_TYPE, CREATE_DATE,END_DATE, ACT_STATUS, BUSINESSID
+  </sql>
+   <select id="list" resultMap="BaseResultMap" parameterType="com.lhhs.workflow.dao.domain.VActHaddoVO">
+    <if test="pageVo != null" >
+      	 ${pageVo.sqlPageStart}
+    </if>
+    select 
+    <include refid="Base_Column_List" />
+    from V_ACT_HADDO
+    <where>
+    	ASSIGNEE = #{assignee,jdbcType=VARCHAR}
+      <if test="sysType != null and sysType !=''" >
+        AND SYS_TYPE = #{sysType}
+      </if>
+      <if test="procName != null and procName !=''" >
+        AND PROC_NAME = #{procName}
+      </if>
+      <if test="branchComId != null and branchComId !=''" >
+        AND BRANCH_COM_ID = #{branchComId}
+      </if>
+      <if test="productDptId != null and productDptId !=''" >
+        AND PRODUCT_DPT_ID = #{productDptId}
+      </if>
+      <if test="productLineId != null and productLineId !=''" >
+        AND PRODUCT_LINE_ID = #{productLineId}
+      </if>
+      <if test="partner != null and partner !=''" >
+        AND PARTNER = #{partner}
+      </if>
+      <if test="branchOfficId != null and branchOfficId !=''" >
+        AND BRANCH_OFFIC_ID = #{branchOfficId}
+      </if>
+      <if test="taskName != null and taskName !=''" >
+        AND TASK_NAME = #{taskName}
+      </if>
+      <if test="actStatus != null and actStatus !=''" >
+        AND ACT_STATUS = #{actStatus}
+      </if>
+       
+      
+      <if test="createDate != null  " >
+        AND CREATE_DATE <![CDATA[ >=  ]]> #{createDate}
+      </if>
+      <if test="endDate != null  " >
+        AND CREATE_DATE <![CDATA[ <=  ]]> #{endDate}
+      </if> 
+    </where>
+     <if test="pageVo != null" >
+	   	${pageVo.sqlPageEnd}
+     </if>
+     order by CREATE_DATE
+  </select>
+  
+  
+  
+  <select id="findPage" resultMap="BaseResultMap" parameterType="com.lhhs.workflow.dao.domain.VActHaddoVO">
+    <if test="pageVo != null" >
+      	 ${pageVo.sqlPageStart}
+    </if>
+    select 
+    <include refid="Base_Column_List" />
+    from V_ACT_HADDO
+    <where>
+    	ASSIGNEE = #{assignee,jdbcType=VARCHAR}
+      <if test="sysType != null and sysType !=''" >
+        AND SYS_TYPE = #{sysType}
+      </if>
+      <if test="procName != null and procName !=''" >
+        AND PROC_NAME = #{procName}
+      </if>
+       <if test="branchComId != null and branchComId !=''" >
+        AND BRANCH_COM_ID = #{branchComId}
+      </if>
+      <if test="productDptId != null and productDptId !=''" >
+        AND PRODUCT_DPT_ID = #{productDptId}
+      </if>
+      <if test="productLineId != null and productLineId !=''" >
+        AND PRODUCT_LINE_ID = #{productLineId}
+      </if>
+      <if test="partner != null and partner !=''" >
+        AND PARTNER = #{partner}
+      </if>
+      <if test="branchOfficId != null and branchOfficId !=''" >
+        AND BRANCH_OFFIC_ID = #{branchOfficId}
+      </if>
+      <if test="taskName != null and taskName !=''" >
+        AND TASK_NAME = #{taskName}
+      </if>
+      <if test="actStatus != null and actStatus !=''" >
+        AND ACT_STATUS = #{actStatus}
+      </if>
+      
+      
+    <if test="createDate != null  " >
+        AND CREATE_DATE <![CDATA[ >=  ]]> #{createDate}
+      </if>
+      <if test="endDate != null  " >
+        AND CREATE_DATE <![CDATA[ <=  ]]> #{endDate}
+      </if> 
+      
+       
+    </where>
+     <if test="pageVo != null" >
+	   	${pageVo.sqlPageEnd}
+     </if>
+     order by CREATE_DATE
+  </select>
+  
+  
+  
+  <select id="count" parameterType="com.lhhs.workflow.dao.domain.VActHaddoVO" resultType="int">
+		SELECT COUNT(*) FROM V_ACT_HADDO
+		<where>
+			ASSIGNEE = #{assignee,jdbcType=VARCHAR}
+		  <if test="sysType != null and sysType !=''" >
+	        AND SYS_TYPE = #{sysType}
+	      </if>
+	      <if test="procName != null and procName !=''" >
+	        AND PROC_NAME = #{procName}
+	      </if>
+	       <if test="branchComId != null and branchComId !=''" >
+        AND BRANCH_COM_ID = #{branchComId}
+      </if>
+      <if test="productDptId != null and productDptId !=''" >
+        AND PRODUCT_DPT_ID = #{productDptId}
+      </if>
+      <if test="productLineId != null and productLineId !=''" >
+        AND PRODUCT_LINE_ID = #{productLineId}
+      </if>
+      <if test="partner != null and partner !=''" >
+        AND PARTNER = #{partner}
+      </if>
+      <if test="branchOfficId != null and branchOfficId !=''" >
+        AND BRANCH_OFFIC_ID = #{branchOfficId}
+      </if>
+      <if test="taskName != null and taskName !=''" >
+        AND TASK_NAME = #{taskName}
+      </if>
+      <if test="actStatus != null and actStatus !=''" >
+        AND ACT_STATUS = #{actStatus}
+      </if>
+      <if test="createDate != null  " >
+        AND CREATE_DATE <![CDATA[ >=  ]]> #{createDate}
+      </if>
+      <if test="endDate != null  " >
+        AND CREATE_DATE <![CDATA[ <=  ]]> #{endDate}
+      </if> 
+		</where>
+	</select>
+	<!-- findHadOnlyDpt   findHadOnlyOffice  findHadOnlyCom  findHadOnlyLine -->
+	
+	<select id="findHadOnlyDpt" resultMap="BaseResultMap" parameterType="java.lang.String"> 
+    select 
+      PRODUCT_DPT_ID,PRODUCT_DPT,ASSIGNEE
+    from 
+    (SELECT PRODUCT_DPT_ID  ,  PRODUCT_DPT ,ASSIGNEE,ROW_NUMBER() OVER( PARTITION BY PRODUCT_DPT_ID  ,  PRODUCT_DPT  ORDER BY ID DESC)RN 
+       FROM V_ACT_HADDO WHERE PRODUCT_DPT_ID IS NOT NULL AND ASSIGNEE = #{assignee,jdbcType=VARCHAR})
+    <where> 
+    RN=1
+        
+    </where>
+     </select>
+    <select id="findHadOnlyOffice" resultMap="BaseResultMap" parameterType="java.lang.String"> 
+    select 
+      BRANCH_OFFIC_ID,BRANCH_OFFIC,ASSIGNEE
+    from 
+    (SELECT BRANCH_OFFIC_ID  ,  BRANCH_OFFIC ,ASSIGNEE,ROW_NUMBER() OVER( PARTITION BY BRANCH_OFFIC_ID  ,  BRANCH_OFFIC  ORDER BY ID DESC)RN 
+       FROM V_ACT_HADDO WHERE BRANCH_OFFIC_ID IS NOT NULL AND ASSIGNEE = #{assignee,jdbcType=VARCHAR})
+    <where> 
+        
+    </where>
+     </select>
+    <select id="findHadOnlyCom" resultMap="BaseResultMap" parameterType="java.lang.String"> 
+    select 
+      BRANCH_COM_ID,BRANCH_COM,ASSIGNEE
+    from 
+    (SELECT BRANCH_COM_ID  ,  BRANCH_COM ,ASSIGNEE,ROW_NUMBER() OVER( PARTITION BY BRANCH_COM_ID  ,  BRANCH_COM  ORDER BY ID DESC)RN 
+       FROM V_ACT_HADDO WHERE BRANCH_COM_ID IS NOT NULL AND ASSIGNEE = #{assignee,jdbcType=VARCHAR})
+    <where> 
+    RN=1
+        
+    </where>
+     </select>
+    <select id="findHadOnlyLine" resultMap="BaseResultMap" parameterType="java.lang.String"> 
+    select 
+      PRODUCT_LINE_ID,PRODUCT_LINE,ASSIGNEE
+    from 
+    (SELECT PRODUCT_LINE_ID  ,  PRODUCT_LINE ,ASSIGNEE,ROW_NUMBER() OVER( PARTITION BY PRODUCT_LINE_ID  ,  PRODUCT_LINE  ORDER BY ID DESC)RN 
+       FROM V_ACT_HADDO WHERE PRODUCT_LINE_ID IS NOT NULL AND ASSIGNEE = #{assignee,jdbcType=VARCHAR})
+    <where> 
+    RN=1 
+        
+    </where>
+    </select>
+</mapper>

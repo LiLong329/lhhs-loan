@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanEmpRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanEmpRole" >
+    <id column="ler_er_id" property="lerErId" jdbcType="INTEGER" />
+    <result column="ler_emp_id" property="lerEmpId" jdbcType="INTEGER" />
+    <result column="ler_role_id" property="lerRoleId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ler_er_id, ler_emp_id, ler_role_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_emp_role
+    where ler_er_id = #{lerErId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from loan_emp_role
+    where ler_er_id = #{lerErId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanEmpRole" >
+    insert into loan_emp_role (ler_er_id, ler_emp_id, ler_role_id
+      )
+    values (#{lerErId,jdbcType=INTEGER}, #{lerEmpId,jdbcType=INTEGER}, #{lerRoleId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanEmpRole" >
+    insert into loan_emp_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lerErId != null" >
+        ler_er_id,
+      </if>
+      <if test="lerEmpId != null" >
+        ler_emp_id,
+      </if>
+      <if test="lerRoleId != null" >
+        ler_role_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lerErId != null" >
+        #{lerErId,jdbcType=INTEGER},
+      </if>
+      <if test="lerEmpId != null" >
+        #{lerEmpId,jdbcType=INTEGER},
+      </if>
+      <if test="lerRoleId != null" >
+        #{lerRoleId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanEmpRole" >
+    update loan_emp_role
+    <set >
+      <if test="lerEmpId != null" >
+        ler_emp_id = #{lerEmpId,jdbcType=INTEGER},
+      </if>
+      <if test="lerRoleId != null" >
+        ler_role_id = #{lerRoleId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ler_er_id = #{lerErId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanEmpRole" >
+    update loan_emp_role
+    set ler_emp_id = #{lerEmpId,jdbcType=INTEGER},
+      ler_role_id = #{lerRoleId,jdbcType=INTEGER}
+    where ler_er_id = #{lerErId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="isEmpRole" parameterType="Integer" resultMap="BaseResultMap">
+   select <include refid="Base_Column_List" /> from loan_emp_role where ler_emp_id=#{empId} and ler_role_id=#{roleId}
+  </select>
+  <select id="allMyEmpRole" parameterType="Integer" resultMap="BaseResultMap">
+   select <include refid="Base_Column_List" /> from loan_emp_role where ler_emp_id=#{empId}
+  </select>
+  <select id="getRoleIdByEmpId" parameterType="Integer" resultType="Integer">
+   select ler_role_id from loan_emp_role where ler_emp_id=#{empId}
+  </select>
+  
+</mapper>

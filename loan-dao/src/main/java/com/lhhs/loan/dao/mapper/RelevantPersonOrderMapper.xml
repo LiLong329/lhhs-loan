@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.RelevantPersonOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.RelevantPersonOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="id_num" property="idNum" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="relation" property="relation" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_no, name, sex, id_num, mobile, phone, relation, type, field1, field2, field3, 
+    field4, field5
+  </sql>
+  <sql id="Where_Common">
+  	<if test="id != null" >
+      and id = #{id}
+    </if>
+  	<if test="null!=orderNo and ''!=orderNo" >
+      and order_no = #{orderNo}
+    </if>
+    <if test="name != null and ''!=name" >
+      and name = #{name}
+    </if>
+    <if test="sex != null and ''!=sex" >
+      and sex = #{sex}
+    </if>
+    <if test="idNum != null and ''!=idNum" >
+      and id_num = #{idNum}
+    </if>
+    <if test="mobile != null and ''!=mobile" >
+      and mobile = #{mobile}
+    </if>
+    <if test="phone != null and ''!=phone" >
+      and phone = #{phone}
+    </if>
+    <if test="relation != null and ''!=relation" >
+      and relation = #{relation}
+    </if>
+    <if test="type != null and ''!=type" >
+      and type = #{type}
+    </if>
+    <if test="field1 != null and ''!=field1" >
+      and field1 = #{field1}
+    </if>
+    <if test="field2 != null and ''!=field2" >
+      and field2 = #{field2}
+    </if>
+    <if test="field3 != null and ''!=field3" >
+      and field3 = #{field3}
+    </if>
+    <if test="field4 != null and ''!=field4" >
+      and field4 = #{field4}
+    </if>
+    <if test="field5 != null and ''!=field5" >
+      and field5 = #{field5}
+    </if>
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_relevant_person_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from loan_relevant_person_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="delete" parameterType="com.lhhs.loan.dao.domain.RelevantPersonOrder" >
+    delete from loan_relevant_person_order
+    <where>
+   		 <include refid="Where_Common"/>
+	</where>
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.RelevantPersonOrder" >
+    insert into loan_relevant_person_order (id, order_no, name, 
+      sex, id_num, mobile, 
+      phone, relation, type, 
+      field1, field2, field3, 
+      field4, field5)
+    values (#{id,jdbcType=INTEGER}, #{orderNo,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{idNum,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{relation,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, 
+      #{field4,jdbcType=VARCHAR}, #{field5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.RelevantPersonOrder" >
+    insert into loan_relevant_person_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="idNum != null" >
+        id_num,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="relation != null" >
+        relation,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="idNum != null" >
+        #{idNum,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="relation != null" >
+        #{relation,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.RelevantPersonOrder" >
+    update loan_relevant_person_order
+    <set >
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="idNum != null" >
+        id_num = #{idNum,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="relation != null" >
+        relation = #{relation,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.RelevantPersonOrder" >
+    update loan_relevant_person_order
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      id_num = #{idNum,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      relation = #{relation,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="queryList" parameterType="com.lhhs.loan.dao.domain.RelevantPersonOrder" resultType="com.lhhs.loan.dao.domain.RelevantPersonOrder">
+  	select <include refid="Base_Column_List" />
+  	from loan_relevant_person_order
+    <where>
+   		 <include refid="Where_Common"/>
+	</where>
+  </select>
+  <!-- 批量新增 -->
+  <insert id="insertList" parameterType="ArrayList">
+  	insert into loan_relevant_person_order(order_no, name, sex, id_num, mobile, phone, relation, type, field1, field2, field3, field4, field5)
+  	values  
+    <foreach collection="list" item="obj" index="index" separator="," >  
+    	(#{obj.orderNo},#{obj.name},#{obj.sex},#{obj.idNum},#{obj.mobile},#{obj.phone},#{obj.relation},#{obj.type},#{obj.field1}, #{obj.field2},#{obj.field3},#{obj.field4},#{obj.field5})
+    </foreach>  
+  </insert>
+</mapper>

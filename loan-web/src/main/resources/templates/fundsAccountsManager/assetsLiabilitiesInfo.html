@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>资金管理</li>
+                        <li>用户资金账目管理</li>
+                        <li>资产负债</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual" style="margin-top: 15px;">
+                        	<form action="/userFundsAccountsManager/assetsLiabilitiesInfo" id="myForm">
+                          		<input  name="pageNumber" type="hidden" value="" id="currentPageNo"/>
+                          		<ul class="seachform1">
+	                          		<li>
+	                                    <label>手机号：</label>
+	                                    <input name="mobile" type="text" class="scinput1" th:value="${params.mobile}"/>
+	                                </li>
+	                          		<li>
+	                                    <label>注册时间：</label>
+	                                    <input type="text" id="startDate" name="startDate" class="scinput1" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})" th:value="${params.startDate}"/>
+										<span>至</span>
+	                                    <input type="text" id="endDate" name="endDate" class="scinput1" onClick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})" th:value="${params.endDate}"/>
+	                                </li>
+	                                <li>
+	                                    <input id="searcher" type="button" class="scbtn" value="查询"/>
+	                                </li>
+                                </ul>
+                        	</form>
+                        	<div class="table-title">
+                                <p class="tab-font">资产负债</p>
+                            </div>
+                            <table class="tablelist">
+                                <thead>
+	                                <tr>
+		                               	<th>序号</th>
+		                                <th>用户ID</th>
+		                                <th>账号ID</th>
+		                                <th>手机号</th>
+		                                <th>姓名</th>
+		                                <th>资产总额（元）</th>
+		                                <th>负债总额（元）</th>
+		                                <th>注册时间</th>
+		                                <th>操作</th>
+	                                </tr>
+                                </thead>
+	                             <tbody>
+				                     <tr th:each="accountsTotals,iter : ${page.resultList}">
+					                 	<td  th:text="${iter.index+1}"></td>
+						             	<td  th:text="${accountsTotals.ownerId}"></td>
+						             	<td  th:text="${accountsTotals.accountId}"></td>
+						             	<td  th:text="${accountsTotals.mobile}"></td>
+						             	<td  th:text="${accountsTotals.ownerName}"></td>
+						             	<td  th:text="${#numbers.formatDecimal(accountsTotals.assetTotal,1,2)}"></td>
+						             	<td  th:text="${#numbers.formatDecimal(accountsTotals.liabilitiesTotal,1,2)}"></td>
+						             	<td  th:text="${accountsTotals.createTime}?${#dates.format(accountsTotals.createTime, 'yyyy-MM-dd HH:mm:ss')}:''"></td>
+										<td>
+											<a th:href="@{/userFundsAccountsManager/seeDetail(mobile=${accountsTotals.mobile},ownerName=${accountsTotals.ownerName},certificateNo=${accountsTotals.certificateNo},assetTotal=${accountsTotals.assetTotal},liabilitiesTotal=${accountsTotals.liabilitiesTotal})}" class="tablelink">查看</a>
+										</td>
+									</tr>
+									
+	                            </tbody>
+                            </table>
+                            <div class="pagin" style="margin-top: 0px;">
+                                <div class="message">
+                                    	统计数据(<nobr th:text="${page.totalCount}"></nobr>条);&nbsp;&nbsp;&nbsp;资产总额：<nobr th:text="${sumAssetTotal}"></nobr>元&nbsp;&nbsp;&nbsp;负债总额：<nobr th:text="${sumLiabilitiesTotal}"></nobr>元
+                                </div>
+                            </div>
+               				<div class="pagin" th:unless="${#lists.isEmpty(page.resultList)}">
+								<div class="message">
+									共
+									<i class="blue" th:text="${page.totalCount}"></i> 
+									条记录，当前显示第 
+									<i class="blue" th:text="${page.pageIndex}"></i>
+									页
+								</div>
+								<ul class="paginList">
+									<li class="paginItem" th:if="${page.pageIndex} gt 1"><a
+										th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+									</li>
+									<li class="paginItem" th:each="x:${#numbers.sequence(page.startNum, page.endNum)}" th:classappend="(${page.pageIndex} eq ${x})?'current'">
+										<a th:attr="data-pagenum=${x}" th:text="${x}"></a></li>
+									<li class="paginItem" th:if="${page.pageIndex} lt ${page.pageCount}">
+										<a th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+									</li>
+								</ul>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+    <script type="text/javascript" charset="utf-8" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+    <script> seajs.use("fundsAccountsManager/assetsLiabilitiesInfo");</script>
+</body>
+</html>

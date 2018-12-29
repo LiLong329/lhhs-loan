@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<link rel="stylesheet"
+	href="/js/public/jqueryValidation/css/validationEngine.jquery.css"
+	type="text/css" />
+<style>
+	.tablelist tbody tr{ border-bottom: 1px solid #c7c7c7;}
+	.tablelist tbody tr:hover{ background:#fff; }
+	.tablelist td{border-right:solid 1px #c7c7c7;}
+</style>
+<script type="text/javascript"
+	src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/js/public/area.js"></script>
+<body>
+	<div class="father">
+		<header th:replace="common/top"></header>
+		<div class="common-content">
+			<div th:replace="common/left"></div>
+			<div class="common-right">
+				<div class="place" id="place">
+					<span>位置：</span>
+					<ul class="placeul">
+						<li><a href="/index/index">首页</a></li>
+						<li>客户管理</li>
+						<li><a href="/inviteIntentLoaner/inviteList">回访客户记录表</a></li>
+						<li>详情</li>
+					</ul>
+					<form id="myForm">
+						<input name="lastUser" type="hidden"   th:value="${lastUser}"/>
+						<input name="pageNumber" type="hidden" value="" id="currentPageNo" />
+						<input type="hidden" name="page.pageIndex" th:value="${page.pageIndex}"/>
+				        <input type="hidden" name="page.pageSize" th:value="${page.pageSize}"/>
+					</form>
+				</div>
+				<div class="right-content">
+					<div class="formbody">
+						<div id="usual1" class="usual">
+							<div id="searcherId" th:include="inviteRecord/temp/infoTemp"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="/js/public/select.js"></script>
+		<footer th:replace="common/footer"></footer>
+		<script
+			src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js"
+			type="text/javascript" charset="utf-8"></script>
+		<script
+			src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js"
+			type="text/javascript" charset="utf-8"></script>
+		<script th:inline="javascript">
+    	/*<![CDATA[*/
+    	    $(".tablelist").find("tbody tr:odd").removeClass("odd");
+	    	seajs.use("crm/infoRecord");
+    	/*]]>*/
+    </script>
+	</div>
+</body>
+</html>

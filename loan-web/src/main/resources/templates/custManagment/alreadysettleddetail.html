@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script src="/js/public/area.js"></script>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>财务管理</li>
+                        <li>付款管理</li>
+                        <li><a th:href="@{/customerManager/querySettleList}">已结清记录</a></li>
+                        <li>查看详情</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div class="formtitle"><span>收款详情列表</span></div>
+                        <table class="tablelist">
+                            <thead>
+                                <tr>
+                                    <th>当期/总期数</th>
+                                    <th>收款总金额（元）</th>
+                                    <th>收款本金（元）</th>
+                                    <th>收本时间</th>
+                                    <th>收款利息（元）</th>
+                                    <th>收息时间</th>
+                                    <th>实收贴息（元）</th>
+                                    <th>收款违约赔偿金</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               <tr:block th:unless="${#lists.isEmpty(loanPayRecord)}" >
+                               <tr th:each="pay : ${loanPayRecord}">
+                                <tr>
+                                    <td th:text="${pay.period}+'/'+${pay.periodTotal}"></td>
+                                    <td th:text="${pay.totalAmount}?${#numbers.formatDecimal(pay.totalAmount,1,2)}"></td>
+                                    <td th:text="${pay.paidCapital}?${#numbers.formatDecimal(pay.paidCapital,1,2)}"></td>
+                                    <td th:text="${pay.capitalTime}?${#dates.format(pay.capitalTime, 'yyyy-MM-dd HH:mm:ss')}:''"></td>
+                                    <td th:text="${pay.paidInterest}?${#numbers.formatDecimal(pay.paidInterest,1,2)}"></td>
+                                    <td th:text="${pay.interestTime}?${#dates.format(pay.interestTime, 'yyyy-MM-dd HH:mm:ss')}:''"></td>
+                                    <td th:text="${pay.paidOverdue}?${#numbers.formatDecimal(pay.paidOverdue,1,2)}"></td>
+                                    <td th:text="${pay.paidCompensate}?${#numbers.formatDecimal(pay.paidCompensate,1,2)}"></td>
+                                </tr>
+                                </tr>
+                                </tr:block>
+                                <tr:block th:if="${#lists.isEmpty(loanPayRecord)}">
+                                      <tr><td colspan="18" class="textCt">暂无数据</td></tr>
+                                </tr:block>
+                            </tbody>
+                        </table>
+                        <p class="textCt pb20 pt20">
+                            <input type="button" class="scbtn2" value="返  回" onclick="javascript:history.go(-1);"/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/js/public/select.js"></script>
+        <footer th:replace="common/footer"></footer>
+         <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	    <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+        <script>seajs.use("custManagment/alreadysettled");</script>
+    </div>
+</body>
+</html>

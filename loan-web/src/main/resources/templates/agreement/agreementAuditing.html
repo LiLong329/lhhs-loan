@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head th:replace="common/src"></head>
+	<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css" />
+	<body>
+		<div class="father">
+			<header th:replace="common/top"></header>
+			<div class="common-content">
+				<div th:replace="common/left"></div>
+				<div class="common-right">
+					<div class="place" id="place">
+						<span>位置：</span>
+						<ul class="placeul">
+							<li>
+								<a href="/index/index">首页</a>
+							</li>
+							<li>合同管理</li>
+							<li>
+								<a href="/agreement/list/0">待审核合同</a>
+							</li>
+							<li>
+								<a>审核</a>
+							</li>
+						</ul>
+					</div>
+					<div class="right-content">
+						<div class="formbody">
+							<div class="formtitle"><span>合同审核记录详情</span></div>
+							<div class="toolsli">
+								<form id="myForm">
+									<input type="hidden" th:value="${agreement.id}" name="id" />
+									<ul class="nbbdgl-Ui">
+										<li>
+											<span class="tips">合同编号：</span>
+											<span th:text="${agreement.agreementNo}"></span>
+											<input type="hidden" th:value="${agreement.agreementNo}" name="agreementNo" />
+										</li>
+										<li>
+											<span class="tips">报单编号：</span>
+											<span th:text="${agreement.orderNo}"></span>
+											<input type="hidden" th:value="${agreement.orderNo}" name="orderNo" />
+										</li>
+										<li>
+											<span class="tips">借款人：</span>
+											<input type="text" class="txt validate[minSize[2],maxSize[15],required,custom[chineseName]]" th:value="${agreement.borrowerName}" name="borrowerName" />
+										</li>
+										<li>
+											<span class="tips">借款人身份证：</span>
+											<input type="text" class="txt validate[required,custom[chinaIdLoose]]" th:value="${agreement.borrowerIdNum}" name="borrowerIdNum" />
+										</li>
+									</ul>
+								</form>
+									<div id="totalLoanInfo">
+										<th:block th:if="${#lists.isEmpty(agreement.totalLoanList)}">
+											<ul class="nbbdgl-Ui">
+												<form>
+													<li>
+														<span class="tips">共同借款人：</span>
+														<input type="text" class="txt validate[minSize[2],maxSize[15],custom[chineseName]]" value="" name="name"/>
+														<input type="hidden" value="2" name="type"/>
+													</li>
+													<li>
+														<span class="tips">共同借款人身份证：</span>
+														<input type="text" class="txt validate[custom[chinaIdLoose]]" value="" name="idNum"/>
+														<img src="/img/add_red.png" class="add" id="addTotalLoan" style="margin-left: 100px;"/>
+													</li>
+												</form>
+											</ul>
+										</th:block>
+										<th:block th:unless="${#lists.isEmpty(agreement.totalLoanList)}" th:each="totalLoan,iter : ${agreement.totalLoanList}">
+											<ul class="nbbdgl-Ui">
+												<form>
+													<li>
+														<span class="tips" th:text="${iter.index eq 0}?'共同借款人：':'&nbsp;' "></span>
+														<input type="text" class="txt validate[minSize[2],maxSize[15],custom[chineseName]]" th:value="${totalLoan.name}" name="name"/>
+														<input type="hidden" value="2" name="type"/>
+														<input type="hidden" th:value="${totalLoan.rpoId}" name="rpoId"/>
+														<input type="hidden" th:value="${totalLoan.mobile}" name="mobile"/>
+														<input type="hidden" th:value="${totalLoan.sex}" name="sex"/>
+														<input type="hidden" th:value="${totalLoan.phone}" name="phone"/>
+													</li>
+													<li>
+														<span class="tips" th:text="${iter.index eq 0}?'共同借款人身份证：':'&nbsp;' "></span>
+														<input type="text" class="txt validate[custom[chinaIdLoose]]" th:value="${totalLoan.idNum}" name="idNum"/>
+														<th:block th:if="${iter.index eq 0}">
+															<img src="/img/add_red.png" class="add" id="addTotalLoan" style="margin-left: 100px;"/>
+														</th:block>
+														<th:block th:if="${iter.index gt 0}">
+															<img src="/img/loan_reduce.png" class="del" style="margin-left: 100px;"/>
+														</th:block>
+													</li>
+												</form>
+											</ul>
+										</th:block>
+									</div>
+									<div id="guaranteeInfo">
+										<th:block th:if="${#lists.isEmpty(agreement.guaranteeList)}">
+											<ul class="nbbdgl-Ui">
+												<form>
+													<li>
+														<span class="tips">担保人：</span>
+														<input type="text" class="txt validate[minSize[2],maxSize[15],custom[chineseName]]" value="" name="name"/>
+														<input type="hidden" value="3" name="type"/>
+													</li>
+													<li>
+														<span class="tips">担保人身份证：</span>
+														<input type="text" class="txt validate[custom[chinaIdLoose]]" value="" name="idNum"/>
+														<img src="/img/add_red.png" class="add" id="addGuarantee" style="margin-left: 100px;"/>
+													</li>
+												</form>
+											</ul>
+										</th:block>
+										<th:block th:unless="${#lists.isEmpty(agreement.guaranteeList)}" th:each="guarantee,iter : ${agreement.guaranteeList}">
+											<ul class="nbbdgl-Ui">
+												<form>
+													<li>
+														<span class="tips" th:text="${iter.index eq 0}?'担保人：':'&nbsp;' "></span>
+														<input type="text" class="txt validate[minSize[2],maxSize[15],custom[chineseName]]" th:value="${guarantee.name}" name="name"/>
+														<input type="hidden" value="3" name="type"/>
+														<input type="hidden" th:value="${guarantee.rpoId}" name="rpoId"/>
+														<input type="hidden" th:value="${guarantee.mobile}" name="mobile"/>
+														<input type="hidden" th:value="${guarantee.sex}" name="sex"/>
+														<input type="hidden" th:value="${guarantee.phone}" name="phone"/>
+													</li>
+													<li>
+														<span class="tips" th:text="${iter.index eq 0}?'担保人身份证：':'&nbsp;' "></span>
+														<input type="text" class="txt validate[custom[chinaIdLoose]]" th:value="${guarantee.idNum}" name="idNum"/>
+														<th:block th:if="${iter.index eq 0}">
+															<img src="/img/add_red.png" class="add" id="addGuarantee" style="margin-left: 100px;"/>
+														</th:block>
+														<th:block th:if="${iter.index gt 0}">
+															<img src="/img/loan_reduce.png" class="del" style="margin-left: 100px;"/>
+														</th:block>
+													</li>
+												</form>
+											</ul>
+										</th:block>
+									</div>
+								<form id="myForm1">
+									<ul class="nbbdgl-Ui">
+										<th:block th:if="${#lists.isEmpty(investorNameList)}">
+											<li>
+												<span class="tips">出借人：</span>
+												<input type="text" class="txt" value="" disabled="disabled" style="background: #DDD;"/>
+											</li>
+											<li>
+												<span class="tips">所属资方：</span>
+												<input type="text" class="txt" th:value="${agreement.capitalName}" name="capitalName" disabled="disabled" style="background: #DDD;"/>
+											</li>
+										</th:block>
+										<th:block th:unless="${#lists.isEmpty(investorNameList)}" th:each="investorName,iter : ${investorNameList}">
+											<li>
+												<span class="tips" th:text="${iter.index eq 0}?'出借人：':'&nbsp;' "></span>
+												<input type="text" class="txt" th:value="${investorName}" disabled="disabled" style="background: #DDD;"/>
+											</li>
+											<li>
+												<th:block th:if="${iter.index eq 0}">
+													<span class="tips">所属资方：</span>
+													<input type="text" class="txt" th:value="${agreement.capitalName}" name="capitalName" disabled="disabled" style="background: #DDD;"/>
+												</th:block>
+												<th:block th:if="${iter.index gt 0}">
+													<span class="tips">&nbsp;</span>
+													<span></span>
+												</th:block>
+											</li>
+										</th:block>
+										<li>
+											<span class="tips">借款金额：</span>
+											<input th:value="${agreement.loanAmount}?${#numbers.formatDecimal(agreement.loanAmount,1,2)}:''" name="loanAmount" class="txt validate[required,custom[numberTwo],min[0],max[99999]]" type="text" />
+											<span>万元</span>
+										</li>
+										<li>
+											<span class="tips">合同金额：</span>
+											<input th:value="${agreement.amount}?${#numbers.formatDecimal(agreement.amount,1,2)}:''" name="amount" class="txt validate[required,custom[numberTwo],min[0],max[999990000]]" type="text" />
+											<span>元</span>
+										</li>
+										<li>
+											<span class="tips">借款期限：</span>
+											<input type="text" class="txt loan_term validate[required,custom[integer]]]" th:value="${agreement.loanTerm}" name="loanTerm" style="width: 160px;" />
+											<div class="vocation">
+												<select class="select-common select1 loan_term_unit" name="loanTermUnit" style="width: 80px;">
+													<option value="个月" th:text="个月" th:attr="selected=(${agreement.loanTermUnit} eq '个月')?true:false"></option>
+													<option value="天" th:text="天" th:attr="selected=(${agreement.loanTermUnit} eq '天')?true:false"></option>
+												</select>
+											</div>
+										</li>
+										<li>
+											<span class="tips">合同起止时间：</span>
+											<input type="text" name="startDate" readOnly='true' class="txt validate[required]" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})" th:value="${agreement.startDate}?${#dates.format(agreement.startDate,'yyyy-MM-dd HH:mm:ss')}:'' " style="width: 140px;"/>
+											<span>至</span>
+											<input type="text" name="endDate" readOnly='true' class="txt validate[required]" onClick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})" th:value="${agreement.endDate}?${#dates.format(agreement.endDate,'yyyy-MM-dd HH:mm:ss')}:'' " style="width: 140px;"/>
+										</li>
+										<li style="width: 80%;">
+											<span class="tips">合同审核结果：</span>
+											<cite>
+		                                    <input type="radio" name="auditingStatus" class="cboItems" value="1" checked="checked"/><span>审核通过</span>
+		                                    <input type="radio" name="auditingStatus" class="cboItems" value="2" /><span>审核失败</span>
+	                                    </cite>
+										</li>
+										<li style="width: 80%;">
+											<textarea class="area" name="remark" th:text="${agreement.remark}" style="padding: 0px 10px;text-indent: 0px;margin-left: 150px;" maxlength="1000"></textarea>
+										</li>
+									</ul>
+								</form>
+							</div>
+							<p class="textCt pb20">
+								<input type="button" class="scbtn" id="saveButton" value="提交" />
+								<input type="button" class="scbtn2 mlt10" value="取 消" onclick="javascript:history.go(-1);" />
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<footer th:replace="common/footer"></footer>
+		</div>
+		<script type="text/javascript" charset="utf-8" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+		<script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+		<script th:inline="javascript">
+			seajs.use("agreement/agreementEdit");
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,75 @@
+<div class="previewBack"></div>
+<div class="preview">
+	<div class="formbody">
+			<div class="table-title">
+			<th:block th:if="${transMain} and ${pay}">
+				<p class="tab-font" th:text="${'执行还债('+pay.period+'/'+transMain.periodTotal+')'}"></p>
+			</th:block>
+			</div>
+		<th:block th:if="${transMain} and ${pay}">
+			<div class="toolsli pt10">
+			<form id="payForm">
+				<input type="hidden" name="advanceId" th:value="${pay.advanceId}"/>
+				<input type="hidden" name="transMainId" th:value="${pay.transMainId}"/>
+				<ul class="nbbdgl-Ui">
+				<li style="width: 80%;">
+						<span class="tips">还债类型：</span> 
+						<cite>
+						    
+							<input type="checkbox" id="mode0" name="isInterest" value="1" th:attr="data-interest=${pay.remainRepaymentInterest}" th:checked="${pay.remainRepaymentInterest}?true:false"/> 
+							<label for="mode0">执行还息</label>
+							
+							
+							<input type="checkbox" id="mode1" name="isCapita" value="1" th:attr="data-capital=${pay.advanceTotal}" th:checked="${pay.advanceTotal}?true:false" /> 
+							<label for="mode1">执行还债</label>
+							
+						</cite>
+					</li>
+				    <li style="width: 80%;">
+						<span class="tips">还债日期：</span> 
+						<input type="hidden" name="lastPaidAdvanceTime"  th:value="${pay.paidAdvanceTime}?${#dates.format(pay.paidAdvanceTime,'yyyy-MM-dd HH:mm:ss')}" />
+					
+						<input type="text" class="txt" name="paidAdvanceTime"  th:value="${newDate}?${#dates.format(newDate,'yyyy-MM-dd HH:mm:ss')}" onclick="WdatePicker({autoPickDate:'true',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+					</li>
+					<li style="width: 80%;">
+						<span class="tips">债务利息：</span> 
+						<input type="hidden" id="interest" name="interest" th:value="${#numbers.formatDecimal(pay.remainRepaymentInterest,1,4)}"/>
+						<input type="text" class="txt interest" id="paidInterest" name="paidInterest" th:value="${#numbers.formatDecimal(pay.remainRepaymentInterest,1,4)}"/>
+					</li>
+					<li style="width: 80%;">
+						<span class="tips">还债金额：</span> 
+						<input type="text" class="txt" id="paidTotal" name="paidTotal" th:value="${#numbers.formatDecimal(pay.paidTotal,1,4)}" />
+						<input type="hidden" class="txt" name="paidTotalAll" th:value="${#numbers.formatDecimal(pay.paidTotal,1,4)}"/>
+					</li>
+					<li style="width: 80%;">
+						<span class="tips">债务天数：</span> 
+						<span  style="color:red;" id="useDays" th:text="${pay.overdueDays}+天"></span> 
+					</li>
+					<li style="width: 80%;">
+						<span class="tips">垫付金额：</span> 
+						<span th:text="${#numbers.formatDecimal(pay.advanceTotal,1,4)}"></span> 
+					</li>
+					<li style="width: 80%;">
+						<span class="tips">待还垫付金额：</span> 
+						<input type="hidden" class="txt" id="advanceTotal" name="advanceTotal" th:value="${#numbers.formatDecimal(pay.remainAdvanceTotal,1,4)}"/>
+						<span id="remainAdvanceTotal" th:text="${#numbers.formatDecimal(pay.remainAdvanceTotal,1,4)}" th:value="${#numbers.formatDecimal(pay.remainAdvanceTotal,1,4)}"></span>
+					</li>
+					<li style="width: 80%;">
+						<span class="tips">垫付时间：</span> 
+						<span th:text="${newDate}?${#dates.format(pay.advanceTime,'yyyy-MM-dd HH:mm:ss')}"></span>
+					</li>
+					<li style="width: 80%;">
+						<span class="tips">备注：</span> 
+						<textarea class="area" name="transRemark" id="remark"  style="height:100px;"  maxLength="100" placeholder="最多输入100个字符" > </textarea>
+						<span id="remarkId" style="margin-left:5px;color:red;"></span>
+					</li>
+				</ul>
+				</form>
+			</div>
+			</th:block>
+			<p class="textCt">
+			    <input type="button" class="scbtn" id="paySubmit" value="确定还债" style="width: 70px;" />
+				<input type="button" class="scbtn2 mlt10" value="取 消" id="goBackId"/>
+			</p>
+	</div>
+</div>

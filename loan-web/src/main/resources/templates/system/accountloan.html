@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script src="/js/public/area.js"></script>
+<link rel="stylesheet" href="/js/public/jqueryValidation/css/validationEngine.jquery.css" type="text/css"/>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li>系统管理</li>
+                        <li>公司账户管理</li>
+                        <li>公司账户设置</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual">
+                            <ul class="seachform1">
+                                <form id="myForm">
+                                 <input  name="pageNumber" type="hidden" value="" id="currentPageNo"/>
+                                 <input  class="type" type="hidden" value="02" />
+                                 <li>
+	                                    <span class="tips">省市：</span>
+				                        <div class="vocation">
+								          	<select class="select-common select3 provinceSelect" name="province"  th:attr="data-val=${province}"></select>
+							            </div>
+							            <span>省</span>
+				                        <div class="vocation">
+								          	<select class="select-common select3 citySelect" name="city"  th:attr="data-val=${city}"></select>
+							            </div>
+				                        <span>市</span>
+	                                </li>
+                                <li>
+                                    <label>所属公司：</label>
+                                    <input type="text" class="scinput1" name="companyname" th:value="${companyname}"/>
+                                </li>
+                                <li>
+                                    <label>姓名：</label>
+                                    <input type="text" class="scinput1" name="accountHolder" th:value="${accountHolder}"/>
+                                </li>
+                                <li>
+                                    <input type="button" class="scbtn searcher" value="查询"/>
+                                </li>
+                                <li class="sarchbtn" style="float: right;">
+                                <th:block th:if="${group} eq 'nogroup'">
+                                    <input type="button" class="scbtn1" onclick="javascrtpt:window.location.href='/systemManager/accountAddView'" value="新增"/>
+                                </th:block>
+                                </li>
+                                </form>
+                            </ul>
+                            
+                            <div class="table-title">
+                                <p class="tab-font">公司账户</p>
+                            </div>
+                            <table class="tablelist">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>地区</th>
+                                        <th>所属公司ID</th>
+                                        <th>所属公司</th>
+                                        <th>持卡人</th>
+                                        <th>手机号</th>
+                                        <th>添加时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody th:unless="${#lists.isEmpty(accountInfos)}">
+                                     <tr th:each="account : ${accountInfos}">
+                                        <td th:text="${account.accountId}"></td>
+                                        <td th:text="${account.cityName}"></td>
+                                        <td th:text="${account.ownerId}"></td>
+                                        <td th:text="${account.ownerName}"></td>
+                                        <td th:text="${account.accountHolder}"></td>
+                                        <td th:text="${account.mobile}"></td>
+                                        <td th:text="${account.createTime}?${#dates.format(account.createTime,'yyyy-MM-dd HH:mm:ss')}:''"></td>
+                                        <td>
+                                            <a th:href="@{/systemManager/accountDetailView(accountId=${account.accountId},accountHolder=${account.accountHolder})}" class="tablelink">查看</a>
+                                            <th:block th:if="${account.isGroup} eq 'isGroup'">
+                                            	<a th:href="@{/systemManager/accountModifyView(accountId=${account.accountId},accountHolder=${account.accountHolder})}" class="tablelink mlt10">修改</a>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="pagin" th:unless="${#lists.isEmpty(page.resultList)}">
+								<div class="message">
+									&nbsp;&nbsp;&nbsp;共 <i class="blue" th:text="${page.totalCount}"></i> 条记录，当前显示第 <i
+										class="blue" th:text="${page.pageIndex}"></i> 页
+								</div>
+								<ul class="paginList">
+									<li class="paginItem" th:if="${page.pageIndex} gt 1"><a
+										th:attr="data-pagenum=(${page.pageIndex}-1)" class="pagepre"></a>
+									</li>
+									<li class="paginItem"
+										th:each="x:${#numbers.sequence(page.startNum, page.endNum)}"
+										th:classappend="(${page.pageIndex} eq ${x})?'current'"><a
+										th:attr="data-pagenum=${x}" th:text="${x}"></a></li>
+									<li class="paginItem"
+										th:if="${page.pageIndex} lt ${page.pageCount}"><a
+										th:attr="data-pagenum=(${page.pageIndex}+1)" class="pagenxt"></a>
+									</li>
+								</ul>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <script src="/js/public/select.js"></script>
+         <footer th:replace="common/footer"></footer>
+         <script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	     <script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+         <script>seajs.use("custManagment/companyaccount");</script>
+       </div>
+</body>
+</html>

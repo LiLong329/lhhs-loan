@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="/index/index">首页</a></li>
+                        <li><a>产品管理</a></li>
+                        <li><a>产品信息管理</a></li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual">
+                            <ul class="seachform1">
+                                <form action="/systemManager/productInfoList" methed="post" id="myForm">
+                                <li>
+                                    <label>产品类型：</label>
+                                    <div class="vocation">
+                                        <select class="select-common select3" name="productNo" >
+                                            <option value="">请选择</option>
+                                            <option th:each="pro : ${allProduct}" th:value="${pro.product_no}" th:text="${pro.product_type}"
+                                              th:attr="selected=(${productNo} eq ${pro.product_no})?true:false"></option>
+                                        </select>
+                                    </div>
+                                </li>
+                                </form>                              
+                                <li class="sarchbtn"><input type="button" class="scbtn searchproduct" value="查询"/></li>
+                                <li class="sarchbtn" style="float: right;">
+                                    <input sec:authorize="hasRole('ROLE_PRODUCT_ADD')" type="button" class="scbtn1" value="新增" onclick="javascript:window.location.href='/systemManager/jumpProduct'"/>
+                                </li>
+                            </ul>
+                            <div class="table-title">
+                                <p class="tab-font">产品信息管理</p>
+                            </div>
+                            <table class="tablelist">
+                                <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>产品类型</th>
+                                    <!-- <th>金额范围</th>
+                                    <th>期限</th>
+                                    <th>利率</th> -->
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                 <th:block th:unless="${#lists.isEmpty(productList)}"> 
+                                 <tr th:each="product,iter : ${productList}" >
+                                    <td th:text="${iter.count}"></td>
+                                    <td th:text="${product.productType}"></td>
+                                    <!-- <td th:text="${product.productMoney}+'元'"></td>
+                                    <td th:text="${product.productTerm}+${product.productTermUnit}"></td>
+                                    <td th:text="${product.productInterest}"></td> -->
+                                    <td>
+                                      <th:block th:if="${product.productState} eq 1">正常</th:block>
+                                      <th:block th:if="${product.productState} eq 0">禁用</th:block>
+                                    </td>
+                                    <td>
+                                        <a sec:authorize="hasRole('ROLE_PRODUCTCHILDRENLIST')" th:href="@{/systemManager/productChildrenList/0(productNo=${product.productNo})}" class="mlt10 tablelink">查看</a>
+                                        <a sec:authorize="hasRole('ROLE_PRODUCT_EDIT')" th:href="@{/systemManager/productChildrenList/1(productNo=${product.productNo})}" class="mlt10 tablelink">修改</a>
+                                        <th:block th:if="${product.productState} eq 1">
+                                        	<a sec:authorize="hasRole('ROLE_PRODUCT_IFENABLE')" href="javascript:void(0);" class="tablelink mlt10 productState" data-enable="0" th:attr="data-numb=(${product.productNo})">禁用</a>
+                                        </th:block>
+                                        <th:block th:if="${product.productState} eq 0">
+                                        	<a sec:authorize="hasRole('ROLE_PRODUCT_IFENABLE')" href="javascript:void(0);" class="tablelink mlt10 productState" data-enable="1" th:attr="data-numb=(${product.productNo})">启用</a>
+                                        </th:block>
+                                    </td>
+                                </tr>  
+                                </th:block>
+                               	<th:block th:if="${#lists.isEmpty(productList)}"> 
+                                     <tr>
+                                     	<td colspan="6" class="textCt">暂无数据</td>
+                                     </tr>
+                               	</th:block>                              
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+    <script>seajs.use("product/productManager");</script>
+</body>
+</html>

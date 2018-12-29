@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanAdvanceMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanAdvance" >
+    <id column="advance_id" property="advanceId" jdbcType="VARCHAR" />
+    <result column="plan_id" property="planId" jdbcType="BIGINT" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="trans_main_id" property="transMainId" jdbcType="VARCHAR" />
+    <result column="period" property="period" jdbcType="SMALLINT" />
+    <result column="advance_total" property="advanceTotal" jdbcType="DECIMAL" />
+    <result column="advance_capital" property="advanceCapital" jdbcType="DECIMAL" />
+    <result column="advance_interest" property="advanceInterest" jdbcType="DECIMAL" />
+    <result column="advance_time" property="advanceTime" jdbcType="TIMESTAMP" />
+    <result column="advance_customer_id" property="advanceCustomerId" jdbcType="VARCHAR" />
+    <result column="advance_customer_name" property="advanceCustomerName" jdbcType="VARCHAR" />
+    <result column="advance_account_id" property="advanceAccountId" jdbcType="VARCHAR" />
+    <result column="advance_rate" property="advanceRate" jdbcType="VARCHAR" />
+    <result column="overdue_days" property="overdueDays" jdbcType="INTEGER" />
+    <result column="repayment_interest" property="repaymentInterest" jdbcType="DECIMAL" />
+    <result column="paid_total" property="paidTotal" jdbcType="DECIMAL" />
+    <result column="paid_capital" property="paidCapital" jdbcType="DECIMAL" />
+    <result column="paid_interest" property="paidInterest" jdbcType="DECIMAL" />
+    <result column="paid_advance_time" property="paidAdvanceTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_user" property="lastUser" jdbcType="VARCHAR" />
+    <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    advance_id, plan_id, order_no, customer_id, customer_name, account_id, trans_main_id, 
+    period, advance_total, advance_capital, advance_interest, advance_time, advance_customer_id, 
+    advance_customer_name, advance_account_id, advance_rate, overdue_days, repayment_interest, 
+    paid_total, paid_capital, paid_interest, paid_advance_time, status, create_user, 
+    create_time, last_user, last_modify_time, field1, field2, field3, field4, field5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loan_advance
+    where advance_id = #{advanceId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan_advance
+    where advance_id = #{advanceId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanAdvance" >
+    insert into loan_advance (advance_id, plan_id, order_no, 
+      customer_id, customer_name, account_id, 
+      trans_main_id, period, advance_total, 
+      advance_capital, advance_interest, advance_time, 
+      advance_customer_id, advance_customer_name, 
+      advance_account_id, advance_rate, overdue_days, 
+      repayment_interest, paid_total, paid_capital, 
+      paid_interest, paid_advance_time, status, 
+      create_user, create_time, last_user, 
+      last_modify_time, field1, field2, 
+      field3, field4, field5
+      )
+    values (#{advanceId,jdbcType=VARCHAR}, #{planId,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, 
+      #{customerId,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, 
+      #{transMainId,jdbcType=VARCHAR}, #{period,jdbcType=SMALLINT}, #{advanceTotal,jdbcType=DECIMAL}, 
+      #{advanceCapital,jdbcType=DECIMAL}, #{advanceInterest,jdbcType=DECIMAL}, #{advanceTime,jdbcType=TIMESTAMP}, 
+      #{advanceCustomerId,jdbcType=VARCHAR}, #{advanceCustomerName,jdbcType=VARCHAR}, 
+      #{advanceAccountId,jdbcType=VARCHAR}, #{advanceRate,jdbcType=VARCHAR}, #{overdueDays,jdbcType=INTEGER}, 
+      #{repaymentInterest,jdbcType=DECIMAL}, #{paidTotal,jdbcType=DECIMAL}, #{paidCapital,jdbcType=DECIMAL}, 
+      #{paidInterest,jdbcType=DECIMAL}, #{paidAdvanceTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastUser,jdbcType=VARCHAR}, 
+      #{lastModifyTime,jdbcType=TIMESTAMP}, #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, 
+      #{field3,jdbcType=VARCHAR}, #{field4,jdbcType=VARCHAR}, #{field5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanAdvance" >
+    insert into loan_advance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="advanceId != null" >
+        advance_id,
+      </if>
+      <if test="planId != null" >
+        plan_id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="transMainId != null" >
+        trans_main_id,
+      </if>
+      <if test="period != null" >
+        period,
+      </if>
+      <if test="advanceTotal != null" >
+        advance_total,
+      </if>
+      <if test="advanceCapital != null" >
+        advance_capital,
+      </if>
+      <if test="advanceInterest != null" >
+        advance_interest,
+      </if>
+      <if test="advanceTime != null" >
+        advance_time,
+      </if>
+      <if test="advanceCustomerId != null" >
+        advance_customer_id,
+      </if>
+      <if test="advanceCustomerName != null" >
+        advance_customer_name,
+      </if>
+      <if test="advanceAccountId != null" >
+        advance_account_id,
+      </if>
+      <if test="advanceRate != null" >
+        advance_rate,
+      </if>
+      <if test="overdueDays != null" >
+        overdue_days,
+      </if>
+      <if test="repaymentInterest != null" >
+        repayment_interest,
+      </if>
+      <if test="paidTotal != null" >
+        paid_total,
+      </if>
+      <if test="paidCapital != null" >
+        paid_capital,
+      </if>
+      <if test="paidInterest != null" >
+        paid_interest,
+      </if>
+      <if test="paidAdvanceTime != null" >
+        paid_advance_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUser != null" >
+        last_user,
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="advanceId != null" >
+        #{advanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="planId != null" >
+        #{planId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="transMainId != null" >
+        #{transMainId,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null" >
+        #{period,jdbcType=SMALLINT},
+      </if>
+      <if test="advanceTotal != null" >
+        #{advanceTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="advanceCapital != null" >
+        #{advanceCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="advanceInterest != null" >
+        #{advanceInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="advanceTime != null" >
+        #{advanceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advanceCustomerId != null" >
+        #{advanceCustomerId,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceCustomerName != null" >
+        #{advanceCustomerName,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceAccountId != null" >
+        #{advanceAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceRate != null" >
+        #{advanceRate,jdbcType=VARCHAR},
+      </if>
+      <if test="overdueDays != null" >
+        #{overdueDays,jdbcType=INTEGER},
+      </if>
+      <if test="repaymentInterest != null" >
+        #{repaymentInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="paidTotal != null" >
+        #{paidTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="paidCapital != null" >
+        #{paidCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="paidInterest != null" >
+        #{paidInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="paidAdvanceTime != null" >
+        #{paidAdvanceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        #{field5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanAdvance" >
+    update loan_advance
+    <set >
+      <if test="planId != null" >
+        plan_id = #{planId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="transMainId != null" >
+        trans_main_id = #{transMainId,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null" >
+        period = #{period,jdbcType=SMALLINT},
+      </if>
+      <if test="advanceTotal != null" >
+        advance_total = #{advanceTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="advanceCapital != null" >
+        advance_capital = #{advanceCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="advanceInterest != null" >
+        advance_interest = #{advanceInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="advanceTime != null" >
+        advance_time = #{advanceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advanceCustomerId != null" >
+        advance_customer_id = #{advanceCustomerId,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceCustomerName != null" >
+        advance_customer_name = #{advanceCustomerName,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceAccountId != null" >
+        advance_account_id = #{advanceAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="advanceRate != null" >
+        advance_rate = #{advanceRate,jdbcType=VARCHAR},
+      </if>
+      <if test="overdueDays != null" >
+        overdue_days = #{overdueDays,jdbcType=INTEGER},
+      </if>
+      <if test="repaymentInterest != null" >
+        repayment_interest = #{repaymentInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="paidTotal != null" >
+        paid_total = #{paidTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="paidCapital != null" >
+        paid_capital = #{paidCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="paidInterest != null" >
+        paid_interest = #{paidInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="paidAdvanceTime != null" >
+        paid_advance_time = #{paidAdvanceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null" >
+        last_user = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyTime != null" >
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="field1 != null" >
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null" >
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null" >
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null" >
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null" >
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where advance_id = #{advanceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanAdvance" >
+    update loan_advance
+    set plan_id = #{planId,jdbcType=BIGINT},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      account_id = #{accountId,jdbcType=VARCHAR},
+      trans_main_id = #{transMainId,jdbcType=VARCHAR},
+      period = #{period,jdbcType=SMALLINT},
+      advance_total = #{advanceTotal,jdbcType=DECIMAL},
+      advance_capital = #{advanceCapital,jdbcType=DECIMAL},
+      advance_interest = #{advanceInterest,jdbcType=DECIMAL},
+      advance_time = #{advanceTime,jdbcType=TIMESTAMP},
+      advance_customer_id = #{advanceCustomerId,jdbcType=VARCHAR},
+      advance_customer_name = #{advanceCustomerName,jdbcType=VARCHAR},
+      advance_account_id = #{advanceAccountId,jdbcType=VARCHAR},
+      advance_rate = #{advanceRate,jdbcType=VARCHAR},
+      overdue_days = #{overdueDays,jdbcType=INTEGER},
+      repayment_interest = #{repaymentInterest,jdbcType=DECIMAL},
+      paid_total = #{paidTotal,jdbcType=DECIMAL},
+      paid_capital = #{paidCapital,jdbcType=DECIMAL},
+      paid_interest = #{paidInterest,jdbcType=DECIMAL},
+      paid_advance_time = #{paidAdvanceTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_user = #{lastUser,jdbcType=VARCHAR},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR}
+    where advance_id = #{advanceId,jdbcType=VARCHAR}
+  </update>
+  
+  <sql id="Where_Clause" >
+    <where>
+    	and la.status in('03','90')
+      <if test="transMainId != null  and transMainId!=''" >
+        and la.trans_main_id = #{transMainId}
+      </if>
+      <if test="cityNo != null and ''!=cityNo" >
+        and ltm.city_no = #{cityNo}
+      </if>
+       <if test="status != null and ''!=status" >
+        and la.status = #{status}
+      </if>
+      <if test="orderNo != null and ''!=orderNo" >
+        and la.order_no = #{orderNo}
+      </if>
+      <if test="customerName != null and ''!=customerName" >
+        and la.customer_name like concat(concat('%',#{customerName}),'%')
+      </if> 
+      <if test="null!=beginTime and beginTime!=''">
+		<![CDATA[ 
+		and DATE_FORMAT(la.advance_time,'%Y-%m-%d %H:%i:%S') >= #{beginTime} 
+		]]>
+	  </if>
+	  <if test="null!=endTime and endTime!=''">
+		 <![CDATA[ 
+		 and DATE_FORMAT(la.advance_time,'%Y-%m-%d %H:%i:%S') <= #{endTime} 
+		 ]]>
+	  </if>
+	  <if test="null!=beginTimeTwo and beginTimeTwo!=''">
+		<![CDATA[ 
+		and DATE_FORMAT(la.advance_time,'%Y-%m-%d %H:%i:%S') >= #{beginTimeTwo} 
+		]]>
+	  </if>
+	  <if test="null!=endTimeTwo and endTimeTwo!=''">
+		 <![CDATA[ 
+		 and DATE_FORMAT(la.advance_time,'%Y-%m-%d %H:%i:%S') <= #{endTimeTwo} 
+		 ]]>
+	  </if>
+  	  <if test="unionId != null and unionId != ''">
+  		and ltm.union_id = #{unionId}
+  	  </if>
+  	  <if test="authgroupList != null">
+		 	and 
+		         <foreach item="item" index="index" collection="authgroupList" open="(" separator="or" close=")">
+			         (1=1
+			             <if test="item.orgId != null and item.orgId != ''">
+						  		and ltm.company_id =  #{item.orgId}
+						 </if>
+						 <if test="item.deptId != null and item.deptId != ''">
+						  		and ltm.field1 =  #{item.deptId}
+						 </if>
+						 <if test="item.dataOwner != null and item.dataOwner != ''">
+						  		and ltm.field4 =  #{item.dataOwner}
+						 </if>
+					  )
+		          </foreach>
+	
+		</if>
+    </where>
+  </sql>
+  
+  <!--汇总垫付本金、利息、总额 -->
+  <select id="queryAdvancesum" parameterType="com.lhhs.loan.dao.domain.LoanAdvance" resultType="com.lhhs.loan.dao.domain.LoanAdvance">
+    select sum(advance_capital+advance_interest) advance_total,sum(advance_capital) advance_capital,
+    sum(advance_interest) advance_interest
+    from loan_advance where trans_main_id=#{transMainId} and status ='03'
+    <if test="period != null">
+  		and period=#{period} 
+  	</if>
+  	<if test="accountId != null">
+  		and account_id = #{accountId}
+  	</if>
+  </select>
+  
+  <select id="queryAdvanceAll" parameterType="com.lhhs.loan.dao.domain.LoanAdvance" resultType="com.lhhs.loan.dao.domain.LoanAdvance">
+    select  
+    la.advance_id,la.order_no,ltm.city_name,ltm.product_type,ltm.product_name,ltm.borrower,la.advance_customer_name,
+  	la.period,ltm.period_total,la.advance_total,la.advance_capital,la.advance_interest,la.overdue_days,la.repayment_interest,
+  	la.paid_total,(la.advance_capital+la.advance_interest+la.repayment_interest) as waitAmountTotal,la.advance_time,ltm.trans_main_id,
+  	lpp.repayment_method,lpp.repayment_total,lpp.repayment_capital,lpp.repayment_capital_time,lpp.repayment_interest,lpp.repayment_interest_time
+  	from loan_advance la
+  	inner join loan_trans_main ltm on la.trans_main_id = ltm.trans_main_id
+  	left join loan_pay_plan lpp on lpp.id=la.plan_id
+  	<include refid="Where_Clause"/>
+  	limit #{page.pageStartIndex},#{page.pageSize}
+  </select>
+  
+  <select id="queryCount" parameterType="com.lhhs.loan.dao.domain.LoanAdvance" resultType="int">
+    select count(1)
+  	from loan_advance la
+  	inner join loan_trans_main ltm on la.trans_main_id = ltm.trans_main_id
+  	left join loan_pay_plan lpp on lpp.id=la.plan_id
+  	<include refid="Where_Clause"/>
+  </select>
+  
+  <select id="queryTotalAmount" parameterType="com.lhhs.loan.dao.domain.LoanAdvance" resultType="map">
+  	select sum(la.advance_total) advanceTotal
+  	from loan_advance la
+  	inner join loan_trans_main ltm on la.trans_main_id = ltm.trans_main_id
+  	left join loan_pay_plan lpp on lpp.id=la.plan_id
+  	<include refid="Where_Clause" />
+ </select>
+  
+  <select id="selectByPKey" resultType="com.lhhs.loan.dao.domain.LoanAdvance" parameterType="com.lhhs.loan.dao.domain.LoanAdvance" >
+    select
+    <include refid="Base_Column_List" />
+    from loan_advance
+    where advance_id = #{advanceId,jdbcType=VARCHAR}
+  </select>
+  
+  
+  
+</mapper>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<script type="text/javascript" src="/js/public/My97DatePicker/WdatePicker.js"></script>
+<body>
+    <div class="father">
+        <header th:replace="common/top"></header>
+        <div class="common-content">
+            <div th:replace="common/left"></div>
+            <div class="common-right">
+                <div class="place" id="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                    	<li><a href="/index/index">首页</a></li>
+                        <li>我的任务</li>
+                        <li th:if="${taskType} eq 1">待办任务</li>
+                        <li th:if="${taskType} eq 3">指派任务</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="formbody">
+                        <div id="usual1" class="usual">
+                        	<form id="myForm">
+        						<input  name="pageNumber" type="hidden" value="" id="currentPageNo"/>
+        						<input type="hidden" id="type" value="1"/>
+        						<input type="hidden" id="taskType" th:attr="value=${taskType}"/>
+        					</form>
+                            <div id="workflowList" th:include="workflow/_actTaskTodoList"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="common/footer"></footer>
+    </div>
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>  
+	<script src="/js/public/jqueryValidation/js/jquery.validationEngine.min.js" type="text/javascript" charset="utf-8"></script>
+	<script th:inline="javascript">
+    	/*<![CDATA[*/
+	    	seajs.use("workflow/actTaskTodoList");
+    	/*]]>*/
+    </script>
+</body>
+</html>

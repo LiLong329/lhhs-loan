@@ -1,0 +1,15 @@
+<header class="common-header">
+    <div class="topleft">
+        <a href="/index/index">
+        </a>
+    </div>
+    <div class="topright">
+        <ul>
+            <li><span>角色： <th:block th:text="${session.userName}"></th:block></span></li>
+            <li><a href="/logout">退出</a></li>
+        </ul>
+        <div class="user">
+            <span th:text='${session.userName}'></span>
+        </div>
+    </div>
+</header>

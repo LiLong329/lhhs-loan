@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/src"></head>
+<body>
+	<div class="father">
+	    <header th:replace="common/top"></header>
+	    <div class="common-content">
+	        <div th:replace="common/left"></div>
+	        <div class="common-right">
+	            <div class="place" id="place">
+	                <span>位置：</span>
+	                <ul class="placeul">
+	                    <li><a href="/index/index">首页</a></li>
+	                    <li>系统管理</li>
+	                    <li>权限设置</li>
+	                    <li><a th:href="@{/systemManager/authorityGroupList}">数据权限组</a></li>
+	                    <li>查看详情</li>
+	                </ul>
+	            </div>
+	            <div class="right-content">
+	            	<div style="position: relative;">
+		                <div class="formbody">
+		                    <div class="formtitle"><span>数据权限组</span></div>
+		                    <div class="toolsli">
+		                        <ul class="nbbdgl-Ui">
+		                            <li>
+		                                <span class="tips">数据组名称：</span>
+		                                <span th:text="${loanAuthgroup.groupName}"></span>
+		                            	<input type="hidden" th:value="${opType}" id="updateType"/>
+		                            </li>
+		                            <li>
+		                            	<span class="tips">集团：</span>
+		                                <span th:text="${loanAuthgroup.unionName}"></span>
+		                                <input type="hidden" th:value="${loanAuthgroup.unionId}" id="companyId"/>
+		                            </li>
+		                             <li>
+		                            	<span class="tips">集团分公司：</span>
+		                                <span th:text="${loanAuthgroup.companyName}"></span>
+		                                <input type="hidden" th:value="${loanAuthgroup.companyId}" id="company"/>
+		                            </li>
+		                            
+		                            <li style="width: 80%;">
+		                               	<span class="tips">数据范围：</span>
+		                               	<span th:if="${loanAuthgroup.dataZone} eq '6'">通用权限组</span>
+		                               	<span th:if="${loanAuthgroup.dataZone} eq '7'">菜单权限组</span>
+		                               	<input type="hidden" th:value="${loanAuthgroup.dataZone}" id="dataZone"/>
+		                            </li>
+		                            <li style="width: 90%;">
+		                                <span class="tips">数据权限：</span>
+		                                <cite class="clearfix"  style="padding-left:140px;">
+		                                	<ul class="treeCheck" style="margin-left: 15px;" id="treeId"></ul>
+		                                </cite>
+	                                </li>
+		                            <li style="width: 80%;">
+		                                <span class="tips">&nbsp;</span>
+		                                <input type="button" class="scbtn2 mlt10" value="返 回" onclick="javascript:history.back(-1);"/>
+		                            </li>
+		                        </ul>
+		                    </div>
+		                </div>
+		                <div id="preview" style="display:none;">
+		                	<div class="previewBack"></div>
+		                	<div class="preview" style="width:500px; left:50%; margin-left:-250px; margin-right:0;">
+		                		<div class="formbody">
+		                			<div class="toolsli">
+	                        			<ul class="nbbdgl-Ui">
+		                        			<li style="width:100%;">
+				                                <cite class="clearfix">
+				                                	<ul class="treeCheck" style="margin-left: 15px;" id="previewTree"></ul>
+				                                </cite>
+				                            </li>
+				                            <li style="width: 100%;text-align:center;margin-top:20px;">
+				                                <input type="button" class="scbtn2" value="关  闭" id="preview_not"/>
+				                            </li>
+	                        			</ul>
+	                       			</div>
+		                		</div>
+		                	</div>
+		                </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	    <footer th:replace="common/footer"></footer>
+	</div>
+	<script src="/js/public/jquery.checktree.js" type="text/javascript" charset="utf-8"></script>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+			var companyList = [[${companyList}]];
+			var allLastAuthyList = [[${allLastAuthyList}]];
+			var selectAutGupList = [[${selectAutGupList}]];
+			seajs.use("system/authorityGroupInsert");
+		/*]]>*/
+	</script>
+</body>
+</html>

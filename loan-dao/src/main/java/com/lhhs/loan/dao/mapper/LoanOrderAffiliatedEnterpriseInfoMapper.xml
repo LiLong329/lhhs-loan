@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhhs.loan.dao.LoanOrderAffiliatedEnterpriseInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lhhs.loan.dao.domain.LoanOrderAffiliatedEnterpriseInfo" >
+    <id column="affiliated_enterprise_id" property="affiliatedEnterpriseId" jdbcType="BIGINT" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="company_address" property="companyAddress" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lhhs.loan.dao.domain.LoanOrderAffiliatedEnterpriseInfo" extends="BaseResultMap" >
+    <result column="company_explain" property="companyExplain" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    affiliated_enterprise_id, order_no, company_name, name, position, company_address
+  </sql>
+  <sql id="Blob_Column_List" >
+    company_explain
+  </sql>
+  <sql id="Where_Common">
+  	<if test="affiliatedEnterpriseId != null" >
+    	and affiliated_enterprise_id=#{affiliatedEnterpriseId}
+    </if>
+    <if test="null!=orderNo and ''!=orderNo" >
+        and order_no=#{orderNo}
+    </if>
+    <if test="null!=companyName and ''!=companyName" >
+        and company_name=#{companyName}
+    </if>
+    <if test="null!=name and ''!=name" >
+        and name=#{name}
+    </if>
+    <if test="null!=position and ''!=position" >
+        and position=#{position}
+    </if>
+    <if test="null!=companyAddress and ''!=companyAddress" >
+    	and company_address=#{companyAddress}
+    </if>
+    <if test="null!=companyExplain and ''!=companyExplain" >
+    	and company_explain=#{companyExplain}
+    </if>
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from loan_order_affiliated_enterprise_info
+    where affiliated_enterprise_id = #{affiliatedEnterpriseId,jdbcType=BIGINT}
+  </select>
+  <select id="queryList" resultMap="ResultMapWithBLOBs" parameterType="com.lhhs.loan.dao.domain.LoanOrderAffiliatedEnterpriseInfo" >
+    select <include refid="Base_Column_List" />,<include refid="Blob_Column_List" />
+    from loan_order_affiliated_enterprise_info
+    where 1=1
+    <include refid="Where_Common"/>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from loan_order_affiliated_enterprise_info
+    where affiliated_enterprise_id = #{affiliatedEnterpriseId,jdbcType=BIGINT}
+  </delete>
+  <delete id="delete" parameterType="com.lhhs.loan.dao.domain.LoanOrderAffiliatedEnterpriseInfo" >
+    delete from loan_order_affiliated_enterprise_info
+    where 1=1
+    <include refid="Where_Common"/>
+  </delete>
+  <insert id="insert" parameterType="com.lhhs.loan.dao.domain.LoanOrderAffiliatedEnterpriseInfo" >
+    insert into loan_order_affiliated_enterprise_info (affiliated_enterprise_id, order_no, company_name, 
+      name, position, company_address, 
+      company_explain)
+    values (#{affiliatedEnterpriseId,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, #{companyAddress,jdbcType=VARCHAR}, 
+      #{companyExplain,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhhs.loan.dao.domain.LoanOrderAffiliatedEnterpriseInfo" useGeneratedKeys="true" keyProperty="affiliatedEnterpriseId">
+    insert into loan_order_affiliated_enterprise_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="affiliatedEnterpriseId != null" >
+        affiliated_enterprise_id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="position != null" >
+        position,
+      </if>
+      <if test="companyAddress != null" >
+        company_address,
+      </if>
+      <if test="companyExplain != null" >
+        company_explain,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="affiliatedEnterpriseId != null" >
+        #{affiliatedEnterpriseId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null" >
+        #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="companyExplain != null" >
+        #{companyExplain,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhhs.loan.dao.domain.LoanOrderAffiliatedEnterpriseInfo" >
+    update loan_order_affiliated_enterprise_info
+    <set >
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null" >
+        company_address = #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="companyExplain != null" >
+        company_explain = #{companyExplain,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where affiliated_enterprise_id = #{affiliatedEnterpriseId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lhhs.loan.dao.domain.LoanOrderAffiliatedEnterpriseInfo" >
+    update loan_order_affiliated_enterprise_info
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      company_address = #{companyAddress,jdbcType=VARCHAR},
+      company_explain = #{companyExplain,jdbcType=LONGVARCHAR}
+    where affiliated_enterprise_id = #{affiliatedEnterpriseId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhhs.loan.dao.domain.LoanOrderAffiliatedEnterpriseInfo" >
+    update loan_order_affiliated_enterprise_info
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      company_address = #{companyAddress,jdbcType=VARCHAR}
+    where affiliated_enterprise_id = #{affiliatedEnterpriseId,jdbcType=BIGINT}
+  </update>
+</mapper>
